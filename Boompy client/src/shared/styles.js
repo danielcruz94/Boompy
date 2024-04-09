@@ -1,9 +1,12 @@
 export const color = {
-    primary: '#0f35a9', // Blue
+    primary: '#161439', // Blue
     success: '#0B875B', // green
     danger: '#E13C3C', // red
     warning: '#F89C1C', // orange
-    secondary: '#F4F5F7', // light grey
+    secondary: '#BBB0DB', // light grey
+    third:'#5751E1',
+    buttons:'#FFC224',
+
   
     blue: 'rgb(0,82,204)',
     lightBlue: '#8CD7F8',
