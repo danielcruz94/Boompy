@@ -6,6 +6,7 @@ export const color = {
     secondary: '#BBB0DB', // light grey
     third:'#5751E1',
     buttons:'#FFC224',
+    gray:'#E1E1E1',
 
   
     blue: 'rgb(0,82,204)',

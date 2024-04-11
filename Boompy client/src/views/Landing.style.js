@@ -17,6 +17,7 @@ export const ContainerBar = styled.div`
   display: flex;
 
 justify-content:space-around;
+align-items:center;
  
 
   
@@ -31,28 +32,38 @@ export const Headings = styled.div`
   background:${color.primary}
 `;
 
-export const Left = styled.div`
-  width: 50%;
-  text-align: center;
+export const Bottom = styled.button`
+
+  background:${color.buttons};
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  border-Radius:50px;
+`;
+
+// export const Left = styled.div`
+//   width: 50%;
+//   text-align: center;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
 
  
-`;
+// `;
 
-export const Right = styled.div`
-  width: 50%;
-  height: 100%;
-  border-left: 2px solid ${color.borderLightest};
-  display: flex;
-  flex-direction: column;
+// export const Right = styled.div`
+//   width: 50%;
+//   height: 100%;
+//   border-left: 2px solid ${color.borderLightest};
+//   display: flex;
+//   flex-direction: column;
 
 
-`;
+// `;
 
 export const FormContainer = styled.div`
   margin-bottom: 20px;
+  
 `;
 
 export const ContainerNavBar = styled.div`
@@ -71,6 +82,7 @@ export const SubmitButton = styled.input`
   display: inline-block;
   height:26px;
 margin-left:10px;
+margin-right:10px
   text-align: center;
   cursor: pointer;
   border:none;
@@ -87,26 +99,26 @@ margin-left:10px;
   }
 `;
 
-export const Logo = styled.p`
-  margin-top: 60px;
-  margin-bottom: 96px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+// export const Logo = styled.p`
+//   margin-top: 60px;
+//   margin-bottom: 96px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
 
-  & > i {
-    margin-right: 7px;
-    color: ${color.primary};
-  }
+//   & > i {
+//     margin-right: 7px;
+//     color: ${color.primary};
+//   }
 
-  & > span {
-    font-weight: 700;
-    font-size: 22px;
-    color: ${color.primary};
-  }
+//   & > span {
+//     font-weight: 700;
+//     font-size: 22px;
+//     color: ${color.primary};
+//   }
 
  
-`;
+// `;
 
 
 
@@ -118,12 +130,7 @@ export const Image = styled.div`
   background-repeat: no-repeat;
 `;
 
-export const Bottom = styled.div`
-  height: 30%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+
 
 
 
@@ -142,7 +149,7 @@ export const MainHeading = styled.p`
 export const SubHeading = styled.p`
   font-size: 18px;
 
-  margin:10px;
+ margin-left:15px;
   
 
   @media (max-width: 1100px) {
