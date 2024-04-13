@@ -4,6 +4,8 @@ import {Container,Headings,ContainerBar} from './Landing.style'
 import NavBar from '../shared/NavBar/NavBar'
 import Section from '../../../imagenes/Section.svg'
 import Form from '../shared/Components/FormLogin/Form'
+import Footer from "../shared/Components/Footer"
+
 const Landing=() => {
     return (
    
@@ -21,8 +23,11 @@ const Landing=() => {
     <br />
     <br />
     <br />
-    <h2>dhudhod</h2>
+  <Footer>
+
+  </Footer>
     
+ 
 
 
 

@@ -19,7 +19,7 @@ span{
 
 
 a {
-  font-weight: 500;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   color: #646cff;
   text-decoration: inherit;
 }

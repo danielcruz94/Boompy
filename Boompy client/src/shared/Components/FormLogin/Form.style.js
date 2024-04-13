@@ -82,4 +82,21 @@ export const Input=styled.input`
   
 `;
 
+export const TextLogin=styled.p`
+
+  text-align:initial;
+  font-weight: 600; 
+  margin:2px;
+ 
+  
+
+
+
+ 
+
+  
+
+  
+`;
+
 
