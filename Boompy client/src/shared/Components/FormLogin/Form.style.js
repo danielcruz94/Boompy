@@ -99,4 +99,20 @@ export const TextLogin=styled.p`
   
 `;
 
+export const ContenedorRemember=styled.div`
+display:flex;
+justify-content:space-evenly;
+ 
+  
+
+
+
+ 
+
+  
+
+  
+`;
+
+
 

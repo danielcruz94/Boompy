@@ -30,28 +30,28 @@ const Footer=() => {
 
                 <h4>Usefull Link</h4>
                 
-                    <li>Become a Student</li>
-                    <li>Our partners</li>
-                    <li>Become a partner</li>
+                  <a href="/">  <li>Become a Student</li></a>
+                    <a href="/"><li>Our partners</li></a>
+                   <a href="/"> <li>Become a partner</li></a>
                
                 </Columns>
                 <Columns>
                 <h4>Our Company</h4>
                
               
-                    <li>Become a Boomper</li>
-                    <li>Contact us</li>
-                    <li>Events</li>
+                    <a href="/"><li>Become a Boomper</li></a>
+                   <a href="/"> <li>Contact us</li></a>
+                   <a href="/"> <li>Events</li></a>
                
                 </Columns>
                 <Columns>
                 <h4>Get in Tocuh</h4>
                 <ContenedorImg>
-                    <img src={Facebook} alt="Facebook" />
-                    <img src={Twitter} alt="Twitter" />
-                    <img src={Whattsapp} alt="Whatsapp" />
-                    <img src={Instagram} alt="Instagram" />
-                    <img src={Youtube} alt="Youtube" />
+                    <a href="/"><img src={Facebook} alt="Facebook" /></a>
+                   <a href="/"> <img src={Twitter} alt="Twitter" /></a>
+                   <a href="/"> <img src={Whattsapp} alt="Whatsapp" /></a>
+                   <a href="/"> <img src={Instagram} alt="Instagram" /></a>
+                    <a href="/"> <img src={Youtube} alt="Youtube" /></a>
                     
                 </ContenedorImg>
                 <ContenedorStores>

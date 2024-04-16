@@ -1,4 +1,5 @@
-import { FormLog,GoogleButton,Container,Span,Input,TextLogin } from "./Form.style";
+import { FormLog,GoogleButton,Container,Span,Input,TextLogin,
+  ContenedorRemember } from "./Form.style";
 import google from '../../../../../imagenes/google.svg.svg'
 const Form = () => {
   return (
@@ -24,17 +25,21 @@ const Form = () => {
     <Input type="email"  placeholder="Email" style={{marginBottom:'20px',paddingLeft:'20px'}}/>
     <TextLogin>Password</TextLogin>
     <Input type="password" placeholder="Password" style={{marginBottom:'20px',paddingLeft:'20px'}}/>
-    <div>
+    <ContenedorRemember>
+      <div>
+
     <input type="checkbox" />
     <Span>Remember me</Span>
+
+      </div>
     <a href="">Forgot Password</a>
 
-    </div>
-    <GoogleButton style={{background:'#FFC224',border:'2px solid black',boxShadow: '2px 2px 2px',height:'35px',borderRadius:'20|px'}}>
+    </ContenedorRemember>
+    <GoogleButton style={{background:'#FFC224',border:'2px solid black',boxShadow: '2px 2px 2px',height:'35px',borderRadius:'20px'}}>
       Sign In
     </GoogleButton>
       <div>
-    <Span>Do not have an account?</Span><a href="">Sign Up</a>
+    <Span>Do not have an account?</Span><a href="/" style={{margin:'4px'}}>Sign Up</a>
 
       </div>
 
