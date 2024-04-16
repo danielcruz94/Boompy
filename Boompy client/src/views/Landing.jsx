@@ -4,7 +4,7 @@ import {Container,Headings,ContainerBar} from './Landing.style'
 import NavBar from '../shared/NavBar/NavBar'
 import Section from '../../../imagenes/Section.svg'
 import Form from '../shared/Components/FormLogin/Form'
-import Footer from "../shared/Components/Footer"
+import Footer from '../shared/Components/Footer/Footer'
 
 const Landing=() => {
     return (
@@ -16,7 +16,7 @@ const Landing=() => {
 
     </NavBar>
     <ContainerBar>
-        <img src={Section} alt="section" />
+        <img src={Section}  style={{width:'100%'}}alt="section" />
     </ContainerBar>
     <Form></Form>
 

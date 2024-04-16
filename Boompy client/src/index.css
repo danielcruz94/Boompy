@@ -44,6 +44,17 @@ h1 {
 h2{
   font-family: Poppins, sans-serif;
 }
+
+h4{color:white;
+  font-family: Poppins, sans-serif;
+}
+
+li{
+ color:#B2BBCC;
+ font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+ list-style: none;
+
+}
 button {
   border-radius: 8px;
   border: 1px solid transparent;
