@@ -5,6 +5,7 @@ import Signup from "./views/SignUp/Signup";
 //libraries
 
 import { Routes, Route,useLocation,useNavigate} from 'react-router-dom';
+import Login from "./views/Login";
 
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
 
   return (
     <Routes>
-    <Route path='/landing' element={<Landing></Landing>}/>
+    <Route path='/login' element={<Login></Login>}/>
 
     <Route path='/signup' element={<Signup></Signup>}/>
       

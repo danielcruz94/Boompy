@@ -48,7 +48,7 @@ started. Let's do this!
         Sign Up
       </GoogleButton>
         <div>
-      <Span>Already have an account?</Span><a href="/" style={{margin:'4px'}}>Login</a>
+      <Span>Already have an account?</Span><a href="/login" style={{margin:'4px'}}>Login</a>
   
         </div>
   

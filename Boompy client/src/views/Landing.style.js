@@ -72,7 +72,7 @@ export const SubmitButton = styled.input`
   display: inline-block;
   height:26px;
 margin-left:10px;
-margin-right:10px
+margin-right:10px;
   text-align: center;
   cursor: pointer;
   border:none;
@@ -86,6 +86,7 @@ margin-right:10px
     outline: none;
     top: 5px;
     box-shadow: none;
+    
   }
 `;
 

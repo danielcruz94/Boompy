@@ -39,7 +39,7 @@ const Form = () => {
       Sign In
     </GoogleButton>
       <div>
-    <Span>Do not have an account?</Span><a href="/" style={{margin:'4px'}}>Sign Up</a>
+    <Span>Do not have an account?</Span><a href="/signup" style={{margin:'4px'}}>Sign Up</a>
 
       </div>
 

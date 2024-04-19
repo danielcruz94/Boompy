@@ -1,0 +1,40 @@
+
+import React from "react"
+import {Container,Headings,ContainerBar} from './Landing.style'
+import NavBar from '../shared/NavBar/NavBar'
+import Section from '../../../imagenes/Section.svg'
+import Form from '../shared/Components/FormLogin/Form'
+import Footer from '../shared/Components/Footer/Footer'
+
+const Login=() => {
+    return (
+   
+    <Container>
+    <Headings>
+    </Headings>
+    <NavBar>
+
+    </NavBar>
+    <ContainerBar>
+        <img src={Section}  style={{width:'100%'}}alt="section" />
+    </ContainerBar>
+    <Form></Form>
+
+    <br />
+    <br />
+    <br />
+  <Footer>
+
+  </Footer>
+    
+ 
+
+
+
+    </Container>
+    
+    
+    )
+}
+
+export default Login;
