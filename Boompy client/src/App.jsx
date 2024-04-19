@@ -1,12 +1,23 @@
-
+// components
 import Landing from "../src/views/Landing"
 import './App.css'
+import Signup from "./views/SignUp/Signup";
+//libraries
+
+import { Routes, Route,useLocation,useNavigate} from 'react-router-dom';
+
 
 function App() {
  
 
   return (
-   <Landing></Landing>
+    <Routes>
+    <Route path='/landing' element={<Landing></Landing>}/>
+
+    <Route path='/signup' element={<Signup></Signup>}/>
+      
+
+    </Routes>
     
     
   )

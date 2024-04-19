@@ -41,25 +41,15 @@ export const Bottom = styled.button`
   border-Radius:50px;
 `;
 
-// export const Left = styled.div`
-//   width: 50%;
-//   text-align: center;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
 
+
+export const ContainerTitle = styled.div`
+  
+  height: 200px;
  
-// `;
-
-// export const Right = styled.div`
-//   width: 50%;
-//   height: 100%;
-//   border-left: 2px solid ${color.borderLightest};
-//   display: flex;
-//   flex-direction: column;
 
 
-// `;
+`;
 
 export const FormContainer = styled.div`
   margin-bottom: 20px;
