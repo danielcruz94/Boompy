@@ -7,8 +7,13 @@ import Section from '../../../imagenes/Section.svg'
 import Form from '../shared/Components/FormLogin/Form'
 import Footer from '../shared/Components/Footer/Footer'
 import CardProfile from "../shared/Components/Cards/CardProfile"
+import { useSelector,useDispatch } from "react-redux"
 
 const Home=() => {
+  const users=useSelector((state)=>state.users);
+  const dispatch=useDispatch();
+
+  console.log('soy users',users)
     return (
    
     <Container>
