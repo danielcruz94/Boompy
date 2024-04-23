@@ -1,5 +1,5 @@
 
-import React from "react"
+import  {useEffect,React}from "react"
 import {Container,Headings,ContainerTitle} from './Landing.style'
 import {ContainerProfile} from '../shared/Components/Cards/Cards.style'
 import NavBar from '../shared/NavBar/NavBar'
@@ -8,12 +8,38 @@ import Form from '../shared/Components/FormLogin/Form'
 import Footer from '../shared/Components/Footer/Footer'
 import CardProfile from "../shared/Components/Cards/CardProfile"
 import { useSelector,useDispatch } from "react-redux"
+import axios from 'axios'
+import {fetchUsers} from '../Redux/usersSlice'
+
 
 const Home=() => {
   const users=useSelector((state)=>state.users);
   const dispatch=useDispatch();
 
-  console.log('soy users',users)
+  useEffect(()=>{
+    const getData=async()=>{
+      try {
+        const res= await axios.get('https://jsonplaceholder.typicode.com/users')
+        console.log(res.data)
+        dispatch(fetchUsers(res.data))
+      } catch (error) {
+        console.log(error)
+        
+      }
+    }
+    getData()
+
+
+  },[dispatch]);
+  
+  
+  
+
+  
+
+
+  
+  
     return (
    
     <Container>
@@ -26,24 +52,20 @@ const Home=() => {
             <img src={Section}  style={{width:'100%'}}alt="section" />
             <h3 style={{fontSize:'30px',position:'relative',top:'-200px',left:'-400px'}}>Choose your Trip</h3>
         </ContainerTitle>
-        
+
     <ContainerProfile>
     <CardProfile></CardProfile>
     <CardProfile></CardProfile>
     <CardProfile></CardProfile>
     <CardProfile></CardProfile>
-    <CardProfile></CardProfile>
-    <CardProfile></CardProfile>
-    <CardProfile></CardProfile>
-    <CardProfile></CardProfile>
-    
+   
+    {users.map((user) =><h2 key={user.id}>{user.id}{user.name}</h2> )}
     
     
     </ContainerProfile>
 
     <br />
-    <br />
-    <br />
+   
   <Footer>
 
   </Footer>
