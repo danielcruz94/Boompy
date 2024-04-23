@@ -26,6 +26,7 @@ const Home=() => {
             <img src={Section}  style={{width:'100%'}}alt="section" />
             <h3 style={{fontSize:'30px',position:'relative',top:'-200px',left:'-400px'}}>Choose your Trip</h3>
         </ContainerTitle>
+        
     <ContainerProfile>
     <CardProfile></CardProfile>
     <CardProfile></CardProfile>

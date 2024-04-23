@@ -3,9 +3,11 @@ import styled from 'styled-components';
 
 export const ContainerProfile = styled.div`
 display: flex;
-margin:10%;
-margin-top:100px;
-flex-wrap:wrap;
+margin:10% 10%  100px 10% ;
+// background:blue;
+flex-wrap: wrap;
+justify-content:center;
+
 
 
 
@@ -31,17 +33,17 @@ margin:20px;
   
 `;
 
-// export const Names = styled.h3`
+export const ContenedorCard = styled.div`
 
-// display: flex;
-// flex-direction:column;
-// align-items:start;
+display: flex;
+
+
 
 
 
 
   
-// `;
+`;
 
 // export const ContenedorImg = styled.div`
 
