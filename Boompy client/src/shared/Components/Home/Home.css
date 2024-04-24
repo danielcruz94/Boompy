@@ -6,6 +6,10 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
     display: block;
     width: 100%;
   }
+
+  p{
+    margin-bottom: 0px;
+  }
   
   .containerHome {     
     margin: 20px  0px 0px 0px;

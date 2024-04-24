@@ -88,7 +88,7 @@ margin-right:10px
   border:none;
   color: ${color.primary};
   width: 200px;
- 
+  background: white;
   top: 0;
 
   &:active {
