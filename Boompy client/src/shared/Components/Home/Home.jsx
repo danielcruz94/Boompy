@@ -67,7 +67,7 @@ function Boompy() {
               </h2>
               <p>
                 Every teaching and learning journey is unique Following<br />
-                We'll help guide your way
+                Well help guide your way
               </p>
 
               <button>Star Free Trial</button>
@@ -156,7 +156,7 @@ function Boompy() {
 
       <section className="categories-section categories-section2">
   <h5>Top Class Courses</h5>
-  <h3>Explore Our World's Best Courses</h3>
+  <h3>Explore Our Worlds Best Courses</h3>
   <p>When known printer took a galley of type scrambledmake</p>
   <div className="category category2">
     <div className="course-images">
@@ -263,12 +263,12 @@ function Boompy() {
         </div>
 
         <div>
-          <h1>Start Learning From World's Pro Instructors</h1>
-          <p>Groove's intuitive shared inbox makes it easy for team members to organize, prioritize and. In this episode.</p>
-          <p>What's Boompy Want to give you? Groove's intuitive shared inbox makes it easy for team members organize prioritize and. In this episode. Survived not only five centuries. Edhen an unknown printer took a galley of type and scrambl</p>
-          <p>Why choose us for your education?</p>
-          <p>How We Provide Service For you?</p>
-          <p>Are you Affordable For Your Course</p>
+        <h1>Start Learning From Worlds Pro Instructors</h1>
+        <p>Grooves intuitive shared inbox makes it easy for team members to organize, prioritize and. In this episode.</p>
+        <p>Whats Boompy Want to give you? Grooves intuitive shared inbox makes it easy for team members to organize, prioritize, and. In this episode. Survived not only five centuries. Edhen an unknown printer took a galley of type and scrambl</p>
+        <p>Why choose us for your education?</p>
+        <p>How We Provide Service For you?</p>
+        <p>Are you Affordable For Your Course</p>
         </div>
       </section>
 
@@ -276,7 +276,7 @@ function Boompy() {
         <div className="top-div">
           <h5>How We Start Journey</h5>
           <h3>Start Your Learning Journey Today!</h3>
-          <p>Groove's intuitive shared inbox makesteam members together</p>
+          <p>Grooves intuitive shared inbox makesteam members together</p>
           <p>organize, prioritize and.In this episode.</p>
         </div>
 

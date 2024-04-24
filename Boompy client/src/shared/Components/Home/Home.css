@@ -363,7 +363,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: blue;
+    background: #282568;
     width: 100%;   
     padding: 70px 0px;
 }
