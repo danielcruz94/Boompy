@@ -19,8 +19,8 @@ const Home=() => {
   useEffect(()=>{
     const getData=async()=>{
       try {
-        const res= await axios.get('https://jsonplaceholder.typicode.com/users')
-        console.log(res.data)
+        const res= await axios('http://localhost:3001/api/users')
+       
         dispatch(fetchUsers(res.data))
       } catch (error) {
         console.log(error)
@@ -59,7 +59,7 @@ const Home=() => {
     <CardProfile></CardProfile>
     <CardProfile></CardProfile>
    
-    {users.map((user) =><h2 key={user.id}>{user.id}{user.name}</h2> )}
+    {users.map((user) =><h2 key={user.id}>{user.name}</h2> )}
     
     
     </ContainerProfile>
