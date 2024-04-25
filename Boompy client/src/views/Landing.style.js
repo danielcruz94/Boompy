@@ -90,28 +90,6 @@ margin-right:10px;
   }
 `;
 
-// export const Logo = styled.p`
-//   margin-top: 60px;
-//   margin-bottom: 96px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-
-//   & > i {
-//     margin-right: 7px;
-//     color: ${color.primary};
-//   }
-
-//   & > span {
-//     font-weight: 700;
-//     font-size: 22px;
-//     color: ${color.primary};
-//   }
-
- 
-// `;
-
-
 
 export const Image = styled.div`
   height: 70%;
