@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { color } from '../shared/styles';
 
 export const Container = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 100%;
   display: flex;
   flex-direction:column;
@@ -12,7 +12,7 @@ export const Container = styled.div`
   
 `;
 export const ContainerBar = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 100%;
   display: flex;
 
@@ -27,7 +27,7 @@ align-items:center;
 
 export const Headings = styled.div`
   
-  width: 100%;
+  width:100vw;
   height:50px;
   background:${color.primary}
 `;
@@ -88,7 +88,7 @@ margin-right:10px
   border:none;
   color: ${color.primary};
   width: 200px;
-  background: white;
+ 
   top: 0;
 
   &:active {
