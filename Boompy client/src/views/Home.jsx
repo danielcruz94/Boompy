@@ -54,12 +54,11 @@ const Home=() => {
         </ContainerTitle>
 
     <ContainerProfile>
-    <CardProfile></CardProfile>
-    <CardProfile></CardProfile>
-    <CardProfile></CardProfile>
-    <CardProfile></CardProfile>
+
+    
+    
    
-    {users.map((user) =><h2 key={user.id}>{user.name}</h2> )}
+    {users.map((user) => <CardProfile id={user.id}name={user.name} picture={user.picture}></CardProfile>)}
     
     
     </ContainerProfile>
