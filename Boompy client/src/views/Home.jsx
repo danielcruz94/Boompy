@@ -10,11 +10,14 @@ import CardProfile from "../shared/Components/Cards/CardProfile"
 import { useSelector,useDispatch } from "react-redux"
 import axios from 'axios'
 import {fetchUsers} from '../Redux/usersSlice'
+import Modal from "../shared/Components/Modals/Modal"
 
 
 const Home=() => {
   const users=useSelector((state)=>state.users);
   const dispatch=useDispatch();
+
+
 
   useEffect(()=>{
     const getData=async()=>{
@@ -54,7 +57,7 @@ const Home=() => {
         </ContainerTitle>
 
     <ContainerProfile>
-
+    <Modal title={"Complete Your Information"} ></Modal>
     
     
    
