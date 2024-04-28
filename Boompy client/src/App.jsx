@@ -7,6 +7,13 @@ import Signup from "./views/SignUp/Signup";
 import { Routes, Route,useLocation,useNavigate} from 'react-router-dom';
 import Login from "./views/Login";
 import Home from "./views/Home"
+//import Landing from "../src/views/Landing"
+
+import Nav from "../src/shared/NavBar/NavBar";
+//import Home from "./shared/Components/Home/Home";
+//import Error from "./shared/Components/Error/Error";
+import Footer from "./shared/Components/Footer/Footer"
+import Teach from "./shared/Components/Teach/Teach"
 
 
 function App() {
@@ -21,6 +28,13 @@ function App() {
       
 
     </Routes>
+  // // <Landing></Landing>
+  // <div>
+  //   <Nav/>
+  //   <Teach/>
+  //   <Footer/>
+  // </div>
+   
     
     
   )
