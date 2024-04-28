@@ -4,10 +4,10 @@ import { color } from '../../styles';
 
 export const Container = styled.div`
 position:fixed;
-top:150px;
+top:70px;
   margin:0 auto;
   width:430px;
-  height: 200px;
+  height: 300px;
   display: flex;
   flex-direction:column;
   padding:15px;
@@ -46,7 +46,7 @@ export const UploadPicture = styled.button`
 export const ContainerIn=styled.div`
   display:flex;
   justify-Content:space-between;
-  alignItems:center;
+  align-Items:center;
   margin:4px;
   
   margin-right:40px;
@@ -73,11 +73,25 @@ border-Radius:10px;
   
 `;
 
-// export const TextLogin=styled.p`
+export const Img=styled.img`
 
-//   text-align:initial;
-//   font-weight: 600; 
-//   margin:2px;
+  width:100%;
+  height:100%; 
+  
+ 
+
+  
+`;
+
+export const Button=styled.button`
+width:300px;
+display:flex;
+// background:#E1E1E1;
+margin:auto;
+justify-Content:center
+
+
+
  
   
 
@@ -88,22 +102,7 @@ border-Radius:10px;
   
 
   
-// `;
-
-// export const ContenedorRemember=styled.div`
-// display:flex;
-// justify-content:space-evenly;
- 
-  
-
-
-
- 
-
-  
-
-  
-// `;
+`;
 
 
 

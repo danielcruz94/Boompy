@@ -1,5 +1,5 @@
 
-import  {useEffect,React}from "react"
+import  {useEffect,React,useState}from "react"
 import {Container,Headings,ContainerTitle} from './Landing.style'
 import {ContainerProfile} from '../shared/Components/Cards/Cards.style'
 import NavBar from '../shared/NavBar/NavBar'
@@ -17,7 +17,7 @@ const Home=() => {
   const users=useSelector((state)=>state.users);
   const dispatch=useDispatch();
 
-
+const [isComplete,setIsComplete]=useState(true)
 
   useEffect(()=>{
     const getData=async()=>{
@@ -57,11 +57,11 @@ const Home=() => {
         </ContainerTitle>
 
     <ContainerProfile>
-    <Modal title={"Complete Your Information"} ></Modal>
+    {!isComplete&&<Modal title={"Complete Your Information"} ></Modal>}
     
     
    
-    {users.map((user) => <CardProfile id={user.id}name={user.name} picture={user.picture}></CardProfile>)}
+    {/* {users.map((user) => <CardProfile id={user.id}name={user.name} picture={user.picture}></CardProfile>)} */}
     
     
     </ContainerProfile>
