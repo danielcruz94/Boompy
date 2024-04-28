@@ -1,0 +1,391 @@
+body{
+    padding: 0px;
+    margin: 0px;
+}
+
+p {       
+     margin-bottom: 0px;  
+}
+
+.contenTeach{
+ background: white;
+}
+
+.NavTeach {
+    padding: 30px 10% 30px 10%;
+    font-weight: 600;
+    background-image: url("../Home/Fondo1.jpg");
+    background-size: cover;
+}
+
+.NavTeach > p {   
+    width: 330px;
+}
+
+.InfTeach {
+    display: flex;       
+    padding: 50px 10px;   
+}
+
+.InfTeach > div:nth-child(1) {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    align-items: flex-end;
+    margin: 0px 20px 0px 0px;
+}
+
+.InfTeach > div:nth-child(2) {   
+     width: 30%;
+}
+
+/*PERFIL*/
+.profile-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    width: 83%;
+    background-color: rgb(17, 15, 80);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.profile-picture {
+    float: left;
+}
+
+.profile-picture img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.profile-info {
+    margin-left: 20px;
+}
+
+.profile-info > p,
+.profile-info > h2 {
+    text-align: left; 
+    margin-bottom: 15px;
+}
+
+.contact-info {
+    display: inline;
+    margin-right: 28px;
+    font-weight: 100;
+}
+
+.Start{
+  color: #ffd428;
+}
+
+.social-icons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.social-icon-wrapper {
+    background: rgb(255, 255, 255);
+    margin: 5px;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    border-radius: 100%;
+}
+
+.social-icons a {
+    font-size: 12px;
+    color: rgb(17, 15, 80);
+    padding: 10px;    
+}
+
+.social-icons a:hover {
+    color: rgb(17, 15, 80);
+}
+
+
+/*Biography*/
+
+.Biography {
+    border: 1px solid #0000002b;
+    width: 83%;    
+    margin: 20px 0px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+.Biography > p{
+  text-align: left; 
+}
+
+.Biography > h4{
+    color: black;
+    text-align: left; 
+}
+
+
+/* HABILIDADES */
+
+.Skills {
+    display: flex;
+    flex-direction: column;
+    width: 83%;
+    border: 1px solid #0000002b;
+    border-radius: 10px;
+    padding: 20px; 
+    margin-bottom: 20px;
+}
+
+#root > div > div.contenTeach > div.InfTeach > div:nth-child(1) > div.Skills > div.InfoSkills > h4{
+    color: black;
+    text-align: left; 
+}
+
+.skillCon{
+    display: flex;
+}
+
+.skills-container {          
+    width: 100%;    
+    margin-top: 20px;
+}
+
+.left-skills, .right-skills {
+    width: 50%;
+    float: left;
+}
+
+.skill {
+    margin: 10px;
+    display: flex;
+    flex-direction: column; 
+}
+
+.skill-name {
+    display: flex;
+    font-weight: bold;
+    text-align: left;
+    width: 50%;
+    font-size: 15px;
+}
+
+.progress-bar {
+    height: 10px;
+    background-color: #ffd428;
+    border-radius: 5px;
+    margin-bottom: 25px;
+}
+
+.progress-percent {
+    font-weight: 600;
+    width: 50%;
+    font-size: 15px;
+}
+
+.InfoSkills > p{
+    text-align: left; 
+}
+
+
+/*PAGOS*/
+
+
+
+.course-offer {
+    width: 300px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.course-includes{    
+    margin-top: 10px;
+}
+
+.course-offer > div:first-child {
+    background: rgb(57, 80, 225);
+    color: white;
+    font-weight: 600;
+    padding: 5px 0px;
+    border-radius: 10px;
+}
+
+
+ul.course-includes {
+    list-style: none; 
+    padding: 0px;   
+}
+
+ul.course-includes li {
+    display: flex;
+    align-items: center;
+    justify-content:last baseline;
+    font-size: 80%;
+    border-bottom: 1px solid #0000003b;  
+    padding: 5px 0px;
+}
+
+ul.course-includes li i {
+    margin-right: 10px;
+    font-size: 18px;
+    color: black; 
+}
+
+ul.course-includes li strong {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333; 
+}
+
+li > .Div-li {
+    display: flex;
+    align-items: flex-start;
+    width: 83%;
+    background: none;
+}
+
+li > .Div-li2 {
+    display: flex;
+    justify-content: flex-end;
+    width: 20%;
+    background: none;
+    color: black;
+    font-size: 12px;
+}
+
+.Me_Pagos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: none;
+    border-bottom: 1px solid #0000003b;  
+}
+
+.img-Pagos {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0px;
+}
+
+.img-Pagos img {
+    width: 15%; 
+    max-width: 100%; 
+}
+
+.btnPagos {
+    border: none;
+    background: rgb(248, 187, 3);
+    padding: 8px 20px;
+    margin: 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+/*GALERY*/
+
+.contGalery{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column;
+    width: 80%;
+   /* border: 1px solid #0000002b;*/
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 10px; 
+    width: 70%;
+}
+
+.gallery img {
+    width: 100%;
+    height: auto;
+    border-radius: 10%;
+    margin: 20px;
+}
+
+#root > div > div.contenTeach > div.contGalery > div:nth-child(1) > h4{
+    color: black;
+}
+
+
+@media screen and (max-width: 600px) {
+    .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+    }
+}
+
+
+@media screen and (max-width: 800px) {
+    .InfTeach {
+        flex-direction: column;
+    }
+
+    .course{
+        display: block;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+   
+
+    .InfTeach > div:nth-child(1) {
+        display: block;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        margin: 0px 20px 0px 0px;
+    }
+
+    .profile-container{
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .contact-info {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .Biography {
+        width: 100%;
+    }
+
+    .Skills {
+       width: 100%;
+       margin-bottom: 20px;
+    }
+
+    /*Pgos*/
+    .InfTeach > div:nth-child(2) {
+        width: 100%;
+    }
+
+    .course-offer {
+        width: 100%;
+    }
+
+    .contGalery {
+        width: 100%;
+    }
+
+    #root > div > div.contenTeach > div.contGalery > div.gallery > div{
+        width: 20%;
+    }
+
+    }

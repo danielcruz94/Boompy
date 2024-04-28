@@ -3,8 +3,9 @@
 
 import Nav from "../src/shared/NavBar/NavBar";
 //import Home from "./shared/Components/Home/Home";
-import Error from "./shared/Components/Error/Error";
+//import Error from "./shared/Components/Error/Error";
 import Footer from "./shared/Components/Footer/Footer"
+import Teach from "./shared/Components/Teach/Teach"
 
 import './App.css'
 
@@ -15,7 +16,7 @@ function App() {
   // <Landing></Landing>
   <div>
     <Nav/>
-    <Error/>
+    <Teach/>
     <Footer/>
   </div>
    
