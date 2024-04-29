@@ -37,12 +37,12 @@ const Teach = () => {
                         <div className="profile-info">
                             <h2>Robert Fox</h2>
                             <p>Experto en Laravel</p>
-                            <p>
+                            <div>
                             <p className="contact-info"><i className="fas fa-star Start"></i> 4.8 Opiniones</p>
                             <p className="contact-info"><i className="far fa-envelope icon"></i> info@gmail.com</p>
                             <p className="contact-info"><i className="fas fa-phone-alt icon"></i> +123 5950 600</p>
 
-                            </p>
+                            </div>
                             <p>Gurusu mal suada faci lsis Lorem ipsum dolorit amore consectetur Vesity bulum a nec odio aea the dumm ipsumm ipsum that dolcons us saiad and fariat consectetur elit.</p>
                             <div className="social-icons">
                                
