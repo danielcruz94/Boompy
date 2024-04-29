@@ -12,7 +12,7 @@ p {
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    width: 100%;   
+    width: 100vw;   
 }
 
 .contentError > div:first-child {

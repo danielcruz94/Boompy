@@ -9,11 +9,9 @@ import Login from "./views/Login";
 import Home from "./views/Home"
 
 
-import Nav from "../src/shared/NavBar/NavBar";
 import Landing from "./shared/Components/Landing/Landing";
-//import Error from "./shared/Components/Error/Error";
-import Footer from "./shared/Components/Footer/Footer"
-import Teach from "./shared/Components/Teach/Teach"
+import Error from "./views/Error/Error";
+
 
 
 function App() {
@@ -25,7 +23,7 @@ function App() {
     <Route path='/home' element={<Home></Home>}/>
     <Route path='/landing' element={<Landing></Landing>}/>
     <Route path='/signup' element={<Signup></Signup>}/>
-      
+    <Route path='/error' element={<Error></Error>}/>
 
     </Routes>
 
