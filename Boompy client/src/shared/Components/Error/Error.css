@@ -1,0 +1,58 @@
+body{
+    margin: 0px;
+    padding: 0px;
+}
+
+p {
+  margin-bottom: 0px;
+}
+
+.contentError{    
+    min-width: 260px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;   
+}
+
+.contentError > div:first-child {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 50px 20%;
+    background-image: url("/src/shared/Components/Home/Fondo1.jpg");
+    background-size: cover;
+}
+
+.divError {    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 5% 2%;
+}
+
+.divError > img{
+   width: 40%;
+}
+
+.divError > button {
+    width: 180px;   
+    border-radius: 30px;
+    background: #5751E1;
+    margin-top: 20px;    
+}
+
+
+
+@media (max-width: 600px) {
+    .divError > img{
+        width: 80%;
+     }
+
+     .divError > button {
+        margin-top: 10%;
+     }
+    
+}
