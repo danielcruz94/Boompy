@@ -1,15 +1,16 @@
 
 import React, { useState, useEffect } from 'react';
-import './Home.css'; 
+import './Landing.css'; 
 
 import bannerImage from './Home/banner_img.png';
 import imaheImage from './Home/Imahe.png';
 import dacoImage from './Home/Daco.png';
 import questionImage from './Home/question.png'; 
+import NavBar from '../../NavBar/NavBar';
 
 
 
-function Boompy() {
+function Landing() {
   const [carouselData1, setCarouselData1] = useState([]);
   const [carouselData2, setCarouselData2] = useState([]);
 
@@ -55,6 +56,7 @@ function Boompy() {
 
   return (
     <div className="containerHome">
+      <NavBar></NavBar>
     
       {/* Sección 1 */}
       <section className="hero">
@@ -314,4 +316,4 @@ function Boompy() {
   );
 }
 
-export default Boompy;
+export default Landing;
