@@ -18,20 +18,10 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
     justify-content: center;
     align-items: center;
     flex-direction: column; 
+    width: 100vw;
   }
   
-  .Redes {
-    width: 100%;
-    float: right;
-    background-color: #010a35;
-    color: #d4cccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 7px;
-    font-size: 12px;
-    height: 30px;
-  }
+ 
   
   .Redes > div{
     margin-left: 5px;

@@ -7,6 +7,8 @@ import imaheImage from './Home/Imahe.png';
 import dacoImage from './Home/Daco.png';
 import questionImage from './Home/question.png'; 
 import NavBar from '../../NavBar/NavBar';
+import {Headings} from '../../../views/Landing.style'
+import Footer from '../Footer/Footer';
 
 
 
@@ -56,6 +58,8 @@ function Landing() {
 
   return (
     <div className="containerHome">
+      <Headings>
+      </Headings>
       <NavBar></NavBar>
     
       {/* Sección 1 */}
@@ -312,6 +316,7 @@ function Landing() {
           </div>
         </div>
       </section>
+      <Footer/>
     </div>
   );
 }
