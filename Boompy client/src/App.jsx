@@ -11,6 +11,7 @@ import Home from "./views/Home"
 
 import Landing from "./shared/Components/Landing/Landing";
 import Error from "./views/Error/Error";
+import Teach from './views/Teach/Teach';
 
 
 
@@ -24,6 +25,7 @@ function App() {
     <Route path='/landing' element={<Landing></Landing>}/>
     <Route path='/signup' element={<Signup></Signup>}/>
     <Route path='/error' element={<Error></Error>}/>
+    <Route path='/tutors' element={<Teach></Teach>}/>
 
     </Routes>
 

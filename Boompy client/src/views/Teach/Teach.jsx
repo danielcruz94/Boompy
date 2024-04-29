@@ -1,7 +1,10 @@
 import React from 'react';
+import Footer from '../../shared/Components/Footer/Footer';
 import './Teach.css'; // Importa el archivo CSS personalizado
+import {Headings} from '../Landing.style'
+import NavBar from '../../shared/NavBar/NavBar';
 
-const TeachComponent = () => {
+const Teach = () => {
 
     const imageUrls = [
         'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
@@ -16,6 +19,11 @@ const TeachComponent = () => {
     
     return (
         <div className="contenTeach">
+            <Headings>
+            </Headings>
+            <NavBar>
+
+            </NavBar>
             <div className="NavTeach">
                 <p>Home &gt; Instructors &gt; NameInstructor</p>
             </div>
@@ -200,6 +208,7 @@ const TeachComponent = () => {
                             </div> 
 
                 </div>
+                <Footer/>
                         
 
 
@@ -209,4 +218,4 @@ const TeachComponent = () => {
     );
 }
 
-export default TeachComponent;
+export default Teach;
