@@ -17,7 +17,7 @@ const Home=() => {
   const users=useSelector((state)=>state.users);
   const dispatch=useDispatch();
 
-const [isComplete,setIsComplete]=useState(true)
+const [isComplete,setIsComplete]=useState(false)
 
   useEffect(()=>{
     const getData=async()=>{
