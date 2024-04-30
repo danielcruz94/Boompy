@@ -1,0 +1,86 @@
+:root {    
+    --tamano-alto-div: 100%; 
+    --div-llamadas: 50%;
+    --color-primario: white;; 
+  }
+
+.ContenCall{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;      
+        
+}
+
+.contenPantalla {
+    display: flex;
+    width: 100%;    
+    height: 85vh;
+    padding: 20px;
+}
+
+.Video {
+    display: inline-block;
+    width: 74%;
+    height: var(--tamano-alto-div);
+    border: 17px solid black;
+    border-radius: 20px;
+}
+
+.InfoCall {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    height: var(--tamano-alto-div);
+    background: white;
+    padding: 0px 10px;
+}
+
+.DivUser{    
+    display: none;
+    width: 100%;
+    height: var(--div-llamadas);
+    background: var(--color-primario);
+    border: 17px solid black;
+    border-radius: 20px;
+    margin: 5px 0px 0px 0px;
+}
+
+.DivCall{
+    width: 100%;
+    height: var(--div-llamadas);
+    background: var(--color-primario);   
+    border: 17px solid black;
+    border-radius: 20px;
+    margin: 0px 0px 5px 0px;
+}
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.video-call-icons {
+    display: flex;    
+}
+
+.icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(7, 7, 137, 0.789);
+    color: white;
+    margin: 10px;
+    height: 60px;
+    width: 60px;
+    font-size: 20px;
+    border-radius: 100%;
+}
+
+
+.imgcall{
+    width: 100%;
+    height: 100%;      
+}
