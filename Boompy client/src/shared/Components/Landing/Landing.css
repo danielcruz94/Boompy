@@ -12,7 +12,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   }
   
   .containerHome {     
-    margin: 20px  0px 0px 0px;
+    margin: 0px  0px 0px 0px;
     padding: 0px;
     display: flex;
     justify-content: center;
@@ -391,7 +391,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
     justify-content: center;
     align-items: center;
     flex-direction: column; 
-    color: blanchedalmond;
+    color: white;
     margin: 1%;
   }
   
@@ -478,6 +478,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   .Enrol:hover {
     background-color: #0056b3;
   }
+
   
   
   @media screen and (max-width: 600px) {

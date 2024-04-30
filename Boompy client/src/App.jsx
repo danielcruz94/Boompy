@@ -12,6 +12,7 @@ import Home from "./views/Home"
 import Landing from "./shared/Components/Landing/Landing";
 import Error from "./views/Error/Error";
 import Teach from './views/Teach/Teach';
+import Calls from './shared/Components/Calls/Calls';
 
 
 
@@ -26,16 +27,9 @@ function App() {
     <Route path='/signup' element={<Signup></Signup>}/>
     <Route path='/error' element={<Error></Error>}/>
     <Route path='/tutors' element={<Teach></Teach>}/>
+    <Route path='/Calls' element={<Calls></Calls>}/>
 
     </Routes>
-
-  // <div>
-  //   <Nav/>
-  //   <Teach/>
-  //   <Footer/>
-  // </div>
-   
-    
     
   )
 }
