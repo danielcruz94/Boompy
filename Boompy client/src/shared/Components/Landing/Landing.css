@@ -2,10 +2,7 @@ body{
     margin-top: 10px;
 }
 
-article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
-    display: block;
-    width: 100%;
-  }
+
 
   p{
     margin-bottom: 0px;
@@ -18,7 +15,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
     justify-content: center;
     align-items: center;
     flex-direction: column; 
-    width: 100vw;
+    width: 100%;
   }
   
  
@@ -68,6 +65,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
     display: flex;  
     text-align: center;
     padding: 0px;
+    width: 100%;
   }
   
   .hero > div {
