@@ -8,10 +8,12 @@ import Footer from '../../shared/Components/Footer/Footer';
 const Calls = () => {
     const [isFullScreen, setIsFullScreen] = useState(false);
     const [isCameraOn, setIsCameraOn] = useState(false);
+    const [isVolumeOn, setIsVolumeOn] = useState(true);
+    const [isMicrophoneOn, setIsMicrophoneOn] = useState(true);
 
     useEffect(() => {
         const constraints = {
-            audio: false,
+            audio: true,
             video: true,
         };
 
@@ -45,7 +47,7 @@ const Calls = () => {
         }
 
         return () => {
-            stopVideo(); // Detener la cámara al desmontar el componente
+            stopVideo();
         };
     }, [isCameraOn]);
 
@@ -82,6 +84,25 @@ const Calls = () => {
         setIsCameraOn(prevState => !prevState);
     };
 
+    const toggleVolume = () => {
+        const videoElement = document.getElementById('videoElement');
+        if (videoElement) {
+            videoElement.muted = !isVolumeOn;
+        }
+        setIsVolumeOn(prevState => !prevState);
+    };
+
+    const toggleMicrophone = () => {
+        const videoElement = document.getElementById('videoElement');
+        if (videoElement) {
+            const audioTracks = videoElement.srcObject.getAudioTracks();
+            audioTracks.forEach(track => {
+                track.enabled = isMicrophoneOn;
+            });
+        }
+        setIsMicrophoneOn(prevState => !prevState);
+    };
+
     return (
         <div className="ContenCall">
             <Headings />
@@ -90,45 +111,41 @@ const Calls = () => {
             <div className='full_screen'>
                 <div className="contenPantalla">
                     <div className="Video">
-                          <i className="fas fa-video-slash custom-icon no-video-icon"></i>
-                            
+                        <i className="fas fa-video-slash custom-icon no-video-icon"></i>
                     </div>
                     <div className="InfoCall">
                         <div className="DivCall">
-                        {isCameraOn ? (
+                            {isCameraOn ? (
                                 <video id="videoElement" className="VideoCall" autoPlay playsInline muted></video>
                             ) : (
                                 <i className="fas fa-video-slash custom-icon no-video-icon"></i>
                             )}
                         </div>
 
-                <div className="container">
-                    <div className="video-call-icons">
-                            <div className="icon-wrapper">
-                                <i className="fas fa-microphone"></i>
+                        <div className="container">
+                            <div className="video-call-icons">
+                                <div className="icon-wrapper" onClick={toggleVolume}>
+                                    {isVolumeOn ? <i className="fas fa-volume-up"></i> : <i className="fas fa-volume-mute"></i>}
+                                </div>
+                                <div className="icon-wrapper" onClick={toggleMicrophone}>
+                                    {isMicrophoneOn ? <i className="fas fa-microphone"></i> : <i className="fas fa-microphone-slash"></i>}
+                                </div>
+                                <div className="icon-wrapper">
+                                    <i className="fas fa-volume-up"></i>
+                                </div>
                             </div>
-                            <div className="icon-wrapper">
-                                <i className="fas fa-phone-slash"></i>
-                            </div>
-                            <div className="icon-wrapper">
-                                <i className="fas fa-volume-up"></i>
-                            </div>
-                    </div>
 
-                    <div className="video-call-icons">
-                            
-                            <div className="icon-wrapper" onClick={toggleCamera}>
-                                {isCameraOn ? <i className="fas fa-video"></i> : <i className="fas fa-video-slash"></i>}
+                            <div className="video-call-icons">
+                                <div className="icon-wrapper" onClick={toggleCamera}>
+                                    {isCameraOn ? <i className="fas fa-video"></i> : <i className="fas fa-video-slash"></i>}
+                                </div>
+                                <div className="icon-wrapper" onClick={handleFullScreen}>
+                                    {isFullScreen ? <i className="fas fa-compress"></i> : <i className="fas fa-expand"></i>}
+                                </div>
                             </div>
-                            <div className="icon-wrapper" onClick={handleFullScreen}>
-                                {isFullScreen ? <i className="fas fa-compress"></i> : <i className="fas fa-expand"></i>}
-                            </div>
+                        </div>
                     </div>
                 </div>
-                    </div>
-                </div>
-               
-               
             </div>
             <Footer />
         </div>

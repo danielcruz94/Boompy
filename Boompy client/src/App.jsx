@@ -29,7 +29,7 @@ function App() {
     <Route path='/signup' element={<Signup></Signup>}/>
     <Route path='*' element={<Error></Error>}/>
     <Route path='/tutors' element={<Teach></Teach>}/>
-    <Route path='/Calls' element={<Calls></Calls>}/>
+    <Route path='/Chat' element={<Calls></Calls>}/>
 
     </Routes>
     
