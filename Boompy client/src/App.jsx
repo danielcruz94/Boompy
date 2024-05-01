@@ -27,7 +27,7 @@ function App() {
     <Route path='/signup' element={<Signup></Signup>}/>
     <Route path='/error' element={<Error></Error>}/>
     <Route path='/tutors' element={<Teach></Teach>}/>
-    <Route path='/Calls' element={<Calls></Calls>}/>
+    <Route path='/calls' element={<Calls></Calls>}/>
 
     </Routes>
     
