@@ -1,4 +1,3 @@
-import User from "../../../../../imagenes/Perfiles/_RHM6393.jpg"
 import {ContainerProfile,
     MainPhoto,
     ContenedorCard
@@ -7,7 +6,7 @@ const CardProfile=({name,id,picture}) => {
     return (
        <ContenedorCard >
             <MainPhoto>
-            <img src={User} alt="mainPhoto"  style={{width:'150px',height:'150px',borderRadius:'50%'}}/>
+            <img src={picture} alt="mainPhoto"  style={{width:'150px',height:'150px',borderRadius:'50%'}}/>
             </MainPhoto>
             
             <div style={{marginTop:'30px',display:'flex',flexDirection:'column',alignItems:'start',marginLeft:'10px'}}>

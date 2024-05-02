@@ -1,7 +1,52 @@
 import { FormLog,GoogleButton,Container,Span,Input,TextLogin,
   ContenedorRemember } from "./Form.style";
 import google from '../../../../../imagenes/google.svg.svg'
+import { useState } from "react";
+import axios from "axios";
 const Form = () => {
+
+  const [userCredentials, setUserCredentials] = useState({
+    email: '',
+    password: '',
+  
+  });
+
+  const [user,setUser]=useState('');
+
+  const [errorMessage,setErrorMessage]=useState('')
+
+
+  const { email, password} = userCredentials;
+
+
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUserCredentials({ ...userCredentials, [name]: value });
+  };
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+
+    try {
+      const userLogin=await axios.post('http://localhost:3001/api/login',userCredentials)
+   console.log(userLogin.data)
+   if(user===''){
+    setErrorMessage(userLogin.data.error)
+   }else{
+        setUser(userLogin.data)
+      setUserCredentials({email:'',password:''})
+      
+   }
+    
+    } catch (error) {
+      setErrorMessage(error)
+    }
+
+
+  }
+  
+
   return (
     <FormLog>
         <Container>
@@ -22,9 +67,9 @@ const Form = () => {
 
 
     <TextLogin>Email</TextLogin>
-    <Input type="email"  placeholder="Email" style={{marginBottom:'20px',paddingLeft:'20px'}}/>
+    <Input type="email"  placeholder="Email"  name="email" value={email} onChange={handleChange} style={{marginBottom:'20px',paddingLeft:'20px'}}/>
     <TextLogin>Password</TextLogin>
-    <Input type="password" placeholder="Password" style={{marginBottom:'20px',paddingLeft:'20px'}}/>
+    <Input type="password" placeholder="Password" name="password" value={password} onChange={handleChange}  style={{marginBottom:'20px',paddingLeft:'20px'}}/>
     <ContenedorRemember>
       <div>
 
@@ -35,10 +80,12 @@ const Form = () => {
     <a href="">Forgot Password</a>
 
     </ContenedorRemember>
-    <GoogleButton style={{background:'#FFC224',border:'2px solid black',boxShadow: '2px 2px 2px',height:'35px',borderRadius:'20px'}}>
+    <GoogleButton  onClick={handleSubmit}style={{background:'#FFC224',border:'2px solid black',boxShadow: '2px 2px 2px',height:'35px',borderRadius:'20px'}}>
       Sign In
     </GoogleButton>
       <div>
+
+        {errorMessage&&<p style={{color:'red'}}>{errorMessage}</p>}
     <Span>Do not have an account?</Span><a href="/signup" style={{margin:'4px'}}>Sign Up</a>
 
       </div>

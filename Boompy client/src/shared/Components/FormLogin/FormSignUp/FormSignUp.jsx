@@ -3,6 +3,8 @@ import { FormLog,GoogleButton,Container,Span,Input,TextLogin,
     ContenedorRemember } from "../Form.style";
   import google from '../../../../../../imagenes/google.svg.svg'
   import { useState } from "react";
+  import axios from "axios";
+  import { useLocation} from 'react-router-dom';
 const FormSignUp = () => {
 
   const [userCredentials, setUserCredentials] = useState({
@@ -17,12 +19,44 @@ const FormSignUp = () => {
   const { name,lastName, email, password, confirmPassword } = userCredentials;
 
 
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setPasswordsUnMatch(true);
+      return;
+    } else if (passwordsUnMatch) {
+      setPasswordsUnMatch(false);
+    }
+
+   
+
+   
+    const newUser=await axios.post("http://localhost:3001/api/signup",userCredentials)
+    try {
+      if(newUser){
+        alert("User Register")
+      }
+    } catch (error) {
+      console.log(error)
+    }
+
+
+    window.location.href = "/login";
+   
+
+    //
+
+    // register({ name, email, password });
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUserCredentials({ ...userCredentials, [name]: value });
   };
 
   console.log(userCredentials)
+  console.log(passwordsUnMatch)
 
 
     return (
@@ -46,6 +80,7 @@ const FormSignUp = () => {
               <TextLogin>First Name</TextLogin>
               <Input
                 type="First Name"
+                name="name"
                 placeholder="First Name"
                 value={name}
                 onChange={handleChange}
@@ -62,8 +97,9 @@ const FormSignUp = () => {
               <Input
                 type="Last Name"
                 placeholder="Last Name"
-                // value={lastName}
-                // handleChange={handleChange}
+                name="lastName"
+                value={lastName}
+                onChange={handleChange}
                 style={{
                   marginBottom: "20px",
                   paddingLeft: "20px",
@@ -76,29 +112,34 @@ const FormSignUp = () => {
           <TextLogin>Email</TextLogin>
           <Input
             type="email"
+            name="email"
             placeholder="Email"
-            // value={email.toLowerCase()}
-            // handleChange={handleChange}
+            value={email.toLowerCase()}
+            onChange={handleChange}
             style={{ marginBottom: "20px", paddingLeft: "20px" }}
           />
           <TextLogin>Password</TextLogin>
           <Input
             type="password"
             placeholder="Password"
-            // value={password}
-            // handleChange={handleChange}
+            name="password"
+            value={password}
+            onChange={handleChange}
             style={{ marginBottom: "20px", paddingLeft: "20px" }}
           />
           <TextLogin>Confirm Password</TextLogin>
           <Input
             type="password"
             placeholder=" Confirm Password"
-            // value={confirmPassword}
-            // handleChange={handleChange}
+            value={confirmPassword}
+            name="confirmPassword"
+            onChange={handleChange}
             style={{ marginBottom: "20px", paddingLeft: "20px" }}
           />
+          {passwordsUnMatch&&<p style={{color:'red'}}>Passwords do not match</p>}
           <ContenedorRemember></ContenedorRemember>
           <GoogleButton
+           onClick={handleSubmit}
             style={{
               background: "#FFC224",
               border: "2px solid black",
