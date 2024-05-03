@@ -60,7 +60,7 @@ function Landing() {
     <div className="containerHome">
       <Headings>
       </Headings>
-      <NavBar></NavBar>
+      <NavBar textBotton={"Login"}/>
     
       {/* Sección 1 */}
       <section className="hero">

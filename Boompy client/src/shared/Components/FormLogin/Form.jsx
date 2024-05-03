@@ -43,7 +43,7 @@ useEffect(()=>{
 
     try {
       const userLogin=await axios.post('http://localhost:3001/api/login',userCredentials)
-   console.log(userLogin.data)
+   
    localStorage.setItem('loggedAppUser', JSON.stringify(userLogin.data));
    if(user===''){
     setErrorMessage(userLogin.data.error)
@@ -51,6 +51,7 @@ useEffect(()=>{
         setUser(userLogin.data)
         
       setUserCredentials({email:'',password:''})
+      window.location.href = "/home";
       
    }
     

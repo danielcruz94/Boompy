@@ -11,7 +11,7 @@ import Header from'../../../../imagenes/Header.svg'
 import Button from '../../../../imagenes/Button.svg'
 import corazon from '../../../../imagenes/corazon.svg'
 import carrito from '../../../../imagenes/carrito.svg'
-const NavBar=() => {
+const NavBar=({textBotton}) => {
     return (
         
             <ContainerBar >
@@ -37,7 +37,7 @@ const NavBar=() => {
                 <div style={{display:'flex',gap:'5px'}}>
                 <img src= {corazon}alt="corazon" />
                 <img src={carrito} alt="carrito" />
-                <Bottom>Log in</Bottom>
+                <Bottom>{textBotton}</Bottom>
                 </div>
 
                 

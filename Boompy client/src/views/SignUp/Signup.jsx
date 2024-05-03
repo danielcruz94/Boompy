@@ -13,7 +13,7 @@ const  Signup=() => {
         <Container>
         <Headings>
         </Headings>
-        <NavBar>
+        <NavBar textBotton={"Login"}>
     
         </NavBar>
         <ContainerTitle>

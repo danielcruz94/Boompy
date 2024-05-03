@@ -48,7 +48,7 @@ const [isComplete,setIsComplete]=useState(false)
     <Container>
     <Headings>
     </Headings>
-    <NavBar>
+    <NavBar textBotton={"Logout"}>
 
     </NavBar>
     <ContainerTitle>
