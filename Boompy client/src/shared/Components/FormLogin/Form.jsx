@@ -4,6 +4,8 @@ import google from '../../../../../imagenes/google.svg.svg'
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import { useNavigate} from 'react-router-dom';
+
 const Form = () => {
 
   const [userCredentials, setUserCredentials] = useState({
@@ -16,20 +18,26 @@ const Form = () => {
 
   const [errorMessage,setErrorMessage]=useState('')
 
+  const [access,setAccess]=useState(false);
+  const navegate =useNavigate()
+
+ 
+ 
+
 
   const { email, password} = userCredentials;
 
 
-useEffect(()=>{
- const loggedUserJSON=window.localStorage.getItem('loggedAppUser')
- if(loggedUserJSON){
-  const user=JSON.parse(loggedUserJSON);
-  setUser(user)
- }
-},[])
+// useEffect(()=>{
+//  const loggedUserJSON=window.localStorage.getItem('loggedAppUser')
+//  if(loggedUserJSON){
+//   const user=JSON.parse(loggedUserJSON);
+//   setUser(user)
+//  }
+// },[])
 
 
-  
+ 
 
 
 
@@ -38,29 +46,27 @@ useEffect(()=>{
     setUserCredentials({ ...userCredentials, [name]: value });
   };
 
-  const handleLogin = async(e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const userLogin=await axios.post('http://localhost:3001/api/login',userCredentials)
-   
-   localStorage.setItem('loggedAppUser', JSON.stringify(userLogin.data));
-   if(user===''){
-    setErrorMessage(userLogin.data.error)
-   }else{
-        setUser(userLogin.data)
-        
-      setUserCredentials({email:'',password:''})
-      window.location.href = "/home";
-      
-   }
-    
+      const userLogin = await axios.post(
+        "http://localhost:3001/api/login",
+        userCredentials
+      );
+
+      localStorage.setItem("loggedAppUser", JSON.stringify(userLogin.data));
+
+      // setAccess(true)
+      setUser(userLogin.data);
+      setUserCredentials({ email: "", password: "" });
+      setErrorMessage("");
+
+      navegate("/home");
     } catch (error) {
-      setErrorMessage(error)
+      setErrorMessage("Email o password Wrong!");
     }
-
-
-  }
+  };
 
   const handleLogout=() => {
     setUser(null);
@@ -89,7 +95,7 @@ useEffect(()=>{
 
 
     <TextLogin>Email</TextLogin>
-    <Input type="email"  placeholder="Email"  name="email" value={email} onChange={handleChange} style={{marginBottom:'20px',paddingLeft:'20px'}}/>
+    <Input type="email"  placeholder="Email"   name="email" value={email} onChange={handleChange} style={{marginBottom:'20px',paddingLeft:'20px'}}/>
     <TextLogin>Password</TextLogin>
     <Input type="password" placeholder="Password" name="password" value={password} onChange={handleChange}  style={{marginBottom:'20px',paddingLeft:'20px'}}/>
     <ContenedorRemember>
