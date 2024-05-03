@@ -45,7 +45,7 @@ const Footer=() => {
                
                 </Columns>
                 <Columns>
-                <h4>Get in Tocuh</h4>
+                <h4>Get in Touch</h4>
                 <ContenedorImg>
                     <a href="/"><img src={Facebook} alt="Facebook" /></a>
                    <a href="/"> <img src={Twitter} alt="Twitter" /></a>

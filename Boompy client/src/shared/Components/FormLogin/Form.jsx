@@ -3,6 +3,7 @@ import { FormLog,GoogleButton,Container,Span,Input,TextLogin,
 import google from '../../../../../imagenes/google.svg.svg'
 import { useState } from "react";
 import axios from "axios";
+import { useEffect } from "react";
 const Form = () => {
 
   const [userCredentials, setUserCredentials] = useState({
@@ -19,22 +20,36 @@ const Form = () => {
   const { email, password} = userCredentials;
 
 
+useEffect(()=>{
+ const loggedUserJSON=window.localStorage.getItem('loggedAppUser')
+ if(loggedUserJSON){
+  const user=JSON.parse(loggedUserJSON);
+  setUser(user)
+ }
+},[])
+
+
+  
+
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUserCredentials({ ...userCredentials, [name]: value });
   };
 
-  const handleSubmit = async(e) => {
+  const handleLogin = async(e) => {
     e.preventDefault();
 
     try {
       const userLogin=await axios.post('http://localhost:3001/api/login',userCredentials)
    console.log(userLogin.data)
+   localStorage.setItem('loggedAppUser', JSON.stringify(userLogin.data));
    if(user===''){
     setErrorMessage(userLogin.data.error)
    }else{
         setUser(userLogin.data)
+        
       setUserCredentials({email:'',password:''})
       
    }
@@ -44,6 +59,12 @@ const Form = () => {
     }
 
 
+  }
+
+  const handleLogout=() => {
+    setUser(null);
+
+     
   }
   
 
@@ -80,7 +101,7 @@ const Form = () => {
     <a href="">Forgot Password</a>
 
     </ContenedorRemember>
-    <GoogleButton  onClick={handleSubmit}style={{background:'#FFC224',border:'2px solid black',boxShadow: '2px 2px 2px',height:'35px',borderRadius:'20px'}}>
+    <GoogleButton  onClick={handleLogin}style={{background:'#FFC224',border:'2px solid black',boxShadow: '2px 2px 2px',height:'35px',borderRadius:'20px'}}>
       Sign In
     </GoogleButton>
       <div>
