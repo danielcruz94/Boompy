@@ -11,6 +11,7 @@ import { useSelector,useDispatch } from "react-redux"
 import axios from 'axios'
 import {fetchUsers} from '../Redux/usersSlice'
 import Modal from "../shared/Components/Modals/Modal"
+import { useNavigate} from 'react-router-dom';
 
 
 const Home=() => {
@@ -18,12 +19,20 @@ const Home=() => {
   const dispatch=useDispatch();
  
 
+  const navegate =useNavigate()
 
 
 
-
-
+const [access,setAccess]=useState(false);
 const [isComplete,setIsComplete]=useState(false)
+
+useEffect(() => {
+  !access && navegate('/');
+
+
+
+}, [access]);
+
 
 useEffect(()=>{
   const loggedUserJSON=window.localStorage.getItem('loggedAppUser')
@@ -52,6 +61,13 @@ useEffect(()=>{
 
   },[dispatch]);
   
+  const handleLogout=() => {
+   
+    window.localStorage.removeItem('loggedAppUser');
+    navegate("/");
+    
+     
+  }
   
   
 
@@ -64,7 +80,7 @@ useEffect(()=>{
     <Container>
     <Headings>
     </Headings>
-    <NavBar textBotton={"Logout"}>
+    <NavBar textBotton={"Logout"} onClick={handleLogout}>
 
     </NavBar>
     <ContainerTitle>
