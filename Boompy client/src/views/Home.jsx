@@ -16,15 +16,32 @@ import Modal from "../shared/Components/Modals/Modal"
 const Home=() => {
   const users=useSelector((state)=>state.users);
   const dispatch=useDispatch();
+ 
+
+
+
+
+
 
 const [isComplete,setIsComplete]=useState(false)
+
+useEffect(()=>{
+  const loggedUserJSON=window.localStorage.getItem('loggedAppUser')
+  if(loggedUserJSON){
+   const user=JSON.parse(loggedUserJSON);
+   setIsComplete(user.completeInfo)
+  }
+ },[isComplete])
+
+
+
 
   useEffect(()=>{
     const getData=async()=>{
       try {
         const res= await axios('http://localhost:3001/api/users')
-       
         dispatch(fetchUsers(res.data))
+      
       } catch (error) {
         console.log(error)
         
@@ -39,8 +56,7 @@ const [isComplete,setIsComplete]=useState(false)
   
 
   
-
-
+ 
   
   
     return (

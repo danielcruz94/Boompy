@@ -5,6 +5,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate} from 'react-router-dom';
+import { useSelector,useDispatch } from "react-redux"
+import {login} from '../../../Redux/authSlice'
 
 const Form = () => {
 
@@ -18,15 +20,13 @@ const Form = () => {
 
   const [errorMessage,setErrorMessage]=useState('')
 
-  const [access,setAccess]=useState(false);
+  // const [access,setAccess]=useState(false);
   const navegate =useNavigate()
 
- 
  
 
 
   const { email, password} = userCredentials;
-
 
 // useEffect(()=>{
 //  const loggedUserJSON=window.localStorage.getItem('loggedAppUser')
@@ -37,7 +37,8 @@ const Form = () => {
 // },[])
 
 
- 
+
+
 
 
 
@@ -55,6 +56,8 @@ const Form = () => {
         userCredentials
       );
 
+      
+
       localStorage.setItem("loggedAppUser", JSON.stringify(userLogin.data));
 
       // setAccess(true)
@@ -64,6 +67,7 @@ const Form = () => {
 
       navegate("/home");
     } catch (error) {
+      console.log(error)
       setErrorMessage("Email o password Wrong!");
     }
   };
