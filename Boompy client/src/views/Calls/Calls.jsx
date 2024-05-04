@@ -107,10 +107,7 @@ const Calls = () => {
     };
 
     const toggleCamera = () => {
-        setIsCameraOn(prevState => {
-            const newState = !prevState;            
-            return newState;
-        });
+        setIsCameraOn(prevState => !prevState);
     };
     
 
@@ -144,12 +141,10 @@ const Calls = () => {
         <div className="ContenCall">
             <Headings />
             <NavBar />
-            <LlamadaComponent
-        isFullScreen={isFullScreen}
-        setIsFullScreen={setIsFullScreen}
+            <LlamadaComponent       
         isCameraOn={isCameraOn}
         setIsCameraOn={setIsCameraOn}
-    />
+        />
 
 
 
@@ -183,12 +178,12 @@ const Calls = () => {
                           {isCameraOn ? (
                                     <div>
                                         <video className="VideoCall" autoPlay playsInline muted={!incomingCall} ref={outgoingVideoRef}></video>
-                                        {console.log("video renderizado")}
+                                       
                                     </div>
                                 ) : (
                                     <div>
                                         <i className="fas fa-video-slash custom-icon no-video-icon"></i>
-                                        {console.log("Icono de video desactivado renderizado")}
+                                        
                                     </div>
                                 )}
 
@@ -241,12 +236,12 @@ const Calls = () => {
                                 {isCameraOn ? (
                                     <>
                                         <i className="fas fa-video" />
-                                        {console.log(isCameraOn)} 
+                                       
                                     </>
                                 ) : (
                                     <>
                                         <i className="fas fa-video-slash" />
-                                        {console.log(isCameraOn)}
+                                       
                                     </>
                                 )}
 
