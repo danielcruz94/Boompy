@@ -20,7 +20,7 @@ const Form = () => {
 
   const [errorMessage,setErrorMessage]=useState('')
 
-  // const [access,setAccess]=useState(false);
+  
   const navegate =useNavigate()
 
  
@@ -72,11 +72,6 @@ const Form = () => {
     }
   };
 
-  const handleLogout=() => {
-    setUser(null);
-
-     
-  }
   
 
   return (
