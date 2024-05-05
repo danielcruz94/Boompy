@@ -9,6 +9,7 @@ import questionImage from './Home/question.png';
 import NavBar from '../../NavBar/NavBar';
 import {Headings} from '../../../views/Landing.style'
 import Footer from '../Footer/Footer';
+import { useNavigate} from 'react-router-dom';
 
 
 
@@ -16,7 +17,7 @@ function Landing() {
   const [carouselData1, setCarouselData1] = useState([]);
   const [carouselData2, setCarouselData2] = useState([]);
 
-  
+  const navegate =useNavigate()
 
   useEffect(() => {
     // Función para cargar el primer JSON
@@ -54,13 +55,16 @@ function Landing() {
     fetchCarouselData2();
   }, []); // El segundo argumento [] asegura que el efecto se ejecute solo una vez, al montar el componente
   
-
+const go=() => {
+  // console.log("hihas")
+   navegate('/login')
+}
 
   return (
     <div className="containerHome">
       <Headings>
       </Headings>
-      <NavBar></NavBar>
+      <NavBar textBotton={"Login"} onClick={go}/>
     
       {/* Sección 1 */}
       <section className="hero">
