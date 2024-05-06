@@ -17,21 +17,22 @@ import { useNavigate} from 'react-router-dom';
 const Home=() => {
   const users=useSelector((state)=>state.users);
   const dispatch=useDispatch();
- 
-
   const navegate =useNavigate()
 
-
+//locals Variable
 
 const [access,setAccess]=useState(false);
 const [isComplete,setIsComplete]=useState(false)
 
-useEffect(() => {
-  !access && navegate('/');
+
+//useEffects
+
+// useEffect(() => {
+//   !access && navegate('/');
 
 
 
-}, [access]);
+// }, [access]);
 
 
 useEffect(()=>{
@@ -60,6 +61,10 @@ useEffect(()=>{
 
 
   },[dispatch]);
+
+
+
+  //fucntions
   
   const handleLogout=() => {
    

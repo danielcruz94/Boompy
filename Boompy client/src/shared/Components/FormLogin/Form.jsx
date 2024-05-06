@@ -23,7 +23,7 @@ const Form = () => {
   
   const navegate =useNavigate()
 
- 
+ const dispatch=useDispatch()
 
 
   const { email, password} = userCredentials;
@@ -51,6 +51,8 @@ const Form = () => {
     e.preventDefault();
 
     try {
+
+
       const userLogin = await axios.post(
         "http://localhost:3001/api/login",
         userCredentials
@@ -58,16 +60,20 @@ const Form = () => {
 
       
 
+
+
+      console.log(dispatch(login({access:true})))
+
       localStorage.setItem("loggedAppUser", JSON.stringify(userLogin.data));
 
-      // setAccess(true)
       setUser(userLogin.data);
       setUserCredentials({ email: "", password: "" });
       setErrorMessage("");
 
-      navegate("/home");
+
+      // navegate("/home");
     } catch (error) {
-      console.log(error)
+      console.log(error);
       setErrorMessage("Email o password Wrong!");
     }
   };
