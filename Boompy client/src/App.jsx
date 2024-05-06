@@ -21,19 +21,15 @@ function App() {
  
 
   return (
-    <Routes>
-    <Route path='/' element={<Landing></Landing>}/>
-    <Route path='/landing' element={<Landing></Landing>}/>
-
-    <Route path='/login' element={<Login></Login>}/>
-    <Route path='/home' element={<Home></Home>}/>    
-    <Route path='/signup' element={<Signup></Signup>}/>
-    <Route path='*' element={<Error></Error>}/>
-    <Route path='/tutors' element={<Teach></Teach>}/>
-    <Route path='/calls' element={<Calls></Calls>}/>
-
+    <Routes>      
+      <Route path='/' element={<Landing />} />
+      <Route path='/login' element={<Login />} />
+      <Route path='/home' element={<Home />} />
+      <Route path='/signup' element={<Signup />} />
+      <Route path='/tutors' element={<Teach />} />
+      <Route path='/calls' element={<Calls />} />
+      <Route path='*' element={<Error />} />
     </Routes>
-    
   )
 }
 
