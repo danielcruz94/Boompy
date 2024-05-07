@@ -7,6 +7,7 @@ import {Container,
     Button
 } from './Modal.style'
 import React,{useState} from 'react';
+import axios from 'axios';
 
 
 
@@ -16,7 +17,9 @@ import React,{useState} from 'react';
 
 const Modal=({title}) => {
 
-    const role=[{value:'student',label:"Student"},
+    
+
+    const roles=[{value:'student',label:"Student"},
     {value:'tutor',label:"Tutor"}];
 
     const lenguages=[
@@ -27,10 +30,54 @@ const Modal=({title}) => {
 const [settingRole,setSettingRole]=useState("");
 
 
-const handleSelect=()=>{
-    setSettingRole()
+const [settingInformation,setsettingInformation]=useState({
+    role:"",
+    language:"",
+    goal:"",
+    price:"",
+    instagram:""
 
-}
+    
+});
+
+
+
+
+
+
+
+const handleChange = (event) => {
+    const { name, value } = event.target;
+    setsettingInformation({ ...settingInformation, [name]: value });
+  };
+
+
+  const handleSummit =async(e) => {
+    
+
+    try {
+        e.preventDefault();
+
+        const email = 'daniel94cruz@gmail.com';
+        const dataToSend = {
+            email, // Add email to the data
+            ...settingInformation,
+          };
+        
+    
+        const sendInfo = await axios.post(
+            "http://localhost:3001/api/userinformation",dataToSend );
+
+          alert("se actualizo la info")
+       
+
+        
+    } catch (error) {
+        console.log(error)
+    }
+  }
+
+
 
     return (
         <Container>
@@ -45,34 +92,37 @@ const handleSelect=()=>{
             </ContainerIn>
             <ContainerIn>
                <Span >Choose Your Native Language</Span>
-            <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}}>
-            <option value="" disabled>Select an option</option>
+            <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={handleChange} name={"language"}>
+            <option value="" >Select an option</option>
                 <option value="English">English</option>
                 <option value="Spanish">Spanish</option>
             </select>
+
 
             </ContainerIn>
 
             <ContainerIn>
                 <Span>Role</Span>
-                <select value={settingRole}  style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={(event) => setSettingRole(event.target.value)}>
-                   
+                <select  style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={handleChange} name={"role"}>
+                <option value="" >Select an option</option>
                     <option  style={{color:'green'}}value="Student">Student</option>
                     <option value="Tutor">Tutor</option>
                 </select>
               
             </ContainerIn>
-            {settingRole==="Student"? <ContainerIn>
+             <ContainerIn>
             <Span >Goal</Span> 
-            <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}}>
+            <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={handleChange} name={"goal"} >
+            <option value="" >Select an option</option>
                 <option value="English">🇺🇸</option>
                 <option value="Spanish">🇪🇸</option>
             </select>
-            </ContainerIn>:""}
+            </ContainerIn>
 
-            {settingRole==="Tutor" &&<ContainerIn>
+            {settingInformation.role==="Tutor" &&<ContainerIn>
             <Span >Rate/hour</Span> 
-            <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}}>
+            <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'} } onChange={handleChange} name={"price"}>
+            <option value="" >Select an option</option>
                 <option value="5 USD">5 USD</option>
                 <option value="6 USD">6 USD</option>
                 <option value="7 USD">7 USD</option>
@@ -90,7 +140,7 @@ const handleSelect=()=>{
                 </ContainerIn>} */}
 
 
-            <Button>Finish</Button>
+            <Button onClick={handleSummit}>Finish</Button>
 
 
 

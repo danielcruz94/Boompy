@@ -16,6 +16,8 @@ import { useNavigate} from 'react-router-dom';
 
 const Home=() => {
   const users=useSelector((state)=>state.users);
+  const auth=useSelector((state)=>state.auth);
+
   const dispatch=useDispatch();
   const navegate =useNavigate()
 
@@ -23,16 +25,20 @@ const Home=() => {
 
 const [access,setAccess]=useState(false);
 const [isComplete,setIsComplete]=useState(false)
-
+// 
 
 //useEffects
 
-// useEffect(() => {
+// useEffect(() => { 
+  
 //   !access && navegate('/');
 
 
 
 // }, [access]);
+
+
+
 
 
 useEffect(()=>{
@@ -98,7 +104,7 @@ useEffect(()=>{
     
     
    
-    {users.map((user) => <CardProfile id={user.id}name={user.name} picture={user.picture}></CardProfile>)}
+    {users.map((user) => <CardProfile key={user.id}name={user.name} picture={user.picture}></CardProfile>)}
     
     
     </ContainerProfile>

@@ -62,16 +62,16 @@ const Form = () => {
 
 
 
-      console.log(dispatch(login({access:true})))
+      // console.log(dispatch(login({access:true})))
 
       localStorage.setItem("loggedAppUser", JSON.stringify(userLogin.data));
 
       setUser(userLogin.data);
       setUserCredentials({ email: "", password: "" });
       setErrorMessage("");
+     
 
-
-      // navegate("/home");
+      navegate("/home");
     } catch (error) {
       console.log(error);
       setErrorMessage("Email o password Wrong!");
