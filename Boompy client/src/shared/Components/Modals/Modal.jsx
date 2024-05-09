@@ -12,7 +12,7 @@ import axios from 'axios';
 import { useSelector,useDispatch } from "react-redux"
 import {completeInfo} from '../../../Redux/authSlice'
 
-
+import ImageFileUpload from '../ImageUpload/ImageFileUpdload'
 
 
 
@@ -90,9 +90,17 @@ const handleChange = (event) => {
             <MainText>{title}</MainText>
             <ContainerIn>
                 <Span>Upload Your Picture</Span>
-                <div style={{width:'30px',height:'30px',border:'1px solid #390099',borderRadius:'10%'}}>
-                    <Img src="https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg" alt="imgDefault" />
-                </div>
+               
+                  <ImageFileUpload
+                   id="profile_image"
+                   text="Profile Photo"
+                   accept="image/png,image/jpeg"
+                   name="profile_image"
+                   
+                   onChange={(fileUrl) =>
+                     setFormValues({ ...formValues, pictureUrl: fileUrl })
+                   }/>
+               
            
                 
             </ContainerIn>
