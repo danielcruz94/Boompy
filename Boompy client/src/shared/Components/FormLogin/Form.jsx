@@ -50,25 +50,16 @@ console.log(auth)
     e.preventDefault();
 
     try {
-
-
       const userLogin = await axios.post(
         "http://localhost:3001/api/login",
         userCredentials
       );
 
-      
-
-
-
-
-
-     
-
-     
+      const stringifiedUserData = JSON.stringify(userLogin.data);
+    window.localStorage.setItem('userData',stringifiedUserData)
       setUserCredentials({ email: "", password: "" });
       setErrorMessage("");
-      dispatch(login(userLogin.data))
+      dispatch(login(userLogin.data));
       navegate("/home");
     } catch (error) {
       console.log(error);

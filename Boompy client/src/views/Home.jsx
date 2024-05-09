@@ -35,20 +35,44 @@ const Home = () => {
 
   //
 
-  console.log(auth);
+  useEffect(() => {
+
+    const storedValue = window.localStorage.getItem('userData')
+    if(storedValue){
+      const parsedUserData = JSON.parse(storedValue);
+      
+      setLocalUser({email:parsedUserData.email,name:parsedUserData.name,token:parsedUserData.token})
+      
+    };
+    // Effect code to run only once
+  }, []);
+
+  console.log(auth)
 
   useEffect(() => {
+
+  
     const getData = async () => {
+     
+
       try {
         const res = await axios("http://localhost:3001/api/users");
         dispatch(fetchUsers(res.data));
-         
-        const prueba = await axios("http://localhost:3001/api/userdata?email=daniel94cruz@gmail.com")
-        console.log(prueba.data)
-        if(prueba.data.completeInfo===true){
-          dispatch(completeInfo())
+
+        if(localUser){
+          const prueba = await axios.get(`http://localhost:3001/api/userdata?email=${localUser.email}`)
+      
+          if(prueba.data.completeInfo===true){
+            dispatch(completeInfo())
+          }
+          setIsLoading(false)
         }
-        setIsLoading(false)
+         
+       
+          
+   
+        
+       
 
       } catch (error) {
         console.log(error);
@@ -56,7 +80,7 @@ const Home = () => {
     };
 
     getData();
-  }, [dispatch]);
+  }, [dispatch,localUser]);
 
   //fucntions
 

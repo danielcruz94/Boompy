@@ -16,6 +16,7 @@ const NavBar=({textBotton,onClick,userInfo}) => {
     
     return (
         
+        
             <ContainerBar >
                 <Image>
                 <img src={Header} alt="logo" />
