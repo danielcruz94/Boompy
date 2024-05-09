@@ -24,7 +24,7 @@ const Home = () => {
   const navegate = useNavigate();
 
   //locals Variable
-  
+
   const [isLoading, setIsLoading] = useState(true); // Estado de carga inicial
 
   const [localUser, setLocalUser] = useState({
@@ -36,51 +36,42 @@ const Home = () => {
   //
 
   useEffect(() => {
-
-    const storedValue = window.localStorage.getItem('userData')
-    if(storedValue){
+    const storedValue = window.localStorage.getItem("userData");
+    if (storedValue) {
       const parsedUserData = JSON.parse(storedValue);
-      
-      setLocalUser({email:parsedUserData.email,name:parsedUserData.name,token:parsedUserData.token})
-      
-    };
+
+      setLocalUser({
+        email: parsedUserData.email,
+        name: parsedUserData.name,
+        token: parsedUserData.token,
+      });
+    }
     // Effect code to run only once
   }, []);
 
-  console.log(auth)
-
   useEffect(() => {
-
-  
     const getData = async () => {
-     
-
       try {
         const res = await axios("http://localhost:3001/api/users");
         dispatch(fetchUsers(res.data));
 
-        if(localUser){
-          const prueba = await axios.get(`http://localhost:3001/api/userdata?email=${localUser.email}`)
-      
-          if(prueba.data.completeInfo===true){
-            dispatch(completeInfo())
-          }
-          setIsLoading(false)
-        }
-         
-       
-          
-   
-        
-       
+        if (localUser.email) {
+          const prueba = await axios.get(
+            `http://localhost:3001/api/userdata?email=${localUser.email}`
+          );
 
+          if (prueba.data.completeInfo === true) {
+            dispatch(completeInfo());
+          }
+          setIsLoading(false);
+        }
       } catch (error) {
         console.log(error);
       }
     };
 
     getData();
-  }, [dispatch,localUser]);
+  }, [dispatch, localUser]);
 
   //fucntions
 
@@ -113,7 +104,9 @@ const Home = () => {
 
       <ContainerProfile>
         {isLoading && <Loader />}
-        {!auth.infoComplete&!isLoading&&<Modal title={"Complete Your Information"} ></Modal> }
+        {!auth.infoComplete && !isLoading && (
+          <Modal title={"Complete Your Information"}></Modal>
+        )}
 
         {users.map((user) => (
           <CardProfile
@@ -124,6 +117,7 @@ const Home = () => {
             goal={user.goal}
           ></CardProfile>
         ))}
+
       </ContainerProfile>
 
       <br />

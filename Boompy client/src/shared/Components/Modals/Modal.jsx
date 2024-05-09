@@ -75,7 +75,7 @@ const handleChange = (event) => {
 
           alert("se actualizo la info")
         dispatch(completeInfo())
-        setIsVisible(false)
+        // setIsVisible(false)
 
         
     } catch (error) {
