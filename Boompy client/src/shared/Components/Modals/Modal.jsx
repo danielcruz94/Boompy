@@ -9,7 +9,8 @@ import {Container,
 import React,{useState} from 'react';
 import axios from 'axios';
 
-
+import { useSelector,useDispatch } from "react-redux"
+import {completeInfo} from '../../../Redux/authSlice'
 
 
 
@@ -17,7 +18,8 @@ import axios from 'axios';
 
 const Modal=({title}) => {
 
-    
+    const auth=useSelector((state)=>state.auth);
+    const dispatch=useDispatch();
 
     const roles=[{value:'student',label:"Student"},
     {value:'tutor',label:"Tutor"}];
@@ -27,7 +29,10 @@ const Modal=({title}) => {
         {value:'english',label:"English"}
 ]
 
-const [settingRole,setSettingRole]=useState("");
+
+
+
+
 
 
 const [settingInformation,setsettingInformation]=useState({
@@ -53,12 +58,12 @@ const handleChange = (event) => {
 
 
   const handleSummit =async(e) => {
-    
+  
 
     try {
         e.preventDefault();
 
-        const email = 'daniel94cruz@gmail.com';
+        const email =auth.user.email;
         const dataToSend = {
             email, // Add email to the data
             ...settingInformation,
@@ -69,7 +74,8 @@ const handleChange = (event) => {
             "http://localhost:3001/api/userinformation",dataToSend );
 
           alert("se actualizo la info")
-       
+        dispatch(completeInfo())
+
 
         
     } catch (error) {

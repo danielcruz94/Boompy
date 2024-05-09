@@ -9,12 +9,15 @@ import { useSelector,useDispatch } from "react-redux"
 import {login} from '../../../Redux/authSlice'
 
 const Form = () => {
+  const auth=useSelector((state)=>state.auth);
 
   const [userCredentials, setUserCredentials] = useState({
     email: '',
     password: '',
   
   });
+
+  
 
   const [user,setUser]=useState('');
 
@@ -28,13 +31,9 @@ const Form = () => {
 
   const { email, password} = userCredentials;
 
-// useEffect(()=>{
-//  const loggedUserJSON=window.localStorage.getItem('loggedAppUser')
-//  if(loggedUserJSON){
-//   const user=JSON.parse(loggedUserJSON);
-//   setUser(user)
-//  }
-// },[])
+
+console.log(auth)
+
 
 
 
@@ -64,13 +63,14 @@ const Form = () => {
 
       // console.log(dispatch(login({access:true})))
 
-      localStorage.setItem("loggedAppUser", JSON.stringify(userLogin.data));
+     
 
       setUser(userLogin.data);
       setUserCredentials({ email: "", password: "" });
       setErrorMessage("");
-     
-
+      dispatch(login(userLogin.data))
+      localStorage.setItem("loggedAppUser", JSON.stringify(userLogin.data));
+    
       navegate("/home");
     } catch (error) {
       console.log(error);

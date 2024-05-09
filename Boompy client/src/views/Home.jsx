@@ -12,6 +12,7 @@ import axios from 'axios'
 import {fetchUsers} from '../Redux/usersSlice'
 import Modal from "../shared/Components/Modals/Modal"
 import { useNavigate} from 'react-router-dom';
+import {login,completeInfo} from '../Redux/authSlice'
 
 
 const Home=() => {
@@ -23,11 +24,47 @@ const Home=() => {
 
 //locals Variable
 
-const [access,setAccess]=useState(false);
-const [isComplete,setIsComplete]=useState(false)
+
+const [localUser,setLocalUser]=useState({
+  email:"",
+  token:"",
+  name:""})
+
+
 // 
 
 //useEffects
+
+
+
+
+
+
+
+
+
+useEffect(()=>{
+  
+  const loggedUserJSON=window.localStorage.getItem('loggedAppUser')
+  if(loggedUserJSON){
+   const user=JSON.parse(loggedUserJSON);
+   setLocalUser({email:user.email,
+    token:user.token,
+    name:user.name})
+
+   
+   
+ 
+
+    
+
+
+  
+  
+  }
+ },[dispatch])
+
+
 
 // useEffect(() => { 
   
@@ -38,16 +75,15 @@ const [isComplete,setIsComplete]=useState(false)
 // }, [access]);
 
 
+console.log(auth)
 
 
 
-useEffect(()=>{
-  const loggedUserJSON=window.localStorage.getItem('loggedAppUser')
-  if(loggedUserJSON){
-   const user=JSON.parse(loggedUserJSON);
-   setIsComplete(user.completeInfo)
-  }
- },[isComplete])
+
+
+
+
+
 
 
 
@@ -57,13 +93,23 @@ useEffect(()=>{
       try {
         const res= await axios('http://localhost:3001/api/users')
         dispatch(fetchUsers(res.data))
-      
+     
+        const activeUser=res.data.filter((usuario) =>usuario.email==="daniel94cruz@gmail.com")
+        console.log(activeUser)
+        if(activeUser[0]?.completeInfo===true){
+          dispatch(completeInfo())
+        }
+        
+        
+     
       } catch (error) {
         console.log(error)
         
       }
     }
+   
     getData()
+   
 
 
   },[dispatch]);
@@ -91,7 +137,7 @@ useEffect(()=>{
     <Container>
     <Headings>
     </Headings>
-    <NavBar textBotton={"Logout"} onClick={handleLogout}>
+    <NavBar textBotton={"Logout"} onClick={handleLogout} userInfo={localUser}>
 
     </NavBar>
     <ContainerTitle>
@@ -100,11 +146,11 @@ useEffect(()=>{
         </ContainerTitle>
 
     <ContainerProfile>
-    {!isComplete&&<Modal title={"Complete Your Information"} ></Modal>}
+    {!auth.infoComplete&&<Modal title={"Complete Your Information"} ></Modal>}
     
     
    
-    {users.map((user) => <CardProfile key={user.id}name={user.name} picture={user.picture}></CardProfile>)}
+    {users.map((user) => <CardProfile key={user.id}name={user.name} picture={user.picture} price={user.price} goal={user.goal}></CardProfile>)}
     
     
     </ContainerProfile>

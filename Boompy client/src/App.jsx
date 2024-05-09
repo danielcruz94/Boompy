@@ -29,6 +29,8 @@ function App() {
       <Route path='/tutors' element={<Teach />} />
       <Route path='/calls' element={<Calls />} />
       <Route path='*' element={<Error />} />
+      {/* <PrivateRoute path="/home" component={<Home></Home>}  /> */}
+
     </Routes>
   )
 }
