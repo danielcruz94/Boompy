@@ -1,3 +1,4 @@
+// LlamadaComponent.js
 import React, { useState, useEffect } from 'react';
 import { peer } from './WebRTCManager';
 
@@ -5,6 +6,37 @@ const LlamadaComponent = ({ isCameraOn, setIsCameraOn }) => {
     const [idDestino, setIdDestino] = useState('');
     const [stream, setStream] = useState(null);
     const [llamadaRealizada, setLlamadaRealizada] = useState(false);
+
+    useEffect(() => {
+        // Configurar la lógica para escuchar eventos de llamada entrante
+        const handleIncomingCall = (incomingCall) => {
+            // Obtener el stream local
+            navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+            .then(localStream => {
+                // Mostrar el stream local si es necesario
+                // Establecer el stream local en la conexión
+                incomingCall.answer(localStream)
+                .then(() => {
+                    // Establecer la descripción local de la respuesta
+                    return incomingCall.setLocalDescription(incomingCall.localDescription);
+                })
+                .catch(error => {
+                    console.error('Error al establecer la descripción local:', error);
+                });
+            })
+            .catch(error => {
+                console.error('Error al obtener el stream local:', error);
+            });
+        };
+
+        // Suscribirse al evento de llamada entrante
+        peer.on('call', handleIncomingCall);
+
+        // Limpiar al desmontar el componente
+        return () => {
+            peer.off('call', handleIncomingCall);
+        };
+    }, []);
 
     const iniciarLlamada = async () => {
         try {
