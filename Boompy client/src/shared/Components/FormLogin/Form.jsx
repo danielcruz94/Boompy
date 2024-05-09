@@ -19,7 +19,7 @@ const Form = () => {
 
   
 
-  const [user,setUser]=useState('');
+
 
   const [errorMessage,setErrorMessage]=useState('')
 
@@ -61,16 +61,14 @@ console.log(auth)
 
 
 
-      // console.log(dispatch(login({access:true})))
+
 
      
 
-      setUser(userLogin.data);
+     
       setUserCredentials({ email: "", password: "" });
       setErrorMessage("");
       dispatch(login(userLogin.data))
-      localStorage.setItem("loggedAppUser", JSON.stringify(userLogin.data));
-    
       navegate("/home");
     } catch (error) {
       console.log(error);

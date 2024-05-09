@@ -19,6 +19,8 @@ function Landing() {
 
   const navegate =useNavigate()
 
+  
+
   useEffect(() => {
     // Función para cargar el primer JSON
     const fetchCarouselData1 = async () => {
