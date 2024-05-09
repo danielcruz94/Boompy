@@ -22,18 +22,6 @@
     padding: 20px;
 }
 
-.Video {
-    width: 70%;
-    display: flex;
-    align-items: center; /* Centra verticalmente */
-    justify-content: center; /* Centra horizontalmente */
-    height: var(--tamano-alto-div);
-    border: 17px solid rgb(255, 255, 255);
-    border-radius: 20px;
-    border: 1px solid black;
-    background: var(--color-primario);  
-}
-
 
 .InfoCall {
     display: flex;
@@ -54,7 +42,7 @@
     margin: 5px 0px 0px 0px;
 }
 
-.DivCall {
+.Video_saliente {
     display: flex;
     align-items: center; /* Centra verticalmente */
     justify-content: center; /* Centra horizontalmente */
@@ -66,13 +54,27 @@
 }
 
 
-.VideoCall{
+.Video_Entrante {
+    width: 70%;
+    height: auto; /* Altura automática para ajustarse al contenido */
+    display: flex;
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
     border-radius: 20px;
-    width: 100%;
-    height: 100%;
-    border: 10px solid black;
-    transform: scaleX(-1);
+    border: 1px solid black;
+    background: var(--color-primario);  
+    overflow: hidden; /* Para asegurar que el contenido no desborde el contenedor */
+    position: relative; /* Añadido para manejar el tamaño del video */
 }
+
+.VideoCall {
+    width: 100%;
+    height: auto; /* Altura automática para ajustarse al contenido */
+    border-radius: 20px;
+    transform: scaleX(-1);
+    
+}
+
 
 .container {
     display: flex;
