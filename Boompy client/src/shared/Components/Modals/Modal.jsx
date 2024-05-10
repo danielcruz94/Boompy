@@ -97,9 +97,10 @@ const handleChange = (event) => {
                    accept="image/png,image/jpeg"
                    name="profile_image"
                    
-                   onChange={(fileUrl) =>
-                     setFormValues({ ...formValues, pictureUrl: fileUrl })
-                   }/>
+                //    onChange={(fileUrl) =>
+                //      setFormValues({ ...formValues, pictureUrl: fileUrl })
+                //    }
+                   />
                
            
                 

@@ -15,12 +15,12 @@ const ImageFileUpload = ({ id, text, onChange, description, ...props }) => {
       const files = e.target.files;
       const data = new FormData();
       data.append('file', files[0]);
-      data.append('upload_preset', 'myreactapp');
+      data.append('upload_preset', 'ih5terca');
 
       setIsLoading(true);
 
       const res = await fetch(
-        'https://api.cloudinary.com/v1_1/thaskify/image/upload',
+        'https://api.cloudinary.com/v1_1/danielcruz/image/upload',
         {
           method: 'POST',
           body: data,
@@ -28,8 +28,8 @@ const ImageFileUpload = ({ id, text, onChange, description, ...props }) => {
       );
       const file = await res.json();
       const fileUrl = file.secure_url;
-
-      onChange(fileUrl);
+      console.log(file)
+      // onChange(fileUrl);
 
       setIsLoading(false);
     } catch (err) {
