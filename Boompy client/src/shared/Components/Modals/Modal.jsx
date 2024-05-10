@@ -40,13 +40,14 @@ const [settingInformation,setsettingInformation]=useState({
     language:"",
     goal:"",
     price:"",
-    instagram:""
+    instagram:"",
+    picture:""
 
     
 });
 
 
-
+console.log(settingInformation)
 
 
 
@@ -97,9 +98,9 @@ const handleChange = (event) => {
                    accept="image/png,image/jpeg"
                    name="profile_image"
                    
-                //    onChange={(fileUrl) =>
-                //      setFormValues({ ...formValues, pictureUrl: fileUrl })
-                //    }
+                   onChange={(fileUrl) =>
+                    setsettingInformation({ ...settingInformation, picture: fileUrl })
+                   }
                    />
                
            

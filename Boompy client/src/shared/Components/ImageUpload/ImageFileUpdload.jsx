@@ -28,8 +28,8 @@ const ImageFileUpload = ({ id, text, onChange, description, ...props }) => {
       );
       const file = await res.json();
       const fileUrl = file.secure_url;
-      console.log(file)
-      // onChange(fileUrl);
+      
+      onChange(fileUrl);
 
       setIsLoading(false);
     } catch (err) {
