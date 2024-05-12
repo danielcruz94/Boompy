@@ -21,6 +21,7 @@ const Teach = () => {
 React.useEffect(()=>{
     axios(`http://localhost:3001/api/user/${params.id}`)
     .then(({ data }) => {
+        console.log(data)
         if (data.name) {
            
             setTutor(data)
@@ -153,7 +154,7 @@ React.useEffect(()=>{
                     <div className="course-offer">
                         <div>
                             <p>This Course Fee:</p>
-                            <p>$18.00</p>
+                            <p>${tutor.price}</p>
                         </div>
                         <ul className="course-includes">
                             <li><strong>Course Includes</strong></li>
