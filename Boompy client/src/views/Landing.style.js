@@ -15,11 +15,14 @@ export const ContainerBar = styled.div`
   width: 100vw;
   height: 100%;
   display: flex;
-
-justify-content:space-around;
-align-items:center;
+  margin: 10px 0px;
+  justify-content:space-around;
+  align-items:center;
  
-
+@media (max-width: 600px) {
+  flex-direction: column;
+  padding: 10px 0px;
+}
   
 
   
@@ -65,6 +68,10 @@ height:35px;
 justify-content:center;
 align-items:center;
 
+@media (max-width: 600px) {
+  width: 95%;
+  margin: 10px 0px;
+}
 
 `;
 
@@ -78,8 +85,13 @@ margin-right:10px;
   border:none;
   color: ${color.primary};
   width: 200px;
+  background: white;
  
   top: 0;
+
+  @media (max-width: 600px) {
+    width: 50%;
+  }
 
   &:active {
     position: relative;
