@@ -107,7 +107,7 @@ const Home = () => {
         {!auth.infoComplete && !isLoading && (
           <Modal title={"Complete Your Information"}></Modal>
         )}
-
+       
         {users.map((user) => (
           <CardProfile
             key={user.id}
@@ -115,6 +115,7 @@ const Home = () => {
             picture={user.picture}
             price={user.price}
             goal={user.goal}
+            id={user.id}
           ></CardProfile>
         ))}
 
