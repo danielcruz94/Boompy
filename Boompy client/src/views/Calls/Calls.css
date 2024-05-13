@@ -13,6 +13,7 @@
 .full_screen{
     background: white;
     width: 100vw;
+    height: 100%;
 }
 
 .contenPantalla {
@@ -29,7 +30,7 @@
     height: var(--tamano-alto-div);
     padding: 0px 10px;
     width: 371px;
-    height: 537px;
+   
 }
 
 .DivUser{    
@@ -43,6 +44,7 @@
 }
 
 .Video_saliente {
+    position: relative;
     display: flex;
     align-items: center; /* Centra verticalmente */
     justify-content: center; /* Centra horizontalmente */
@@ -50,11 +52,13 @@
     background: var(--color-primario);
     border-radius: 20px;
     margin: 0px 0px 5px 0px;
+    overflow: hidden;
     border: 1px solid black;
 }
 
 
 .Video_Entrante {
+    position: relative;
     width: 70%;
     height: auto; /* Altura automática para ajustarse al contenido */
     display: flex;
@@ -64,12 +68,16 @@
     border: 1px solid black;
     background: var(--color-primario);  
     overflow: hidden; /* Para asegurar que el contenido no desborde el contenedor */
-    position: relative; /* Añadido para manejar el tamaño del video */
+    
 }
 
 .VideoCall {
     width: 100%;
-    height: auto; /* Altura automática para ajustarse al contenido */
+    height: 100%;
+    object-fit: cover; 
+    position: absolute;
+    top: 0;
+    left: 0;
     border-radius: 20px;
     transform: scaleX(-1);
     
@@ -82,6 +90,7 @@
     align-items: center;
     flex-direction: column;
     height: 50%;
+    z-index: 1;
 }
 
 .video-call-icons {
@@ -92,8 +101,7 @@
 .icon-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
-    background: rgba(7, 7, 137, 0.789);
+    align-items: center;    
     color: white;
     margin: 10px;
     height: 60px;
@@ -113,4 +121,126 @@
 
 .no-video-icon{
    color: white;
+   position: absolute;
+}
+
+.on{
+   background: green;
+}
+
+.off{
+    background: red;
+}
+
+.no-audio-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1; /* Ajusta el índice z para que esté encima del video */
+  }
+
+
+  .incoming-audio-icon {
+    position: absolute;
+    bottom: 10px; /* Distancia desde la parte inferior */
+    right: 10px; /* Distancia desde la parte derecha */
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    color: white;
+    height: 60px;
+    width: 60px;
+    font-size: 20px;
+    border-radius: 100%;
+    cursor:auto;   
+}
+
+.custom-container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background: #00000080;
+    padding: 5px;
+    margin-top: 53%;
+}
+
+  .nombre-recibido {
+    margin-right: 10px;
+    text-align: center;
+    width: 100%;
+    color: wheat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+
+.ico2{
+    font-size: 30px;
+}
+
+.custom-icon2{
+    margin-right: 20px;
+}
+
+.custom-icon2.green {
+  color: green; /* Color verde cuando el audio está activo */
+}
+
+.custom-icon2.red {
+  color: red; /* Color rojo cuando el audio está desactivado */
+}
+
+.custom-icon i {
+  font-size: 20px;
+  color: white;
+}
+
+
+
+@media screen and (max-width: 600px) {
+
+    .contenPantalla {
+        display: flex;
+        justify-content: center; 
+        align-items: center; 
+        flex-direction: column;
+        padding: 0px 20px;
+        height: 90%;
+    }
+
+    .InfoCall {      
+        display: block;
+        width: 100%;     
+        padding: 0px;  
+        height: auto;
+    }
+
+    .Video_saliente,
+    .Video_Entrante {
+        width: 100%;
+        height: 80vw;
+        margin-top: 15px;        
+    }
+
+    .container {
+        height: auto;
+        margin-top: 20px;
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .video-call-icons {
+        display: flex;
+        margin-bottom: 15px;       
+        width: 100%;
+    }
+
+    .icon-wrapper {      
+        height: 40px;
+        width: 40px;
+       
+    }
 }

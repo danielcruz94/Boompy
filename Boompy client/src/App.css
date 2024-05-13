@@ -11,6 +11,10 @@
 
 /*NUEVA CSS*/
 
+body{
+  min-width: 320px;
+}
+
 .exRRDa {
   padding: 15px; 
 }
@@ -33,4 +37,27 @@
 .hOedpm { 
   text-align: center;
   font-weight: 700;
+}
+
+
+@media screen and (max-width: 600px) {
+  .fGRSKu > div{
+    margin: 3px 0px;
+  }
+
+  
+  .cxQmuk {
+    margin: 50px 20px;
+    flex-direction: column;   
+  }
+
+  .geBATz {
+    width: 100%;
+  }
+
+  .eaGAUE {   
+    flex-direction: column;
+  }
+
+ 
 }
