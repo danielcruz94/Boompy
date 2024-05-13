@@ -76,7 +76,7 @@ const Home = () => {
   //fucntions
 
   const handleLogout = () => {
-    window.localStorage.removeItem("loggedAppUser");
+    window.localStorage.removeItem("userData");
     navegate("/");
   };
 
