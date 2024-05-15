@@ -47,7 +47,7 @@ const [settingInformation,setsettingInformation]=useState({
 });
 
 
-console.log(settingInformation)
+
 
 
 
