@@ -32,7 +32,6 @@ const Form = () => {
   const { email, password} = userCredentials;
 
 
-console.log(auth)
 
 
 

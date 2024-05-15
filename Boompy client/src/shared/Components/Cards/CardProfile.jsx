@@ -4,12 +4,16 @@ import {ContainerProfile,
     ContenedorCard
 } from "./Cards.style"
 
+import SmallImage from "./TinyImages/SmallImage"
 
-const CardProfile=({name,id,picture,price,goal}) => {
+
+const CardProfile=({name,id,picture,price,goal,onMouseEnter,onMouseLeave,showTinyImg}) => {
     return (
        <ContenedorCard >
+        {showTinyImg&& <SmallImage></SmallImage>}
+       
             <MainPhoto>
-                <Link to={`/tutor/${id}`}>
+                <Link to={`/tutor/${id}`} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                 <img src={picture} alt="mainPhoto"  style={{width:'150px',height:'150px',borderRadius:'50%'}}/>
                 </Link>
             

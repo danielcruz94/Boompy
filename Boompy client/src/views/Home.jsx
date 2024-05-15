@@ -33,6 +33,25 @@ const Home = () => {
     name: "",
   });
 
+  const [showTinyImg, setShowTinyImg] = useState(false); // Estado para cada tarjeta
+
+  const handleMouseEnter = (idUser) => {
+
+    setTimeout(() => {
+      setShowTinyImg(idUser);
+    }, 100);
+   
+     // Establece la ID de la tarjeta sobre la que se pasa el mouse
+  };
+
+  const handleMouseLeave = () => {
+    setTimeout(() => {
+      setShowTinyImg(false);
+    }, 100);
+    ; // Reinicia al salir del mouse
+  };
+
+
   //
 
   useEffect(() => {
@@ -80,6 +99,10 @@ const Home = () => {
     navegate("/");
   };
 
+
+
+ 
+
   return (
     <Container>
       <Headings></Headings>
@@ -102,7 +125,7 @@ const Home = () => {
         </h3>
       </ContainerTitle>
 
-      <ContainerProfile>
+      <ContainerProfile >
         {isLoading && <Loader />}
         {!auth.infoComplete && !isLoading && (
           <Modal title={"Complete Your Information"}></Modal>
@@ -116,8 +139,18 @@ const Home = () => {
             price={user.price}
             goal={user.goal}
             id={user.id}
-          ></CardProfile>
-        ))}
+            onMouseEnter={() => handleMouseEnter(user.id)} // Pasar ID de la tarjeta al entrar
+            onMouseLeave={handleMouseLeave}
+            showTinyImg={showTinyImg === user.id} ></CardProfile>
+          
+        ))};
+
+
+       
+
+      
+
+
 
       </ContainerProfile>
 
