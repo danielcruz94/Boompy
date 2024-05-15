@@ -1,2 +1,2 @@
-# Boompy
+# Torii
 Personal Project
