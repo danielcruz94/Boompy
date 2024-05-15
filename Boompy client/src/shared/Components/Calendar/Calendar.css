@@ -1,0 +1,147 @@
+/* Calendar.css */
+
+.react-calendar-container {
+    max-width: 80%;
+    width: 300px; /* Tamaño predeterminado */
+    height: auto; /* Esto permite que el calendario sea más grande y se adapte al contenido */
+    overflow: auto; /* Añadimos desplazamiento en dispositivos móviles si el calendario es demasiado grande */
+    display: flex;
+    justify-content: center; /* Centra el calendario horizontalmente */
+  }
+  
+  .react-calendar {
+    width: 100%; /* Hacemos que el calendario ocupe todo el ancho disponible */
+    max-width: none; /* Deshabilitamos el ancho máximo para que el calendario sea más grande */
+    background: #81a6f0;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  .react-calendar__tile {
+    padding: 1em; /* Aumentamos el espacio alrededor de cada día */
+    background: transparent;
+    border: none;
+    text-align: center; /* Centra el contenido horizontalmente */
+  }
+  
+  .react-calendar__tile--active {
+    background: #c3e6cb; /* Verde claro para fechas disponibles */
+    color: #000; /* Texto en negro */
+  }
+  
+  .react-calendar__tile--now {
+    background: #f8d7da; /* Rojo claro para fechas no disponibles */
+    color: #000; /* Texto en negro */
+  }
+  
+  .react-calendar__tile--now:enabled:hover {
+    background: #f8d7da; /* Rojo claro para fechas no disponibles */
+  }
+  
+  .react-calendar__tile--hasActive:enabled:hover {
+    background: #c3e6cb; /* Verde claro para fechas disponibles */
+  }
+  
+  .react-calendar__tile--active:enabled:hover,
+  .react-calendar__tile--active:focus {
+    background: #a1c9ab; /* Verde oscuro para fechas activas */
+  }
+  
+  .react-calendar__tile--active:enabled:hover {
+    color: #000; /* Texto en negro */
+  }
+  
+  .react-calendar__navigation {
+    height: 44px;
+    margin-bottom: 1em;
+  }
+  
+  .react-calendar__navigation button {
+    min-width: 44px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .react-calendar__navigation button:enabled:hover,
+  .react-calendar__navigation button:enabled:focus {
+    background: #e0e0e0;
+  }
+  
+  .react-calendar__navigation button:enabled:active {
+    background: #d4d4d4;
+  }
+
+  body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__navigation > button.react-calendar__navigation__label > span{
+    color: #000;
+  }
+
+  
+  
+  button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #1e40db;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    color: white;
+    margin: 0px 10px;
+}
+
+body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__navigation > button.react-calendar__navigation__arrow.react-calendar__navigation__prev2-button,
+body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__navigation > button.react-calendar__navigation__arrow.react-calendar__navigation__prev-button,
+body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__navigation > button.react-calendar__navigation__arrow.react-calendar__navigation__next-button,
+body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__navigation > button.react-calendar__navigation__arrow.react-calendar__navigation__next2-button{
+    color: #000;
+    font-size: 30px;
+    margin: 0px;
+    padding: 0px;
+}
+
+body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > button > abbr{
+    color: black;
+    border: none;
+}
+
+body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > button{
+    color: #000;
+}
+
+body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__weekdays > div{
+    color: black;
+    border-bottom: 1px solid black;;
+    display: flex;
+    justify-content: center;
+    align-items: center;     
+}
+
+body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__weekdays > div > abbr{
+    text-decoration: none;
+}
+
+
+body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__days > button{
+    border: 1px solid black;
+    margin: 0px;
+    border-radius: 0px;
+    color: black;
+}
+
+body > div.ReactModalPortal > div > div > select{
+    background: white;
+    color: black;
+    margin: 10px 0px;
+    width: 50%;
+    padding: 5px;
+    font-weight: 600;
+}
+
+#root > div > div.InfTeach > div:nth-child(1) > div.profile-container > div.profile-info > div.social-icons > div:nth-child(4) > button,
+body > div.ReactModalPortal > div > div > div:nth-child(4) > button{
+    background: #1e40db;
+}

@@ -19,6 +19,7 @@ const Calls = () => {
   const [videoRecibido, setVideoRecibido] = useState(true);
   const [audioRecibido, setAudioRecibido] = useState(true);
   const [nombreRecibido, setNombreRecibido] = useState("Nombre de usuario");
+  const [callDuration, setCallDuration] = useState(0);
 
   const [ID, setID] = useState("079bb6e7-1421-4a4c-acd5-3239924be8e8");
   const [idOtroUsuario, setIdOtroUsuario] = useState(false);
@@ -233,6 +234,57 @@ const Calls = () => {
     window.location.href = "https://www.google.com"; // Redirigir a google.com después de colgar la llamada
   };
 
+  const notificacionLlamada = () => {
+    if (callInProgress) {
+      setCallDuration((prevDuration) => {
+        if (prevDuration >= 10) {
+          document.querySelector(".call-timer").classList.add("red");
+        }
+  
+        if (prevDuration >= 600) {
+          finalizarLlamada();
+        }
+  
+        return prevDuration + 1;
+      });
+    }
+  };
+  
+
+  const finalizarLlamada = () => {
+    console.log("Función finalizar Llamada");
+    endCall();
+  };
+
+  useEffect(() => {
+    const timer = setInterval(notificacionLlamada, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const renderCallTimer = () => {
+    const hours = Math.floor(callDuration / 3600);
+    const minutes = Math.floor((callDuration % 3600) / 60);
+    const seconds = callDuration % 60;
+
+    if (hours > 0) {
+      return (
+        <div className="call-timer">
+          {hours.toString().padStart(2, "0")}:
+          {minutes.toString().padStart(2, "0")}:
+          {seconds.toString().padStart(2, "0")}
+        </div>
+      );
+    } else {
+      return (
+        <div className="call-timer">
+          {minutes.toString().padStart(2, "0")}:
+          {seconds.toString().padStart(2, "0")}
+        </div>
+      );
+    }
+  };
+
   return (
     <div className="ContenCall">
       <Headings />
@@ -296,7 +348,7 @@ const Calls = () => {
                 <i className="fas fa-video-slash custom-icon no-video-icon"></i>
               )}
             </div>
-
+            {callInProgress && renderCallTimer()}
             <div className="container">
               <div className="video-call-icons">
                 <div

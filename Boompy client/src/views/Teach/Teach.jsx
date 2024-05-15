@@ -5,6 +5,7 @@ import {Headings} from '../Landing.style'
 import NavBar from '../../shared/NavBar/NavBar';
 import { useParams } from "react-router-dom";
 import axios from 'axios'
+import FloatingCalendar from '../../shared/Components/Calendar/Calendar';
 
 const Teach = () => {
 
@@ -78,7 +79,7 @@ React.useEffect(()=>{
                                     <a href="#" className="social-icon"><i className="fab fa-linkedin-in icon"></i></a>
                                 </div>
 
-
+                                <FloatingCalendar />
                             </div>
                         </div>
                     </div>
