@@ -83,6 +83,13 @@
     
 }
 
+.call-timer{
+    font-weight: 700;
+}
+
+.red{
+    color: red;
+}
 
 .container {
     display: flex;

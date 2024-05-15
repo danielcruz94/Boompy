@@ -3,6 +3,7 @@ import Footer from '../../shared/Components/Footer/Footer';
 import './Teach.css'; // Importa el archivo CSS personalizado
 import {Headings} from '../Landing.style'
 import NavBar from '../../shared/NavBar/NavBar';
+import FloatingCalendar from '../../shared/Components/Calendar/Calendar';
 
 const Teach = () => {
 
@@ -56,7 +57,7 @@ const Teach = () => {
                                     <a href="#" className="social-icon"><i className="fab fa-linkedin-in icon"></i></a>
                                 </div>
 
-
+                                <FloatingCalendar />
                             </div>
                         </div>
                     </div>
