@@ -140,8 +140,9 @@ const Home = () => {
             goal={user.goal}
             id={user.id}
             onMouseEnter={() => handleMouseEnter(user.id)} // Pasar ID de la tarjeta al entrar
-            onMouseLeave={handleMouseLeave}
-            showTinyImg={showTinyImg === user.id} ></CardProfile>
+             onMouseLeave={handleMouseLeave}
+             showTinyImg={showTinyImg === user.id} 
+            > </CardProfile>
           
         ))};
 
