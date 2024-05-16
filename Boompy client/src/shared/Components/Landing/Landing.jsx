@@ -66,7 +66,7 @@ const go=() => {
     <div className="containerHome">
       <Headings>
       </Headings>
-      <NavBar textBotton={"Login"} onClick={go}/>
+      {/* <NavBar textBotton={"Login"} onClick={go}/> */}
     
       {/* Sección 1 */}
       <section className="hero">
