@@ -7,13 +7,14 @@ import { useParams } from "react-router-dom";
 import axios from 'axios'
 
 
+
 const Teach = () => {
 
     const imageUrls = [
         'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
         'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
         'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
-        // Agrega más URLs de imágenes aquí según sea necesario
+        'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
     ];
 
     const [tutor,setTutor]=React.useState({})
