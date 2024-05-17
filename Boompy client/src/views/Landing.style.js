@@ -138,5 +138,18 @@ export const SubHeading = styled.p`
   }
 `;
 
+export const BackgrounModal = styled.div`
+background-color: rgba(0, 0, 0, 0.5); /* Gris semitransparente */
+display:flex;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+justify-content:center;
+align-items:center;
+z-index: 1;
+`;
+
 
 

@@ -1,6 +1,6 @@
 
 import  {useEffect,React,useState}from "react"
-import {Container,Headings,ContainerTitle} from './Landing.style'
+import {Container,Headings,ContainerTitle,BackgrounModal} from './Landing.style'
 import {ContainerProfile} from '../shared/Components/Cards/Cards.style'
 import NavBar from '../shared/NavBar/NavBar'
 import Section from '../../../imagenes/Section.svg'
@@ -128,7 +128,10 @@ const Home = () => {
       <ContainerProfile >
         {isLoading && <Loader />}
         {!auth.infoComplete && !isLoading && (
+          <BackgrounModal>
           <Modal title={"Complete Your Information"}></Modal>
+          </BackgrounModal>
+          
         )}
        
         {users.map((user) => (

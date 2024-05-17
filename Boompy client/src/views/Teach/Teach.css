@@ -90,6 +90,10 @@ p {
     justify-content: flex-start;
 }
 
+.iconos{
+    width: 50px;
+    height: 50px;
+}
 .social-icon-wrapper {
     background: rgb(255, 255, 255);
     margin: 5px;
@@ -102,7 +106,7 @@ p {
 }
 
 .social-icons a {
-    font-size: 12px;
+    font-size: 20px;
     color: rgb(17, 15, 80);
     padding: 10px;    
 }
@@ -391,3 +395,6 @@ li > .Div-li2 {
     }
 
     }
+
+
+   
