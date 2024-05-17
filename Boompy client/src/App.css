@@ -39,6 +39,30 @@ body{
   font-weight: 700;
 }
 
+a{
+  color: #007bff !important;
+}
+
+.eDCvhh,
+.ebCKof,
+.fXtVIN{
+  color:black !important;
+  /*ACA TIPO DE LETRA*/
+}
+
+.WGPET {
+  font-size: 80% !important;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+}
+
+
+
+
+#root > div > form > div > div.sc-dLMFU.cqiehL > div > input[type=checkbox]{
+  background: none !important;
+}
 
 @media screen and (max-width: 600px) {
   .fGRSKu > div{
