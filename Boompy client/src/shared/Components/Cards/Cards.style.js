@@ -1,14 +1,11 @@
 import styled from 'styled-components';
 
-
 export const ContainerProfile = styled.div`
 display: flex;
-margin:10% 10%  100px 10% ;
-// background:blue;
+margin:50px 10%  50px 10%;
+
 flex-wrap: wrap;
 justify-content:center;
-
-
 
 
 
@@ -37,6 +34,8 @@ export const ContenedorCard = styled.div`
 
 display: flex;
 
+margin-top:30px;
+
 
 
 
@@ -45,28 +44,29 @@ display: flex;
   
 `;
 
-// export const ContenedorImg = styled.div`
-
-// display: flex;
-// gap:20px;
+export const MiniImage = styled.div`
 
 
+width:50px;
+height:50px;
+position:absolute;
+border-radius:50%;
 
 
-  
-// `;
 
-// export const ContenedorStores = styled.div`
+`
 
-// display: flex;
-// gap:10px;
-// margin-top:20px;
 
 
 
 
   
-// `;
+;
+
+
+
+
+
 
 
 

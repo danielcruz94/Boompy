@@ -11,15 +11,23 @@ import Header from'../../../../imagenes/Header.svg'
 import Button from '../../../../imagenes/Button.svg'
 import corazon from '../../../../imagenes/corazon.svg'
 import carrito from '../../../../imagenes/carrito.svg'
-const NavBar=({textBotton,onClick}) => {
+import { Link } from 'react-router-dom'
+
+const NavBar=({textBotton,onClick,userInfo}) => {
+
+    
     return (
+        
         
             <ContainerBar >
                 <Image>
                 <img src={Header} alt="logo" />
+                <b><p>{userInfo?.name}</p></b>
                 </Image>
                 <div style={{display:'flex'}}>
+                <Link to={"/home"}>
                 <SubHeading>Home</SubHeading>
+                </Link>
                 <SubHeading>Lenguages</SubHeading>
                 <SubHeading>Calendar</SubHeading>
 

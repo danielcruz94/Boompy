@@ -9,6 +9,7 @@ import { useSelector,useDispatch } from "react-redux"
 import {login} from '../../../Redux/authSlice'
 
 const Form = () => {
+  const auth=useSelector((state)=>state.auth);
 
   const [userCredentials, setUserCredentials] = useState({
     email: '',
@@ -16,25 +17,22 @@ const Form = () => {
   
   });
 
-  const [user,setUser]=useState('');
+  
+
+
 
   const [errorMessage,setErrorMessage]=useState('')
 
   
   const navegate =useNavigate()
 
- 
+ const dispatch=useDispatch()
 
 
   const { email, password} = userCredentials;
 
-// useEffect(()=>{
-//  const loggedUserJSON=window.localStorage.getItem('loggedAppUser')
-//  if(loggedUserJSON){
-//   const user=JSON.parse(loggedUserJSON);
-//   setUser(user)
-//  }
-// },[])
+
+
 
 
 
@@ -56,18 +54,14 @@ const Form = () => {
         userCredentials
       );
 
-      
-
-      localStorage.setItem("loggedAppUser", JSON.stringify(userLogin.data));
-
-      // setAccess(true)
-      setUser(userLogin.data);
+      const stringifiedUserData = JSON.stringify(userLogin.data);
+    window.localStorage.setItem('userData',stringifiedUserData)
       setUserCredentials({ email: "", password: "" });
       setErrorMessage("");
-
+      dispatch(login(userLogin.data));
       navegate("/home");
     } catch (error) {
-      console.log(error)
+      console.log(error);
       setErrorMessage("Email o password Wrong!");
     }
   };

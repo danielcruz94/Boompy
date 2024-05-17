@@ -19,6 +19,8 @@ function Landing() {
 
   const navegate =useNavigate()
 
+  
+
   useEffect(() => {
     // Función para cargar el primer JSON
     const fetchCarouselData1 = async () => {
@@ -64,7 +66,7 @@ const go=() => {
     <div className="containerHome">
       <Headings>
       </Headings>
-      <NavBar textBotton={"Login"} onClick={go}/>
+      {/* <NavBar textBotton={"Login"} onClick={go}/> */}
     
       {/* Sección 1 */}
       <section className="hero">

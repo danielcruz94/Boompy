@@ -3,9 +3,7 @@ import { color } from '../../styles';
 
 
 export const Container = styled.div`
-position:fixed;
-top:70px;
-  margin:0 auto;
+
   width:430px;
   height: 300px;
   display: flex;
@@ -13,7 +11,7 @@ top:70px;
   padding:15px;
 background:#Ede3f1;
 border-Radius:7px;
-
+z-index:111111111;
 
 
  
@@ -62,6 +60,7 @@ padding-Left:10px;
 padding-Right:10px;
 color:#390099;
 height:24px;
+
 
 border-Radius:10px;
 

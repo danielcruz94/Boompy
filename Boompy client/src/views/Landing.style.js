@@ -7,7 +7,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction:column;
   min-height: 800px;
-  
+ 
 
   
 `;
@@ -136,6 +136,19 @@ export const SubHeading = styled.p`
   @media (max-width: 1100px) {
     font-size: 16px;
   }
+`;
+
+export const BackgrounModal = styled.div`
+background-color: rgba(0, 0, 0, 0.5); /* Gris semitransparente */
+display:flex;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+justify-content:center;
+align-items:center;
+z-index: 1;
 `;
 
 

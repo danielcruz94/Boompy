@@ -1,6 +1,6 @@
 
 import  {useEffect,React,useState}from "react"
-import {Container,Headings,ContainerTitle} from './Landing.style'
+import {Container,Headings,ContainerTitle,BackgrounModal} from './Landing.style'
 import {ContainerProfile} from '../shared/Components/Cards/Cards.style'
 import NavBar from '../shared/NavBar/NavBar'
 import Section from '../../../imagenes/Section.svg'
@@ -12,106 +12,157 @@ import axios from 'axios'
 import {fetchUsers} from '../Redux/usersSlice'
 import Modal from "../shared/Components/Modals/Modal"
 import { useNavigate} from 'react-router-dom';
+import {login,completeInfo} from '../Redux/authSlice'
+
+import Loader from "../shared/Components/Loader/Loader"
+
+const Home = () => {
+  const users = useSelector((state) => state.users);
+  const auth = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+  const navegate = useNavigate();
+
+  //locals Variable
+
+  const [isLoading, setIsLoading] = useState(true); // Estado de carga inicial
+
+  const [localUser, setLocalUser] = useState({
+    email: "",
+    token: "",
+    name: "",
+  });
+
+  const [showTinyImg, setShowTinyImg] = useState(false); // Estado para cada tarjeta
+
+  const handleMouseEnter = (idUser) => {
+
+    setTimeout(() => {
+      setShowTinyImg(idUser);
+    }, 100);
+   
+     // Establece la ID de la tarjeta sobre la que se pasa el mouse
+  };
+
+  const handleMouseLeave = () => {
+    setTimeout(() => {
+      setShowTinyImg(false);
+    }, 100);
+    ; // Reinicia al salir del mouse
+  };
 
 
-const Home=() => {
-  const users=useSelector((state)=>state.users);
-  const dispatch=useDispatch();
- 
+  //
 
-  const navegate =useNavigate()
+  useEffect(() => {
+    const storedValue = window.localStorage.getItem("userData");
+    if (storedValue) {
+      const parsedUserData = JSON.parse(storedValue);
 
-
-
-const [access,setAccess]=useState(false);
-const [isComplete,setIsComplete]=useState(false)
-
-useEffect(() => {
-  !access && navegate('/');
-
-
-
-}, [access]);
-
-
-useEffect(()=>{
-  const loggedUserJSON=window.localStorage.getItem('loggedAppUser')
-  if(loggedUserJSON){
-   const user=JSON.parse(loggedUserJSON);
-   setIsComplete(user.completeInfo)
-  }
- },[isComplete])
-
-
-
-
-  useEffect(()=>{
-    const getData=async()=>{
-      try {
-        const res= await axios('http://localhost:3001/api/users')
-        dispatch(fetchUsers(res.data))
-      
-      } catch (error) {
-        console.log(error)
-        
-      }
+      setLocalUser({
+        email: parsedUserData.email,
+        name: parsedUserData.name,
+        token: parsedUserData.token,
+      });
     }
-    getData()
+    // Effect code to run only once
+  }, []);
 
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await axios("http://localhost:3001/api/users");
+        dispatch(fetchUsers(res.data));
 
-  },[dispatch]);
-  
-  const handleLogout=() => {
-   
-    window.localStorage.removeItem('loggedAppUser');
+        if (localUser.email) {
+          const prueba = await axios.get(
+            `http://localhost:3001/api/userdata?email=${localUser.email}`
+          );
+
+          if (prueba.data.completeInfo === true) {
+            dispatch(completeInfo());
+          }
+          setIsLoading(false);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getData();
+  }, [dispatch, localUser]);
+
+  //fucntions
+
+  const handleLogout = () => {
+    window.localStorage.removeItem("userData");
     navegate("/");
-    
-     
-  }
-  
-  
+  };
 
-  
+
+
  
-  
-  
-    return (
-   
+
+  return (
     <Container>
-    <Headings>
-    </Headings>
-    <NavBar textBotton={"Logout"} onClick={handleLogout}>
+      <Headings></Headings>
+      <NavBar
+        textBotton={"Logout"}
+        onClick={handleLogout}
+        userInfo={localUser}
+      ></NavBar>
+      <ContainerTitle>
+        <img src={Section} style={{ width: "100%" }} alt="section" />
+        <h3
+          style={{
+            fontSize: "30px",
+            position: "relative",
+            top: "-200px",
+            left: "-400px",
+          }}
+        >
+          Choose your Trip
+        </h3>
+      </ContainerTitle>
 
-    </NavBar>
-    <ContainerTitle>
-            <img src={Section}  style={{width:'100%'}}alt="section" />
-            <h3 style={{fontSize:'30px',position:'relative',top:'-200px',left:'-400px'}}>Choose your Trip</h3>
-        </ContainerTitle>
+      <ContainerProfile >
+        {isLoading && <Loader />}
+        {!auth.infoComplete && !isLoading && (
+          <BackgrounModal>
+          <Modal title={"Complete Your Information"}></Modal>
+          </BackgrounModal>
+          
+        )}
+       
+        {users.map((user) => (
+          <CardProfile
+            key={user.id}
+            name={user.name}
+            picture={user.picture}
+            price={user.price}
+            goal={user.goal}
+            id={user.id}
+            onMouseEnter={() => handleMouseEnter(user.id)} // Pasar ID de la tarjeta al entrar
+             onMouseLeave={handleMouseLeave}
+             showTinyImg={showTinyImg === user.id} 
+            > </CardProfile>
+          
+        ))};
 
-    <ContainerProfile>
-    {!isComplete&&<Modal title={"Complete Your Information"} ></Modal>}
-    
-    
-   
-    {users.map((user) => <CardProfile id={user.id}name={user.name} picture={user.picture}></CardProfile>)}
-    
-    
-    </ContainerProfile>
 
-    <br />
-   
-  <Footer>
+       
 
-  </Footer>
-    
- 
+      
 
 
 
+      </ContainerProfile>
+
+      <br />
+
+      <Footer></Footer>
     </Container>
-    
-    
-    )
-}
+  );
+};
 
 export default Home;
