@@ -5,6 +5,9 @@ import {Headings} from '../Landing.style'
 import NavBar from '../../shared/NavBar/NavBar';
 import { useParams } from "react-router-dom";
 import axios from 'axios'
+
+
+
 import FloatingCalendar from '../../shared/Components/Calendar/Calendar';
 import  LATAM from "../../../../imagenes//latam.png"
 
@@ -15,7 +18,7 @@ const Teach = () => {
         'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
         'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
         'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
-        // Agrega más URLs de imágenes aquí según sea necesario
+        'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
     ];
 
     const [tutor,setTutor]=React.useState({})
@@ -43,6 +46,7 @@ React.useEffect(()=>{
 
     
     return (
+
       <div className="contenTeach">
         <Headings></Headings>
         <NavBar></NavBar>
@@ -80,6 +84,7 @@ React.useEffect(()=>{
                   </div>
 
                   <FloatingCalendar />
+
                 </div>
               </div>
             </div>
