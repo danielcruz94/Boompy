@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import './Landing.css'; 
+import {Bottom} from '../../../views/Landing.style'
 
 import bannerImage from './Home/banner_img.png';
 import imaheImage from './Home/Imahe.png';
@@ -64,7 +65,8 @@ const go=() => {
 
   return (
     <div className="containerHome">
-      <Headings>
+      <Headings >
+      <Bottom onClick={go} style={{height:'30px',marginTop:'10px',marginLeft:'5px'}}>Login</Bottom>
       </Headings>
       {/* <NavBar textBotton={"Login"} onClick={go}/> */}
     

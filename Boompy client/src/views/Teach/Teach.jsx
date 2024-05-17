@@ -65,9 +65,9 @@ React.useEffect(()=>{
                   {tutor.name} {tutor.lastName}
                 </h2>
 
-                <p>📍Uruguay</p>
+                <p>📍 Uruguay</p>
 
-                <p> Hobbies </p>
+                <p style={{marginLeft:'20px'}}> Hobbies </p>
                 <div className="social-icons">
                   <div className="social-icon-wrapper">
                    <a href="#" className='iconos'>✈️</a>

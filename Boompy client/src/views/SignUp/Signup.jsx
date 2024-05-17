@@ -17,7 +17,7 @@ const  Signup=() => {
     
         </NavBar>
         <ContainerTitle>
-            <img src={Section}  style={{width:'100%'}}alt="section" />
+            <img src={Section} alt="section" />
             <h3 style={{fontSize:'30px',position:'relative',top:'-200px',left:'-400px'}}>Student SingUp</h3>
         </ContainerTitle>
         <br />
