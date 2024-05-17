@@ -3,7 +3,10 @@ import Footer from '../../shared/Components/Footer/Footer';
 import './Teach.css'; // Importa el archivo CSS personalizado
 import {Headings} from '../Landing.style'
 import NavBar from '../../shared/NavBar/NavBar';
-import FloatingCalendar from '../../shared/Components/Calendar/Calendar';
+import { useParams } from "react-router-dom";
+import axios from 'axios'
+import TutorCalendar from '../../shared/Components/Calendar/Tutor_Calendar';
+import StudentCalendar from '../../shared/Components/Calendar/Student_Calendar';
 
 const Teach = () => {
 
@@ -13,6 +16,26 @@ const Teach = () => {
         'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
         // Agrega más URLs de imágenes aquí según sea necesario
     ];
+
+    const [tutor,setTutor]=React.useState({})
+    const params =useParams()
+
+React.useEffect(()=>{
+    axios(`http://localhost:3001/api/user/${params.id}`)
+    .then(({ data }) => {
+        console.log(data)
+        if (data.name) {
+           
+            setTutor(data)
+        } else {
+           window.alert('¡No hay personajes con este ID!');
+        }
+     })
+     .catch(()=>{
+      alert("se rompio")
+     })
+     return setTutor({})
+   },[params?.id])
 
 
 
@@ -33,10 +56,10 @@ const Teach = () => {
                 <div>
                     <div className="profile-container">
                         <div className="profile-picture">
-                            <img src="https://us.123rf.com/450wm/bee32/bee321703/bee32170301192/73304155-mulher-de-neg%C3%B3cios-japoneses.jpg" alt="Foto de perfil" className="rounded-circle" />
+                            <img src={tutor.picture} alt="Foto de perfil" className="rounded-circle" />
                         </div>
                         <div className="profile-info">
-                            <h2>Robert Fox</h2>
+                            <h2>{tutor.name} {tutor.lastName}</h2>
                             <p>Experto en Laravel</p>
                             <div>
                             <p className="contact-info"><i className="fas fa-star Start"></i> 4.8 Opiniones</p>
@@ -57,7 +80,8 @@ const Teach = () => {
                                     <a href="#" className="social-icon"><i className="fab fa-linkedin-in icon"></i></a>
                                 </div>
 
-                                <FloatingCalendar />
+                                <TutorCalendar />
+                                <StudentCalendar/>
                             </div>
                         </div>
                     </div>
@@ -133,7 +157,7 @@ const Teach = () => {
                     <div className="course-offer">
                         <div>
                             <p>This Course Fee:</p>
-                            <p>$18.00</p>
+                            <p>${tutor.price}</p>
                         </div>
                         <ul className="course-includes">
                             <li><strong>Course Includes</strong></li>

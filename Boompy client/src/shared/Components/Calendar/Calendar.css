@@ -4,6 +4,16 @@ body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calenda
  margin: 0px 0px 25px 0px;
 }
 
+ /*DIV Boton para abrir calendario tutor*/
+ #root > div > div.InfTeach > div:nth-child(1) > div.profile-container > div.profile-info > div.social-icons > div:nth-child(4){
+   
+ }
+
+/*Boton para abrir calendario tutor*/
+#root > div > div.InfTeach > div:nth-child(1) > div.profile-container > div.profile-info > div.social-icons > div:nth-child(4) > button{
+  background: #00aeff;
+  color: white;
+}
 
 
 body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__navigation > button.react-calendar__navigation__arrow.react-calendar__navigation__prev2-button,
@@ -32,7 +42,7 @@ body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calenda
 body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__weekdays > div > abbr{
   text-decoration: none;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__days > button{
@@ -98,18 +108,36 @@ body > div.ReactModalPortal > div > div > div:nth-child(3) > button{
   margin: 0px 20px;
 }
 
-#root > div > div.InfTeach > div:nth-child(1) > div.profile-container > div.profile-info > div.social-icons > div:nth-child(4) > button{
-  background: #007bff;
-  color: white;
-}
 
 body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > button{
   background: #007bff;
   border-radius: 0px;
   border: 1px white;
+  color: white;
 }
 
+body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__navigation > button.react-calendar__navigation__label > span{
+  color: white;
+}
+
+.custom-calendar-icon{
+  color: white;
+}
+
+
 @media (max-width: 499px) {
+
+  /*DIV Boton para abrir calendario tutor*/
+  #root > div > div.InfTeach > div:nth-child(1) > div.profile-container > div.profile-info > div.social-icons > div:nth-child(4){
+   
+  }
+
+  /*Boton para abrir calendario tutor*/
+#root > div > div.InfTeach > div:nth-child(1) > div.profile-container > div.profile-info > div.social-icons > div:nth-child(4) > button{
+  background: #00aeff;
+  color: white;
+}
+
   .ReactModal__Content.ReactModal__Content--after-open {
     inset: auto !important;
     height: 100% !important;
