@@ -3,7 +3,7 @@ import Calendar from 'react-calendar';
 import Modal from 'react-modal';
 import './Calendar.css'; 
 
-function FloatingCalendar() {
+function TutorCalendar() {
   const tutorAvailability = [
     { date: new Date(2024, 4, 1), availableTimes: ['10:00', '11:00', '14:00'] },
     { date: new Date(2024, 4, 5), availableTimes: ['09:00', '10:00', '15:00'] },
@@ -115,4 +115,4 @@ function FloatingCalendar() {
   );
 }
 
-export default FloatingCalendar;
+export default TutorCalendar;
