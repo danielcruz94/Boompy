@@ -3,27 +3,24 @@ import Calendar from 'react-calendar';
 import Modal from 'react-modal';
 import './Calendar.css'; 
 
-function FloatingCalendar() {
+function StudentCalendar({ isOpen, onClose }) {
   const tutorAvailability = [
-    { date: new Date(2024, 4, 1), availableTimes: ['10:00'] },
-    { date: new Date(2024, 4, 5), availableTimes: ['09:00', '10:00', '15:00'] },
-    { date: new Date(2024, 4, 10), availableTimes: ['11:00', '13:00'] },
-    { date: new Date(2024, 4, 16), availableTimes: ['12:00', '14:00'] },
-    { date: new Date(2024, 4, 20), availableTimes: ['10:00', '12:00', '15:00'] },
-    { date: new Date(2024, 4, 25), availableTimes: ['09:00'] },
-    { date: new Date(2024, 5, 2), availableTimes: [ '12:00'] },
-    { date: new Date(2024, 5, 8), availableTimes: ['09:00', '11:00', '14:00'] },
-    { date: new Date(2024, 5, 14), availableTimes: [ '15:00'] },
-    { date: new Date(2024, 5, 20), availableTimes: ['09:00', '11:00', '14:00'] },
-    { date: new Date(2024, 5, 26), availableTimes: [ '15:00'] },
-    { date: new Date(2024, 5, 30), availableTimes: ['09:00', '11:00', '14:00'] }
+    { date: new Date(2024, 4, 1), availableTimes: ['10:00'], tutorName: 'Tutor 1' },
+    { date: new Date(2024, 4, 5), availableTimes: ['09:00', '10:00', '15:00'], tutorName: 'Tutor 2' },
+    { date: new Date(2024, 4, 10), availableTimes: ['11:00', '13:00'], tutorName: 'Tutor 3' },
+    { date: new Date(2024, 4, 16), availableTimes: ['12:00', '14:00'], tutorName: 'Tutor 4' },
+    { date: new Date(2024, 4, 20), availableTimes: ['10:00', '12:00', '15:00'], tutorName: 'Tutor 5' },
+    { date: new Date(2024, 4, 25), availableTimes: ['09:00'], tutorName: 'Tutor 6' },
+    { date: new Date(2024, 5, 2), availableTimes: ['12:00'], tutorName: 'Tutor 7' },
+    { date: new Date(2024, 5, 8), availableTimes: ['09:00', '11:00', '14:00'], tutorName: 'Tutor 8' },
+    { date: new Date(2024, 5, 14), availableTimes: ['15:00'], tutorName: 'Tutor 9' },
+    { date: new Date(2024, 5, 20), availableTimes: ['09:00', '11:00', '14:00'], tutorName: 'Tutor 10' },
+    { date: new Date(2024, 5, 26), availableTimes: ['15:00'], tutorName: 'Tutor 11' },
+    { date: new Date(2024, 5, 30), availableTimes: ['09:00', '11:00', '14:00'], tutorName: 'Tutor 12' }
   ];
 
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [showOpenButton, setShowOpenButton] = useState(true);
   const [scrollEnabled, setScrollEnabled] = useState(true); 
-  const [selectedTime, setSelectedTime] = useState(null); // Se cambió a null
 
   useEffect(() => {
     Modal.setAppElement('#root');
@@ -38,21 +35,31 @@ function FloatingCalendar() {
   }, [scrollEnabled]);
 
   const handleDateChange = (date) => {
-    setSelectedDate(date);
-    setModalIsOpen(true);
-    setScrollEnabled(false);
+    const today = new Date();
+    if (date.getDate() < today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()) {
+     
+      return;
+    }
+
+    const availability = tutorAvailability.find(({ date: availabilityDate }) => availabilityDate.getTime() === date.getTime());
+    if (availability) {
+      setSelectedDate(date);
+      setScrollEnabled(false);
+    }
   };
 
   const closeModal = () => {
-    setModalIsOpen(false);
-    setShowOpenButton(true);
+    onClose();
     setScrollEnabled(true);
-    setSelectedTime(null); // Restablecer la hora seleccionada al cerrar el modal
   };
 
-  const cancelClass = () => { // Cambio de nombre de la función
-    console.log("Clase cancelada para:", selectedDate.toLocaleDateString());
+  const cancelClass = () => {
+    alert('Clase cancelada');
     closeModal();
+  };
+
+  const viewClass = () => {   
+    window.location.href = 'http://localhost:5173/calls';
   };
 
   const getAvailableTimes = () => {
@@ -73,53 +80,50 @@ function FloatingCalendar() {
            date.getFullYear() === today.getFullYear();
   };
 
-  return (
-    <div style={{ position: 'fixed', bottom: 20, right: 20, zIndex: 999 }}>
-      {showOpenButton && (
-        <button onClick={() => {
-          setModalIsOpen(true);
-          setShowOpenButton(false);
-          setScrollEnabled(false); 
-        }}>Mi Calendario</button>
-      )}
-      <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
-          <Calendar
-          onChange={handleDateChange}
-          value={selectedDate}
-          tileClassName={({ date }) => {
-            const classes = [];
-            if (customClasses[date.toLocaleDateString()]) {
-              classes.push(customClasses[date.toLocaleDateString()]);
-            }
-            if (isToday(date)) {
-              classes.push('today');
-            }
-            return classes.join(' ');
-          }}
-        />
+ 
+  const tileClassName = ({ date }) => {
+    const classes = [];
+    if (!isToday(date) && date < new Date()) {
+   
+      return '';
+    }
+    if (customClasses[date.toLocaleDateString()]) {
+      classes.push(customClasses[date.toLocaleDateString()]);
+    }
+    if (isToday(date)) {
+      classes.push('today');
+    }
+    return classes.join(' ');
+  };
 
-        <div>
-          {selectedTime === null ? ( // Mostrar las horas solo cuando se haya seleccionado una fecha
-            <p>Selecciona una fecha para ver las horas disponibles</p>
-          ) : (
-            <div>
-              <p>Horas disponibles:</p>
-              <ul>
-                {getAvailableTimes().map((time, index) => (
-                  <li key={index}>{time}</li>
-                ))}
-              </ul>
-            </div>
-          )}
+  return (
+    <Modal isOpen={isOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
+      <Calendar
+        onChange={handleDateChange}
+        value={selectedDate}
+        tileClassName={tileClassName} 
+      />
+
+      <div className="close-button-container" style={{ marginTop: 10 }}>
+        <button onClick={closeModal}>Cerrar</button>         
+      </div>
+
+      {getAvailableTimes().length > 0 && (
+        <div className="class-info">
+          <p>{selectedDate.toLocaleDateString()}</p>
+          <p>Tutor: {tutorAvailability.find(({ date }) => date.getTime() === selectedDate.getTime()).tutorName}</p>
+          <p>Horarios:</p>
+          <div className="times-list">
+            {getAvailableTimes().map((time, index) => (
+              <span key={index} className="class-time">{time}</span>
+            ))}
+          </div>
+          <button onClick={cancelClass}>Cancelar Clase</button>
+          <button onClick={viewClass}>Ver Clase</button>
         </div>
-        
-        <div style={{ marginTop: 10 }}>
-          <button onClick={cancelClass} disabled={selectedTime === null}>Cancelar Clase</button>
-          <button onClick={closeModal}>Cerrar</button>         
-        </div>
-      </Modal>
-    </div>
+      )}
+    </Modal>
   );
 }
 
-export default FloatingCalendar;
+export default StudentCalendar;

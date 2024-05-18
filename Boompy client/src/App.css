@@ -64,6 +64,10 @@ a{
   background: none !important;
 }
 
+#root > div > div.sc-gEvEer.ewRJqX > div:nth-child(1) > button{
+  background: #007bff;
+}
+
 @media screen and (max-width: 600px) {
   .fGRSKu > div{
     margin: 3px 0px;

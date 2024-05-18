@@ -8,7 +8,12 @@ import axios from 'axios'
 
 
 
+import FloatingCalendar from '../../shared/Components/Calendar/Calendar';
+import  LATAM from "../../../../imagenes//latam.png"
+
+
 import FloatingCalendar from '../../shared/Components/Calendar/Student_Calendar';
+
 
 
 
