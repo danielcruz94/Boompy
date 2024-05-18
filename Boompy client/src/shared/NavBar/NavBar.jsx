@@ -25,7 +25,7 @@ const NavBar = ({ textBotton, onClick, userInfo }) => {
   return (
     <ContainerBar>
       <Image>
-        <img src={Header} alt="logo" />
+        <img src="https://res.cloudinary.com/danielcruz/image/upload/v1716001393/images/c5bvvai78sokoqml83fk.png" style={{width:'50px'}}alt="logo" />
         <b><p>{userInfo?.name}</p></b>
       </Image>
       <div style={{ display: 'flex' }}>

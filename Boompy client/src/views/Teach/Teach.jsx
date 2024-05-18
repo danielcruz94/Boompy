@@ -8,7 +8,7 @@ import axios from 'axios'
 
 
 
-import FloatingCalendar from '../../shared/Components/Calendar/Calendar';
+import TutorCalendar from '../../shared/Components/Calendar/Tutor_Calendar';
 import  LATAM from "../../../../imagenes//latam.png"
 
 
@@ -88,7 +88,7 @@ React.useEffect(()=>{
                   <a href="#" className='iconos'>🧠</a>
                   </div>
 
-                  <FloatingCalendar />
+                
 
                 </div>
               </div>
@@ -197,7 +197,7 @@ React.useEffect(()=>{
                 </div>
               </div>
 
-              <button className="btnPagos">See All Instructors </button>
+              <TutorCalendar/>
             </div>
           </div>
         </div>

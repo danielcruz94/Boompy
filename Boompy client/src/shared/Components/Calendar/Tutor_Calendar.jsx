@@ -82,7 +82,7 @@ function TutorCalendar() {
           setModalIsOpen(true);
           setShowOpenButton(false);
           setScrollEnabled(false); 
-        }}>Mi Calendario</button>
+        }}>Book Now</button>
       )}
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
           <Calendar
