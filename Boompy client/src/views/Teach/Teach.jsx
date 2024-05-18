@@ -18,7 +18,7 @@ const Teach = () => {
         'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
         'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
         'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
-        'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
+       
     ];
 
     const [tutor,setTutor]=React.useState({})
