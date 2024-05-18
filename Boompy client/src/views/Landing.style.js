@@ -49,6 +49,7 @@ export const Bottom = styled.button`
 export const ContainerTitle = styled.div`
   
   height: 200px;
+  // background:red;
  
 
 
