@@ -16,7 +16,7 @@ const Login=() => {
 
     </NavBar>
     <ContainerBar>
-        <img src={Section}  style={{width:'100%'}}alt="section" />
+        <img src={Section} alt="section" />
     </ContainerBar>
     <Form></Form>
 

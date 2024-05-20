@@ -34,7 +34,7 @@ export const ContenedorCard = styled.div`
 
 display: flex;
 
-margin-top:30px;
+margin-top:100px;
 
 
 
