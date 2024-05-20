@@ -37,7 +37,6 @@ function StudentCalendar({ isOpen, onClose }) {
   const handleDateChange = (date) => {
     const today = new Date();
     if (date.getDate() < today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()) {
-     
       return;
     }
 
@@ -54,7 +53,7 @@ function StudentCalendar({ isOpen, onClose }) {
   };
 
   const cancelClass = () => {
-    alert('Clase cancelada');
+    alert('Class canceled');
     closeModal();
   };
 
@@ -80,11 +79,9 @@ function StudentCalendar({ isOpen, onClose }) {
            date.getFullYear() === today.getFullYear();
   };
 
- 
   const tileClassName = ({ date }) => {
     const classes = [];
     if (!isToday(date) && date < new Date()) {
-   
       return '';
     }
     if (customClasses[date.toLocaleDateString()]) {
@@ -102,24 +99,25 @@ function StudentCalendar({ isOpen, onClose }) {
         onChange={handleDateChange}
         value={selectedDate}
         tileClassName={tileClassName} 
+        locale="en-US" // Se establece el idioma en inglés
       />
 
       <div className="close-button-container" style={{ marginTop: 10 }}>
-        <button onClick={closeModal}>Cerrar</button>         
+        <button onClick={closeModal}>Close</button>         
       </div>
 
       {getAvailableTimes().length > 0 && (
         <div className="class-info">
-          <p>{selectedDate.toLocaleDateString()}</p>
+          <p>{selectedDate.toLocaleDateString('en-US')}</p> {/* Traducción del formato de fecha */}
           <p>Tutor: {tutorAvailability.find(({ date }) => date.getTime() === selectedDate.getTime()).tutorName}</p>
-          <p>Horarios:</p>
+          <p>Times:</p>
           <div className="times-list">
             {getAvailableTimes().map((time, index) => (
               <span key={index} className="class-time">{time}</span>
             ))}
           </div>
-          <button onClick={cancelClass}>Cancelar Clase</button>
-          <button onClick={viewClass}>Ver Clase</button>
+          <button onClick={cancelClass}>Cancel Class</button>
+          <button onClick={viewClass}>View Class</button>
         </div>
       )}
     </Modal>

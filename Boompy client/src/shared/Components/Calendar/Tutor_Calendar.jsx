@@ -29,7 +29,6 @@ function TutorCalendar() {
     Modal.setAppElement('#root');
   }, []);
 
-
   useEffect(() => {
     if (!scrollEnabled) {
       document.body.style.overflow = 'hidden';
@@ -51,8 +50,7 @@ function TutorCalendar() {
   };
 
   const assignClass = () => {
-    
-    console.log("Clase asignada para:", selectedDate.toLocaleDateString(), "a las", selectedTime);
+    console.log("Class assigned for:", selectedDate.toLocaleDateString(), "at", selectedTime);
     closeModal();
   };
 
@@ -64,7 +62,6 @@ function TutorCalendar() {
   const customClasses = {}; 
 
   getAvailableDates().forEach(date => {
-   
     customClasses[date.toLocaleDateString()] = 'available';
   });
 
@@ -82,12 +79,13 @@ function TutorCalendar() {
           setModalIsOpen(true);
           setShowOpenButton(false);
           setScrollEnabled(false); 
-        }}>Mi Calendario</button>
+        }}>My Calendar</button>
       )}
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
           <Calendar
           onChange={handleDateChange}
           value={selectedDate}
+          locale="en-US"
           tileClassName={({ date }) => {
             const classes = [];
             if (customClasses[date.toLocaleDateString()]) {
@@ -101,14 +99,14 @@ function TutorCalendar() {
         />
         
         <select value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
-          <option value="">Seleccionar hora</option>
+          <option value="">Select time</option>
           {tutorAvailability.find(({ date }) => date.getTime() === selectedDate.getTime())?.availableTimes.map((time, index) => (
             <option key={index} value={time}>{time}</option>
           ))}
         </select>
         <div style={{ marginTop: 10 }}>
-          <button onClick={assignClass} disabled={!selectedTime}>Asignar Clase</button>
-          <button onClick={closeModal}>Cerrar</button>         
+          <button onClick={assignClass} disabled={!selectedTime}>Assign Class</button>
+          <button onClick={closeModal}>Close</button>         
         </div>
       </Modal>
     </div>

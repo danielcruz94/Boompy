@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import axios from 'axios'
 
 
-import FloatingCalendar from '../../shared/Components/Calendar/Calendar';
+import FloatingCalendar from '../../shared/Components/Calendar/Tutor_Calendar';
 import  LATAM from "../../../../imagenes//latam.png"
 
 
