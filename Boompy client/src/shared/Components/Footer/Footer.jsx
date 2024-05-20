@@ -20,7 +20,7 @@ const Footer=() => {
         <Container>
             <ContainerText>
                 <Columns>
-                <h4>Boompy</h4>
+                <h4>Torii</h4>
               
                     <li>Medellín Colombia</li>
                     <li>Carrera 81 #45-31</li>
@@ -39,7 +39,7 @@ const Footer=() => {
                 <h4>Our Company</h4>
                
               
-                    <a href="/"><li>Become a Boomper</li></a>
+                    <a href="/"><li>Become a Torii</li></a>
                    <a href="/"> <li>Contact us</li></a>
                    <a href="/"> <li>Events</li></a>
                

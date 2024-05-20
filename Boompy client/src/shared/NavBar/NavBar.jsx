@@ -5,7 +5,9 @@ import React, { useState } from 'react';
     Image, 
     SubHeading, 
     SubmitButton, 
-    Bottom 
+    Bottom,
+    
+    
  } from '../../views/Landing.style';
 import Vector from '../../../../imagenes/Vector.svg';
 import Header from '../../../../imagenes/Header.svg';
@@ -43,7 +45,11 @@ const NavBar = ({ textBotton, onClick, userInfo }) => {
       </div>
 
       <ContainerNavBar>
-        <img src={Vector} alt="vector" />
+       
+        <img src={Vector}  alt="vector" />
+       
+      
+       
         <p style={{ marginLeft: '6px' }}>Categories</p>
         <SubmitButton placeholder="Search your partner"></SubmitButton>
         <img src={Button} style={{ width: '10px' }} alt="button" />

@@ -17,20 +17,21 @@ const  Signup=() => {
     
         </NavBar>
         <ContainerTitle>
-            <img src={Section} alt="section" />
-            <h3 style={{fontSize:'30px',position:'relative',top:'-200px',left:'-400px'}}>Student SingUp</h3>
+            <img src={Section} style={{width:'100%',height:'100%',objectFit:'cover'}}  alt="section" />
+          
         </ContainerTitle>
+          <h3 >Student SingUp</h3>
         <br />
         <br />
-        <br />
+        
         
        <FormSignUp></FormSignUp>
         <br />
         <br />
         <br />
-      <Footer>
+      {/* <Footer>
     
-      </Footer>
+      </Footer> */}
         
      
     
