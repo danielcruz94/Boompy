@@ -7,7 +7,10 @@ import { useParams } from "react-router-dom";
 import axios from 'axios'
 
 
-import FloatingCalendar from '../../shared/Components/Calendar/Calendar';
+
+
+import TutorCalendar from '../../shared/Components/Calendar/Tutor_Calendar';
+
 import  LATAM from "../../../../imagenes//latam.png"
 
 
@@ -17,7 +20,7 @@ const Teach = () => {
         'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
         'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
         'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
-        'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
+       
     ];
 
     const [tutor,setTutor]=React.useState({})
@@ -82,7 +85,7 @@ React.useEffect(()=>{
                   <a href="#" className='iconos'>🧠</a>
                   </div>
 
-                  <FloatingCalendar />
+                
 
                 </div>
               </div>
@@ -191,7 +194,7 @@ React.useEffect(()=>{
                 </div>
               </div>
 
-              <button className="btnPagos">See All Instructors </button>
+              <TutorCalendar/>
             </div>
           </div>
         </div>

@@ -79,8 +79,9 @@ function TutorCalendar() {
           setModalIsOpen(true);
           setShowOpenButton(false);
           setScrollEnabled(false); 
+
         }}>My Calendar</button>
-      )}
+
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
           <Calendar
           onChange={handleDateChange}
