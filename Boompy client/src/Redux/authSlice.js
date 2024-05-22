@@ -25,10 +25,20 @@ const authSlice=createSlice({
                 ...state,
                 infoComplete:true
             }
+        },
+        logout:(state,action)=>{
+            return {
+                ...state,
+                loading:true,
+                isLoggedIn:false,
+                user:null
+                
+
+            };
         }
        
     },
 });
 
-export const {login,completeInfo}=authSlice.actions;
+export const {login,completeInfo,logout}=authSlice.actions;
 export default authSlice.reducer;

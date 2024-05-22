@@ -16,9 +16,23 @@ import corazon from '../../../../imagenes/corazon.svg';
 import carrito from '../../../../imagenes/carrito.svg';
 import { Link } from 'react-router-dom';
 import StudentCalendar from '../Components/Calendar/Student_Calendar'; 
+import {logout} from '../../Redux/authSlice'
+import { useSelector,useDispatch } from "react-redux"
+import { useNavigate} from 'react-router-dom';
+  
+const NavBar = ({ textBotton, userInfo }) => {
 
-const NavBar = ({ textBotton, onClick, userInfo }) => {
+  const auth = useSelector((state) => state.auth);
+ const dispatch=useDispatch()
+ const navegate =useNavigate()
+
+  const logOut=() => {
+    dispatch(logout())
+    navegate('/')
+
+  }
   const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
+
 
   const toggleCalendar = () => {
     setIsCalendarOpen(!isCalendarOpen); 
@@ -57,7 +71,7 @@ const NavBar = ({ textBotton, onClick, userInfo }) => {
       <div style={{ display: 'flex', gap: '5px' }}>
         <img src={corazon} alt="corazon" />
         <img src={carrito} alt="carrito" />
-        <Bottom onClick={onClick}>{textBotton}</Bottom>
+        <Bottom onClick={logOut}>{textBotton}</Bottom>
       </div>
 
       {isCalendarOpen && <StudentCalendar isOpen={isCalendarOpen} onClose={toggleCalendar} />}
