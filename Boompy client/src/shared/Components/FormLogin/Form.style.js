@@ -81,7 +81,7 @@ export const Input=styled.input`
   text-align:initial;
   border:1px solid #E1E1E1;
   border-radius:5px;
-  
+ 
 
 
 
@@ -99,7 +99,7 @@ export const TextLogin=styled.p`
   margin:2px;
  
   
-
+ 
 
 
  
