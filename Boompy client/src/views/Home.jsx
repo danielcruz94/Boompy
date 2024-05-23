@@ -124,7 +124,7 @@ const Home = () => {
        
         
       </ContainerTitle>
-      <h3  style={{margin:'10px',position:'relative',top:'-150px',left:'-300px'}}>
+      <h3  style={{position:'relative',top:'-150px',left:'-300px'}}>
           Choose your Trip
         </h3>
      

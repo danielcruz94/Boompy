@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ContainerProfile = styled.div`
 display: flex;
-margin:10px 10%  10px 10%;
+margin:5px 10%  10px 10%;
 flex-wrap: wrap;
 justify-content:center;
 
@@ -21,7 +21,7 @@ border-Radius:50%;
 display:flex;
 justify-Content:center;
 align-items:center;
-margin:20px;
+margin:31px;
 
 
 
