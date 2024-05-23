@@ -3,7 +3,7 @@ import Calendar from 'react-calendar';
 import Modal from 'react-modal';
 import './Calendar.css'; 
 
-function StudentCalendar({ isOpen, onClose }) {
+function StudentCalendar({ isOpen, onRequestClose, onClose }) {
   const tutorAvailability = [
     { date: new Date(2024, 4, 1), availableTimes: ['10:00'], tutorName: 'Tutor 1' },
     { date: new Date(2024, 4, 5), availableTimes: ['09:00', '10:00', '15:00'], tutorName: 'Tutor 2' },
@@ -37,7 +37,6 @@ function StudentCalendar({ isOpen, onClose }) {
   const handleDateChange = (date) => {
     const today = new Date();
     if (date.getDate() < today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()) {
-     
       return;
     }
 
@@ -50,6 +49,7 @@ function StudentCalendar({ isOpen, onClose }) {
 
   const closeModal = () => {
     onClose();
+    onRequestClose();
     setScrollEnabled(true);
   };
 
@@ -80,11 +80,9 @@ function StudentCalendar({ isOpen, onClose }) {
            date.getFullYear() === today.getFullYear();
   };
 
- 
   const tileClassName = ({ date }) => {
     const classes = [];
     if (!isToday(date) && date < new Date()) {
-   
       return '';
     }
     if (customClasses[date.toLocaleDateString()]) {

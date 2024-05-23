@@ -8,13 +8,10 @@ import axios from 'axios'
 
 
 
+
 import TutorCalendar from '../../shared/Components/Calendar/Tutor_Calendar';
+
 import  LATAM from "../../../../imagenes//latam.png"
-
-
-import FloatingCalendar from '../../shared/Components/Calendar/Student_Calendar';
-
-
 
 
 const Teach = () => {
