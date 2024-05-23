@@ -20,7 +20,7 @@ import Loader from "../shared/Components/Loader/Loader"
 const Home = () => {
   const users = useSelector((state) => state.users);
   const auth = useSelector((state) => state.auth);
-console.log(auth)
+
   const dispatch = useDispatch();
   const navegate = useNavigate();
 

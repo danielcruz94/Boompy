@@ -96,7 +96,7 @@ const NavBar = ({ textButton, onClick, userInfo }) => {
 
         <Bottom onClick={onClick}>{textButton}</Bottom>
 
-        <Bottom onClick={logOut}>{textBotton}</Bottom>
+        {/* <Bottom onClick={logOut}>{textBotton}</Bottom> */}
 
       </div>
 
