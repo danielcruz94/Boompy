@@ -2,8 +2,7 @@ import styled from 'styled-components';
 
 export const ContainerProfile = styled.div`
 display: flex;
-margin:50px 10%  50px 10%;
-
+margin:10px 10%  10px 10%;
 flex-wrap: wrap;
 justify-content:center;
 
@@ -33,6 +32,7 @@ margin:20px;
 export const ContenedorCard = styled.div`
 
 display: flex;
+
 
 
 

@@ -124,7 +124,7 @@ const Home = () => {
        
         
       </ContainerTitle>
-      <h3  style={{margin:'30px',position:'relative',}}>
+      <h3  style={{margin:'10px',position:'relative',top:'-150px',left:'-300px'}}>
           Choose your Trip
         </h3>
      
@@ -149,9 +149,11 @@ const Home = () => {
             onMouseEnter={() => handleMouseEnter(user.id)} // Pasar ID de la tarjeta al entrar
              onMouseLeave={handleMouseLeave}
              showTinyImg={showTinyImg === user.id} 
-            > </CardProfile>
+            >
+
+            </CardProfile>
           
-        ))};
+        ))}
 
 
        

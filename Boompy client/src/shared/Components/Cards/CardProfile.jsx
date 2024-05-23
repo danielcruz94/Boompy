@@ -9,7 +9,7 @@ import SmallImage from "./TinyImages/SmallImage"
 
 const CardProfile=({name,id,picture,price,goal,onMouseEnter,onMouseLeave,showTinyImg}) => {
 
-    console.log(id)
+   
     return (
        <ContenedorCard >
         {showTinyImg&& <SmallImage></SmallImage>}
