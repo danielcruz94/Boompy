@@ -11,15 +11,16 @@ import NavBar from '../../NavBar/NavBar';
 import {Headings} from '../../../views/Landing.style'
 import Footer from '../Footer/Footer';
 import { useNavigate} from 'react-router-dom';
-
+import { useSelector,useDispatch } from "react-redux"
 
 
 function Landing() {
+  const auth = useSelector((state) => state.auth);
   const [carouselData1, setCarouselData1] = useState([]);
   const [carouselData2, setCarouselData2] = useState([]);
 
   const navegate =useNavigate()
-
+console.log(auth)
   
 
   useEffect(() => {
@@ -62,6 +63,8 @@ const go=() => {
   // console.log("hihas")
    navegate('/login')
 }
+
+
 
   return (
     <div className="containerHome">

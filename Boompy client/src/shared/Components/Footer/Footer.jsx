@@ -2,7 +2,9 @@ import {Container,
     ContainerText,
     Columns,
     ContenedorImg,
-    ContenedorStores
+    ContenedorStores,
+    LinkFooter,
+    TitleFooter
 } from './Footer.style'
 
 import Facebook  from '../../../../../imagenes/facebook.png'
@@ -20,44 +22,44 @@ const Footer=() => {
         <Container>
             <ContainerText>
                 <Columns>
-                <h4>Boompy</h4>
+                <TitleFooter>Torii</TitleFooter>
               
-                    <li>Medellín Colombia</li>
-                    <li>Carrera 81 #45-31</li>
+                    <LinkFooter>Medellín Colombia</LinkFooter>
+                    <LinkFooter>Carrera 81 #45-31</LinkFooter>
                
                 </Columns>
                 <Columns>
 
-                <h4>Usefull Link</h4>
+                <TitleFooter>Usefull Link</TitleFooter>
                 
-                  <a href="/">  <li>Become a Student</li></a>
-                    <a href="/"><li>Our partners</li></a>
-                   <a href="/"> <li>Become a partner</li></a>
+                  <a href="/">  <LinkFooter>Become a Student</LinkFooter></a>
+                    <a href="/"><LinkFooter>Our partners</LinkFooter></a>
+                   <a href="/"> <LinkFooter>Become a partner</LinkFooter></a>
                
                 </Columns>
                 <Columns>
-                <h4>Our Company</h4>
+                <TitleFooter>Our Company</TitleFooter>
                
               
-                    <a href="/"><li>Become a Boomper</li></a>
-                   <a href="/"> <li>Contact us</li></a>
-                   <a href="/"> <li>Events</li></a>
+                    <a href="/"><LinkFooter>Become a Torii</LinkFooter></a>
+                   <a href="/"> <LinkFooter>Contact us</LinkFooter></a>
+                   <a href="/"> <LinkFooter>Events</LinkFooter></a>
                
                 </Columns>
                 <Columns>
-                <h4>Get in Touch</h4>
+                <TitleFooter>Get in Touch</TitleFooter>
                 <ContenedorImg>
-                    <a href="/"><img src={Facebook} alt="Facebook" /></a>
-                   <a href="/"> <img src={Twitter} alt="Twitter" /></a>
-                   <a href="/"> <img src={Whattsapp} alt="Whatsapp" /></a>
+                    <a href="/"><img  src={Facebook} alt="Facebook" /></a>
+                   <a href="/"> <img  src={Twitter} alt="Twitter" /></a>
+                   <a href="/"> <img   src={Whattsapp} alt="Whatsapp" /></a>
                    <a href="/"> <img src={Instagram} alt="Instagram" /></a>
-                    <a href="/"> <img src={Youtube} alt="Youtube" /></a>
+                    <a href="/"> <img   src={Youtube} alt="Youtube" /></a>
                     
                 </ContenedorImg>
                 <ContenedorStores>
 
-                <img src={AppleStore} alt="AppleStore" />
-                <img src={PlayStore} alt="PlayStore" />
+                <img src={AppleStore} style={{width:'100%'}} alt="AppleStore" />
+                <img src={PlayStore} style={{width:'100%'}} alt="PlayStore" />
 
                 </ContenedorStores>
                 </Columns>

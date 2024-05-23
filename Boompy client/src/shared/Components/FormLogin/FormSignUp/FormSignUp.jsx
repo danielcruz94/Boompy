@@ -88,7 +88,7 @@ const FormSignUp = () => {
                 style={{
                   marginBottom: "20px",
                   paddingLeft: "20px",
-                  width: "180px",
+                  width: "100%",
                 }}
               />
             </div>
@@ -103,7 +103,7 @@ const FormSignUp = () => {
                 style={{
                   marginBottom: "20px",
                   paddingLeft: "20px",
-                  width: "180px",
+                  width: "100%",
                 }}
               />
             </div>

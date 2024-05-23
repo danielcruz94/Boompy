@@ -17,9 +17,9 @@ import  LATAM from "../../../../imagenes//latam.png"
 const Teach = () => {
 
     const imageUrls = [
-        'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
-        'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
-        'https://www.muypymes.com/wp-content/uploads/2012/03/mujer_trabajadora.jpg',
+        'https://scontent.feoh6-1.fna.fbcdn.net/v/t39.30808-6/419700480_7224997534190008_6658269914087985451_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeEuYqUJkfSv79EjmsmhxKEYCCX-a4SkTqcIJf5rhKROp_bCr0B97XCyNsMfFXU6n-8&_nc_ohc=2tEZW9EI_IsQ7kNvgEjGJKW&_nc_ht=scontent.feoh6-1.fna&oh=00_AYAHcL7uR6pHhnK5jm82UXijZ9zsVyVSooby_SJcifMNbw&oe=6651187E',
+        'https://scontent.feoh6-1.fna.fbcdn.net/v/t39.30808-6/340922658_782923856506944_5114343893270765975_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeEL7cqtTms5SFEpOGMuGO21LKN24vqSILQso3bi-pIgtISf_5vgp1J3xBMRSXW_YgI&_nc_ohc=c1D_5gGxEdoQ7kNvgGvVkrS&_nc_ht=scontent.feoh6-1.fna&oh=00_AYC-gKt13GeXKcS_iNPN2oDrawZtaKBuFD50jKflx5KE9Q&oe=66513782',
+        'https://scontent.feoh6-1.fna.fbcdn.net/v/t39.30808-6/271215180_4825544210802031_1696546280028109373_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeEEOcOhKsPglGbDNtgPScjcKbEfrvhKPj8psR-u-Eo-P0hKoQb7KK46PhSc9jUNlX0&_nc_ohc=B51CB1ah9l8Q7kNvgHPhHTQ&_nc_ht=scontent.feoh6-1.fna&oh=00_AYCkD4Ac38tDLGx4ddut9_MzHTX6AtPyurNZiwQQPkNlgw&oe=66513047',
        
     ];
 
@@ -68,7 +68,7 @@ React.useEffect(()=>{
               </div>
               <div className="profile-info">
                 <h2>
-                  {tutor.name} {tutor.lastName}
+                  {tutor.name} {tutor.lastName} 
                 </h2>
 
                 <p>📍 Uruguay</p>
@@ -123,38 +123,38 @@ React.useEffect(()=>{
           <div>
             <div className="course-offer">
               <div>
-                <p>This Course Fee:</p>
+                <p>Fee:</p>
                 <p>${tutor.price}</p>
               </div>
               <ul className="course-includes">
                 <li>
-                  <strong>Course Includes</strong>
+                  <strong>Important Details</strong>
                 </li>
                 <li>
                   <div className="Div-li">
                     <i className="fas fa-chart-bar"></i> <strong>Level:</strong>
                   </div>
-                  <div className="Div-li2">Expert</div>
+                  <div className="Div-li2">Native</div>
                 </li>
                 <li>
                   <div className="Div-li">
                     <i className="fas fa-clock"></i> <strong>Duration:</strong>
                   </div>
-                  <div className="Div-li2">11h 20m</div>
+                  <div className="Div-li2">1h</div>
                 </li>
                 <li>
                   <div className="Div-li">
                     <i className="fas fa-book-open"></i>{" "}
-                    <strong>Lessons:</strong>
+                    <strong>Age:</strong>
                   </div>
-                  <div className="Div-li2">12</div>
+                  <div className="Div-li2">22</div>
                 </li>
                 <li>
                   <div className="Div-li">
                     <i className="fas fa-question-circle"></i>{" "}
-                    <strong>Quizzes:</strong>
+                    <strong>Location:</strong>
                   </div>
-                  <div className="Div-li2">145</div>
+                  <div className="Div-li2">Medellín</div>
                 </li>
                 <li>
                   <div className="Div-li">
@@ -163,13 +163,7 @@ React.useEffect(()=>{
                   </div>
                   <div className="Div-li2">Yes</div>
                 </li>
-                <li>
-                  <div className="Div-li">
-                    <i className="fas fa-graduation-cap"></i>{" "}
-                    <strong>Graduation:</strong>
-                  </div>
-                  <div className="Div-li2">25K</div>
-                </li>
+                
               </ul>
 
               <div className="Me_Pagos">
@@ -209,7 +203,7 @@ React.useEffect(()=>{
             {/* Recorre el array de URLs de imágenes y renderiza las imágenes */}
             {imageUrls.map((url, index) => (
               <div key={index} className="gallery-item">
-                <img src={url} alt={`Image ${index}`} />
+                <img src={url}  alt={`Image ${index}`} />
               </div>
             ))}
           </div>

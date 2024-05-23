@@ -18,16 +18,26 @@ export const ContainerBar = styled.div`
   margin: 10px 0px;
   justify-content:space-around;
   align-items:center;
- 
+
 @media (max-width: 600px) {
   flex-direction: column;
   padding: 10px 0px;
 }
+
+
   
 
   
 `;
 
+
+export const ContainerPicture = styled.div`
+// background:purple;
+
+  width:100vw;
+  height:200px;
+
+`;
 export const Headings = styled.div`
   
   width:100vw;
@@ -47,9 +57,21 @@ export const Bottom = styled.button`
 
 
 export const ContainerTitle = styled.div`
-  
+width:100vw;
   height: 200px;
-  // background:red;
+  background:#faeffa;
+  margin-top:10px;
+  display:flex;
+ 
+  
+  justify-content:flex-start;
+
+  @media (max-width: 500px) {
+    justify-content:center;
+    align-items:center;
+    height:100px;
+}
+ 
  
 
 
@@ -71,6 +93,7 @@ align-items:center;
 
 @media (max-width: 600px) {
   width: 95%;
+
   margin: 10px 0px;
 }
 
@@ -151,6 +174,11 @@ justify-content:center;
 align-items:center;
 z-index: 1;
 `;
+
+
+
+
+
 
 
 
