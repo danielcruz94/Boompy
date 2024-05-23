@@ -3,7 +3,7 @@ import Calendar from 'react-calendar';
 import Modal from 'react-modal';
 import './Calendar.css'; 
 
-function StudentCalendar({ isOpen, onClose }) {
+function StudentCalendar({ isOpen, onRequestClose, onClose }) {
   const tutorAvailability = [
     { date: new Date(2024, 4, 1), availableTimes: ['10:00'], tutorName: 'Tutor 1' },
     { date: new Date(2024, 4, 5), availableTimes: ['09:00', '10:00', '15:00'], tutorName: 'Tutor 2' },
@@ -49,11 +49,12 @@ function StudentCalendar({ isOpen, onClose }) {
 
   const closeModal = () => {
     onClose();
+    onRequestClose();
     setScrollEnabled(true);
   };
 
   const cancelClass = () => {
-    alert('Class canceled');
+    alert('Clase cancelada');
     closeModal();
   };
 
@@ -99,25 +100,24 @@ function StudentCalendar({ isOpen, onClose }) {
         onChange={handleDateChange}
         value={selectedDate}
         tileClassName={tileClassName} 
-        locale="en-US" // Se establece el idioma en inglés
       />
 
       <div className="close-button-container" style={{ marginTop: 10 }}>
-        <button onClick={closeModal}>Close</button>         
+        <button onClick={closeModal}>Cerrar</button>         
       </div>
 
       {getAvailableTimes().length > 0 && (
         <div className="class-info">
-          <p>{selectedDate.toLocaleDateString('en-US')}</p> {/* Traducción del formato de fecha */}
+          <p>{selectedDate.toLocaleDateString()}</p>
           <p>Tutor: {tutorAvailability.find(({ date }) => date.getTime() === selectedDate.getTime()).tutorName}</p>
-          <p>Times:</p>
+          <p>Horarios:</p>
           <div className="times-list">
             {getAvailableTimes().map((time, index) => (
               <span key={index} className="class-time">{time}</span>
             ))}
           </div>
-          <button onClick={cancelClass}>Cancel Class</button>
-          <button onClick={viewClass}>View Class</button>
+          <button onClick={cancelClass}>Cancelar Clase</button>
+          <button onClick={viewClass}>Ver Clase</button>
         </div>
       )}
     </Modal>
