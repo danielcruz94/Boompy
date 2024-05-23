@@ -164,7 +164,7 @@ console.log(auth)
 
       <br />
 
-      {/* <Footer></Footer> */}
+      <Footer></Footer>
     </Container>
   );
 };

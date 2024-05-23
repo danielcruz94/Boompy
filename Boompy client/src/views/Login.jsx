@@ -12,9 +12,9 @@ const Login=() => {
     <Container>
     <Headings>
     </Headings>
-    <NavBar>
+    {/* <NavBar>
 
-    </NavBar>
+    </NavBar> */}
     <ContainerPicture>
         <img src={Section} style={{width:'100%',height:'100%',objectFit:'cover'}} alt="section" />
     </ContainerPicture>
@@ -23,9 +23,9 @@ const Login=() => {
     <br />
     <br />
     <br />
-  {/* <Footer>
+  <Footer>
 
-  </Footer> */}
+  </Footer>
     
  
 

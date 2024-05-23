@@ -13,9 +13,9 @@ const  Signup=() => {
         <Container>
         <Headings>
         </Headings>
-        <NavBar textBotton={"Login"}>
+        {/* <NavBar textBotton={"Login"}>
     
-        </NavBar>
+        </NavBar> */}
         <ContainerTitle>
             <img src={Section} style={{width:'100%',height:'100%',objectFit:'cover'}}  alt="section" />
           
@@ -29,9 +29,9 @@ const  Signup=() => {
         <br />
         <br />
         <br />
-      {/* <Footer>
+      <Footer/>
     
-      </Footer> */}
+ 
         
      
     
