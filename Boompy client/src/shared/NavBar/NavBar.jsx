@@ -18,15 +18,16 @@ import { Link } from 'react-router-dom';
 import StudentCalendar from '../Components/Calendar/Student_Calendar'; 
 
 import CalendarClass from '../Components/Calendar/Calendar_Class'; 
+import {logout} from '../../Redux/authSlice'
+import { useSelector,useDispatch } from "react-redux"
+import { useNavigate} from 'react-router-dom';
 
 const NavBar = ({ textButton, onClick, userInfo }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
 
   const [role, setRole] = useState('Tutor'); // role para mostrar el calendario Student '
 
-import {logout} from '../../Redux/authSlice'
-import { useSelector,useDispatch } from "react-redux"
-import { useNavigate} from 'react-router-dom';
+
   
 
   const auth = useSelector((state) => state.auth);
