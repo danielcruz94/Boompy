@@ -1,6 +1,6 @@
 
 import React from "react"
-import {Container,Headings,ContainerBar} from './Landing.style'
+import {Container,Headings,ContainerPicture} from './Landing.style'
 import NavBar from '../shared/NavBar/NavBar'
 import Section from '../../../imagenes/Section.svg'
 import Form from '../shared/Components/FormLogin/Form'
@@ -12,12 +12,12 @@ const Login=() => {
     <Container>
     <Headings>
     </Headings>
-    <NavBar>
+    {/* <NavBar>
 
-    </NavBar>
-    <ContainerBar>
-        <img src={Section} alt="section" />
-    </ContainerBar>
+    </NavBar> */}
+    <ContainerPicture>
+        <img src={Section} style={{width:'100%',height:'100%',objectFit:'cover'}} alt="section" />
+    </ContainerPicture>
     <Form></Form>
 
     <br />

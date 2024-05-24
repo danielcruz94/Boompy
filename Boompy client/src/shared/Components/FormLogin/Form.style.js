@@ -14,6 +14,10 @@ export const FormLog = styled.form`
   border-radius:5px;
   margin-botton:70px;
 
+  @media (max-width: 500px) {
+    width: 360px;
+    
+}
   
 `;
 
@@ -27,7 +31,10 @@ export const GoogleButton = styled.button`
   margin-top:30px;
   align-items:center;
   border:1px solid #E1E1E1;
-
+  @media (max-width: 500px) {
+    width: 300px;
+    
+}
 
   
 `;
@@ -37,10 +44,13 @@ export const Container = styled.div`
   width:420px;
   height: 100%;
   display: flex;
-//  border:1px solid black;
+
   flex-direction:column;
 
-
+  @media (max-width: 500px) {
+    width: 300px;
+    
+}
 
  
 
@@ -71,7 +81,7 @@ export const Input=styled.input`
   text-align:initial;
   border:1px solid #E1E1E1;
   border-radius:5px;
-  
+ 
 
 
 
@@ -89,7 +99,7 @@ export const TextLogin=styled.p`
   margin:2px;
  
   
-
+ 
 
 
  

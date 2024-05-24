@@ -1,6 +1,7 @@
 
 import  {useEffect,React,useState}from "react"
-import {Container,Headings,ContainerTitle,BackgrounModal} from './Landing.style'
+import {Container,Headings,ContainerTitle,BackgrounModal,
+  } from './Landing.style'
 import {ContainerProfile} from '../shared/Components/Cards/Cards.style'
 import NavBar from '../shared/NavBar/NavBar'
 import Section from '../../../imagenes/Section.svg'
@@ -19,7 +20,7 @@ import Loader from "../shared/Components/Loader/Loader"
 const Home = () => {
   const users = useSelector((state) => state.users);
   const auth = useSelector((state) => state.auth);
-
+console.log(auth)
   const dispatch = useDispatch();
   const navegate = useNavigate();
 
@@ -55,6 +56,10 @@ const Home = () => {
   //
 
   useEffect(() => {
+    if(!auth.isLoggedIn){
+      navegate('/')
+    }
+
     const storedValue = window.localStorage.getItem("userData");
     if (storedValue) {
       const parsedUserData = JSON.parse(storedValue);
@@ -112,18 +117,17 @@ const Home = () => {
         userInfo={localUser}
       ></NavBar>
       <ContainerTitle>
-        <img src={Section}  alt="section" />
-        <h3
-          style={{
-            fontSize: "30px",
-            position: "relative",
-            top: "-200px",
-            left: "-400px",
-          }}
-        >
+     
+   
+        <img src={Section} style={{width:'100%',height:'100%',objectFit:'cover'}}   alt="section" />
+
+       
+        
+      </ContainerTitle>
+      <h3  style={{margin:'30px',position:'relative',}}>
           Choose your Trip
         </h3>
-      </ContainerTitle>
+     
 
       <ContainerProfile >
         {isLoading && <Loader />}

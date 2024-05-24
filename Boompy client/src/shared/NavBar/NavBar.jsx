@@ -7,6 +7,8 @@ import {
     SubmitButton, 
     Bottom 
 } from '../../views/Landing.style';
+
+ 
 import Vector from '../../../../imagenes/Vector.svg';
 import Header from '../../../../imagenes/Header.svg';
 import Button from '../../../../imagenes/Button.svg';
@@ -14,12 +16,31 @@ import corazon from '../../../../imagenes/corazon.svg';
 import carrito from '../../../../imagenes/carrito.svg';
 import { Link } from 'react-router-dom';
 import StudentCalendar from '../Components/Calendar/Student_Calendar'; 
+
 import CalendarClass from '../Components/Calendar/Calendar_Class'; 
 
 const NavBar = ({ textButton, onClick, userInfo }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
 
   const [role, setRole] = useState('Tutor'); // role para mostrar el calendario Student '
+
+import {logout} from '../../Redux/authSlice'
+import { useSelector,useDispatch } from "react-redux"
+import { useNavigate} from 'react-router-dom';
+  
+
+  const auth = useSelector((state) => state.auth);
+ const dispatch=useDispatch()
+ const navegate =useNavigate()
+
+  const logOut=() => {
+    dispatch(logout())
+    navegate('/')
+
+  }
+ 
+
+
 
   const toggleCalendar = () => {
     setIsCalendarOpen(!isCalendarOpen); 
@@ -59,7 +80,11 @@ const NavBar = ({ textButton, onClick, userInfo }) => {
       </div>
 
       <ContainerNavBar>
-        <img src={Vector} alt="vector" />
+       
+        <img src={Vector}  alt="vector" />
+       
+      
+       
         <p style={{ marginLeft: '6px' }}>Categories</p>
         <SubmitButton placeholder="Search your partner"></SubmitButton>
         <img src={Button} style={{ width: '10px' }} alt="button" />
@@ -67,7 +92,11 @@ const NavBar = ({ textButton, onClick, userInfo }) => {
       <div style={{ display: 'flex', gap: '5px' }}>
         <img src={corazon} alt="corazon" />
         <img src={carrito} alt="carrito" />
+
         <Bottom onClick={onClick}>{textButton}</Bottom>
+
+        <Bottom onClick={logOut}>{textBotton}</Bottom>
+
       </div>
 
       {isCalendarOpen && <CalendarComponent isOpen={isCalendarOpen} onRequestClose={closeCalendar} onClose={closeCalendar} />}

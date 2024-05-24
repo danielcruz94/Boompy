@@ -314,18 +314,21 @@ li > .Div-li2 {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
     gap: 10px; 
     width: 70%;
+    
 }
 
 .gallery img {
-    width: 100%;
+    width: 80%;
     height: auto;
-    border-radius: 10%;
+    /* border-radius: 5%; */
     margin: 20px;
+    object-fit:fill;
 }
 
 #root > div > div.contenTeach > div.contGalery > div:nth-child(1) > h4{
     color: black;
 }
+
 
 
 @media screen and (max-width: 600px) {
