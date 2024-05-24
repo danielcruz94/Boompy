@@ -18,6 +18,7 @@ function TutorCalendar() {
       try {
         const response = await axios.get('http://localhost:3001/api/calendar', { params: { userId: 'tutor123' } });
         setTutorAvailability(response.data);
+        console.log(response.data)
       } catch (error) {
         console.error('Error fetching tutor availability:', error);
       }
@@ -47,9 +48,34 @@ function TutorCalendar() {
   };
 
   const assignClass = () => {
-    console.log("Class assigned for:", selectedDate.toLocaleDateString(), "at", selectedTime);
+    const selectedClass = tutorAvailability.find(availability => {
+        const availabilityDate = new Date(availability.date).toLocaleDateString();
+        const availabilityTime = `${availability.startTime} --- ${availability.endTime}`;
+        return availabilityDate === selectedDate.toLocaleDateString() && availabilityTime === selectedTime;
+    });
+
+    if (selectedClass) {
+        const newClassData = {
+            date: selectedClass.date,
+            startTime: selectedClass.startTime,
+            endTime: selectedClass.endTime,
+            userId: selectedClass.userId,
+            classId: selectedClass._id,
+            reserved: 'IdUsuario'
+        };
+
+        console.log("New class data:", JSON.stringify(newClassData, null, 2));
+    } else {
+        console.error("No class found for the selected date and time.");
+    }
+
     closeModal();
-  };
+
+    // Restablecer selectedTime a una cadena vacía para reiniciar el select
+    setSelectedTime('');
+};
+
+
 
   const getAvailableTimesForDate = (date) => {
     const availabilityForDate = tutorAvailability.filter(availability => new Date(availability.date).getTime() === date.getTime());

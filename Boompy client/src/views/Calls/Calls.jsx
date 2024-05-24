@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "./Calls.css";
-import peer from "../../../src/shared/Components/Calls/WebRTCManager";
+//import peer from "../../../src/shared/Components/Calls/WebRTCManager";
+import { setUserId, initializePeer } from "../../../src/shared/Components/Calls/WebRTCManager";
 import { Headings } from "../Landing.style";
 import NavBar from "../../shared/NavBar/NavBar";
 import Footer from "../../shared/Components/Footer/Footer";
+
+
+const userId = '1234567890'; //ACA DEBE IR LA VARIABLE DE ID DE USUARIO DE LA BASE DE DATOS 
+
+setUserId(userId);
+const peer = initializePeer();
+
+if (peer) {
+    // Ahora puedes usar `peer` para la comunicación PeerJS
+} else {
+    console.error('No se pudo inicializar PeerJS debido a un error.');
+}
 
 const Calls = () => {
   const [localStream, setLocalStream] = useState(null);
