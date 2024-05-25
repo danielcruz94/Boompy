@@ -22,8 +22,8 @@ import StudentCalendar from '../Components/Calendar/Student_Calendar';
 
 import CalendarClass from '../Components/Calendar/Calendar_Class'; 
 
-import { useSelector,useDispatch } from "react-redux"
-import { useNavigate} from 'react-router-dom';
+
+
 
 const NavBar = ({ textBotton, onClick, userInfo }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
