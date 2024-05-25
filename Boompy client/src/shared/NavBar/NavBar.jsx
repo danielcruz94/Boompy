@@ -8,6 +8,9 @@ import {
     Bottom 
 } from '../../views/Landing.style';
 
+import {logout} from '../../Redux/authSlice'
+import { useSelector,useDispatch } from "react-redux"
+import { useNavigate} from 'react-router-dom';
  
 import Vector from '../../../../imagenes/Vector.svg';
 import Header from '../../../../imagenes/Header.svg';
@@ -24,9 +27,7 @@ const NavBar = ({ textButton, onClick, userInfo }) => {
 
   const [role, setRole] = useState('Tutor'); // role para mostrar el calendario Student '
 
-import {logout} from '../../Redux/authSlice'
-import { useSelector,useDispatch } from "react-redux"
-import { useNavigate} from 'react-router-dom';
+
   
 
   const auth = useSelector((state) => state.auth);
