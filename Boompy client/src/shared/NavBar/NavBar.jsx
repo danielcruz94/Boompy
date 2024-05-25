@@ -8,6 +8,9 @@ import {
     Bottom 
 } from '../../views/Landing.style';
 
+import {logout} from '../../Redux/authSlice'
+import { useSelector,useDispatch } from "react-redux"
+import { useNavigate} from 'react-router-dom';
  
 import Vector from '../../../../imagenes/Vector.svg';
 import Header from '../../../../imagenes/Header.svg';
