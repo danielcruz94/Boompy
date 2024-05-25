@@ -85,6 +85,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
         date: selectedDate, 
         startTime: selectedStartTime,
         endTime: selectedEndTime,
+        reserved: "",
     };
       
   
