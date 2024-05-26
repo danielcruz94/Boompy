@@ -11,21 +11,24 @@ function TutorCalendar() {
   const [selectedTime, setSelectedTime] = useState('');
   const [showOpenButton, setShowOpenButton] = useState(true);
   const [scrollEnabled, setScrollEnabled] = useState(true);
+  const [reservationSuccess, setReservationSuccess] = useState(false);
 
   useEffect(() => {
     Modal.setAppElement('#root');
+    const tutorId = 'tutor123'; // Definir aquí el ID del tutor
     const fetchTutorAvailability = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/calendar', { params: { userId: 'tutor123' } });
-        setTutorAvailability(response.data);
-        console.log(response.data)
+        const response = await axios.get('http://localhost:3001/api/calendar', { params: { userId: tutorId } });
+        const filteredAvailability = response.data.filter(availability => availability.reserved === ''); // Filtrar las fechas no reservadas
+        setTutorAvailability(filteredAvailability);
+       // console.log(filteredAvailability);
       } catch (error) {
         console.error('Error fetching tutor availability:', error);
       }
     };
-
+  
     fetchTutorAvailability();
-  }, []);
+  }, [reservationSuccess]);
 
   useEffect(() => {
     if (!scrollEnabled) {
@@ -47,35 +50,38 @@ function TutorCalendar() {
     setScrollEnabled(true);
   };
 
-  const assignClass = () => {
+  const assignClass = async () => {
+    const reservedValue = "Student123"; // ID del estudiante
+
     const selectedClass = tutorAvailability.find(availability => {
-        const availabilityDate = new Date(availability.date).toLocaleDateString();
-        const availabilityTime = `${availability.startTime} --- ${availability.endTime}`;
-        return availabilityDate === selectedDate.toLocaleDateString() && availabilityTime === selectedTime;
+      const availabilityDate = new Date(availability.date).toLocaleDateString();
+      const availabilityTime = `${availability.startTime} --- ${availability.endTime}`;
+      return availabilityDate === selectedDate.toLocaleDateString() && availabilityTime === selectedTime;
     });
 
     if (selectedClass) {
-        const newClassData = {
-            date: selectedClass.date,
-            startTime: selectedClass.startTime,
-            endTime: selectedClass.endTime,
-            userId: selectedClass.userId,
-            classId: selectedClass._id,
-            reserved: 'IdUsuario'
-        };
+      const newClassData = {
+        date: selectedClass.date,
+        startTime: selectedClass.startTime,
+        endTime: selectedClass.endTime,
+        userId: selectedClass.userId,
+        classId: selectedClass._id,
+        reserved: reservedValue 
+      };
 
-        console.log("New class data:", JSON.stringify(newClassData, null, 2));
+      try {
+        await axios.put(`http://localhost:3001/api/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue });
+        setReservationSuccess(prevState => !prevState); // Cambio de estado para forzar la actualización del calendario
+      } catch (error) {
+        console.error("Error reserving class:", error);
+      }
     } else {
-        console.error("No class found for the selected date and time.");
+      console.error("No class found for the selected date and time.");
     }
 
-    closeModal();
-
-    // Restablecer selectedTime a una cadena vacía para reiniciar el select
+    //closeModal();
     setSelectedTime('');
-};
-
-
+  };
 
   const getAvailableTimesForDate = (date) => {
     const availabilityForDate = tutorAvailability.filter(availability => new Date(availability.date).getTime() === date.getTime());
@@ -88,7 +94,11 @@ function TutorCalendar() {
 
   const customClasses = {};
   tutorAvailability.forEach(({ date }) => {
-    customClasses[new Date(date).toLocaleDateString()] = 'available';
+    const dateString = new Date(date).toLocaleDateString();
+    customClasses[dateString] = 'available';
+    if (!getAvailableTimesForDate(new Date(date)).length) {
+      customClasses[dateString] = ''; // Eliminar la clase 'available' si no hay tiempos disponibles
+    }
   });
 
   const isToday = (date) => {
@@ -114,9 +124,10 @@ function TutorCalendar() {
           value={selectedDate}
           locale="en-US"
           tileClassName={({ date }) => {
+            const dateString = date.toLocaleDateString();
             const classes = [];
-            if (customClasses[date.toLocaleDateString()]) {
-              classes.push(customClasses[date.toLocaleDateString()]);
+            if (customClasses[dateString]) {
+              classes.push(customClasses[dateString]);
             }
             if (isToday(date)) {
               classes.push('today');
@@ -138,7 +149,6 @@ function TutorCalendar() {
       </Modal>
     </>
   );
-
 }
 
 export default TutorCalendar;

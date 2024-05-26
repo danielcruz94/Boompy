@@ -25,7 +25,7 @@ import CalendarClass from '../Components/Calendar/Calendar_Class';
 const NavBar = ({ textButton, onClick, userInfo }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
 
-  const [role, setRole] = useState('Tutor'); // role para mostrar el calendario Student '
+  const [role, setRole] = useState('Student'); // role para mostrar el calendario Student '
 
 
   
@@ -96,7 +96,7 @@ const NavBar = ({ textButton, onClick, userInfo }) => {
 
         <Bottom onClick={onClick}>{textButton}</Bottom>
 
-        <Bottom onClick={logOut}>{textBotton}</Bottom>
+       
 
       </div>
 

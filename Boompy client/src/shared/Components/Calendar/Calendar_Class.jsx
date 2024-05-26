@@ -58,6 +58,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
   };
 
   const closeModal = (event) => {
+    document.body.style.overflow = 'auto';
     if (event?.target?.id === "closeButton") {
       setModalIsOpen(false);
       setScrollEnabled(true);
@@ -71,36 +72,46 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
   };
 
   const assignClass = () => {
-    const currentDate = new Date(); 
-    const selectedDateTime = selectedDate.getTime(); 
-    const currentDateTime = currentDate.getTime(); 
-     
-    if (selectedDateTime <= currentDateTime) {      
-        alert("Invalid date. Please select a date later than today.");
-        return; 
+    const currentDate = new Date();
+    const selectedDateTime = selectedDate.getTime();
+    const currentDateTime = currentDate.getTime();
+
+    if (selectedDateTime <= currentDateTime) {
+        alert("Fecha no válida. Por favor, seleccione una fecha posterior a hoy.");
+        return;
     }
-  
+
     const classData = {
         userId: "tutor123",
-        date: selectedDate, 
+        date: selectedDate,
         startTime: selectedStartTime,
         endTime: selectedEndTime,
         reserved: "",
     };
-      
-  
+
     // Connection to database using Axios
     axios.post('http://localhost:3001/api/calendar', classData)
         .then(response => {
-            // Handle server response if necessary
-           
-            closeModal();
+            // Handle server response
+            if (response.status === 201) {
+                // La clase se agregó con éxito
+                closeModal();
+            }
         })
         .catch(error => {
             // Handle error if request fails
             console.error('Error sending data:', error);
+            // Check if error message is received from server
+            if (error.response && error.response.data && error.response.data.message) {
+                // Display server error message to the user
+                alert(error.response.data.message);
+            } else {
+                // If no specific error message received, display generic error message
+                alert("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
+            }
         });
-  };
+};
+
 
   const getAvailableDates = () => {
     const currentDate = new Date();
@@ -133,6 +144,8 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
     hoursOptions.push(hour);
   }
 
+
+  
   return (
     <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
       <Calendar
@@ -154,12 +167,13 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
       <div>
         <p>Available Hours for {selectedDate.toLocaleDateString()}</p>
         <ul>
-          {availableHoursForDate.map(({ startTime, endTime }, index) => (
-            <li key={index}>
-              {startTime} - {endTime}
-            </li>
-          ))}
-        </ul>
+  {availableHoursForDate.map(({ startTime, endTime, reserved }, index) => (
+    <li key={index} className={reserved ? 'reserved' : ''}>
+      {startTime} - {endTime}
+    </li>
+  ))}
+</ul>
+
       </div>
 
       <div>
