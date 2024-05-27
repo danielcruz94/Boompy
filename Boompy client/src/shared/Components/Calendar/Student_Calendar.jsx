@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import Modal from 'react-modal';
+import axios from 'axios';
 import './Calendar.css'; 
 
 function StudentCalendar({ isOpen, onRequestClose, onClose }) {
-  const tutorAvailability = [
-    { date: new Date(2024, 4, 1), availableTimes: ['10:00'], tutorName: 'Tutor 1' },
-    { date: new Date(2024, 4, 5), availableTimes: ['09:00', '10:00', '15:00'], tutorName: 'Tutor 2' },
-    { date: new Date(2024, 4, 10), availableTimes: ['11:00', '13:00'], tutorName: 'Tutor 3' },
-    { date: new Date(2024, 4, 16), availableTimes: ['12:00', '14:00'], tutorName: 'Tutor 4' },
-    { date: new Date(2024, 4, 20), availableTimes: ['10:00', '12:00', '15:00'], tutorName: 'Tutor 5' },
-    { date: new Date(2024, 4, 25), availableTimes: ['09:00'], tutorName: 'Tutor 6' },
-    { date: new Date(2024, 5, 2), availableTimes: ['12:00'], tutorName: 'Tutor 7' },
-    { date: new Date(2024, 5, 8), availableTimes: ['09:00', '11:00', '14:00'], tutorName: 'Tutor 8' },
-    { date: new Date(2024, 5, 14), availableTimes: ['15:00'], tutorName: 'Tutor 9' },
-    { date: new Date(2024, 5, 20), availableTimes: ['09:00', '11:00', '14:00'], tutorName: 'Tutor 10' },
-    { date: new Date(2024, 5, 26), availableTimes: ['15:00'], tutorName: 'Tutor 11' },
-    { date: new Date(2024, 5, 30), availableTimes: ['09:00', '11:00', '14:00'], tutorName: 'Tutor 12' }
-  ];
-
+  const [tutorAvailability, setTutorAvailability] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [scrollEnabled, setScrollEnabled] = useState(true); 
 
+  const studentId = 'Student123'; // Aquí asigna el ID del alumno que ya tienes disponible
+
   useEffect(() => {
     Modal.setAppElement('#root');
-  }, []);
+    const fetchStudentCalendarClasses = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/api/calendar/classes/${studentId}`);
+        setTutorAvailability(response.data);
+      } catch (error) {
+        console.error('Error fetching student calendar classes:', error);
+      }
+    };
+  
+    fetchStudentCalendarClasses();
+  }, [studentId]);
+  
 
   useEffect(() => {
     if (!scrollEnabled) {
@@ -40,7 +40,7 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
       return;
     }
 
-    const availability = tutorAvailability.find(({ date: availabilityDate }) => availabilityDate.getTime() === date.getTime());
+    const availability = tutorAvailability.find(({ date: availabilityDate }) => new Date(availabilityDate).getTime() === date.getTime());
     if (availability) {
       setSelectedDate(date);
       setScrollEnabled(false);
@@ -63,14 +63,18 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
   };
 
   const getAvailableTimes = () => {
-    const availability = tutorAvailability.find(({ date }) => date.getTime() === selectedDate.getTime());
-    return availability ? availability.availableTimes : [];
+    const availability = tutorAvailability.find(item => {
+      const itemDate = new Date(item.date);
+      return itemDate.toDateString() === selectedDate.toDateString();
+    });
+  
+    return availability ? `${availability.startTime} - ${availability.endTime}` : '';
   };
 
   const customClasses = {};
 
-  tutorAvailability.forEach(({ date, availableTimes }) => {
-    customClasses[date.toLocaleDateString()] = availableTimes.length > 0 ? 'available' : '';
+  tutorAvailability.forEach(({ date }) => {
+    customClasses[new Date(date).toLocaleDateString()] = 'available';
   });
 
   const isToday = (date) => {
@@ -106,16 +110,10 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
         <button onClick={closeModal}>Cerrar</button>         
       </div>
 
-      {getAvailableTimes().length > 0 && (
+      {getAvailableTimes() && (
         <div className="class-info">
           <p>{selectedDate.toLocaleDateString()}</p>
-          <p>Tutor: {tutorAvailability.find(({ date }) => date.getTime() === selectedDate.getTime()).tutorName}</p>
-          <p>Horarios:</p>
-          <div className="times-list">
-            {getAvailableTimes().map((time, index) => (
-              <span key={index} className="class-time">{time}</span>
-            ))}
-          </div>
+          <p>Horario: {getAvailableTimes()}</p>
           <button onClick={cancelClass}>Cancelar Clase</button>
           <button onClick={viewClass}>Ver Clase</button>
         </div>

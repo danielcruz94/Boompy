@@ -196,6 +196,10 @@ body > div:nth-child(6) > div > div > div:nth-child(2) > ul > li{
   color: black;
 }
 
+.reserved{
+  color: red !important;
+}
+
 @media (max-width: 499px) {
 
   /*DIV Boton para abrir calendario tutor*/
