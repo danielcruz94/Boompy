@@ -29,7 +29,7 @@ const Teach = () => {
 React.useEffect(()=>{
     axios(`http://localhost:3001/api/user/${params.id}`)
     .then(({ data }) => {
-        console.log(data)
+       
         if (data.name) {
            
             setTutor(data)
@@ -53,7 +53,7 @@ React.useEffect(()=>{
         <Headings></Headings>
         <NavBar></NavBar>
         <div className="NavTeach">
-          <p>Home &gt; Instructors &gt; NameInstructor</p>
+         
         </div>
 
         <div className="InfTeach">

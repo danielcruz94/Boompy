@@ -22,7 +22,10 @@ import StudentCalendar from '../Components/Calendar/Student_Calendar';
 
 import CalendarClass from '../Components/Calendar/Calendar_Class'; 
 
-const NavBar = ({ textButton, onClick, userInfo }) => {
+
+
+
+const NavBar = ({ textBotton, onClick, userInfo }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
 
   const [role, setRole] = useState('Student'); // role para mostrar el calendario Student '
@@ -34,11 +37,7 @@ const NavBar = ({ textButton, onClick, userInfo }) => {
  const dispatch=useDispatch()
  const navegate =useNavigate()
 
-  const logOut=() => {
-    dispatch(logout())
-    navegate('/')
-
-  }
+ 
  
 
 
@@ -71,7 +70,7 @@ const NavBar = ({ textButton, onClick, userInfo }) => {
         <Link to={"/home"}>
           <SubHeading>Home</SubHeading>
         </Link>
-        <SubHeading>Languages</SubHeading>
+        <SubHeading>Messages</SubHeading>
         <SubHeading 
           onClick={toggleCalendar} 
           style={{ cursor: 'pointer', fontWeight: 'bold' }}
@@ -94,9 +93,8 @@ const NavBar = ({ textButton, onClick, userInfo }) => {
         <img src={corazon} alt="corazon" />
         <img src={carrito} alt="carrito" />
 
-        <Bottom onClick={onClick}>{textButton}</Bottom>
+        <Bottom onClick={onClick}>{textBotton}</Bottom>
 
-       
 
       </div>
 
