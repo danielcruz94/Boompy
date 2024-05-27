@@ -70,6 +70,8 @@ const Home = () => {
         token: parsedUserData.token,
       });
     }
+
+    auth.user.role==="Tutor"&&navegate(`/tutor/${auth.user.id}`)
     // Effect code to run only once
   }, []);
 
@@ -111,6 +113,7 @@ const Home = () => {
   return (
     <Container>
       <Headings></Headings>
+     
       <NavBar
         textBotton={"Logout"}
         onClick={handleLogout}

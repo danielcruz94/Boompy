@@ -69,6 +69,7 @@ const go=() => {
   return (
     <div className="containerHome">
       <Headings >
+        
       <Bottom onClick={go} style={{height:'30px',marginTop:'10px',marginLeft:'5px'}}>Login</Bottom>
       </Headings>
       {/* <NavBar textBotton={"Login"} onClick={go}/> */}
