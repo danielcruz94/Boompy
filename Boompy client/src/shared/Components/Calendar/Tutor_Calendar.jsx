@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import Modal from 'react-modal';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+
 import './Calendar.css';
 
 function TutorCalendar() {
@@ -13,9 +15,22 @@ function TutorCalendar() {
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [reservationSuccess, setReservationSuccess] = useState(false);
 
+  const location = useLocation();
+
+  const lastIndex = location.pathname.lastIndexOf('/');
+
+  const id = location.pathname.substring(lastIndex + 1);
+
   useEffect(() => {
     Modal.setAppElement('#root');
-    const tutorId = 'tutor123'; // Definir aquí el ID del tutor
+  
+   
+
+    console.log(id)
+
+    const tutorId = id; 
+
+
     const fetchTutorAvailability = async () => {
       try {
         const response = await axios.get('http://localhost:3001/api/calendar', { params: { userId: tutorId } });
