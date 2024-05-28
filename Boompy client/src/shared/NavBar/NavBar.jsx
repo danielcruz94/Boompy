@@ -23,13 +23,16 @@ import StudentCalendar from '../Components/Calendar/Student_Calendar';
 import CalendarClass from '../Components/Calendar/Calendar_Class'; 
 
 
-
-
 const NavBar = ({ textBotton, onClick, userInfo }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
 
-  const [role, setRole] = useState('Student'); // role para mostrar el calendario Student '
+ 
+const userDataString = localStorage.getItem('userData');
+const userData = JSON.parse(userDataString);
 
+  const [role, setRole] = useState(userData.role); 
+
+  
 
   
 

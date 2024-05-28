@@ -9,7 +9,10 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [scrollEnabled, setScrollEnabled] = useState(true); 
 
-  const studentId = 'Student123'; // Aquí asigna el ID del alumno que ya tienes disponible
+  const userDataString = localStorage.getItem('userData');
+  const userData = JSON.parse(userDataString);
+
+  const studentId = userData.id; 
 
   useEffect(() => {
     Modal.setAppElement('#root');
