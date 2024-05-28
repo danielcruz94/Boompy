@@ -66,7 +66,10 @@ function TutorCalendar() {
   };
 
   const assignClass = async () => {
-    const reservedValue = "Student123"; // ID del estudiante
+
+    const userDataString = localStorage.getItem('userData');
+  const userData = JSON.parse(userDataString);
+    const reservedValue = userData.id; // ID del estudiante
 
     const selectedClass = tutorAvailability.find(availability => {
       const availabilityDate = new Date(availability.date).toLocaleDateString();
