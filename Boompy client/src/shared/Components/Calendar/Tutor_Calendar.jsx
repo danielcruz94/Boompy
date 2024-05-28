@@ -90,7 +90,7 @@ function TutorCalendar() {
         await axios.put(`http://localhost:3001/api/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue });
         setReservationSuccess(prevState => !prevState);
         const emailData = {
-          to: 'daniel94cruz@gmail.com',
+          to: userData.email,
           subject: 'Nueva Reserva',
           body: `¡Acabas de Reservar un espacio la app Torii`,
         };
