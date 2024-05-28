@@ -13,6 +13,9 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
   const [selectedEndTime, setSelectedEndTime] = useState('');
   const [scrollEnabled, setScrollEnabled] = useState(true); 
 
+  const userDataString = localStorage.getItem('userData');
+  const userData = JSON.parse(userDataString);
+
   useEffect(() => {
     Modal.setAppElement('#root');
     setModalIsOpen(isOpen);
@@ -26,31 +29,26 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
     }
   }, [scrollEnabled]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3001/api/calendar', { params: { userId: 'tutor123' } });
-        setTutorAvailability(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+  const fetchDataAndSetAvailability = () => {
+    
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('http://localhost:3001/api/calendar', { params: { userId: userData.id } });
+          setTutorAvailability(response.data);
+          console.log(response.data);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+  
+      fetchData();
+    
+  };
+  
+  // Llamar a la función para ejecutar el useEffect
+  fetchDataAndSetAvailability();
+  
 
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3001/api/calendar', { params: { userId: 'tutor123' } });
-        setTutorAvailability(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, [tutorAvailability]); // Se activará cada vez que tutorAvailability cambie
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -71,46 +69,39 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
     }
   };
 
-  const assignClass = () => {
-    const currentDate = new Date();
-    const selectedDateTime = selectedDate.getTime();
-    const currentDateTime = currentDate.getTime();
+  const assignClass = async () => {
+    try {
+        const currentDate = new Date();
+        const selectedDateTime = selectedDate.getTime();
+        const currentDateTime = currentDate.getTime();
 
-    if (selectedDateTime <= currentDateTime) {
-        alert("Fecha no válida. Por favor, seleccione una fecha posterior a hoy.");
-        return;
+        if (selectedDateTime <= currentDateTime) {
+            throw new Error("Fecha no válida. Por favor, seleccione una fecha posterior a hoy.");
+        }
+
+        const classData = {
+            userId: userData.id,
+            date: selectedDate,
+            startTime: selectedStartTime,
+            endTime: selectedEndTime,
+            reserved: "",
+        };
+
+        const response = await axios.post('http://localhost:3001/api/calendar', classData);
+
+        if (response.status === 201) {
+            // La clase se agregó con éxito
+            fetchDataAndSetAvailability();
+            closeModal();
+        } else {
+            throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
+        }
+    } catch (error) {
+        console.error('Error al enviar los datos al servidor:', error.message);
+        alert(error.message || "Error al enviar los datos al servidor. Por favor, intente nuevamente.");
     }
-
-    const classData = {
-        userId: "tutor123",
-        date: selectedDate,
-        startTime: selectedStartTime,
-        endTime: selectedEndTime,
-        reserved: "",
-    };
-
-    // Connection to database using Axios
-    axios.post('http://localhost:3001/api/calendar', classData)
-        .then(response => {
-            // Handle server response
-            if (response.status === 201) {
-                // La clase se agregó con éxito
-                closeModal();
-            }
-        })
-        .catch(error => {
-            // Handle error if request fails
-            console.error('Error sending data:', error);
-            // Check if error message is received from server
-            if (error.response && error.response.data && error.response.data.message) {
-                // Display server error message to the user
-                alert(error.response.data.message);
-            } else {
-                // If no specific error message received, display generic error message
-                alert("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
-            }
-        });
 };
+
 
 
   const getAvailableDates = () => {
