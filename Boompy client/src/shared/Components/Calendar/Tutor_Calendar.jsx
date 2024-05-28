@@ -88,7 +88,14 @@ function TutorCalendar() {
 
       try {
         await axios.put(`http://localhost:3001/api/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue });
-        setReservationSuccess(prevState => !prevState); // Cambio de estado para forzar la actualización del calendario
+        setReservationSuccess(prevState => !prevState);
+        const emailData = {
+          to: 'daniel94cruz@gmail.com',
+          subject: 'Nueva Reserva',
+          body: `¡Acabas de Reservar un espacio la app Torii`,
+        };
+
+      const sentEmail=  await axios.post('http://localhost:3001/api/email/enviar-email', emailData); // Cambio de estado para forzar la actualización del calendario
       } catch (error) {
         console.error("Error reserving class:", error);
       }
