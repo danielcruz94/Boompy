@@ -11,15 +11,17 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
 
   const userDataString = localStorage.getItem('userData');
   const userData = JSON.parse(userDataString);
+ 
 
   const studentId = userData.id; 
-
+  console.log(studentId)
   useEffect(() => {
     Modal.setAppElement('#root');
     const fetchStudentCalendarClasses = async () => {
       try {
         const response = await axios.get(`http://localhost:3001/api/calendar/classes/${studentId}`);
         setTutorAvailability(response.data);
+        
       } catch (error) {
         console.error('Error fetching student calendar classes:', error);
       }
