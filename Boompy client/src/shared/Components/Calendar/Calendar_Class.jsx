@@ -90,8 +90,16 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
         const response = await axios.post('http://localhost:3001/api/calendar', classData);
 
         if (response.status === 201) {
+// 'daniel94cruz@gmail.com'
             // La clase se agregó con éxito
             fetchDataAndSetAvailability();
+            const emailData = {
+              to: userData.email,
+              subject: 'Actualización Disponibilidad Torii',
+              body: `¡Acabas de Actualizar tu calendario en la app Torii`,
+            };
+
+          const sentEmail=  await axios.post('http://localhost:3001/api/email/enviar-email', emailData);
             closeModal();
         } else {
             throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");

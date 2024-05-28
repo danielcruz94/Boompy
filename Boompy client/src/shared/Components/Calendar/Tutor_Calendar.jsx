@@ -26,8 +26,7 @@ function TutorCalendar() {
   
    
 
-    console.log(id)
-
+    
     const tutorId = id; 
 
 
@@ -133,7 +132,7 @@ function TutorCalendar() {
           setModalIsOpen(true);
           setShowOpenButton(false);
           setScrollEnabled(false);
-        }}>My Calendar</button>
+        }} style={{marginTop:'15px',background:'#10104d',color:'white'}}>Book a Place</button>
       )}
 
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
