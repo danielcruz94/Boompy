@@ -22,12 +22,14 @@ body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calenda
 body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__navigation > button.react-calendar__navigation__arrow.react-calendar__navigation__next2-button{
     background: #10104d;
     border-radius: 0px;
+    color: white;
 }
 
 body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__navigation > button.react-calendar__navigation__label{
   background: #10104d;
   border-radius: 0px;
   max-width: 300px;
+  color: white;
 }
 
 body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__weekdays > div{
@@ -58,6 +60,7 @@ body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calenda
 
 body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__days > button.react-calendar__tile.react-calendar__tile--now.react-calendar__month-view__days__day.today{
   background: #9393f1;
+  
 }
 
 body > div.ReactModalPortal > div > div > select {

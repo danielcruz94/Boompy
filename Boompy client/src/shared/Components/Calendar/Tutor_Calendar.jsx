@@ -26,27 +26,42 @@ function TutorCalendar() {
   
    
 
-    
-    const tutorId = id; 
 
+    const tutorId = id; 
+    console.log(id)
 
     const fetchTutorAvailability = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/calendar', { params: { userId: tutorId } });
-        const filteredAvailability = response.data.filter(availability => availability.reserved === ''); // Filtrar las fechas no reservadas
-        setTutorAvailability(filteredAvailability);
-       // console.log(filteredAvailability);
+          const response = await axios.get(`http://localhost:3001/api/calendar/${tutorId}`);
+          const availabilityData = response.data.map(avail => {
+              const startDateTime = new Date(avail.startTime);
+              const endDateTime = new Date(avail.endTime);
+              
+              // Convertir a hora local
+              const startTimeLocal = startDateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+              const endTimeLocal = endDateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+              
+              return {
+                  ...avail,
+                  startTime: startTimeLocal,
+                  endTime: endTimeLocal
+              };
+          });
+          
+          setTutorAvailability(availabilityData);
+          console.log(availabilityData);
       } catch (error) {
-        console.error('Error fetching tutor availability:', error);
+          console.error('Error fetching tutor availability:', error);
       }
-    };
+  };
+  
   
     fetchTutorAvailability();
   }, [reservationSuccess]);
 
   useEffect(() => {
     if (!scrollEnabled) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'auto';
     } else {
       document.body.style.overflow = 'auto';
     }
@@ -104,6 +119,7 @@ function TutorCalendar() {
     }
 
     //closeModal();
+    setScrollEnabled(true);
     setSelectedTime('');
   };
 

@@ -11,16 +11,18 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
 
   const userDataString = localStorage.getItem('userData');
   const userData = JSON.parse(userDataString);
- 
-
   const studentId = userData.id; 
-  console.log(studentId)
+
   useEffect(() => {
     Modal.setAppElement('#root');
     const fetchStudentCalendarClasses = async () => {
       try {
         const response = await axios.get(`http://localhost:3001/api/calendar/classes/${studentId}`);
-        setTutorAvailability(response.data);
+        setTutorAvailability(response.data.map(item => ({
+          ...item,
+          startTime: new Date(item.startTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
+          endTime: new Date(item.endTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })
+        })));
         
       } catch (error) {
         console.error('Error fetching student calendar classes:', error);
@@ -29,11 +31,10 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
   
     fetchStudentCalendarClasses();
   }, [studentId]);
-  
 
   useEffect(() => {
     if (!scrollEnabled) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'auto';
     } else {
       document.body.style.overflow = 'auto';
     }
@@ -109,6 +110,7 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
         onChange={handleDateChange}
         value={selectedDate}
         tileClassName={tileClassName} 
+        locale="en-US" // Cambiar a inglés
       />
 
       <div className="close-button-container" style={{ marginTop: 10 }}>
