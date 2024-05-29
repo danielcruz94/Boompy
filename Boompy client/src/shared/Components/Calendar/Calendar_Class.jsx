@@ -148,12 +148,23 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
   for (let i = 0; i < 24; i++) {
     let hour = (i % 12 || 12).toString();
     if (hour.length === 1) {
-      hour = '0' + hour; // Añadir un cero al principio para los números de una sola cifra
+      hour = '0' + hour; 
     }
     hour += ':00 ' + (i < 12 ? 'AM' : 'PM');
     hoursOptions.push(hour);
   }
+  
+  const viewReservedClassDetails = (startTime, endTime) => {
+    // Aquí puedes implementar la lógica para mostrar los detalles de la clase reservada
+    // Por ejemplo, podrías abrir un modal con los detalles de la clase
+  
+    // Por simplicidad, este ejemplo solo muestra los detalles en la consola
+    console.log('Detalles de la clase reservada:');
+    console.log('Hora de inicio:', new Date(startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }));
+    console.log('Hora de fin:', new Date(endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }));
+  };
 
+  
   return (
     <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
       <Calendar
@@ -178,6 +189,9 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
         {availableHoursForDate.map(({ startTime, endTime, reserved }, index) => (
   <li key={index} className={reserved ? 'reserved' : ''}>
     {new Date(startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })} - {new Date(endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
+    {reserved && (
+      <button onClick={() => viewReservedClassDetails(startTime, endTime)}>Ver clase</button>
+    )}
   </li>
 ))}
         </ul>
