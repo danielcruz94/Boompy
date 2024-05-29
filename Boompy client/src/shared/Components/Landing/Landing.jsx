@@ -20,7 +20,7 @@ function Landing() {
   const [carouselData2, setCarouselData2] = useState([]);
 
   const navegate =useNavigate()
-console.log(auth)
+
   
 
   useEffect(() => {
@@ -33,7 +33,7 @@ console.log(auth)
         }
         const data = await response.json();
         setCarouselData1(data);
-        console.log('CarouselData1 loaded successfully:', data);
+       
       } catch (error) {
         console.error('Error fetching carouselData1:', error);
       }
@@ -48,7 +48,7 @@ console.log(auth)
         }
         const data = await response.json();
         setCarouselData2(data);
-        console.log('CarouselData2 loaded successfully:', data);
+        
       } catch (error) {
         console.error('Error fetching carouselData2:', error);
       }
