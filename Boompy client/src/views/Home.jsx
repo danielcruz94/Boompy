@@ -71,7 +71,7 @@ const Home = () => {
       });
     }
 
-    auth.user.role==="Tutor"&&navegate(`/tutor/${auth.user.id}`)
+    auth.user?.role==="Tutor"&&navegate(`/tutor/${auth.user.id}`)
     // Effect code to run only once
   }, []);
 

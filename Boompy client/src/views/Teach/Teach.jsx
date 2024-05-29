@@ -6,6 +6,7 @@ import NavBar from '../../shared/NavBar/NavBar';
 import { useParams } from "react-router-dom";
 import axios from 'axios'
 import { useNavigate} from 'react-router-dom';
+import { useSelector,useDispatch } from "react-redux"
 
 
 
@@ -14,7 +15,7 @@ import TutorCalendar from '../../shared/Components/Calendar/Tutor_Calendar';
 
 
 const Teach = () => {
-
+  const auth = useSelector((state) => state.auth);
   const navegate = useNavigate();
 
     const imageUrls = [
@@ -128,7 +129,7 @@ React.useEffect(()=>{
             </div>
           </div>
 
-          <div>
+          {auth.user?.role!=="Tutor"&& <div>
             <div className="course-offer">
               <div>
                 <p>Fee:</p>
@@ -198,7 +199,7 @@ React.useEffect(()=>{
 
               <TutorCalendar/>
             </div>
-          </div>
+          </div>}
         </div>
 
         <div className="contGalery">

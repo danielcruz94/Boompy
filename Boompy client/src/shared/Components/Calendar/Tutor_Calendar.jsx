@@ -26,7 +26,6 @@ function TutorCalendar() {
   
    
 
-  
 
     const tutorId = id; 
     console.log(id)
@@ -104,7 +103,14 @@ function TutorCalendar() {
 
       try {
         await axios.put(`http://localhost:3001/api/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue });
-        setReservationSuccess(prevState => !prevState); // Cambio de estado para forzar la actualización del calendario
+        setReservationSuccess(prevState => !prevState);
+        const emailData = {
+          to: userData.email,
+          subject: 'Nueva Reserva',
+          body: `¡Acabas de Reservar un espacio la app Torii`,
+        };
+
+      const sentEmail=  await axios.post('http://localhost:3001/api/email/enviar-email', emailData); // Cambio de estado para forzar la actualización del calendario
       } catch (error) {
         console.error("Error reserving class:", error);
       }
@@ -149,7 +155,7 @@ function TutorCalendar() {
           setModalIsOpen(true);
           setShowOpenButton(false);
           setScrollEnabled(false);
-        }}>My Calendar</button>
+        }} style={{marginTop:'15px',background:'#10104d',color:'white'}}>Book a Place</button>
       )}
 
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
