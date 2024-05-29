@@ -69,12 +69,12 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
   };
 
   const getAvailableTimes = () => {
-    const availability = tutorAvailability.find(item => {
+    const availabilities = tutorAvailability.filter(item => {
       const itemDate = new Date(item.date);
       return itemDate.toDateString() === selectedDate.toDateString();
     });
-  
-    return availability ? `${availability.startTime} - ${availability.endTime}` : '';
+
+    return availabilities.map(availability => `${availability.startTime} - ${availability.endTime}`);
   };
 
   const customClasses = {};
@@ -117,14 +117,14 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
         <button onClick={closeModal}>Cerrar</button>         
       </div>
 
-      {getAvailableTimes() && (
-        <div className="class-info">
+      {getAvailableTimes().map((time, index) => (
+        <div key={index} className="class-info">
           <p>{selectedDate.toLocaleDateString()}</p>
-          <p>Horario: {getAvailableTimes()}</p>
+          <p>Horario: {time}</p>
           <button onClick={cancelClass}>Cancelar Clase</button>
           <button onClick={viewClass}>Ver Clase</button>
         </div>
-      )}
+      ))}
     </Modal>
   );
 }
