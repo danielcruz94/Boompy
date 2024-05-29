@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import axios from 'axios'
 import { useNavigate} from 'react-router-dom';
 import { useSelector,useDispatch } from "react-redux"
+import ImageFileUpload from '../../shared/Components/ImageUpload/ImageFileUpdload'
 
 
 
@@ -16,6 +17,7 @@ import TutorCalendar from '../../shared/Components/Calendar/Tutor_Calendar';
 
 const Teach = () => {
   const auth = useSelector((state) => state.auth);
+  console.log(auth)
   const navegate = useNavigate();
 
     const imageUrls = [
@@ -69,6 +71,18 @@ React.useEffect(()=>{
           <div>
             <div className="profile-container">
               <div className="profile-picture">
+              
+              <ImageFileUpload
+                   id="profile_image"
+                   text="Profile Photo"
+                   accept="image/png,image/jpeg"
+                   name="profile_image"
+                   picture={tutor.picture}
+                   className="rounded-circle"
+                   onChange={(fileUrl) =>
+                    setsettingInformation({ ...settingInformation, picture: fileUrl })
+                   }
+                   />
                 <img
                   src={tutor.picture}
                   alt="Foto de perfil"
