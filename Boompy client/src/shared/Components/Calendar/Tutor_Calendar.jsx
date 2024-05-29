@@ -34,7 +34,9 @@ function TutorCalendar() {
     const fetchTutorAvailability = async () => {
       try {
           const response = await axios.get(`http://localhost:3001/api/calendar/${tutorId}`);
-          const availabilityData = response.data.map(avail => {
+          const availabilityData = response.data.filter(avail => avail.reserved === "");
+          
+          const processedAvailabilityData = availabilityData.map(avail => {
               const startDateTime = new Date(avail.startTime);
               const endDateTime = new Date(avail.endTime);
               
@@ -49,12 +51,13 @@ function TutorCalendar() {
               };
           });
           
-          setTutorAvailability(availabilityData);
-          console.log(availabilityData);
+          setTutorAvailability(processedAvailabilityData);
+          console.log(processedAvailabilityData);
       } catch (error) {
           console.error('Error fetching tutor availability:', error);
       }
   };
+  
   
   
     fetchTutorAvailability();
@@ -104,7 +107,7 @@ function TutorCalendar() {
 
       try {
         await axios.put(`http://localhost:3001/api/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue });
-        setReservationSuccess(prevState => !prevState); // Cambio de estado para forzar la actualización del calendario
+        setReservationSuccess(prevState => !prevState); 
       } catch (error) {
         console.error("Error reserving class:", error);
       }
@@ -131,7 +134,7 @@ function TutorCalendar() {
     const dateString = new Date(date).toLocaleDateString();
     customClasses[dateString] = 'available';
     if (!getAvailableTimesForDate(new Date(date)).length) {
-      customClasses[dateString] = ''; // Eliminar la clase 'available' si no hay tiempos disponibles
+      customClasses[dateString] = ''; 
     }
   });
 
