@@ -54,7 +54,7 @@ const ImageFileUpload = ({ id, text, onChange, description,picture, ...props }) 
           </Spinner>
         )}
       </div>
-      {/* <Description>{description}</Description> */}
+      <Description>{description}</Description>
     </Container>
   );
 };
