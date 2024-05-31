@@ -51,7 +51,7 @@ function TutorCalendar() {
           });
           
           setTutorAvailability(processedAvailabilityData);
-          console.log(processedAvailabilityData);
+          
       } catch (error) {
           console.error('Error fetching tutor availability:', error);
       }
@@ -179,8 +179,8 @@ function TutorCalendar() {
           ))}
         </select>
         <div style={{ marginTop: 10 }}>
-          <button onClick={assignClass} disabled={!selectedTime}>Assign Class</button>
-          <button onClick={closeModal}>Close</button>
+        <button onClick={assignClass} disabled={!selectedTime} className="assign-class-btn">Assign Class</button>  
+        <button onClick={closeModal} className="close-btn">Close</button>
         </div>
       </Modal>
     </>

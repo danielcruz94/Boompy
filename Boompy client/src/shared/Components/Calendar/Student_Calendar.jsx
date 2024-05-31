@@ -8,6 +8,7 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
   const [tutorAvailability, setTutorAvailability] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [scrollEnabled, setScrollEnabled] = useState(true); 
+  const [selectedClasses, setSelectedClasses] = useState([]);
 
   const userDataString = localStorage.getItem('userData');
   const userData = JSON.parse(userDataString);
@@ -40,17 +41,29 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
     }
   }, [scrollEnabled]);
 
+  useEffect(() => {
+    if (isOpen) {
+      const todayClasses = tutorAvailability.filter(({ date }) => {
+        const currentDate = new Date();
+        const classDate = new Date(date);
+        return classDate.getDate() === currentDate.getDate() &&
+               classDate.getMonth() === currentDate.getMonth() &&
+               classDate.getFullYear() === currentDate.getFullYear();
+      });
+      setSelectedClasses(todayClasses);
+    }
+  }, [isOpen, tutorAvailability]);
+
   const handleDateChange = (date) => {
     const today = new Date();
     if (date.getDate() < today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()) {
       return;
     }
 
-    const availability = tutorAvailability.find(({ date: availabilityDate }) => new Date(availabilityDate).getTime() === date.getTime());
-    if (availability) {
-      setSelectedDate(date);
-      setScrollEnabled(false);
-    }
+    const availability = tutorAvailability.filter(({ date: availabilityDate }) => new Date(availabilityDate).getTime() === date.getTime());
+    setSelectedClasses(availability);
+    setSelectedDate(date);
+    setScrollEnabled(false);
   };
 
   const closeModal = () => {
@@ -64,24 +77,43 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
     closeModal();
   };
 
-  const viewClass = () => {   
-    window.location.href = 'http://localhost:5173/calls';
-  };
+  const viewClass = (startTime, endTime, classId) => {   
 
-  const getAvailableTimes = () => {
-    const availabilities = tutorAvailability.filter(item => {
-      const itemDate = new Date(item.date);
-      return itemDate.toDateString() === selectedDate.toDateString();
-    });
+    console.log(classId);   
 
-    return availabilities.map(availability => `${availability.startTime} - ${availability.endTime}`);
-  };
+    const currentTime = new Date();
+    
+    const [startHour, startMinute] = startTime.replace('AM', '').replace('PM', '').split(':').map(Number);
+    let adjustedStartHour = startHour;
+    if (startTime.includes('PM') && startHour !== 12) {
+        adjustedStartHour += 12;
+    } else if (startHour === 12 && startTime.includes('AM')) {
+        adjustedStartHour = 0; 
+    }
 
-  const customClasses = {};
+    const [endHour, endMinute] = endTime.replace('AM', '').replace('PM', '').split(':').map(Number);
+    let adjustedEndHour = endHour;
+    if (endTime.includes('PM') && endHour !== 12) {
+        adjustedEndHour += 12;
+    } else if (endHour === 12 && endTime.includes('AM')) {
+        adjustedEndHour = 0; 
+    }
 
-  tutorAvailability.forEach(({ date }) => {
-    customClasses[new Date(date).toLocaleDateString()] = 'available';
-  });
+    
+    const classStartTime = new Date();
+    classStartTime.setHours(adjustedStartHour, startMinute, 0);
+    const classEndTime = new Date(classStartTime);
+    classEndTime.setHours(adjustedEndHour, endMinute, 0);
+
+    
+    if (currentTime >= classStartTime && currentTime <= classEndTime) {
+        const url = `http://localhost:5173/calls/${classId}`;
+        window.location.href = url;
+    } else {
+        alert('Clase no disponible en este momento.');
+    }
+};
+
 
   const isToday = (date) => {
     const today = new Date();
@@ -95,8 +127,8 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
     if (!isToday(date) && date < new Date()) {
       return '';
     }
-    if (customClasses[date.toLocaleDateString()]) {
-      classes.push(customClasses[date.toLocaleDateString()]);
+    if (tutorAvailability.find(({ date: availabilityDate }) => new Date(availabilityDate).getTime() === date.getTime())) {
+      classes.push('available');
     }
     if (isToday(date)) {
       classes.push('today');
@@ -117,14 +149,17 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
         <button onClick={closeModal}>Cerrar</button>         
       </div>
 
-      {getAvailableTimes().map((time, index) => (
-        <div key={index} className="class-info">
-          <p>{selectedDate.toLocaleDateString()}</p>
-          <p>Horario: {time}</p>
-          <button onClick={cancelClass}>Cancelar Clase</button>
-          <button onClick={viewClass}>Ver Clase</button>
-        </div>
-      ))}
+      {selectedClasses.length > 0 && (
+        selectedClasses.map((classInfo, index) => (
+          <div key={index} className="class-info">
+            <p>{new Date(classInfo.date).toLocaleDateString()}</p>
+            <p>Horario: {classInfo.startTime} - {classInfo.endTime}</p>            
+            <button className="cancelButton" onClick={() => cancelClass()}>Cancelar Clase</button>
+            <button className="viewButton" onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}>Ver Clase</button>
+
+          </div>
+        ))
+      )}
     </Modal>
   );
 }
