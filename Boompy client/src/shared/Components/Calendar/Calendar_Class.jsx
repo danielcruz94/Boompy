@@ -135,20 +135,16 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
         const formattedStartTime = new Date(startTimeUTC).toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true});
         const formattedEndTime = new Date(endTimeUTC).toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true});
 
+        console.log(userData.email)
           
         const emailData = {
           to: userData.email,
           subject: 'Torii Availability Update',
-          body: `You have just booked a class on Torii!\n\n` +
-                `Class Details:\n` +
-                `Date: ${formattedDate}\n` +
-                `Start Time: ${formattedStartTime}\n` +
-                `End Time: ${formattedEndTime}\n\n` +
-                `Thank you for using Torii.`,
+          body: `holaghbhbjhbhjbhjbhjbjknkjbkjbhjbhj`,
       };
       
       
-         // const sentEmail = await axios.post('http://localhost:3001/api/email/enviar-email', emailData);
+        // const sentEmail = await axios.post('http://localhost:3001/api/email/enviar-email', emailData);
           //closeModal();
       } else {
           throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
