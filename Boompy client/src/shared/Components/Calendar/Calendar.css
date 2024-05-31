@@ -105,7 +105,8 @@ body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calenda
   outline: none;
 }
 
-body > div.ReactModalPortal > div > div > div:nth-child(3) > button{
+.cancelButton,
+.viewButton{
   background: #007bff;
   color: white;
   margin: 0px 20px;
@@ -170,8 +171,8 @@ body > div:nth-child(6) > div > div > div:nth-child(3) > div:nth-child(2) > labe
   font-weight: 600;
 }
 
-body > div:nth-child(6) > div > div > div:nth-child(3) > div:nth-child(1) > select, 
-body > div:nth-child(6) > div > div > div:nth-child(3) > div:nth-child(2) > select{
+.start-time-select, 
+.end-time-select{
   color: rgb(0, 0, 0);
   background: white;
   width: 200px;
@@ -183,13 +184,13 @@ body > div:nth-child(6) > div > div > div:nth-child(3) > div:nth-child(2) > sele
 }
 
 #closeButton,
-body > div:nth-child(6) > div > div > div:nth-child(3) > div:nth-child(3) > button:nth-child(1){
+.assign-class-button{
   background: #00aeff;
   color: white;
   margin: 10px;
 }
 
-body > div:nth-child(6) > div > div > div:nth-child(3) > div:nth-child(3) > button:nth-child(1):disabled {
+.assign-class-button:disabled {
   background-color: #ccc; 
   color: #999; 
   cursor: not-allowed;   
@@ -201,6 +202,20 @@ body > div:nth-child(6) > div > div > div:nth-child(2) > ul > li{
 
 .reserved{
   color: red !important;
+}
+
+.view-class-button {
+  color: white;
+  background: #00aeff;
+  margin: 10px 20px;
+  font-size: 50%;
+}
+
+.close-btn,
+.assign-class-btn{
+  background: #00aeff;
+  color: white;
+  margin: 10px;
 }
 
 @media (max-width: 499px) {
@@ -241,7 +256,9 @@ body > div:nth-child(6) > div > div > div:nth-child(2) > ul > li{
      font-size: 15px;    
   }
 
-  body > div.ReactModalPortal > div > div > div:nth-child(3) > button{
+  
+ .cancelButton,
+ .viewButton{
    display: block;
     margin: auto;
     margin-bottom: 10px;
@@ -261,5 +278,10 @@ body > div:nth-child(6) > div > div > div:nth-child(2) > ul > li{
     font-size: 13px;    
  }
 
+ .close-btn,
+.assign-class-btn {
+  display: block;
+  margin: 15px auto; 
+}
 
 }

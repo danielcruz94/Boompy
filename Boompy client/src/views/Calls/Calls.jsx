@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "./Calls.css";
-//import peer from "../../../src/shared/Components/Calls/WebRTCManager";
 import { setUserId, initializePeer } from "../../../src/shared/Components/Calls/WebRTCManager";
 import { Headings } from "../Landing.style";
 import NavBar from "../../shared/NavBar/NavBar";
 import Footer from "../../shared/Components/Footer/Footer";
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 
-const userId = '1234567890'; //ACA DEBE IR LA VARIABLE DE ID DE USUARIO DE LA BASE DE DATOS 
+const userDataString = localStorage.getItem('userData');
+const userData = JSON.parse(userDataString);
+
+let userId = null;
+if (userData !== null && typeof userData === 'object' && 'id' in userData) {
+    userId = userData.id;
+} else {
+    console.error("No se encontró 'id' en los datos del usuario");
+}
+
 
 setUserId(userId);
 const peer = initializePeer();
@@ -17,6 +27,8 @@ if (peer) {
 } else {
     console.error('No se pudo inicializar PeerJS debido a un error.');
 }
+
+
 
 const Calls = () => {
   const [localStream, setLocalStream] = useState(null);
@@ -33,9 +45,36 @@ const Calls = () => {
   const [audioRecibido, setAudioRecibido] = useState(true);
   const [nombreRecibido, setNombreRecibido] = useState("Nombre de usuario");
   const [callDuration, setCallDuration] = useState(0);
+  const [ID, setID] = useState();
+  const [Cargando, setCargando] = useState(false);
 
-  const [ID, setID] = useState("079bb6e7-1421-4a4c-acd5-3239924be8e8");
-  const [idOtroUsuario, setIdOtroUsuario] = useState(false);
+
+const location = useLocation();
+const lastIndex = location.pathname.lastIndexOf('/');
+const id = location.pathname.substring(lastIndex + 1);
+
+      useEffect(() => {        
+        const getCalendarClasses = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3001/api/calendar/class/${id}`); 
+                               
+                const userDataString = localStorage.getItem('userData');
+                const userData = JSON.parse(userDataString);
+                                
+                if (userData.role === 'Tutor') {                  
+                  setID(response.data.reserved);
+                } else if (userData.role === 'Student') {
+                  setID(response.data.userId);
+                }
+                setCargando(true)
+                
+            } catch (error) {
+                console.error('Error al obtener las clases de calendario:', error);
+            }
+          };
+        getCalendarClasses();
+      }, [id]); 
+
 
   const toggleVolume = () => {
     if (callInProgress) {
@@ -152,49 +191,50 @@ const Calls = () => {
     let callCounter = 0; // Inicializamos el contador de llamadas
 
     const handleCall = (call) => {
-      setIdOtroUsuario(call.peer);
+        console.log("Llamada entrante recibida");
+        callCounter++; // Incrementamos el contador de llamadas
+        console.log("Número total de llamadas recibidas:", callCounter);
 
-      console.log("Llamada entrante recibida");
-      callCounter++; // Incrementamos el contador de llamadas
-      console.log("Número total de llamadas recibidas:", callCounter);
-
-      try {
-        if (!localStream) {
-          alternarAudioVideo(true, true)
-            .then((stream) => {
-              console.log(
-                "Stream local obtenido exitosamente para responder a la llamada entrante."
-              );
-              setVideoMute(true);
-              setAudioMute(true);
-              setVideoMute(true);
-              setIsVolumeOn(true);
-              setLocalStream(stream);
-              handleCallAnswer(call, stream);
-            })
-            .catch((error) => {
-              console.error("Error al obtener el stream local:", error);
-              setError(
-                "Error al responder a la llamada entrante. Por favor, inténtalo de nuevo más tarde."
-              );
-            });
+        // Mostrar un mensaje al usuario para aceptar o rechazar la llamada
+        const aceptarLlamada = window.confirm("¿Deseas aceptar la llamada entrante?");
+        if (aceptarLlamada) {
+            try {
+                if (!localStream) {
+                    alternarAudioVideo(true, true)
+                        .then((stream) => {
+                            console.log("Stream local obtenido exitosamente para responder a la llamada entrante.");
+                            setVideoMute(true);
+                            setAudioMute(true);
+                            setVideoMute(true);
+                            setIsVolumeOn(true);
+                            setLocalStream(stream);
+                            handleCallAnswer(call, stream);
+                        })
+                        .catch((error) => {
+                            console.error("Error al obtener el stream local:", error);
+                            alert("Error al responder a la llamada entrante. Por favor, inténtalo de nuevo más tarde.");
+                        });
+                } else {
+                    handleCallAnswer(call, localStream);
+                }
+            } catch (error) {
+                alert("Error al responder a la llamada entrante. Por favor, inténtalo de nuevo más tarde.");
+            }
         } else {
-          handleCallAnswer(call, localStream);
+            // El usuario rechazó la llamada
+            console.log("Llamada entrante rechazada");
+            // Puedes realizar acciones adicionales aquí si es necesario
         }
-      } catch (error) {
-        setError(
-          "Error al responder a la llamada entrante. Por favor, inténtalo de nuevo más tarde."
-        );
-      }
     };
 
     peer.on("call", handleCall);
 
     // Limpiamos el efecto
     return () => {
-      peer.off("call", handleCall);
+        peer.off("call", handleCall);
     };
-  }, [localStream]);
+}, [localStream]);
+
 
   const handleCallAnswer = (call, stream) => {
     call.answer(stream);
@@ -300,130 +340,140 @@ const Calls = () => {
 
   return (
     <div className="ContenCall">
-      <Headings />
-      <NavBar />
-
-      <div className="full_screen">
-        <div className="contenPantalla">
-          <div className="Video_Entrante">
-            {remoteStream && videoRecibido ? (
-              <video
-                className="VideoCall"
-                autoPlay
-                ref={(video) => {
-                  if (video && remoteStream) {
-                    video.srcObject = remoteStream;
-                    video.muted = !isVolumeOn; // Mute the video based on isVolumeOn
-                  }
-                }}
-              />
-            ) : (
-              <React.Fragment>
-                {remoteStream && !videoRecibido && (
-                  <i className="fas fa-video-slash custom-icon no-video-icon"></i>
-                )}
-                {remoteStream ? null : (
-                  <i className="fas fa-video-slash custom-icon no-video-icon"></i>
-                )}
-              </React.Fragment>
-            )}
-
-            {false && (
-              <div className="custom-container">
-                <div className="nombre-recibido">{nombreRecibido}</div>
-                <div
-                  className={`custom-icon2 ${audioRecibido ? "green" : "red"}`}
-                >
-                  <i
-                    className={`fas ico2 ${
-                      audioRecibido ? "fa-microphone" : "fa-microphone-slash"
-                    }`}
-                  ></i>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="InfoCall">
-            <div className="Video_saliente">
-              {videoMute ? (
-                localStream && (
+      {/* Condicional para renderizar el contenido o el mensaje de carga */}
+      {Cargando ? (
+        <>
+          <Headings />
+          <NavBar />
+          {console.log(ID)}
+          <div className="full_screen">
+            <div className="contenPantalla">
+              {/* Contenido de la llamada */}
+              <div className="Video_Entrante">
+                {remoteStream && videoRecibido ? (
                   <video
                     className="VideoCall"
                     autoPlay
-                    muted={true}
                     ref={(video) => {
-                      if (video) video.srcObject = localStream;
+                      if (video && remoteStream) {
+                        video.srcObject = remoteStream;
+                        video.muted = !isVolumeOn; // Mute the video based on isVolumeOn
+                      }
                     }}
                   />
-                )
-              ) : (
-                <i className="fas fa-video-slash custom-icon no-video-icon"></i>
-              )}
-            </div>
-            {callInProgress && renderCallTimer()}
-            <div className="container">
-              <div className="video-call-icons">
-                <div
-                  className={`icon-wrapper ${isVolumeOn ? "on" : "off"}`}
-                  onClick={toggleVolume}
-                >
-                  <i
-                    className={`fas ${
-                      isVolumeOn ? "fa-volume-up" : "fa-volume-mute"
-                    }`}
-                  ></i>
-                </div>
-                <div
-                  className={`icon-wrapper ${!audioMute ? "off" : "on"}`}
-                  onClick={toggleAudioMute}
-                >
-                  <i
-                    className={`fas ${
-                      !audioMute ? "fa-microphone-slash" : "fa-microphone"
-                    }`}
-                  ></i>
-                </div>
-                {!callInProgress ? (
-                  <div className="icon-wrapper on" onClick={startOutgoingCall}>
-                    <i className="fas fa-phone on"></i>
-                  </div>
                 ) : (
-                  <div className="icon-wrapper off" onClick={endCall}>
-                    <i className="fas fa-phone-slash off"></i>
+                  <React.Fragment>
+                    {remoteStream && !videoRecibido && (
+                      <i className="fas fa-video-slash custom-icon no-video-icon"></i>
+                    )}
+                    {remoteStream ? null : (
+                      <i className="fas fa-video-slash custom-icon no-video-icon"></i>
+                    )}
+                  </React.Fragment>
+                )}
+  
+                {false && (
+                  <div className="custom-container">
+                    <div className="nombre-recibido">{nombreRecibido}</div>
+                    <div
+                      className={`custom-icon2 ${audioRecibido ? "green" : "red"}`}
+                    >
+                      <i
+                        className={`fas ico2 ${
+                          audioRecibido ? "fa-microphone" : "fa-microphone-slash"
+                        }`}
+                      ></i>
+                    </div>
                   </div>
                 )}
               </div>
-              <div className="video-call-icons">
-                <div
-                  className={`icon-wrapper ${!videoMute ? "off" : "on"}`}
-                  onClick={toggleVideoMute}
-                >
-                  <i
-                    className={`fas ${
-                      !videoMute ? "fa-video-slash" : "fa-video"
-                    }`}
-                  ></i>
-                </div>
-                <div
-                  className={`icon-wrapper ${isFullScreen ? "on" : "off"}`}
-                  onClick={handleFullScreen}
-                >
-                  {isFullScreen ? (
-                    <i className="fas fa-compress"></i>
+  
+              <div className="InfoCall">
+                <div className="Video_saliente">
+                  {videoMute ? (
+                    localStream && (
+                      <video
+                        className="VideoCall"
+                        autoPlay
+                        muted={true}
+                        ref={(video) => {
+                          if (video) video.srcObject = localStream;
+                        }}
+                      />
+                    )
                   ) : (
-                    <i className="fas fa-expand"></i>
+                    <i className="fas fa-video-slash custom-icon no-video-icon"></i>
                   )}
+                </div>
+                {callInProgress && renderCallTimer()}
+                <div className="container">
+                  <div className="video-call-icons">
+                    <div
+                      className={`icon-wrapper ${isVolumeOn ? "on" : "off"}`}
+                      onClick={toggleVolume}
+                    >
+                      <i
+                        className={`fas ${
+                          isVolumeOn ? "fa-volume-up" : "fa-volume-mute"
+                        }`}
+                      ></i>
+                    </div>
+                    <div
+                      className={`icon-wrapper ${!audioMute ? "off" : "on"}`}
+                      onClick={toggleAudioMute}
+                    >
+                      <i
+                        className={`fas ${
+                          !audioMute ? "fa-microphone-slash" : "fa-microphone"
+                        }`}
+                      ></i>
+                    </div>
+                    {!callInProgress ? (
+                      <div className="icon-wrapper on" onClick={startOutgoingCall}>
+                        <i className="fas fa-phone on"></i>
+                      </div>
+                    ) : (
+                      <div className="icon-wrapper off" onClick={endCall}>
+                        <i className="fas fa-phone-slash off"></i>
+                      </div>
+                    )}
+                  </div>
+                  <div className="video-call-icons">
+                    <div
+                      className={`icon-wrapper ${!videoMute ? "off" : "on"}`}
+                      onClick={toggleVideoMute}
+                    >
+                      <i
+                        className={`fas ${
+                          !videoMute ? "fa-video-slash" : "fa-video"
+                        }`}
+                      ></i>
+                    </div>
+                    <div
+                      className={`icon-wrapper ${isFullScreen ? "on" : "off"}`}
+                      onClick={handleFullScreen}
+                    >
+                      {isFullScreen ? (
+                        <i className="fas fa-compress"></i>
+                      ) : (
+                        <i className="fas fa-expand"></i>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      {error && <div>Error: {error}</div>}
-      <Footer />
+          {error && <div>Error: {error}</div>}
+          <Footer />
+        </>
+      ) : (
+        // Mensaje de carga
+        <div>Cargando...</div>
+      )}
     </div>
   );
+  
 };
 
 export default Calls;
