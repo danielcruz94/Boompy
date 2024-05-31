@@ -7,16 +7,22 @@ import { useParams } from "react-router-dom";
 import axios from 'axios'
 import { useNavigate} from 'react-router-dom';
 import { useSelector,useDispatch } from "react-redux"
+import ImageFileUpload from '../../shared/Components/ImageUpload/ImageFileUpdload'
 
 
 
 import TutorCalendar from '../../shared/Components/Calendar/Tutor_Calendar';
+import { useState } from 'react';
 
 
 
 const Teach = () => {
   const auth = useSelector((state) => state.auth);
+  console.log(auth)
   const navegate = useNavigate();
+
+  const [userProfile,setUserProfile]=useState();
+  
 
     const imageUrls = [
         'https://scontent.feoh6-1.fna.fbcdn.net/v/t39.30808-6/419700480_7224997534190008_6658269914087985451_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeEuYqUJkfSv79EjmsmhxKEYCCX-a4SkTqcIJf5rhKROp_bCr0B97XCyNsMfFXU6n-8&_nc_ohc=2tEZW9EI_IsQ7kNvgEjGJKW&_nc_ht=scontent.feoh6-1.fna&oh=00_AYAHcL7uR6pHhnK5jm82UXijZ9zsVyVSooby_SJcifMNbw&oe=6651187E',
@@ -69,11 +75,30 @@ React.useEffect(()=>{
           <div>
             <div className="profile-container">
               <div className="profile-picture">
-                <img
+              <img
                   src={tutor.picture}
                   alt="Foto de perfil"
                   className="rounded-circle"
+                  style={{marginBottom:'10px'}}
                 />
+                {auth.user.role==='Tutor'&& <ImageFileUpload
+                   id="profile_image"
+                   style={{padding:'0'}}
+                   text="Change profile photo"
+                   accept="image/png,image/jpeg"
+                   name="profile_image"
+                   description="* File format: png or jpeg."
+                   className="rounded-circle"
+                   onChange={(fileUrl) =>{
+                     setUserProfile(fileUrl)
+                    //  alert("se subio la foto")
+
+                   }
+                    
+                   }
+                   />}
+             
+                
               </div>
               <div className="profile-info">
                 <h2>

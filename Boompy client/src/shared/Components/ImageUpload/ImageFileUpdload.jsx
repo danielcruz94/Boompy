@@ -7,7 +7,7 @@ import {
   Spinner,
 } from './ImageFileUpload.style';
 
-const ImageFileUpload = ({ id, text, onChange, description, ...props }) => {
+const ImageFileUpload = ({ id, text, onChange, description,picture, ...props }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const uploadImage = async (e) => {
@@ -36,23 +36,25 @@ const ImageFileUpload = ({ id, text, onChange, description, ...props }) => {
       console.error(err);
     }
   };
+  
 
   return (
     <Container>
       <div className="inner-container">
-        <Label htmlFor={id} isLoading={isLoading}>
+       <Label htmlFor={id} isLoading={isLoading}>
           {!isLoading && (
             <input type="file" id={id} {...props} onChange={uploadImage} />
           )}
           {text}
         </Label>
+        
         {isLoading && (
           <Spinner>
             <img src={LoaderIcon} alt="Loading" />
           </Spinner>
         )}
       </div>
-      {/* <Description>{description}</Description> */}
+      <Description>{description}</Description>
     </Container>
   );
 };
