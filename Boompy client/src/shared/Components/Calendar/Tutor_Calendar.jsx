@@ -24,41 +24,37 @@ function TutorCalendar() {
   useEffect(() => {
     Modal.setAppElement('#root');
   
-   
-
-
-    const tutorId = id; 
-    console.log(id)
-
     const fetchTutorAvailability = async () => {
       try {
-          const response = await axios.get(`http://localhost:3001/api/calendar/${tutorId}`);
-          const availabilityData = response.data.filter(avail => avail.reserved === "");
+        const response = await axios.get(`http://localhost:3001/api/calendar/${id}`);
+        const availabilityData = response.data.filter(avail => avail.reserved === "");
+        
+        const processedAvailabilityData = availabilityData.map(avail => {
+          const startDateTime = new Date(avail.startTime);
+          const endDateTime = new Date(avail.endTime);
           
-          const processedAvailabilityData = availabilityData.map(avail => {
-              const startDateTime = new Date(avail.startTime);
-              const endDateTime = new Date(avail.endTime);
-              
-              // Convertir a hora local
-              const startTimeLocal = startDateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-              const endTimeLocal = endDateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-              
-              return {
-                  ...avail,
-                  startTime: startTimeLocal,
-                  endTime: endTimeLocal
-              };
-          });
+          const startTimeLocal = startDateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+          const endTimeLocal = endDateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
           
-          setTutorAvailability(processedAvailabilityData);
-          
+          // Filtrar las clases que aún no han comenzado
+          if (startDateTime > new Date()) {
+            return {
+              ...avail,
+              startTime: startTimeLocal,
+              endTime: endTimeLocal
+            };
+          } else {
+            return null; // Excluir las clases que ya han comenzado
+          }
+        }).filter(Boolean); // Eliminar elementos nulos del array
+        
+        setTutorAvailability(processedAvailabilityData);
+        
       } catch (error) {
-          console.error('Error fetching tutor availability:', error);
+        console.error('Error fetching tutor availability:', error);
       }
-  };
-  
-  
-  
+    };
+
     fetchTutorAvailability();
   }, [reservationSuccess]);
 
@@ -83,10 +79,9 @@ function TutorCalendar() {
   };
 
   const assignClass = async () => {
-
     const userDataString = localStorage.getItem('userData');
-  const userData = JSON.parse(userDataString);
-    const reservedValue = userData.id; // ID del estudiante
+    const userData = JSON.parse(userDataString);
+    const reservedValue = userData.id;
 
     const selectedClass = tutorAvailability.find(availability => {
       const availabilityDate = new Date(availability.date).toLocaleDateString();
@@ -105,8 +100,72 @@ function TutorCalendar() {
       };
 
       try {
-        await axios.put(`http://localhost:3001/api/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue });
-        setReservationSuccess(prevState => !prevState); // Cambio de estado para forzar la actualización del calendario
+        const response = axios.put(`http://localhost:3001/api/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue })
+       
+        setReservationSuccess(prevState => !prevState);
+
+        if (response.status === 201) {
+        
+          
+      
+          // Crear constantes temporales para almacenar los valores formateados
+          const formattedDate = new Date(selectedClass.date).toLocaleString('en-US', {
+              day: 'numeric',
+              month: 'long', // 'long' para mostrar el nombre completo del mes en inglés
+              year: 'numeric'
+          });
+      
+          const formattedStartTime = new Date(selectedClass.startTime).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+          const formattedEndTime = new Date(selectedClass.endTime).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+      
+          // Datos del correo electrónico
+          const emailContent = `
+              <html>
+              <body>
+                  <h1 style="color: #007bff;">¡Tu Clase ha sido Reservada Exitosamente!</h1>
+                  <p>¡Hola ${userData.name}!</p>
+                  <p>Tu clase ha sido reservada para el ${formattedDate}, desde las ${formattedStartTime} hasta las ${formattedEndTime}.</p>
+                  <p>Por favor, asegúrate de estar preparado para tu clase y estar a tiempo.</p>
+                  <p>¡Gracias por elegirnos para tu aprendizaje!</p>
+                  <p>Saludos,<br/>El equipo de Torii</p>
+              </body>
+              </html>
+          `;
+      
+          const emailData = {
+              to: userData.email, 
+              subject: 'Confirmación de Reserva de Clase',
+              html: emailContent
+          };
+      
+          // Envío de correo electrónico
+          const sentEmail = await axios.post('http://localhost:3001/api/email/enviar-email', emailData);
+          // closeModal();
+      } else {
+          throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
+      }
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
       } catch (error) {
         console.error("Error reserving class:", error);
       }
@@ -114,13 +173,12 @@ function TutorCalendar() {
       console.error("No class found for the selected date and time.");
     }
 
-    //closeModal();
     setScrollEnabled(true);
     setSelectedTime('');
   };
 
   const getAvailableTimesForDate = (date) => {
-    const availabilityForDate = tutorAvailability.filter(availability => new Date(availability.date).getTime() === date.getTime());
+    const availabilityForDate = tutorAvailability.filter(availability => new Date(availability.date).toLocaleDateString() === date.toLocaleDateString());
     if (availabilityForDate.length > 0) {
       return availabilityForDate.map(availability => `${availability.startTime} --- ${availability.endTime}`);
     } else {
@@ -137,11 +195,8 @@ function TutorCalendar() {
     }
   });
 
-  const isToday = (date) => {
-    const today = new Date();
-    return date.getDate() === today.getDate() &&
-           date.getMonth() === today.getMonth() &&
-           date.getFullYear() === today.getFullYear();
+  const isClassPassed = (classDateTime) => {
+    return new Date(classDateTime) < new Date();
   };
 
   return (
@@ -165,8 +220,8 @@ function TutorCalendar() {
             if (customClasses[dateString]) {
               classes.push(customClasses[dateString]);
             }
-            if (isToday(date)) {
-              classes.push('today');
+            if (isClassPassed(dateString)) {
+              classes.push('past-class');
             }
             return classes.join(' ');
           }}
@@ -174,13 +229,13 @@ function TutorCalendar() {
 
         <select value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
           <option value="">Select time</option>
-          {getAvailableTimesForDate(selectedDate)?.map((time, index) => (
+          {getAvailableTimesForDate(selectedDate).map((time, index) => (
             <option key={index} value={time}>{time}</option>
           ))}
         </select>
         <div style={{ marginTop: 10 }}>
-        <button onClick={assignClass} disabled={!selectedTime} className="assign-class-btn">Assign Class</button>  
-        <button onClick={closeModal} className="close-btn">Close</button>
+          <button onClick={assignClass} disabled={!selectedTime} className="assign-class-btn">Assign Class</button>  
+          <button onClick={closeModal} className="close-btn">Close</button>
         </div>
       </Modal>
     </>
