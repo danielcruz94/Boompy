@@ -49,3 +49,15 @@ export const Spinner = styled.div`
     vertical-align: middle;
   }
 `;
+
+
+export const UpPhotos = styled.div`
+cursor: pointer;
+display: inline-block;
+color: ${(props) =>
+    props.isLoading ? color.textVeryLight : color.textMedium};
+
+
+ 
+`;
+

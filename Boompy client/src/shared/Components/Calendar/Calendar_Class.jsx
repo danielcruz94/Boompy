@@ -144,8 +144,8 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
       };
       
       
-        // const sentEmail = await axios.post('http://localhost:3001/api/email/enviar-email', emailData);
-          //closeModal();
+        const sentEmail = await axios.post('http://localhost:3001/api/email/enviar-email', emailData);
+          closeModal();
       } else {
           throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
       }

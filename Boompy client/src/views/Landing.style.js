@@ -177,6 +177,19 @@ z-index: 1;
 
 
 
+export const inputBio = styled.input`
+display: inline-block;
+width:100%;
+background:red;
+
+
+  
+
+  @media (max-width: 1100px) {
+    font-size: 16px;
+  }
+`;
+
 
 
 
