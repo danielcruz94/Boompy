@@ -190,6 +190,22 @@ background:red;
   }
 `;
 
+export const TextArea = styled.textarea`
+display: inline-block;
+max-width: 100%;
+word-wrap: break-word;
+
+overflow-x: hidden;
+overflow-y: hidden; /* Se agrega esta propiedad */
+
+
+  
+
+  @media (max-width: 1100px) {
+    min-height: 400px;
+  }
+`;
+
 
 
 

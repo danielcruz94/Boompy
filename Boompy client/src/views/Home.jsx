@@ -78,12 +78,12 @@ const Home = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await axios("http://localhost:3001/api/users");
+        const res = await axios("https://torii-tau.vercel.app/api/users");
         dispatch(fetchUsers(res.data));
 
         if (localUser.email) {
           const prueba = await axios.get(
-            `http://localhost:3001/api/userdata?email=${localUser.email}`
+            `https://torii-tau.vercel.app/api/userdata?email=${localUser.email}`
           );
 
           if (prueba.data.completeInfo === true) {
