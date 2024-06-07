@@ -8,8 +8,11 @@ import { useNavigate} from 'react-router-dom';
 import { useSelector,useDispatch } from "react-redux"
 import {login} from '../../../Redux/authSlice'
 
+
 const Form = () => {
   const auth=useSelector((state)=>state.auth);
+
+  const serverURL = useSelector(state => state.serverURL.url);
 
   const [userCredentials, setUserCredentials] = useState({
     email: '',
@@ -50,7 +53,9 @@ const Form = () => {
 
     try {
       const userLogin = await axios.post(
-        "https://torii-tau.vercel.app/api/login",
+
+       `${serverURL}/login`,
+
         userCredentials
       );
 

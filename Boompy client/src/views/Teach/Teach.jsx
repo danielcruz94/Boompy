@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector,useDispatch } from "react-redux"
 import Footer from '../../shared/Components/Footer/Footer';
 import './Teach.css'; // Importa el archivo CSS personalizado
 import {Headings,TextArea} from '../Landing.style'
@@ -6,7 +7,6 @@ import NavBar from '../../shared/NavBar/NavBar';
 import { useParams } from "react-router-dom";
 import axios from 'axios'
 import { useNavigate} from 'react-router-dom';
-import { useSelector,useDispatch } from "react-redux"
 import ImageFileUpload from '../../shared/Components/ImageUpload/ImageFileUpdload'
 
 
@@ -23,6 +23,7 @@ const Teach = () => {
 
   
   
+  const serverURL = useSelector(state => state.serverURL.url);
 
   const imageUrls = [
     'https://res.cloudinary.com/danielcruz/image/upload/v1716909415/images/dtzk55ohmu2jzftsx18l.jpg',
@@ -45,7 +46,7 @@ const Teach = () => {
     const params =useParams()
 
 React.useEffect(()=>{
-    axios(`http://localhost:3001/api/user/${params.id}`)
+    axios(`${serverURL}/user/${params.id}`)
     .then(({ data }) => {
        
         if (data.name) {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector,useDispatch } from "react-redux"
 import Calendar from 'react-calendar';
 import Modal from 'react-modal';
 import './Calendar.css'; 
@@ -16,6 +17,10 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
   const userDataString = localStorage.getItem('userData');
   const userData = JSON.parse(userDataString);
 
+  const serverURL = useSelector(state => state.serverURL.url);
+
+  console.log("url"+serverURL)
+
   useEffect(() => {
     Modal.setAppElement('#root');
     setModalIsOpen(isOpen);
@@ -31,7 +36,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
 
   const fetchDataAndSetAvailability = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/calendar', { params: { userId: userData.id } });
+      const response = await axios.get(`${serverURL}/calendar`, { params: { userId: userData.id } });
       setTutorAvailability(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -62,53 +67,39 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
   const assignClass = async () => {
     try {
         const currentDate = new Date();
-        const selectedDateTime = selectedDate.getTime();
-        const currentDateTime = currentDate.getTime();
-
-        console.log(selectedStartTime)
-
-        console.log(selectedDateTime)
-        console.log(currentDateTime)
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-        
-
-        if (selectedDateTime <= currentDateTime) {
-          
-            throw new Error("Fecha no válida. Por favor, seleccione una fecha posterior a hoy.");
-        }
-
+      
         // Parsea las horas seleccionadas en el formato de 12 horas a un objeto Date
         const startTimeParts = selectedStartTime.split(' ');
         const endTimeParts = selectedEndTime.split(' ');
-
+      
         let startHour = parseInt(startTimeParts[0].split(':')[0], 10);
         let endHour = parseInt(endTimeParts[0].split(':')[0], 10);
-
-        if (startTimeParts[1] === 'PM') startHour += 12;
-        if (endTimeParts[1] === 'PM') endHour += 12;
-
+      
+        // Verifica si es PM y ajusta la hora en consecuencia
+        if (startTimeParts[1].toLowerCase() === 'pm' && startHour !== 12) {
+            startHour += 12;
+        }
+      
+        if (endTimeParts[1].toLowerCase() === 'pm' && endHour !== 12) {
+            endHour += 12;
+        }
+      
+        selectedDate.setHours(startHour);
+        selectedDate.setMinutes(0);             
+      
+        if (selectedDate.getTime() <= currentDate.getTime()) {
+            throw new Error("Fecha no válida. Por favor, seleccione una fecha posterior a hoy.");
+        }
+      
         const startDate = new Date(selectedDate);
         startDate.setHours(startHour);
         const endDate = new Date(selectedDate);
         endDate.setHours(endHour);
-
+      
         // Convierte las horas a UTC
-        const startTimeUTC = startDate.toUTCString();
-        const endTimeUTC = endDate.toUTCString();
-
+        const startTimeUTC = startDate.toISOString();
+        const endTimeUTC = endDate.toISOString();
+      
         const classData = {
             userId: userData.id,
             date: selectedDate,
@@ -116,45 +107,60 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
             endTime: endTimeUTC,
             reserved: ""
         };
-
-        const response = await axios.post('http://localhost:3001/api/calendar', classData);
-
+      
+        const response = await axios.post(`${serverURL}/calendar`, classData);
+      
         if (response.status === 201) {
-          // 'daniel94cruz@gmail.com'
-          // La clase se agregó con éxito
-         // fetchDataAndSetAvailability();
-
-         setTimeout(fetchDataAndSetAvailability, 20000); // 10000 milisegundos = 10 segundos
-// Crear constantes temporales para almacenar los valores formateados
-        const formattedDate = new Date(selectedDate).toLocaleString('en-US', {
-          day: 'numeric',
-          month: 'long', // 'long' para mostrar el nombre completo del mes en inglés
-          year: 'numeric'
-        });
-
-        const formattedStartTime = new Date(startTimeUTC).toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true});
-        const formattedEndTime = new Date(endTimeUTC).toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', hour12: true});
-
-        console.log(userData.email)
+            // Esperar 20 segundos antes de ejecutar fetchDataAndSetAvailability
+            setTimeout(fetchDataAndSetAvailability, 20000);
           
-        const emailData = {
-          to: userData.email,
-          subject: 'Torii Availability Update',
-          body: `holaghbhbjhbhjbhjbhjbjknkjbkjbhjbhj`,
-      };
+            // Crear constantes temporales para almacenar los valores formateados
+            const formattedDate = new Date(selectedDate).toLocaleString('en-US', {
+                day: 'numeric',
+                month: 'long', // 'long' para mostrar el nombre completo del mes en inglés
+                year: 'numeric'
+            });
+          
+            const formattedStartTime = new Date(startTimeUTC).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+            const formattedEndTime = new Date(endTimeUTC).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+          
+            console.log(userData.email);
+          
+            // Datos del correo electrónico
+            const emailContent = `
+                <html>
+                <body>
+                    <h1 style="color: #007bff;">¡Tu Disponibilidad ha sido Programada Exitosamente!</h1>
+                    <p>¡Hola ${userData.name}!</p>
+                    <p>Tu disponibilidad para dar clases ha sido programada para el ${formattedDate}, desde las ${formattedStartTime} hasta las ${formattedEndTime}.</p>
+                    <p>Recuerda estar preparado para tus clases y ofrecer una gran experiencia educativa.</p>
+                    <p>¡Gracias por ser parte de nuestro equipo de tutores!</p>
+                    <p>Saludos,<br/>El equipo de Torii</p>
+                </body>
+                </html>
+            `;
+          
+            const emailData = {
+                to: userData.email,
+                subject: 'Torii Availability Update',
+                html: emailContent
+            };
+          
+            // Envío de correo electrónico
+            // const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
+            // closeModal();
+        } else {
+            throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
+        }
       
-      
-        const sentEmail = await axios.post('http://localhost:3001/api/email/enviar-email', emailData);
-          closeModal();
-      } else {
-          throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
-      }
+
       
     } catch (error) {
         console.error('Error al enviar los datos al servidor:', error.message);
         alert(error.message || "Error al enviar los datos al servidor. Por favor, intente nuevamente.");
     }
 };
+
 
 
   const getAvailableDates = () => {
@@ -209,7 +215,8 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
   
     // Comprobar si la hora actual está dentro del intervalo de la clase
     if (currentTimeLocal >= startTimeLocal && currentTimeLocal <= endTimeLocal) {
-      const url = `http://localhost:5173/calls/${classId}`;
+      const host = window.location.hostname; 
+      const url = `http://${host}/calls/${classId}`; 
       window.location.href = url;
     } else {
       alert('Clase no disponible en este momento....');

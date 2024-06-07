@@ -5,6 +5,8 @@ import { FormLog,GoogleButton,Container,Span,Input,TextLogin,
   import { useState } from "react";
   import axios from "axios";
   import { useLocation} from 'react-router-dom';
+  import { useSelector,useDispatch } from "react-redux"
+
 const FormSignUp = () => {
 
   const [userCredentials, setUserCredentials] = useState({
@@ -17,7 +19,7 @@ const FormSignUp = () => {
 
   const [passwordsUnMatch, setPasswordsUnMatch] = useState(false);
   const { name,lastName, email, password, confirmPassword } = userCredentials;
-
+  const serverURL = useSelector(state => state.serverURL.url);
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -32,7 +34,7 @@ const FormSignUp = () => {
    
 
    
-    const newUser=await axios.post("http://localhost:3001/api/signup",userCredentials)
+    const newUser=await axios.post(`${serverURL}/api/signup`,userCredentials)
     try {
       if(newUser){
         alert("User Register")

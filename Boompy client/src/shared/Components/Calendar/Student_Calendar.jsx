@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector,useDispatch } from "react-redux"
 import Calendar from 'react-calendar';
 import Modal from 'react-modal';
 import axios from 'axios';
@@ -14,11 +15,13 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
   const userData = JSON.parse(userDataString);
   const studentId = userData.id; 
 
+  const serverURL = useSelector(state => state.serverURL.url);
+
   useEffect(() => {
     Modal.setAppElement('#root');
     const fetchStudentCalendarClasses = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/calendar/classes/${studentId}`);
+        const response = await axios.get(`${serverURL}/calendar/classes/${studentId}`);
         setTutorAvailability(response.data.map(item => ({
           ...item,
           startTime: new Date(item.startTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
@@ -107,9 +110,10 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
 
     
     if (currentTime >= classStartTime && currentTime <= classEndTime) {
-        const url = `http://localhost:5173/calls/${classId}`;
-        window.location.href = url;
-    } else {
+      const host = window.location.hostname; 
+      const url = `http://${host}/calls/${classId}`; 
+      window.location.href = url; 
+  }else {
         alert('Clase no disponible en este momento.');
     }
 };
