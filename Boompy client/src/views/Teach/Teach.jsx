@@ -34,11 +34,11 @@ const Teach = () => {
     const [userProfile,setUserProfile]=useState({
       name:'',
       lastName:'',
-      userPhoto:'',
+      picture:'',
       biography:'',
       hobbies:'',
       price:'',
-      pictures:''
+      photos:''
     });
 
 
@@ -53,19 +53,19 @@ React.useEffect(()=>{
           setUserProfile({
             name:data.name,
             lastName:data.lastName,
-            userPhoto:data.picture,
+            picture:data.picture,
             biography:data.biography,
             hobbies:data.id,
             price:data.price,
-            pictures:''
+            photos:''
 
           })
         } else {
-           window.alert('¡No hay personajes con este ID!');
+           window.alert('¡Something Wrong!');
         }
      })
      .catch(()=>{
-      alert("se rompio")
+      alert("Not Network")
      })
      return setUserProfile({})
    },[params?.id])
@@ -80,7 +80,7 @@ React.useEffect(()=>{
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(event.target)
+    console.log('prueba',event.target)
     setUserProfile({ ...userProfile, [name]: value });
   };
 
@@ -100,23 +100,37 @@ console.log(userProfile)
             <div className="profile-container">
               <div className="profile-picture">
                 <img
-                  src={userProfile.userPhoto}
+                  src={userProfile.picture}
                   alt="Foto de perfil"
                   className="rounded-circle"
                   style={{ marginBottom: "10px" }}
                 />
                 {auth.user?.role === "Tutor" && (
                   <ImageFileUpload
-                    id="profile_image"
-                    style={{ padding: "0" }}
-                    text="Change profile photo"
+                    id="profile_image"                   
+                    text="Change Profile Photo"
                     accept="image/png,image/jpeg"
                     name="profile_image"
                     description="* File format: png or jpeg."
                     className="rounded-circle"
                     onChange={(fileUrl) => {
-                      setUserProfile(fileUrl);
-                      //  alert("se subio la foto")
+                      setUserProfile({...userProfile,picture:fileUrl});
+                      fetch("http://localhost:3001/api/userinformation", {
+                        method: "POST", // Set the request method to POST
+                        headers: {
+                          "Content-Type": "application/json", // Set the content type to JSON
+                        },
+                        body: JSON.stringify({...userProfile,picture:fileUrl}), // Convert the user data to JSON string
+                      })
+                        .then((response) => response.json()) // Parse the response as JSON
+                        .then((data) => {
+                          console.log("Success:", data); // Handle the response data
+                        })
+                        .catch((error) => {
+                          console.error("Error:", error); // Handle any errors
+                        });
+                         
+                      //  alert("Profile Update")
                     }}
                   />
                 )}
@@ -265,16 +279,15 @@ console.log(userProfile)
             {imageUrls.map((url, index) => (
               <div key={index} className="galleryItem">
 
-{userProfile.pictures ? <img src={url}  alt={`Image ${index}`} />:""}
+{userProfile.photos ? <img src={url}  alt={`Image ${index}`} />:""}
 
 {auth.user?.role === "Tutor" &&<ImageFileUpload
                     id="profile_image"
-                    style={{ padding: "0" }}
-                    text="🌎"
+                    
+                    text="📷"
                     accept="image/png,image/jpeg"
                     name="profile_image"
                     
-                    className="rounded-circle"
                     onChange={(fileUrl) => {
                       setUserProfile(fileUrl);
                     
@@ -283,7 +296,7 @@ console.log(userProfile)
                  }
                     
                
-                  <p>Update Photo</p>
+                  {/* <span>Update Photo</span> */}
                 
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -296,17 +309,7 @@ console.log(userProfile)
                   <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
                 </svg>
 
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="33"
-                  height="33"
-                  fill="red"
-                  className="bi bi-camera"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4z" />
-                  <path d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5m0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7M3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0" />
-              </svg>
+               
 
                 </div>
             ))}
