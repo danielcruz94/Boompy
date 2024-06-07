@@ -215,7 +215,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
     // Comprobar si la hora actual está dentro del intervalo de la clase
     if (currentTimeLocal >= startTimeLocal && currentTimeLocal <= endTimeLocal) {
       const host = window.location.hostname; 
-      const url = `http://${host}/calls/${classId}`; 
+      const url = `http://${host}:5173/calls/${classId}`; 
       window.location.href = url;
     } else {
       alert('Clase no disponible en este momento....');
