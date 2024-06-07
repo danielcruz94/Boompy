@@ -111,7 +111,7 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
     
     if (currentTime >= classStartTime && currentTime <= classEndTime) {
       const host = window.location.hostname; 
-      const url = `http://${host}/calls/${classId}`; 
+      const url = `http://${host}:5173/calls/${classId}`; 
       window.location.href = url; 
   }else {
         alert('Clase no disponible en este momento.');
