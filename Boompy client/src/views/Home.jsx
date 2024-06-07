@@ -79,12 +79,16 @@ const Home = () => {
   useEffect(() => {
     const getData = async () => {
       try {
+
         const res = await axios( `${serverURL}/users`);
+
         dispatch(fetchUsers(res.data));
 
         if (localUser.email) {
           const prueba = await axios.get(
+
             `${serverURL}/userdata?email=${localUser.email}`
+
           );
 
           if (prueba.data.completeInfo === true) {

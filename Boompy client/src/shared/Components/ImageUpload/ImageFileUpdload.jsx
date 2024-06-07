@@ -5,6 +5,7 @@ import {
   Label,
   Description,
   Spinner,
+  UpPhotos
 } from './ImageFileUpload.style';
 
 const ImageFileUpload = ({ id, text, onChange, description,picture, ...props }) => {
