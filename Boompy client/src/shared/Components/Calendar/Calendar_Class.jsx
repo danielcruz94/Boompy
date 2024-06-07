@@ -153,6 +153,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
             throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
         }
       
+
       
     } catch (error) {
         console.error('Error al enviar los datos al servidor:', error.message);
