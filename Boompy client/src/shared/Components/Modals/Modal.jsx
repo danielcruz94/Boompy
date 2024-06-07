@@ -16,7 +16,7 @@ import ImageFileUpload from '../ImageUpload/ImageFileUpdload'
 
 
 
-const Modal=({title}) => {
+const Modal=({title}) => {   
 
     const auth=useSelector((state)=>state.auth);
     const dispatch=useDispatch();
@@ -69,10 +69,10 @@ const handleChange = (event) => {
             email, // Add email to the data
             ...settingInformation,
           };
-        
+          const serverURL = useSelector(state => state.serverURL.url);
     
         const sendInfo = await axios.post(
-            "http://localhost:3001/api/userinformation",dataToSend );
+            `${serverURL}/userinformation`,dataToSend );
 
           alert("se actualizo la info")
         dispatch(completeInfo())

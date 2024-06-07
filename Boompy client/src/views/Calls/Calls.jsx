@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector,useDispatch } from "react-redux"
 import "./Calls.css";
 import { setUserId, initializePeer } from "../../../src/shared/Components/Calls/WebRTCManager";
 import { Headings } from "../Landing.style";
@@ -48,6 +49,8 @@ const Calls = () => {
   const [ID, setID] = useState();
   const [Cargando, setCargando] = useState(false);
 
+  const serverURL = useSelector(state => state.serverURL.url);
+
 
 const location = useLocation();
 const lastIndex = location.pathname.lastIndexOf('/');
@@ -56,7 +59,7 @@ const id = location.pathname.substring(lastIndex + 1);
       useEffect(() => {        
         const getCalendarClasses = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/api/calendar/class/${id}`); 
+                const response = await axios.get(`${serverURL}/calendar/class/${id}`); 
                                
                 const userDataString = localStorage.getItem('userData');
                 const userData = JSON.parse(userDataString);
@@ -284,7 +287,10 @@ const id = location.pathname.substring(lastIndex + 1);
       setRemoteStream(null);
     }
     setCallInProgress(false);
-    window.location.href = "https://www.google.com"; // Redirigir a google.com después de colgar la llamada
+    const host = window.location.hostname; 
+    const url = `http://${host}/home`; 
+    window.location.href = url; 
+
   };
 
   const notificacionLlamada = () => {

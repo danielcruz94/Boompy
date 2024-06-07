@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector,useDispatch } from "react-redux"
 import Calendar from 'react-calendar';
 import Modal from 'react-modal';
 import axios from 'axios';
@@ -15,6 +16,8 @@ function TutorCalendar() {
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [reservationSuccess, setReservationSuccess] = useState(false);
 
+  const serverURL = useSelector(state => state.serverURL.url);
+
   const location = useLocation();
 
   const lastIndex = location.pathname.lastIndexOf('/');
@@ -26,7 +29,7 @@ function TutorCalendar() {
   
     const fetchTutorAvailability = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/calendar/${id}`);
+        const response = await axios.get(`${serverURL}/calendar/${id}`);
         const availabilityData = response.data.filter(avail => avail.reserved === "");
         
         const processedAvailabilityData = availabilityData.map(avail => {
@@ -100,7 +103,7 @@ function TutorCalendar() {
       };
 
       try {
-        const response = axios.put(`http://localhost:3001/api/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue })
+        const response = axios.put(`${serverURL}/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue })
        
         setReservationSuccess(prevState => !prevState);
 
@@ -139,7 +142,7 @@ function TutorCalendar() {
           };
       
           // Envío de correo electrónico
-          const sentEmail = await axios.post('http://localhost:3001/api/email/enviar-email', emailData);
+          const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
           // closeModal();
       } else {
           throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");

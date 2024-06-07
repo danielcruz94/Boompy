@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector,useDispatch } from "react-redux"
 import Calendar from 'react-calendar';
 import Modal from 'react-modal';
 import './Calendar.css'; 
@@ -16,6 +17,10 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
   const userDataString = localStorage.getItem('userData');
   const userData = JSON.parse(userDataString);
 
+  const serverURL = useSelector(state => state.serverURL.url);
+
+  console.log("url"+serverURL)
+
   useEffect(() => {
     Modal.setAppElement('#root');
     setModalIsOpen(isOpen);
@@ -31,7 +36,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
 
   const fetchDataAndSetAvailability = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/calendar', { params: { userId: userData.id } });
+      const response = await axios.get(`${serverURL}/calendar`, { params: { userId: userData.id } });
       setTutorAvailability(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -103,7 +108,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
             reserved: ""
         };
       
-        const response = await axios.post('http://localhost:3001/api/calendar', classData);
+        const response = await axios.post(`${serverURL}/calendar`, classData);
       
         if (response.status === 201) {
             // Esperar 20 segundos antes de ejecutar fetchDataAndSetAvailability
@@ -142,7 +147,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
             };
           
             // Envío de correo electrónico
-            // const sentEmail = await axios.post('http://localhost:3001/api/email/enviar-email', emailData);
+            // const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
             // closeModal();
         } else {
             throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
@@ -209,7 +214,8 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
   
     // Comprobar si la hora actual está dentro del intervalo de la clase
     if (currentTimeLocal >= startTimeLocal && currentTimeLocal <= endTimeLocal) {
-      const url = `http://localhost:5173/calls/${classId}`;
+      const host = window.location.hostname; 
+      const url = `http://${host}/calls/${classId}`; 
       window.location.href = url;
     } else {
       alert('Clase no disponible en este momento....');

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector,useDispatch } from "react-redux"
 import Footer from '../../shared/Components/Footer/Footer';
 import './Teach.css'; // Importa el archivo CSS personalizado
 import {Headings} from '../Landing.style'
@@ -6,7 +7,6 @@ import NavBar from '../../shared/NavBar/NavBar';
 import { useParams } from "react-router-dom";
 import axios from 'axios'
 import { useNavigate} from 'react-router-dom';
-import { useSelector,useDispatch } from "react-redux"
 import ImageFileUpload from '../../shared/Components/ImageUpload/ImageFileUpdload'
 
 
@@ -23,6 +23,7 @@ const Teach = () => {
 
   const [userProfile,setUserProfile]=useState();
   
+  const serverURL = useSelector(state => state.serverURL.url);
 
     const imageUrls = [
         'https://scontent.feoh6-1.fna.fbcdn.net/v/t39.30808-6/419700480_7224997534190008_6658269914087985451_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeEuYqUJkfSv79EjmsmhxKEYCCX-a4SkTqcIJf5rhKROp_bCr0B97XCyNsMfFXU6n-8&_nc_ohc=2tEZW9EI_IsQ7kNvgEjGJKW&_nc_ht=scontent.feoh6-1.fna&oh=00_AYAHcL7uR6pHhnK5jm82UXijZ9zsVyVSooby_SJcifMNbw&oe=6651187E',
@@ -35,7 +36,7 @@ const Teach = () => {
     const params =useParams()
 
 React.useEffect(()=>{
-    axios(`http://localhost:3001/api/user/${params.id}`)
+    axios(`${serverURL}/user/${params.id}`)
     .then(({ data }) => {
        
         if (data.name) {
