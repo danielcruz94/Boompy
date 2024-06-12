@@ -18,7 +18,7 @@ import { useState } from 'react';
 
 const Teach = () => {
   const auth = useSelector((state) => state.auth);
-  console.log(auth)
+  
   const navegate = useNavigate();
 
   
@@ -81,7 +81,7 @@ React.useEffect(()=>{
 
 
 
-   const handleLogout = () => {
+   const handleLogout = () => {  
     window.localStorage.removeItem("userData");
     navegate("/");
   };

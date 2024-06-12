@@ -34,7 +34,7 @@ const FormSignUp = () => {
    
 
    
-    const newUser=await axios.post(`${serverURL}/api/signup`,userCredentials)
+    const newUser=await axios.post(`${serverURL}/signup`,userCredentials)
     try {
       if(newUser){
         alert("User Register")

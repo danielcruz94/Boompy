@@ -57,7 +57,6 @@ const handleChange = (event) => {
     setsettingInformation({ ...settingInformation, [name]: value });
   };
 
-
   const handleSummit =async(e) => {
   
 
@@ -71,6 +70,7 @@ const handleChange = (event) => {
           };
           
           console.log(serverURL)
+          
     
         const sendInfo = await axios.post(
             `${serverURL}/userinformation`,dataToSend );
