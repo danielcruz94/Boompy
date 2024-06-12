@@ -141,7 +141,7 @@ const Home = () => {
         {isLoading && <Loader />}
         {!auth.infoComplete && !isLoading && (
           <BackgrounModal>
-          <Modal title={"Complete Your Information"}></Modal>
+          <Modal title={"Complete Your Information"} url={serverURL}></Modal>
           </BackgrounModal>
           
         )}

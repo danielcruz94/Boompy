@@ -16,8 +16,8 @@ import ImageFileUpload from '../ImageUpload/ImageFileUpdload'
 
 
 
-const Modal=({title}) => {   
-
+const Modal=({title,url}) => {   
+    const serverURL = useSelector(state => state.serverURL.url);
     const auth=useSelector((state)=>state.auth);
     const dispatch=useDispatch();
 
@@ -69,7 +69,8 @@ const handleChange = (event) => {
             email, // Add email to the data
             ...settingInformation,
           };
-          const serverURL = useSelector(state => state.serverURL.url);
+          
+          console.log(serverURL)
     
         const sendInfo = await axios.post(
             `${serverURL}/userinformation`,dataToSend );

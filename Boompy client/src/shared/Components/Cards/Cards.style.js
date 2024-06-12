@@ -17,12 +17,16 @@ export const MainPhoto = styled.div`
 width: 170px;
 height:170px;
 background:rgb(244, 245, 247);
-border-Radius:50%;
+border-Radius:100px;
 display:flex;
 justify-Content:center;
 align-items:center;
 margin:31px;
 
+
+@media (max-width: 500px) {
+    border-Radius:90px;
+}
 
 
 

@@ -32,6 +32,9 @@ const Teach = () => {
    
 ];
 
+
+
+
     const [userProfile,setUserProfile]=useState({
       name:'',
       lastName:'',
@@ -39,7 +42,7 @@ const Teach = () => {
       biography:'',
       hobbies:'',
       price:'',
-      photos:''
+      photos:[]
     });
 
 
@@ -52,13 +55,15 @@ React.useEffect(()=>{
         if (data.name) {
            
           setUserProfile({
+            
+            email:data.email,
             name:data.name,
             lastName:data.lastName,
             picture:data.picture,
             biography:data.biography,
             hobbies:data.id,
             price:data.price,
-            photos:''
+            photos:imageUrls
 
           })
         } else {
@@ -72,7 +77,9 @@ React.useEffect(()=>{
    },[params?.id])
 
 
-  
+
+
+
 
    const handleLogout = () => {
     window.localStorage.removeItem("userData");
@@ -81,12 +88,27 @@ React.useEffect(()=>{
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log('prueba',event.target)
+   
     setUserProfile({ ...userProfile, [name]: value });
+    console.log("cambio",userProfile)
+    fetch("http://localhost:3001/api/userinformation", {
+      method: "POST", // Set the request method to POST
+      headers: {
+        "Content-Type": "application/json", // Set the content type to JSON
+      },
+      body: JSON.stringify({...userProfile}), // Convert the user data to JSON string
+    })
+      .then((response) => response.json()) // Parse the response as JSON
+      .then((data) => {
+        console.log("Success:", data); // Handle the response data
+      })
+      .catch((error) => {
+        console.error("Error:", error); // Handle any errors
+      });
   };
 
 
-console.log(userProfile)
+
 
 
     
@@ -280,7 +302,7 @@ console.log(userProfile)
             {imageUrls.map((url, index) => (
               <div key={index} className="galleryItem">
 
-{userProfile.photos ? <img src={url}  alt={`Image ${index}`} />:""}
+{userProfile && Array.isArray(userProfile.photos)&&userProfile.photos.length>0?<img src={url}  alt={`Image ${index}`} />:""}
 
 {auth.user?.role === "Tutor" &&<ImageFileUpload
                     id="profile_image"
