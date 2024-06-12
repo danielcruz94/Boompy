@@ -7,6 +7,8 @@ import NavBar from "../../shared/NavBar/NavBar";
 import Footer from "../../shared/Components/Footer/Footer";
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import CallTimer from './CallsTime';
+
 
 
 const userDataString = localStorage.getItem('userData');
@@ -42,9 +44,6 @@ const Calls = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isVolumeOn, setIsVolumeOn] = useState(false);
 
-  const [videoRecibido, setVideoRecibido] = useState(true);
-  const [audioRecibido, setAudioRecibido] = useState(true);
-  const [nombreRecibido, setNombreRecibido] = useState("Nombre de usuario");
   const [callDuration, setCallDuration] = useState(0);
   const [ID, setID] = useState();
   const [Cargando, setCargando] = useState(false);
@@ -54,12 +53,12 @@ const Calls = () => {
 
 const location = useLocation();
 const lastIndex = location.pathname.lastIndexOf('/');
-const id = location.pathname.substring(lastIndex + 1);
+const idClase = location.pathname.substring(lastIndex + 1);
 
       useEffect(() => {        
         const getCalendarClasses = async () => {
             try {
-                const response = await axios.get(`${serverURL}/calendar/class/${id}`); 
+                const response = await axios.get(`${serverURL}/calendar/class/${idClase}`); 
                                
                 const userDataString = localStorage.getItem('userData');
                 const userData = JSON.parse(userDataString);
@@ -76,19 +75,81 @@ const id = location.pathname.substring(lastIndex + 1);
             }
           };
         getCalendarClasses();
-      }, [id]); 
+      }, [idClase]); 
+
+
+
+        // Define handleBeforeUnload fuera del useEffect
+      const handleBeforeUnload = (event) => {
+        if (callInProgress) {
+          const message = '¿Estás seguro de que quieres abandonar la llamada?';
+          event.preventDefault(); // Previene que el navegador cierre la página directamente
+          event.returnValue = message;
+          return message;
+        }
+      };
+
+      // En el componente, dentro de useEffect
+      useEffect(() => {
+        const handlePopstate = (event) => {
+          if (callInProgress) {
+            window.history.pushState(null, null, window.location.pathname);
+          }
+        };
+
+        const handleHashchange = (event) => {
+          if (callInProgress) {
+            window.location.hash = '#';
+          }
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        window.addEventListener('popstate', handlePopstate);
+        window.addEventListener('hashchange', handleHashchange);
+
+        return () => {
+          window.removeEventListener('beforeunload', handleBeforeUnload);
+          window.removeEventListener('popstate', handlePopstate);
+          window.removeEventListener('hashchange', handleHashchange);
+        };
+      }, [callInProgress]);
+
+
+
+    // En endCall
+      const endCall = () => {
+        if (localStream) {
+          localStream.getTracks().forEach((track) => track.stop());
+          setLocalStream(null);
+        }
+        if (remoteStream) {
+          setRemoteStream(null);
+        }
+        setCallInProgress(false);
+        
+        // Desvincular el evento beforeunload
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+        
+        const host = window.location.hostname; 
+        const url = `https://${host}:5173/home`; 
+        
+        // Diferir la redirección ligeramente para asegurar que la eliminación del event listener se complete
+        setTimeout(() => {
+          window.location.href = url;
+        }, 100);
+      };
+
+
+      
+      
+
+
 
 
   const toggleVolume = () => {
     if (callInProgress) {
       setIsVolumeOn(!isVolumeOn);
     }
-  };
-
-  const Config = {
-    audio: audioMute,
-    video: videoMute,
-    name: "your name here",
   };
 
   const toggleVideoMute = () => {
@@ -99,10 +160,7 @@ const id = location.pathname.substring(lastIndex + 1);
             track.enabled = !prevState;
           });
         }
-
-        //Config.video = !prevState;
-        //enviarInformacion(Config);
-
+   
         return !prevState;
       });
     }
@@ -116,8 +174,7 @@ const id = location.pathname.substring(lastIndex + 1);
             track.enabled = !prevState;
           });
         }
-        //Config.audio = !prevState;
-        //enviarInformacion(Config);
+        
         return !prevState;
       });
     }
@@ -134,9 +191,7 @@ const id = location.pathname.substring(lastIndex + 1);
 
   const recibirInformacion = (data) => {
     if (typeof data === "object" && data !== null && !Array.isArray(data)) {
-      setVideoRecibido(data.video);
-      setAudioRecibido(data.audio);
-      setNombreRecibido(data.name);
+   console.log("colocar ping en linea")
     } else {
       console.log("No se recibió un objeto:", data);
       // Aquí puedes realizar las acciones que necesites si no se recibe un objeto
@@ -199,8 +254,8 @@ const id = location.pathname.substring(lastIndex + 1);
         console.log("Número total de llamadas recibidas:", callCounter);
 
         // Mostrar un mensaje al usuario para aceptar o rechazar la llamada
-        const aceptarLlamada = window.confirm("¿Deseas aceptar la llamada entrante?");
-        if (aceptarLlamada) {
+       // const aceptarLlamada = window.confirm("¿Deseas aceptar la llamada entrante?");
+        if (true) {
             try {
                 if (!localStream) {
                     alternarAudioVideo(true, true)
@@ -211,7 +266,8 @@ const id = location.pathname.substring(lastIndex + 1);
                             setVideoMute(true);
                             setIsVolumeOn(true);
                             setLocalStream(stream);
-                            handleCallAnswer(call, stream);
+                            handleCallAnswer(call, stream);                         
+
                         })
                         .catch((error) => {
                             console.error("Error al obtener el stream local:", error);
@@ -248,50 +304,37 @@ const id = location.pathname.substring(lastIndex + 1);
   };
 
   const startOutgoingCall = async () => {
-    try {
-      console.log("Iniciando llamada saliente...");
-      const stream = await alternarAudioVideo(true, true);
+  try {
+    console.log("Iniciando llamada saliente...");
+    const stream = await alternarAudioVideo(true, true);
+    console.log(
+      "Stream local obtenido exitosamente para la llamada saliente."
+    );
+    setLocalStream(stream);
+    const idDelOtroUsuario = ID; // ID del otro usuario
+    const call = peer.call(idDelOtroUsuario, stream);
+    console.log("Llamada saliente creada:", call);
+    call.on("stream", (remoteStream) => {
       console.log(
-        "Stream local obtenido exitosamente para la llamada saliente."
+        "Stream remoto recibido en la llamada saliente:",
+        remoteStream
       );
-      setLocalStream(stream);
-      const idDelOtroUsuario = ID; // ID del otro usuario
-      const call = peer.call(idDelOtroUsuario, stream);
-      console.log("Llamada saliente creada:", call);
-      call.on("stream", (remoteStream) => {
-        console.log(
-          "Stream remoto recibido en la llamada saliente:",
-          remoteStream
-        );
-        setVideoMute(true);
-        setAudioMute(true);
-        setVideoMute(true);
-        setIsVolumeOn(true);
-        setRemoteStream(remoteStream);
-      });
-      setCallInProgress(true);
-    } catch (error) {
-      console.error("Error al iniciar la llamada saliente:", error);
-      setError(
-        "Error al iniciar la llamada saliente. Por favor, inténtalo de nuevo más tarde."
-      );
-    }
-  };
+      setVideoMute(true);
+      setAudioMute(true);
+      setVideoMute(true);
+      setIsVolumeOn(true);
+      setRemoteStream(remoteStream);
+    });
+    setCallInProgress(true);    
 
-  const endCall = () => {
-    if (localStream) {
-      localStream.getTracks().forEach((track) => track.stop());
-      setLocalStream(null);
-    }
-    if (remoteStream) {
-      setRemoteStream(null);
-    }
-    setCallInProgress(false);
-    const host = window.location.hostname; 
-    const url = `http://${host}/home`; 
-    window.location.href = url; 
-
-  };
+  } catch (error) {
+    console.error("Error al iniciar la llamada saliente:", error);
+    setError(
+      "Error al iniciar la llamada saliente. Por favor, inténtalo de nuevo más tarde."
+    );
+  }
+};
+  
 
   const notificacionLlamada = () => {
     if (callInProgress) {
@@ -321,28 +364,7 @@ const id = location.pathname.substring(lastIndex + 1);
     return () => clearInterval(timer);
   }, []);
 
-  const renderCallTimer = () => {
-    const hours = Math.floor(callDuration / 3600);
-    const minutes = Math.floor((callDuration % 3600) / 60);
-    const seconds = callDuration % 60;
-
-    if (hours > 0) {
-      return (
-        <div className="call-timer">
-          {hours.toString().padStart(2, "0")}:
-          {minutes.toString().padStart(2, "0")}:
-          {seconds.toString().padStart(2, "0")}
-        </div>
-      );
-    } else {
-      return (
-        <div className="call-timer">
-          {minutes.toString().padStart(2, "0")}:
-          {seconds.toString().padStart(2, "0")}
-        </div>
-      );
-    }
-  };
+  
 
   return (
     <div className="ContenCall">
@@ -356,7 +378,7 @@ const id = location.pathname.substring(lastIndex + 1);
             <div className="contenPantalla">
               {/* Contenido de la llamada */}
               <div className="Video_Entrante">
-                {remoteStream && videoRecibido ? (
+                {remoteStream ? (
                   <video
                     className="VideoCall"
                     autoPlay
@@ -369,7 +391,7 @@ const id = location.pathname.substring(lastIndex + 1);
                   />
                 ) : (
                   <React.Fragment>
-                    {remoteStream && !videoRecibido && (
+                    {remoteStream &&  (
                       <i className="fas fa-video-slash custom-icon no-video-icon"></i>
                     )}
                     {remoteStream ? null : (
@@ -380,16 +402,8 @@ const id = location.pathname.substring(lastIndex + 1);
   
                 {false && (
                   <div className="custom-container">
-                    <div className="nombre-recibido">{nombreRecibido}</div>
-                    <div
-                      className={`custom-icon2 ${audioRecibido ? "green" : "red"}`}
-                    >
-                      <i
-                        className={`fas ico2 ${
-                          audioRecibido ? "fa-microphone" : "fa-microphone-slash"
-                        }`}
-                      ></i>
-                    </div>
+                    
+                    
                   </div>
                 )}
               </div>
@@ -411,7 +425,7 @@ const id = location.pathname.substring(lastIndex + 1);
                     <i className="fas fa-video-slash custom-icon no-video-icon"></i>
                   )}
                 </div>
-                {callInProgress && renderCallTimer()}
+                {callInProgress && <CallTimer variable={callInProgress} endCall={endCall} />}
                 <div className="container">
                   <div className="video-call-icons">
                     <div
@@ -434,15 +448,18 @@ const id = location.pathname.substring(lastIndex + 1);
                         }`}
                       ></i>
                     </div>
-                    {!callInProgress ? (
+                    {!callInProgress && userData.role !== 'Tutor' && (
                       <div className="icon-wrapper on" onClick={startOutgoingCall}>
                         <i className="fas fa-phone on"></i>
                       </div>
-                    ) : (
+                    )}
+
+                    {callInProgress && (
                       <div className="icon-wrapper off" onClick={endCall}>
                         <i className="fas fa-phone-slash off"></i>
                       </div>
                     )}
+
                   </div>
                   <div className="video-call-icons">
                     <div
