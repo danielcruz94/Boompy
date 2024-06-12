@@ -57,7 +57,7 @@ const handleChange = (event) => {
     setsettingInformation({ ...settingInformation, [name]: value });
   };
 
-
+  const serverURL = useSelector(state => state.serverURL.url);
   const handleSummit =async(e) => {
   
 
@@ -69,7 +69,7 @@ const handleChange = (event) => {
             email, // Add email to the data
             ...settingInformation,
           };
-          const serverURL = useSelector(state => state.serverURL.url);
+          
     
         const sendInfo = await axios.post(
             `${serverURL}/userinformation`,dataToSend );

@@ -18,7 +18,7 @@ import { useState } from 'react';
 
 const Teach = () => {
   const auth = useSelector((state) => state.auth);
-  console.log(auth)
+  
   const navegate = useNavigate();
 
   
@@ -58,7 +58,7 @@ React.useEffect(()=>{
             biography:data.biography,
             hobbies:data.id,
             price:data.price,
-            pictures:''
+            pictures:imageUrls
 
           })
         } else {
@@ -74,7 +74,7 @@ React.useEffect(()=>{
 
   
 
-   const handleLogout = () => {
+   const handleLogout = () => {  
     window.localStorage.removeItem("userData");
     navegate("/");
   };
@@ -84,11 +84,6 @@ React.useEffect(()=>{
     console.log(event.target)
     setUserProfile({ ...userProfile, [name]: value });
   };
-
-
-console.log(userProfile)
-
-
     
     return (
       <div className="contenTeach">
