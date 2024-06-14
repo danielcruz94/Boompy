@@ -85,7 +85,7 @@ const Form = () => {
 
       <GoogleButton>
        
-        <img src='/../../../../public/imagenes/google.svg.svg' style={{width:'20px',margin:'10px'}} alt="imgGoogle" /><span>Continue with google</span>
+        <img src='/public/imagenes/google.svg.svg' style={{width:'20px',margin:'10px'}} alt="imgGoogle" /><span>Continue with google</span>
       </GoogleButton>
 
     
