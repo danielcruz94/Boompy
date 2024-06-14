@@ -13,9 +13,8 @@ import { useSelector,useDispatch } from "react-redux"
 import { useNavigate} from 'react-router-dom';
  
 
-import Button from '../../../../imagenes/Button.svg';
-import corazon from '../../../../imagenes/corazon.svg';
-import carrito from '../../../../imagenes/carrito.svg';
+
+
 import { Link } from 'react-router-dom';
 import StudentCalendar from '../Components/Calendar/Student_Calendar'; 
 
@@ -87,11 +86,11 @@ const userData = JSON.parse(userDataString);
        
         <p style={{ marginLeft: '6px' }}>Categories</p>
         <SubmitButton placeholder="Search your partner"></SubmitButton>
-        <img src={Button} style={{ width: '10px' }} alt="button" />
+        <img src='../../../public/imagenes/Button.svg' style={{ width: '10px' }} alt="button" />
       </ContainerNavBar>
       <div style={{ display: 'flex', gap: '5px' }}>
-        <img src={corazon} alt="corazon" />
-        <img src={carrito} alt="carrito" />
+        <img src='../../../public/imagenes/corazon.svg' alt="corazon" />
+        <img src='../../../public/imagenes/carrito.svg' alt="carrito" />
 
         <Bottom onClick={onClick}>{textBotton}</Bottom>
 
