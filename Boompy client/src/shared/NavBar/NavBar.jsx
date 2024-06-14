@@ -21,6 +21,7 @@ import StudentCalendar from '../Components/Calendar/Student_Calendar';
 import CalendarClass from '../Components/Calendar/Calendar_Class'; 
 import Carrito from '../../assets/carrito.svg';
 import Corazon from '../../assets/corazon.svg'
+import  Button  from '../../assets/Button.svg'
 
 
 const NavBar = ({ textBotton, onClick, userInfo }) => {
@@ -88,7 +89,7 @@ const userData = JSON.parse(userDataString);
        
         <p style={{ marginLeft: '6px' }}>Categories</p>
         <SubmitButton placeholder="Search your partner"></SubmitButton>
-        <img src='../../../public/imagenes/Button.svg' style={{ width: '10px' }} alt="button" />
+        <img src={Button} style={{ width: '10px' }} alt="button" />
       </ContainerNavBar>
       <div style={{ display: 'flex', gap: '5px' }}>
         <img src={Corazon} alt="corazon" />

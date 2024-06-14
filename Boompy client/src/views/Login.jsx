@@ -5,6 +5,7 @@ import NavBar from '../shared/NavBar/NavBar'
 
 import Form from '../shared/Components/FormLogin/Form'
 import Footer from '../shared/Components/Footer/Footer'
+import Section from '../assets/Section.svg';
 
 const Login=() => {
     return (
@@ -16,7 +17,7 @@ const Login=() => {
 
     </NavBar> */}
     <ContainerPicture>
-        <img src='../../public/imagenes/Section.svg' style={{width:'100%',height:'100%',objectFit:'cover'}} alt="section" />
+        <img src={Section} style={{width:'100%',height:'100%',objectFit:'cover'}} alt="section" />
     </ContainerPicture>
     <Form></Form>
 
