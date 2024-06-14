@@ -1,6 +1,5 @@
 import { FormLog,GoogleButton,Container,Span,Input,TextLogin,
   ContenedorRemember } from "./Form.style";
-import google from '../../../../../imagenes/google.svg.svg'
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
@@ -86,7 +85,7 @@ const Form = () => {
 
       <GoogleButton>
        
-        <img src={google} style={{width:'20px',margin:'10px'}} alt="imgGoogle" /><span>Continue with google</span>
+        <img src='../../../../public/imagenes/google.svg.svg' style={{width:'20px',margin:'10px'}} alt="imgGoogle" /><span>Continue with google</span>
       </GoogleButton>
 
     
