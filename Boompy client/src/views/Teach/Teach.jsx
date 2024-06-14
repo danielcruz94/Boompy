@@ -62,7 +62,7 @@ React.useEffect(()=>{
             hobbies:data.id,
             price:data.price,
             photos:data.photos,
-            rates:'dcr'
+            rates:data.teacherRates
 
           })
 
