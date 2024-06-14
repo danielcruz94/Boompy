@@ -312,6 +312,7 @@ li > .Div-li2 {
     /* background-color: blueviolet; */
     height: 350px;
    /* border: 1px solid #0000002b;*/
+  
 }
 
 .gallery {
@@ -320,6 +321,7 @@ li > .Div-li2 {
     gap: 10px; 
     width: 70%;
   height: 100px;
+  margin-top: 50px;
     
 }
 
