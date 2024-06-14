@@ -19,6 +19,8 @@ import { Link } from 'react-router-dom';
 import StudentCalendar from '../Components/Calendar/Student_Calendar'; 
 
 import CalendarClass from '../Components/Calendar/Calendar_Class'; 
+import Carrito from '../../assets/carrito.svg';
+import Corazon from '../../assets/corazon.svg'
 
 
 const NavBar = ({ textBotton, onClick, userInfo }) => {
@@ -89,8 +91,8 @@ const userData = JSON.parse(userDataString);
         <img src='../../../public/imagenes/Button.svg' style={{ width: '10px' }} alt="button" />
       </ContainerNavBar>
       <div style={{ display: 'flex', gap: '5px' }}>
-        <img src='../../../public/imagenes/corazon.svg' alt="corazon" />
-        <img src='../../../public/imagenes/carrito.svg' alt="carrito" />
+        <img src={Corazon} alt="corazon" />
+        <img src={Carrito} alt="carrito" />
 
         <Bottom onClick={onClick}>{textBotton}</Bottom>
 

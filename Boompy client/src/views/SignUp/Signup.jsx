@@ -5,6 +5,9 @@ import NavBar from '../../shared/NavBar/NavBar'
 
 import Footer from '../../shared/Components/Footer/Footer'
 import FormSignUp from "../../shared/Components/FormLogin/FormSignUp/FormSignUp"
+
+import Section from '../../assets/Section.svg'
+
 const  Signup=() => {
 
 
@@ -17,7 +20,7 @@ const  Signup=() => {
     
         </NavBar> */}
         <ContainerTitle>
-            <img src='../../../public/imagenes/Section.svg' style={{width:'100%',height:'100%',objectFit:'cover'}}  alt="section" />
+            <img src={Section} style={{width:'100%',height:'100%',objectFit:'cover'}}  alt="section" />
           
         </ContainerTitle>
           <h3 >Student SingUp</h3>

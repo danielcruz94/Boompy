@@ -14,7 +14,7 @@ import {fetchUsers} from '../Redux/usersSlice'
 import Modal from "../shared/Components/Modals/Modal"
 import { useNavigate} from 'react-router-dom';
 import {login,completeInfo} from '../Redux/authSlice'
-
+import Section from '../assets/Section.svg';
 import Spinner  from "../shared/Components/Modals/Spinners/Spinner"
       
       
@@ -131,7 +131,7 @@ const Home = () => {
       <ContainerTitle>
      
    
-        <img src='../../public/imagenes/Section.svg' style={{width:'100%',height:'100%',objectFit:'cover'}}   alt="section" />
+        <img src={Section} style={{width:'100%',height:'100%',objectFit:'cover'}}   alt="section" />
 
        
         
