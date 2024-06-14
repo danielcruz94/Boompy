@@ -56,8 +56,7 @@ const FormSignUp = () => {
     setUserCredentials({ ...userCredentials, [name]: value });
   };
 
-  console.log(userCredentials)
-  console.log(passwordsUnMatch)
+
 
 
     return (
