@@ -15,7 +15,11 @@ import Modal from "../shared/Components/Modals/Modal"
 import { useNavigate} from 'react-router-dom';
 import {login,completeInfo} from '../Redux/authSlice'
 
-import Loader from "../shared/Components/Loader/Loader"
+import Spinner  from "../shared/Components/Modals/Spinners/Spinner"
+      
+      
+      
+
 
 const Home = () => {
   const users = useSelector((state) => state.users);
@@ -138,7 +142,7 @@ const Home = () => {
      
 
       <ContainerProfile >
-        {isLoading && <Loader />}
+        {isLoading && <Spinner />}
         {!auth.infoComplete && !isLoading && (
           <BackgrounModal>
           <Modal title={"Complete Your Information"} url={serverURL}></Modal>

@@ -6,9 +6,12 @@
     width: 60px;
     height: 60px;
     border-radius: 100%;
-    position: relative;
+    position: absolute; /* Absolute positioning is crucial for centering */
+    top: 50%; /* Vertical centering */
+    left: 50%; /* Horizontal centering */
+    transform: translate(-50%, -50%); /* Adjust positioning based on spinner size */
   }
-
+  
   .half-circle-spinner .circle {
     content: "";
     position: absolute;

@@ -26,7 +26,9 @@ p {
 
 .InfTeach {
     display: flex;       
-    padding: 50px 10px;   
+    padding: 20px 10px;  
+
+   
 }
 
 .InfTeach > div:nth-child(1) {
@@ -322,18 +324,19 @@ li > .Div-li2 {
 }
 
 .galleryItem{
-    border:1px solid rgba(0, 0, 0, 0.5);
+    /* border:1px solid rgba(0, 0, 0, 0.5); */
     height: 240px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+   
 }
 
 .gallery img {
-    width: 100%;
+    width: 80%;
     height: 100%;
-    /* border-radius: 5%; */
+    border-radius: 3%;
    
     object-fit:fill;
     
@@ -405,6 +408,7 @@ li > .Div-li2 {
 
     .contGalery {
         width: 100%;
+       
 
         
     }

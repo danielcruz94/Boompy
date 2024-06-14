@@ -69,7 +69,7 @@ const userData = JSON.parse(userDataString);
       </Image>
       <div style={{ display: 'flex' }}>
         <Link to={"/home"}>
-          <SubHeading>Home</SubHeading>
+          <SubHeading style={{color:'black'}}>Home</SubHeading>
         </Link>
         <SubHeading>Messages</SubHeading>
         <SubHeading 

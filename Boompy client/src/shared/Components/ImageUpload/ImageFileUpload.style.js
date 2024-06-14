@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import { color } from '../../../shared/styles';
 
 export const Container = styled.div`
+margin:7px;
   input[type='file'] {
     display: none;
   }
@@ -21,6 +22,7 @@ export const Label = styled.label`
   border-radius: 3px;
   padding: 10px 12px;
   background: white;
+
 
   & > i {
     margin-right: 4px;
