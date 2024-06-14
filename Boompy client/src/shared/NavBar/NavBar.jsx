@@ -12,7 +12,7 @@ import {logout} from '../../Redux/authSlice'
 import { useSelector,useDispatch } from "react-redux"
 import { useNavigate} from 'react-router-dom';
  
-
+import Vector from '../../assets/Vector.svg'
 
 
 import { Link } from 'react-router-dom';
@@ -80,7 +80,7 @@ const userData = JSON.parse(userDataString);
 
       <ContainerNavBar>
        
-        <img src='../../../public/imagenes/Vector.svg' alt="vector" />
+        <img src={Vector} alt="vector" />
        
       
        
