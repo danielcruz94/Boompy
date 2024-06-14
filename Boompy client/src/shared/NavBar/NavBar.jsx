@@ -12,8 +12,7 @@ import {logout} from '../../Redux/authSlice'
 import { useSelector,useDispatch } from "react-redux"
 import { useNavigate} from 'react-router-dom';
  
-import Vector from '../../../../imagenes/Vector.svg';
-import Header from '../../../../imagenes/Header.svg';
+
 import Button from '../../../../imagenes/Button.svg';
 import corazon from '../../../../imagenes/corazon.svg';
 import carrito from '../../../../imagenes/carrito.svg';
@@ -82,7 +81,7 @@ const userData = JSON.parse(userDataString);
 
       <ContainerNavBar>
        
-        <img src={Vector}  alt="vector" />
+        <img src='../../../public/imagenes/Vector.svg' alt="vector" />
        
       
        

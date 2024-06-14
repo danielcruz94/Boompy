@@ -7,13 +7,8 @@ import {Container,
     TitleFooter
 } from './Footer.style'
 
-import Facebook  from '../../../../../imagenes/facebook.png'
-import Twitter  from '../../../../../imagenes/twitter.png'
-import Whattsapp  from '../../../../../imagenes/whattsapp.png'
-import Instagram  from '../../../../../imagenes/instagram.png'
-import Youtube  from '../../../../../imagenes/youtube.png'
-import AppleStore  from '../../../../../imagenes/apple.svg.png'
-import PlayStore from '../../../../../imagenes/googlePlay.svg.png'
+
+
 
 
 
@@ -49,17 +44,17 @@ const Footer=() => {
                 <Columns>
                 <TitleFooter>Get in Touch</TitleFooter>
                 <ContenedorImg>
-                    <a href="/"><img  src={Facebook} alt="Facebook" /></a>
-                   <a href="/"> <img  src={Twitter} alt="Twitter" /></a>
-                   <a href="/"> <img   src={Whattsapp} alt="Whatsapp" /></a>
-                   <a href="/"> <img src={Instagram} alt="Instagram" /></a>
-                    <a href="/"> <img   src={Youtube} alt="Youtube" /></a>
+                    <a href="/"><img  src='../../../../public/imagenes/facebook.png' alt="Facebook" /></a>
+                   <a href="/"> <img  src='../../../../public/imagenes/twitter.png' alt="Twitter" /></a>
+                   <a href="/"> <img   src='../../../../public/imagenes/whattsapp.png' alt="Whatsapp" /></a>
+                   <a href="/"> <img src='../../../../public/imagenes/instagram.png' alt="Instagram" /></a>
+                    <a href="/"> <img   src='../../../../public/imagenes/youtube.png' alt="Youtube" /></a>
                     
                 </ContenedorImg>
                 <ContenedorStores>
 
-                <img src={AppleStore} style={{width:'100%'}} alt="AppleStore" />
-                <img src={PlayStore} style={{width:'100%'}} alt="PlayStore" />
+                <img src='../../../../public/imagenes/apple.svg.png' style={{width:'100%'}} alt="AppleStore" />
+                <img src='../../../../public/imagenes/googlePlay.svg.png' style={{width:'100%'}} alt="PlayStore" />
 
                 </ContenedorStores>
                 </Columns>
