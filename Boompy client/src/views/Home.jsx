@@ -4,7 +4,7 @@ import {Container,Headings,ContainerTitle,BackgrounModal,
   } from './Landing.style'
 import {ContainerProfile} from '../shared/Components/Cards/Cards.style'
 import NavBar from '../shared/NavBar/NavBar'
-import Section from '../../../imagenes/Section.svg'
+// import Section from '../../../imagenes/Perfiles/'
 import Form from '../shared/Components/FormLogin/Form'
 import Footer from '../shared/Components/Footer/Footer'
 import CardProfile from "../shared/Components/Cards/CardProfile"
@@ -131,7 +131,7 @@ const Home = () => {
       <ContainerTitle>
      
    
-        <img src={Section} style={{width:'100%',height:'100%',objectFit:'cover'}}   alt="section" />
+        <img src='' style={{width:'100%',height:'100%',objectFit:'cover'}}   alt="section" />
 
        
         
