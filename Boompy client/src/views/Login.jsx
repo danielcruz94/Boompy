@@ -2,7 +2,7 @@
 import React from "react"
 import {Container,Headings,ContainerPicture} from './Landing.style'
 import NavBar from '../shared/NavBar/NavBar'
-import Section from '../../../imagenes/Section.svg'
+// import Section from '../../../imagenes/Section.svg'
 import Form from '../shared/Components/FormLogin/Form'
 import Footer from '../shared/Components/Footer/Footer'
 
@@ -16,7 +16,7 @@ const Login=() => {
 
     </NavBar> */}
     <ContainerPicture>
-        <img src={Section} style={{width:'100%',height:'100%',objectFit:'cover'}} alt="section" />
+        <img src='' style={{width:'100%',height:'100%',objectFit:'cover'}} alt="section" />
     </ContainerPicture>
     <Form></Form>
 
