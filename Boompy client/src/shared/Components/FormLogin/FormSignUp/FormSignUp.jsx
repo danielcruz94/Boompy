@@ -3,7 +3,6 @@ import { FormLog,GoogleButton,Container,Span,Input,TextLogin,
     ContenedorRemember } from "../Form.style";
   import { useState } from "react";
   import axios from "axios";
-  import { useLocation} from 'react-router-dom';
   import { useSelector,useDispatch } from "react-redux"
 
 const FormSignUp = () => {
