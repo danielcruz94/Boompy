@@ -19,6 +19,7 @@ import { useState } from 'react';
 
 const Teach = () => {
   const auth = useSelector((state) => state.auth);
+  
   const [isLoading, setIsLoading] = useState(true);
   const navegate = useNavigate();
 
@@ -91,7 +92,7 @@ React.useEffect(()=>{
    
     setUserProfile({ ...userProfile, [name]: value });
     console.log("cambio",userProfile)
-    fetch("http://localhost:3001/api/userinformation", {
+    fetch(`${serverURL}/userinformation`, {
       method: "POST", // Set the request method to POST
       headers: {
         "Content-Type": "application/json", // Set the content type to JSON
@@ -108,7 +109,6 @@ React.useEffect(()=>{
   };
 
 
-  console.log(userProfile)
 
 
     
@@ -141,7 +141,7 @@ React.useEffect(()=>{
                     onChange={(fileUrl) => {
                       setUserProfile({...userProfile,picture:fileUrl});
                      
-                      fetch("http://localhost:3001/api/userinformation", {
+                      fetch(`${serverURL}/userinformation`, {
                         method: "POST", // Set the request method to POST
                         headers: {
                           "Content-Type": "application/json", // Set the content type to JSON
@@ -324,7 +324,7 @@ React.useEffect(()=>{
                       setUserProfile({ ...userProfile, photos: updatedPhotos });
                       let reference=0;
                       let photo=fileUrl;
-                      fetch("http://localhost:3001/api/user/update/photo", {
+                      fetch(`${serverURL}/user/update/photo`, {
                         method: "POST", // Set the request method to POST
                         headers: {
                           "Content-Type": "application/json", // Set the content type to JSON
@@ -379,7 +379,7 @@ React.useEffect(()=>{
                       setUserProfile({ ...userProfile, photos: updatedPhotos });
                        let reference=1;
                        let photo=fileUrl;
-                      fetch("http://localhost:3001/api/user/update/photo", {
+                      fetch(`${serverURL}/user/update/photo`, {
                         method: "POST", // Set the request method to POST
                         headers: {
                           "Content-Type": "application/json", // Set the content type to JSON
@@ -435,7 +435,7 @@ React.useEffect(()=>{
 
                       let reference=2;
                       let photo=fileUrl;
-                     fetch("http://localhost:3001/api/user/update/photo", {
+                     fetch(`${serverURL}/user/update/photo`, {
                        method: "POST", // Set the request method to POST
                        headers: {
                          "Content-Type": "application/json", // Set the content type to JSON
