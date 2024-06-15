@@ -7,14 +7,13 @@ import {Container,
     TitleFooter
 } from './Footer.style'
 
-import Facebook  from '../../../../../imagenes/facebook.png'
-import Twitter  from '../../../../../imagenes/twitter.png'
-import Whattsapp  from '../../../../../imagenes/whattsapp.png'
-import Instagram  from '../../../../../imagenes/instagram.png'
-import Youtube  from '../../../../../imagenes/youtube.png'
-import AppleStore  from '../../../../../imagenes/apple.svg.png'
-import PlayStore from '../../../../../imagenes/googlePlay.svg.png'
-
+import Facebook  from '../../../assets/facebook.png'
+import Twitter  from '../../../assets/twitter.png'
+import Whattsapp  from '../../../assets/whattsapp.png'
+import Instagram  from '../../../assets/instagram.png'
+import Youtube  from '../../../assets/youtube.png'
+import AppleStore  from '../../../assets/apple.svg.png'
+import PlayStore from '../../../assets/googlePlay.svg.png'
 
 
 const Footer=() => {

@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import { color } from '../../../shared/styles';
 
 export const Container = styled.div`
+margin:7px;
   input[type='file'] {
     display: none;
   }
@@ -20,7 +21,8 @@ export const Label = styled.label`
   font-size: 14px;
   border-radius: 3px;
   padding: 10px 12px;
-  background: #f4f5f7;
+  background: white;
+
 
   & > i {
     margin-right: 4px;
@@ -56,6 +58,8 @@ cursor: pointer;
 display: inline-block;
 color: ${(props) =>
     props.isLoading ? color.textVeryLight : color.textMedium};
+
+
 
 
  

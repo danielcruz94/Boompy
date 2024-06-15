@@ -4,7 +4,7 @@ import {Container,Headings,ContainerTitle,BackgrounModal,
   } from './Landing.style'
 import {ContainerProfile} from '../shared/Components/Cards/Cards.style'
 import NavBar from '../shared/NavBar/NavBar'
-import Section from '../../../imagenes/Section.svg'
+
 import Form from '../shared/Components/FormLogin/Form'
 import Footer from '../shared/Components/Footer/Footer'
 import CardProfile from "../shared/Components/Cards/CardProfile"
@@ -14,8 +14,12 @@ import {fetchUsers} from '../Redux/usersSlice'
 import Modal from "../shared/Components/Modals/Modal"
 import { useNavigate} from 'react-router-dom';
 import {login,completeInfo} from '../Redux/authSlice'
+import Section from '../assets/Section.svg';
+import Spinner  from "../shared/Components/Modals/Spinners/Spinner"
+      
+      
+      
 
-import Loader from "../shared/Components/Loader/Loader"
 
 const Home = () => {
   const users = useSelector((state) => state.users);
@@ -138,10 +142,10 @@ const Home = () => {
      
 
       <ContainerProfile >
-        {isLoading && <Loader />}
+        {isLoading && <Spinner />}
         {!auth.infoComplete && !isLoading && (
           <BackgrounModal>
-          <Modal title={"Complete Your Information"}></Modal>
+          <Modal title={"Complete Your Information"} url={serverURL}></Modal>
           </BackgrounModal>
           
         )}

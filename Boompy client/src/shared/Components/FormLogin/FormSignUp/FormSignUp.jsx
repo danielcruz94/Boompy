@@ -1,10 +1,8 @@
 
 import { FormLog,GoogleButton,Container,Span,Input,TextLogin,
     ContenedorRemember } from "../Form.style";
-  import google from '../../../../../../imagenes/google.svg.svg'
   import { useState } from "react";
   import axios from "axios";
-  import { useLocation} from 'react-router-dom';
   import { useSelector,useDispatch } from "react-redux"
 
 const FormSignUp = () => {
@@ -57,8 +55,7 @@ const FormSignUp = () => {
     setUserCredentials({ ...userCredentials, [name]: value });
   };
 
-  console.log(userCredentials)
-  console.log(passwordsUnMatch)
+
 
 
     return (
@@ -74,7 +71,7 @@ const FormSignUp = () => {
 
           {/* <GoogleButton>
          
-          <img src={google} style={{width:'20px',margin:'10px'}} alt="imgGoogle" /><span>Continue with google</span>
+          <img src='' style={{width:'20px',margin:'10px'}} alt="imgGoogle" /><span>Continue with google</span>
         </GoogleButton> */}
 
           <div style={{ display: "flex", justifyContent: "start" }}>

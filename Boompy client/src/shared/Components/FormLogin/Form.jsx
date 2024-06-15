@@ -1,12 +1,13 @@
 import { FormLog,GoogleButton,Container,Span,Input,TextLogin,
   ContenedorRemember } from "./Form.style";
-import google from '../../../../../imagenes/google.svg.svg'
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate} from 'react-router-dom';
 import { useSelector,useDispatch } from "react-redux"
 import {login} from '../../../Redux/authSlice'
+import GoogleIcon from '../../../assets/google.svg.svg'
+
 
 
 const Form = () => {
@@ -86,7 +87,7 @@ const Form = () => {
 
       <GoogleButton>
        
-        <img src={google} style={{width:'20px',margin:'10px'}} alt="imgGoogle" /><span>Continue with google</span>
+        <img src={GoogleIcon} style={{width:'20px',margin:'10px'}} alt="imgGoogle" /><span>Continue with google</span>
       </GoogleButton>
 
     
