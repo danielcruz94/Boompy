@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector,useDispatch } from "react-redux"
+import { useSelector } from "react-redux";
 import Calendar from 'react-calendar';
 import Modal from 'react-modal';
 import axios from 'axios';
@@ -17,48 +17,17 @@ function TutorCalendar() {
   const [reservationSuccess, setReservationSuccess] = useState(false);
 
   const serverURL = useSelector(state => state.serverURL.url);
-
   const location = useLocation();
-
   const lastIndex = location.pathname.lastIndexOf('/');
-
   const id = location.pathname.substring(lastIndex + 1);
 
   useEffect(() => {
     Modal.setAppElement('#root');
-  
-    const fetchTutorAvailability = async () => {
-      try {
-        const response = await axios.get(`${serverURL}/calendar/${id}`);
-        const availabilityData = response.data.filter(avail => avail.reserved === "");
-        
-        const processedAvailabilityData = availabilityData.map(avail => {
-          const startDateTime = new Date(avail.startTime);
-          const endDateTime = new Date(avail.endTime);
-          
-          const startTimeLocal = startDateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-          const endTimeLocal = endDateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-          
-          // Filtrar las clases que aún no han comenzado
-          if (startDateTime > new Date()) {
-            return {
-              ...avail,
-              startTime: startTimeLocal,
-              endTime: endTimeLocal
-            };
-          } else {
-            return null; // Excluir las clases que ya han comenzado
-          }
-        }).filter(Boolean); // Eliminar elementos nulos del array
-        
-        setTutorAvailability(processedAvailabilityData);
-        
-      } catch (error) {
-        console.error('Error fetching tutor availability:', error);
-      }
-    };
-
     fetchTutorAvailability();
+    // Iniciar intervalo para actualización automática cada 5 minutos (300000 ms)
+    const interval = setInterval(fetchTutorAvailability, 30); // 5 minutos
+
+    return () => clearInterval(interval); // Limpiar intervalo al desmontar el componente
   }, [reservationSuccess]);
 
   useEffect(() => {
@@ -68,6 +37,37 @@ function TutorCalendar() {
       document.body.style.overflow = 'auto';
     }
   }, [scrollEnabled]);
+
+  const fetchTutorAvailability = async () => {
+    try {
+      const response = await axios.get(`${serverURL}/calendar/${id}`);
+      const availabilityData = response.data.filter(avail => avail.reserved === "");
+
+      const processedAvailabilityData = availabilityData.map(avail => {
+        const startDateTime = new Date(avail.startTime);
+        const endDateTime = new Date(avail.endTime);
+        
+        const startTimeLocal = startDateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+        const endTimeLocal = endDateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+        
+        // Filtrar las clases que aún no han comenzado
+        if (startDateTime > new Date()) {
+          return {
+            ...avail,
+            startTime: startTimeLocal,
+            endTime: endTimeLocal
+          };
+        } else {
+          return null; // Excluir las clases que ya han comenzado
+        }
+      }).filter(Boolean); // Eliminar elementos nulos del array
+      
+      setTutorAvailability(processedAvailabilityData);
+      
+    } catch (error) {
+      console.error('Error fetching tutor availability:', error);
+    }
+  };
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -103,19 +103,15 @@ function TutorCalendar() {
       };
 
       try {
-        const response = axios.put(`${serverURL}/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue })
-       
+        const response = await axios.put(`${serverURL}/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue });
         setReservationSuccess(prevState => !prevState);
 
         if (response.status === 201) {
-        
-          
-      
           // Crear constantes temporales para almacenar los valores formateados
           const formattedDate = new Date(selectedClass.date).toLocaleString('en-US', {
-              day: 'numeric',
-              month: 'long', // 'long' para mostrar el nombre completo del mes en inglés
-              year: 'numeric'
+            day: 'numeric',
+            month: 'long', // 'long' para mostrar el nombre completo del mes en inglés
+            year: 'numeric'
           });
       
           const formattedStartTime = new Date(selectedClass.startTime).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
@@ -123,52 +119,30 @@ function TutorCalendar() {
       
           // Datos del correo electrónico
           const emailContent = `
-              <html>
-              <body>
-                  <h1 style="color: #007bff;">¡Tu Clase ha sido Reservada Exitosamente!</h1>
-                  <p>¡Hola ${userData.name}!</p>
-                  <p>Tu clase ha sido reservada para el ${formattedDate}, desde las ${formattedStartTime} hasta las ${formattedEndTime}.</p>
-                  <p>Por favor, asegúrate de estar preparado para tu clase y estar a tiempo.</p>
-                  <p>¡Gracias por elegirnos para tu aprendizaje!</p>
-                  <p>Saludos,<br/>El equipo de Torii</p>
-              </body>
-              </html>
+            <html>
+            <body>
+              <h1 style="color: #007bff;">¡Tu Clase ha sido Reservada Exitosamente!</h1>
+              <p>¡Hola ${userData.name}!</p>
+              <p>Tu clase ha sido reservada para el ${formattedDate}, desde las ${formattedStartTime} hasta las ${formattedEndTime}.</p>
+              <p>Por favor, asegúrate de estar preparado para tu clase y estar a tiempo.</p>
+              <p>¡Gracias por elegirnos para tu aprendizaje!</p>
+              <p>Saludos,<br/>El equipo de Torii</p>
+            </body>
+            </html>
           `;
       
           const emailData = {
-              to: userData.email, 
-              subject: 'Confirmación de Reserva de Clase',
-              html: emailContent
+            to: userData.email, 
+            subject: 'Confirmación de Reserva de Clase',
+            html: emailContent
           };
       
           // Envío de correo electrónico
           const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
-          // closeModal();
-      } else {
+          closeModal();
+        } else {
           throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
-      }
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
+        }
       } catch (error) {
         console.error("Error reserving class:", error);
       }
