@@ -36,7 +36,8 @@ flex-direction:column;
 align-items:start;
 
 @media (max-width: 500px) {
-   width:90px;
+   width:70%;
+   margin:18px;
  
    align-items:start;
    
@@ -54,9 +55,10 @@ export const ContenedorImg = styled.div`
 
 display: flex;
 gap:20px;
+margin:20px;
 @media (max-width: 500px) {
    
-   gap:5px;
+   gap:15px;
     width:75%;
 
     
@@ -110,8 +112,9 @@ export const LinkFooter = styled.li`
   
 `;
 
-export const TitleFooter = styled.h4`
+export const Span = styled.span`
 
+color:white;
 
 @media (max-width: 500px) {
     font-Size:10px; 
