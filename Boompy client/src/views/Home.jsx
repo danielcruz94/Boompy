@@ -1,6 +1,10 @@
 
 import  {useEffect,React,useState}from "react"
-import {Container,Headings,ContainerTitle,BackgrounModal,
+import {Container,
+  Headings,
+  ContainerTitle,
+  BackgrounModal,
+  H3
   } from './Landing.style'
 import {ContainerProfile} from '../shared/Components/Cards/Cards.style'
 import NavBar from '../shared/NavBar/NavBar'
@@ -122,34 +126,29 @@ const Home = () => {
   return (
     <Container>
       <Headings></Headings>
-     
+
       <NavBar
         textBotton={"Logout"}
         onClick={handleLogout}
         userInfo={localUser}
       ></NavBar>
       <ContainerTitle>
-     
-   
-        <img src={Section} style={{width:'100%',height:'100%',objectFit:'cover'}}   alt="section" />
-
-       
-        
+        <img
+          src={Section}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          alt="section"
+        />
       </ContainerTitle>
-      <h3  style={{position:'relative',top:'-150px',left:'-300px'}}>
-          Choose your Trip
-        </h3>
-     
+      <H3>Choose your Trip</H3>
 
-      <ContainerProfile >
+      <ContainerProfile>
         {isLoading && <Spinner />}
         {!auth.infoComplete && !isLoading && (
           <BackgrounModal>
-          <Modal title={"Complete Your Information"} url={serverURL}></Modal>
+            <Modal title={"Complete Your Information"} url={serverURL}></Modal>
           </BackgrounModal>
-          
         )}
-       
+
         {users.map((user) => (
           <CardProfile
             key={user.id}
@@ -160,21 +159,10 @@ const Home = () => {
             id={user.id}
             photos={user.photos}
             onMouseEnter={() => handleMouseEnter(user.id)} // Pasar ID de la tarjeta al entrar
-             onMouseLeave={handleMouseLeave}
-             showTinyImg={showTinyImg === user.id} 
-            >
-
-            </CardProfile>
-          
+            onMouseLeave={handleMouseLeave}
+            showTinyImg={showTinyImg === user.id}
+          ></CardProfile>
         ))}
-
-
-       
-
-      
-
-
-
       </ContainerProfile>
 
       <br />

@@ -210,6 +210,20 @@ transition: background-color 0.2s ease-in-out; /* Smooth transition */
   }
 `;
 
+export const H3 = styled.h3`
+
+position:relative;
+top:-150px;
+left:-300px;
+
+  
+
+  @media (max-width: 600px) {
+    top:-100px;
+    left:0px;
+  }
+`;
+
 
 
 
