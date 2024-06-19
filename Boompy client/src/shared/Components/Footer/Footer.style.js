@@ -36,10 +36,11 @@ flex-direction:column;
 align-items:start;
 
 @media (max-width: 500px) {
-   width:70%;
-   margin:18px;
+   width:100%;
+   margin:10px;
+   align-items:center;
  
-   align-items:start;
+  
    
    
    
@@ -59,30 +60,7 @@ margin:20px;
 @media (max-width: 500px) {
    
    gap:15px;
-    width:75%;
-
-    
-    
-  
-}
-
-
-
-  
-`;
-
-export const ContenedorStores = styled.div`
-
-display: flex;
-gap:10px;
-
-margin-top:20px;
-@media (max-width: 500px) {
    
-    flex-Direction:column;
-    width:80%;
-    margin-top:10px;
-    
 
     
     
@@ -91,9 +69,10 @@ margin-top:20px;
 
 
 
-
   
 `;
+
+
 
 
 export const LinkFooter = styled.li`
