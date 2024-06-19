@@ -93,8 +93,8 @@ p {
 }
 
 .iconos{
-    width: 50px;
-    height: 50px;
+    width: 25px;
+    height: 20px;
 }
 .social-icon-wrapper {
     background: rgb(255, 255, 255);
@@ -326,7 +326,7 @@ li > .Div-li2 {
     gap: 10px; 
     width: 70%;
   height: 100%;
-  margin-top: 20px;
+ 
    /* border:1px solid rgba(0, 0, 0, 0.5); */
    /* background-color: red; */
 
@@ -349,7 +349,7 @@ li > .Div-li2 {
     width: 80%;
     height: 100%;
     border-radius: 3%;
-   
+  
     object-fit:fill;
     
 }
@@ -384,6 +384,7 @@ li > .Div-li2 {
 @media screen and (max-width: 800px) {
     .InfTeach {
         flex-direction: column;
+        
     }
 
     .course{
@@ -401,6 +402,17 @@ li > .Div-li2 {
     }
 }
 
+@media screen and (max-width: 1110px) {
+    .contGalery{
+        
+        width: 100%;
+        /* background-color: blueviolet; */
+    
+      
+      
+    }
+}
+
 
 
 @media screen and (max-width: 600px) {
@@ -414,7 +426,9 @@ li > .Div-li2 {
         justify-content: center;
         margin: 0px 20px 0px 0px;
     }
-
+    .profile-info > p{
+        text-align: center;
+    }
     .profile-container{
         flex-direction: column;
         width: 100%;
@@ -423,6 +437,12 @@ li > .Div-li2 {
     .contact-info {
         display: block;
         margin-bottom: 20px;
+    }
+
+    .social-icons {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
     }
 
     .Biography {
