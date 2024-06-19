@@ -32,7 +32,7 @@ const userDataString = localStorage.getItem('userData');
 const userData = JSON.parse(userDataString);
 
   const [role, setRole] = useState(userData.role); 
-
+console.log('role',role)
   
 
   const auth = useSelector((state) => state.auth);
@@ -70,9 +70,10 @@ const userData = JSON.parse(userDataString);
       </Image>
       <div style={{ display: 'flex' }}>
         <Link to={"/home"}>
-          <SubHeading style={{color:'black'}}>Home</SubHeading>
+          {role==='Tutor'?"":<SubHeading style={{color:'black',fontWeight: 'bold'}}>Home</SubHeading>}
+          
         </Link>
-        <SubHeading>Messages</SubHeading>
+        {/* <SubHeading>Messages</SubHeading> */}
         <SubHeading 
           onClick={toggleCalendar} 
           style={{ cursor: 'pointer', fontWeight: 'bold' }}

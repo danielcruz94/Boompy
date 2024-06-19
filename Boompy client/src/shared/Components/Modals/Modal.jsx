@@ -108,7 +108,7 @@ const handleChange = (event) => {
                 
             </ContainerIn>
             <ContainerIn>
-               <Span >Choose Your Native Language</Span>
+               <Span >Your Language</Span>
             <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={handleChange} name={"language"}>
             <option value="" >Select an option</option>
                 <option value="English">English</option>
