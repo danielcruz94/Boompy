@@ -7,12 +7,12 @@ import {ContainerProfile,
 import SmallImage from "./TinyImages/SmallImage"
 
 
-const CardProfile=({name,id,picture,price,goal,onMouseEnter,onMouseLeave,showTinyImg}) => {
+const CardProfile=({name,id,picture,price,goal,onMouseEnter,onMouseLeave,showTinyImg,photos}) => {
 
    
     return (
        <ContenedorCard >
-        {showTinyImg&& <SmallImage></SmallImage>}
+        {showTinyImg&& <SmallImage photos={photos}></SmallImage>}
        
             <MainPhoto>
                 <Link to={`/tutor/${id}`} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>

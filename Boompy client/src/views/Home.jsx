@@ -158,6 +158,7 @@ const Home = () => {
             price={user.price}
             goal={user.goal}
             id={user.id}
+            photos={user.photos}
             onMouseEnter={() => handleMouseEnter(user.id)} // Pasar ID de la tarjeta al entrar
              onMouseLeave={handleMouseLeave}
              showTinyImg={showTinyImg === user.id} 
