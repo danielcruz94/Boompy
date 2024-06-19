@@ -351,7 +351,7 @@ React.useEffect(()=>{
                
            {userProfile && Array.isArray(userProfile.photos)&&!userProfile.photos[0]&&<svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="300"
+                  width="100"
                   height="300"
                   fill="currentColor"
                   className="bi bi-person"
@@ -404,7 +404,7 @@ React.useEffect(()=>{
                
                     {userProfile && Array.isArray(userProfile.photos)&&!userProfile.photos[1]&& <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="300"
+                  width="100"
                   height="300"
                   fill="currentColor"
                   className="bi bi-person"
@@ -459,7 +459,7 @@ React.useEffect(()=>{
                     
                     {userProfile && Array.isArray(userProfile.photos)&&!userProfile.photos[2]&& <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="300"
+                  width="100"
                   height="300"
                   fill="currentColor"
                   className="bi bi-person"

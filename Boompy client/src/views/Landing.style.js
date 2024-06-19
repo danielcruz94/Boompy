@@ -198,7 +198,11 @@ word-wrap: break-word;
 overflow-x: hidden;
 overflow-y: hidden; /* Se agrega esta propiedad */
 
-
+/* Hover effect */
+transition: background-color 0.2s ease-in-out; /* Smooth transition */
+&:hover {
+  background-color: #f2f2f2; /* Light gray hover background */
+}
   
 
   @media (max-width: 1100px) {
