@@ -5,7 +5,7 @@ import './Teach.css'; // Importa el archivo CSS personalizado
 import {Headings,
   TextArea,
   H4,
-  Parrafo
+  
 } from '../Landing.style'
 import NavBar from '../../shared/NavBar/NavBar';
 import { useParams } from "react-router-dom";

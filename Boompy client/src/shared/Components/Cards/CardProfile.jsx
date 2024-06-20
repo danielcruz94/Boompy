@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom"
 import {ContainerProfile,
     MainPhoto,
-    ContenedorCard
+    ContenedorCard,
+    ConteinerText
 } from "./Cards.style"
 
 import SmallImage from "./TinyImages/SmallImage"
@@ -21,7 +22,7 @@ const CardProfile=({name,id,picture,price,goal,onMouseEnter,onMouseLeave,showTin
             
             </MainPhoto>
             
-            <div style={{marginTop:'30px',display:'flex',flexDirection:'column',alignItems:'start',marginLeft:'10px'}}>
+            <ConteinerText>
             <h3 style={{ fontWeight: '600',margin:'0'}}>{name}</h3>
             <span style={{color:'#390099',margin:'0',display:'block'}}>{goal}</span>
             <span>🔥 200 Likes</span>
@@ -29,7 +30,7 @@ const CardProfile=({name,id,picture,price,goal,onMouseEnter,onMouseLeave,showTin
             <a>Book a Ticket ✈️ </a>
             
 
-            </div>
+            </ConteinerText>
            
             </ContenedorCard>
     ) 
