@@ -73,6 +73,9 @@ p {
 .profile-info > p,
 .profile-info > h2 {
     text-align: left; 
+
+
+
     margin-bottom: 15px;
 }
 
@@ -412,6 +415,14 @@ li > .Div-li2 {
       
     }
 }
+@media screen and (max-width: 400px) {
+    .profile-info > h2{
+        text-align: center;
+    }
+    
+    
+}
+
 
 
 

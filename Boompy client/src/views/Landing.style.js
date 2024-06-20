@@ -191,22 +191,22 @@ background:red;
 `;
 
 export const TextArea = styled.textarea`
-display: inline-block;
-max-width: 100%;
-word-wrap: break-word;
+  display: inline-block;
+  max-width: 100%;  
+  word-wrap: break-word;
 
-overflow-x: hidden;
-overflow-y: hidden; /* Se agrega esta propiedad */
+height:270px;
 
-/* Hover effect */
-transition: background-color 0.2s ease-in-out; /* Smooth transition */
-&:hover {
-  background-color: #f2f2f2; /* Light gray hover background */
-}
-  
 
-  @media (max-width: 1100px) {
-    min-height: 400px;
+
+
+  transition: background-color 0.2s ease-in-out;
+  &:hover {
+    background-color: #f2f2f2;
+  }
+
+  @media (max-width: 500px) {
+ height: 200px;
   }
 `;
 

@@ -196,7 +196,7 @@ React.useEffect(()=>{
                 name="biography"
                 value={userProfile.biography}
                 onChange={handleChange}
-                style={{ resize: "none", height: "200px", marginBottom: "0" }}
+                style={{ resize: "none", marginBottom: "0" }}
               ></TextArea>
             ) : (
               <div className="Biography">
@@ -299,9 +299,7 @@ React.useEffect(()=>{
         </div>
 
         <div className="contGalery">
-          <div>
-            <H4>Something About</H4>
-          </div>
+          
 
           <div className="gallery">
             <div className="galleryItem">
