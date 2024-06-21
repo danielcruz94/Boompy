@@ -190,14 +190,21 @@ React.useEffect(()=>{
                 </div>
               </div>
             </div>
+            
             {auth.user?.role === "Tutor" ? (
-              <TextArea
+              <div className="Biography" style={{border:'none'}}>
+
+              <h3>Biography</h3>
+                <TextArea
                 className="Biography"
                 name="biography"
                 value={userProfile.biography}
                 onChange={handleChange}
                 style={{ resize: "none", marginBottom: "0" }}
               ></TextArea>
+
+              </div>
+              
             ) : (
               <div className="Biography">
                 <h4>Biography</h4>

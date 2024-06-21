@@ -25,7 +25,7 @@ const CardProfile=({name,id,picture,price,goal,onMouseEnter,onMouseLeave,showTin
             <ConteinerText>
             <h3 style={{ fontWeight: '600',margin:'0'}}>{name}</h3>
             <span style={{color:'#390099',margin:'0',display:'block'}}>{goal}</span>
-            <span>🔥 200 Likes</span>
+            {/* <span>🔥 200 Likes</span> */}
             <span style={{color:'#FFC224',fontWeight: '800'}}>${price}</span>
             <a>Book a Ticket ✈️ </a>
             
