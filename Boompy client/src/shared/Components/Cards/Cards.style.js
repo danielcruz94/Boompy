@@ -38,7 +38,9 @@ margin:1px;
 min-width:400px;
 
 
-
+@media (max-width: 400px) {
+    min-width:370px;
+}
 
 
 
@@ -58,6 +60,7 @@ width:50px;
 height:50px;
 position:absolute;
 border-radius:50%;
+
 
 
 

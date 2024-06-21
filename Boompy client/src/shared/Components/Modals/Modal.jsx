@@ -41,7 +41,7 @@ const [settingInformation,setsettingInformation]=useState({
     goal:"",
     price:"",
     instagram:"",
-    picture:""
+   
 
     
 });
@@ -69,7 +69,7 @@ const handleChange = (event) => {
             ...settingInformation,
           };
           
-          console.log(serverURL)
+          
           
     
         const sendInfo = await axios.post(
