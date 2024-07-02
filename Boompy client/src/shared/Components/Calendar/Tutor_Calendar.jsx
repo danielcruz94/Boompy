@@ -139,6 +139,14 @@ function TutorCalendar() {
       
           // Envío de correo electrónico
           const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
+          console.log(sentEmail)
+
+
+
+
+
+
+          
           closeModal();
         } else {
           throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
