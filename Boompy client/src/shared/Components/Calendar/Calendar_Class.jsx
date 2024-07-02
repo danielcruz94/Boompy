@@ -143,7 +143,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
             const emailData = {
                 to: userData.email,
                 subject: 'Torii Availability Update',
-                html: emailContent
+                text: emailContent
             };
           
             // Envío de correo electrónico

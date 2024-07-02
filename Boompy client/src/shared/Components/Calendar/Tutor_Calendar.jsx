@@ -134,7 +134,7 @@ function TutorCalendar() {
           const emailData = {
             to: userData.email, 
             subject: 'Confirmación de Reserva de Clase',
-            html: emailContent
+            text: emailContent
           };
       
           // Envío de correo electrónico
