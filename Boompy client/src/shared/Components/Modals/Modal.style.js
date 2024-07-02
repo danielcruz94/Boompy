@@ -5,7 +5,7 @@ import { color } from '../../styles';
 export const Container = styled.div`
 
   width:430px;
-  height: 300px;
+  height: 350px;
   display: flex;
   flex-direction:column;
   padding:15px;
@@ -13,7 +13,10 @@ background:#Ede3f1;
 border-Radius:7px;
 z-index:111111111;
 
-
+@media (max-width: 500px) {
+  margin: 10px;
+  
+}
  
 
   
@@ -60,7 +63,7 @@ padding-Left:10px;
 padding-Right:10px;
 color:#390099;
 height:24px;
-
+font-size:15px;
 
 border-Radius:10px;
 

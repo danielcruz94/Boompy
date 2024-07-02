@@ -1,18 +1,19 @@
 import { Link } from "react-router-dom"
 import {ContainerProfile,
     MainPhoto,
-    ContenedorCard
+    ContenedorCard,
+    ConteinerText
 } from "./Cards.style"
 
 import SmallImage from "./TinyImages/SmallImage"
 
 
-const CardProfile=({name,id,picture,price,goal,onMouseEnter,onMouseLeave,showTinyImg}) => {
+const CardProfile=({name,id,picture,price,goal,onMouseEnter,onMouseLeave,showTinyImg,photos}) => {
 
    
     return (
        <ContenedorCard >
-        {showTinyImg&& <SmallImage></SmallImage>}
+        {showTinyImg&& <SmallImage photos={photos}></SmallImage>}
        
             <MainPhoto>
                 <Link to={`/tutor/${id}`} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
@@ -21,15 +22,15 @@ const CardProfile=({name,id,picture,price,goal,onMouseEnter,onMouseLeave,showTin
             
             </MainPhoto>
             
-            <div style={{marginTop:'30px',display:'flex',flexDirection:'column',alignItems:'start',marginLeft:'10px'}}>
+            <ConteinerText>
             <h3 style={{ fontWeight: '600',margin:'0'}}>{name}</h3>
             <span style={{color:'#390099',margin:'0',display:'block'}}>{goal}</span>
-            <span>🔥 200 Likes</span>
+            {/* <span>🔥 200 Likes</span> */}
             <span style={{color:'#FFC224',fontWeight: '800'}}>${price}</span>
             <a>Book a Ticket ✈️ </a>
             
 
-            </div>
+            </ConteinerText>
            
             </ContenedorCard>
     ) 
