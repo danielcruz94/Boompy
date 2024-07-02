@@ -61,6 +61,7 @@ React.useEffect(()=>{
             hobbies:data.id,
             price:data.price,
             photos:data.photos,
+            country:data.country,
             rates:data.teacherRates
 
           })
@@ -168,7 +169,7 @@ React.useEffect(()=>{
                   {userProfile.name} {userProfile.lastName}
                 </h2>
 
-                <p>📍 Uruguay</p>
+                <p>📍 {userProfile.country}</p>
 
                 
                 <div className="social-icons">
@@ -253,18 +254,18 @@ React.useEffect(()=>{
                     </div>
                     <div className="Div-li2">1h</div>
                   </li>
-                  <li>
+                  {/* <li>
                     <div className="Div-li">
                       <i className="fas fa-book-open"></i> <strong>Age:</strong>
                     </div>
                     <div className="Div-li2">22</div>
-                  </li>
+                  </li> */}
                   <li>
                     <div className="Div-li">
                       <i className="fas fa-question-circle"></i>{" "}
                       <strong>Location:</strong>
                     </div>
-                    <div className="Div-li2">Medellín</div>
+                    <div className="Div-li2">{userProfile.country}</div>
                   </li>
                   <li>
                     <div className="Div-li">
