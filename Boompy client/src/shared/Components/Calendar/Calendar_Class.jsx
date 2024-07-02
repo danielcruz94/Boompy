@@ -19,7 +19,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
 
   const serverURL = useSelector(state => state.serverURL.url);
 
-  console.log("url"+serverURL)
+ // console.log("url"+serverURL)
 
   useEffect(() => {
     Modal.setAppElement('#root');
@@ -147,7 +147,9 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
             };
           
             // Envío de correo electrónico
-            // const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
+             const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
+             console.log(sentEmail);
+             
             // closeModal();
         } else {
             throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
