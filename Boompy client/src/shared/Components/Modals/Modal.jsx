@@ -13,6 +13,7 @@ import { useSelector,useDispatch } from "react-redux"
 import {completeInfo} from '../../../Redux/authSlice'
 
 import ImageFileUpload from '../ImageUpload/ImageFileUpdload'
+import CountrySelector from '../Select/CountrySelector';
 
 
 
@@ -41,7 +42,8 @@ const [settingInformation,setsettingInformation]=useState({
     goal:"",
     price:"",
     instagram:"",
-    picture:""
+    country:""
+   
 
     
 });
@@ -55,6 +57,7 @@ const [settingInformation,setsettingInformation]=useState({
 const handleChange = (event) => {
     const { name, value } = event.target;
     setsettingInformation({ ...settingInformation, [name]: value });
+    console.log(settingInformation)
   };
 
   const handleSummit =async(e) => {
@@ -69,7 +72,7 @@ const handleChange = (event) => {
             ...settingInformation,
           };
           
-          console.log(serverURL)
+          
           
     
         const sendInfo = await axios.post(
@@ -108,7 +111,21 @@ const handleChange = (event) => {
                 
             </ContainerIn>
             <ContainerIn>
-               <Span >Choose Your Native Language</Span>
+            <Span >Select Your Country</Span>
+            <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={handleChange} name={"country"}>
+            <option value="" >Select an option</option>
+                <option value="Colombia">Colombia</option>
+                <option value="United State">United State</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Ecuador">Ecuador</option>
+                <option value="Canada">Canada</option>
+                <option value="Brasil">Brasil</option>
+
+            </select>
+            </ContainerIn>
+            
+            <ContainerIn>
+               <Span >Your Language</Span>
             <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={handleChange} name={"language"}>
             <option value="" >Select an option</option>
                 <option value="English">English</option>
@@ -156,8 +173,9 @@ const handleChange = (event) => {
 
                 </ContainerIn>} */}
 
-
-            <Button onClick={handleSummit}>Finish</Button>
+{settingInformation.role==="Tutor"? <Button onClick={handleSummit} style={{height:'35px',display:'flex',alignItems:'center'}}>Finish</Button>
+ : <Button onClick={handleSummit} style={{}}>Finish</Button>}
+            
 
 
 

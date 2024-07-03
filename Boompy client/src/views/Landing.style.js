@@ -157,8 +157,8 @@ export const SubHeading = styled.p`
  margin-left:15px;
   
 
-  @media (max-width: 1100px) {
-    font-size: 16px;
+  @media (min-width: 1100px) {
+    
   }
 `;
 
@@ -191,20 +191,55 @@ background:red;
 `;
 
 export const TextArea = styled.textarea`
-display: inline-block;
-max-width: 100%;
-word-wrap: break-word;
+  display: inline-block;
+  max-width: 100%;  
+  word-wrap: break-word;
 
-overflow-x: hidden;
-overflow-y: hidden; /* Se agrega esta propiedad */
+height:270px;
 
 
-  
 
-  @media (max-width: 1100px) {
-    min-height: 400px;
+
+  transition: background-color 0.2s ease-in-out;
+  &:hover {
+    background-color: #f2f2f2;
+  }
+
+  @media (max-width: 500px) {
+ height: 200px;
   }
 `;
+
+export const H3 = styled.h3`
+
+position:relative;
+top:-150px;
+left:-300px;
+color:#161439;
+
+  @media (max-width: 600px) {
+    top:-70px;
+    left:-50px;
+  }
+`;
+
+export const H4 = styled.h4`
+background-color:#161439;
+padding:10px;
+padding-Left:25px;
+padding-Right:25px;
+border-Radius:50px;
+font-size:15px;
+
+  @media (max-width: 600px) {
+   
+  }
+`;
+
+
+
+
+
 
 
 
