@@ -298,7 +298,8 @@ React.useEffect(()=>{
                   </div>
                 </div>
 
-                <TutorCalendar pagina="Tutor" ID="Null" />              </div>
+                <TutorCalendar pagina="Tutor" ID="Null" />              
+                </div>
             </div>
           ) : (
             <div>{/* <h1>Suggeries</h1> */}</div>
