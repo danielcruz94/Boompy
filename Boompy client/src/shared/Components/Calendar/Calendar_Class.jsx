@@ -4,6 +4,8 @@ import Calendar from 'react-calendar';
 import Modal from 'react-modal';
 import './Calendar.css'; 
 import axios from 'axios'; 
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.css';
 
 function CalendarClass({ isOpen, onRequestClose, onClose }) {
 
@@ -143,14 +145,22 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
             const emailData = {
                 to: userData.email,
                 subject: 'Torii Availability Update',
-                html: emailContent
+                text: emailContent
             };
           
             // Envío de correo electrónico
              const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
              console.log(sentEmail);
+
+             Swal.fire({
+                icon: 'success',
+                title: '¡Horario reservado con éxito!',
+                text: 'El horario de clase que marcó como disponible ha sido reservado exitosamente.',
+            }).then(() => {
+              //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+            });
              
-            // closeModal();
+          
         } else {
             throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
         }

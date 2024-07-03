@@ -4,10 +4,12 @@ import Calendar from 'react-calendar';
 import Modal from 'react-modal';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.css';
 
 import './Calendar.css';
 
-function TutorCalendar() {
+function TutorCalendar({ pagina, ID }) {
   const [tutorAvailability, setTutorAvailability] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -15,26 +17,67 @@ function TutorCalendar() {
   const [showOpenButton, setShowOpenButton] = useState(true);
   const [scrollEnabled, setScrollEnabled] = useState(true);
   const [reservationSuccess, setReservationSuccess] = useState(false);
+  const [EmailTutor, setEmailTutor] = useState(false);
+  const [NameTutor, setNameTutor] = useState(false);
 
-  const serverURL = useSelector(state => state.serverURL.url);
+
+  const serverURL = useSelector(state => state.serverURL.url);  
   const location = useLocation();
   const lastIndex = location.pathname.lastIndexOf('/');
-  const id = location.pathname.substring(lastIndex + 1);
+  let id = null;
+
+  if(ID === "Null"){   
+    id = location.pathname.substring(lastIndex + 1);
+  }else{
+    id = ID;
+  }
+
+  useEffect(() => {
+
+    if (modalIsOpen) {
+
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(`${serverURL}/user/${id}`);
+        if (!response.ok) {
+          throw new Error('User not found');
+        }
+        const userData = await response.json();
+        setEmailTutor(userData.email);
+        setNameTutor(userData.name);       
+      } catch (error) {
+        console.error('Error fetching user:', error);
+       
+      }
+    };
+
+    fetchUser();
+
+  }else{
+    console.log("no entro ")
+ }
+
+  }, [modalIsOpen]);
 
   useEffect(() => {
     Modal.setAppElement('#root');
-    fetchTutorAvailability();
-    // Iniciar intervalo para actualización automática cada 5 minutos (300000 ms)
-    const interval = setInterval(fetchTutorAvailability, 30); // 5 minutos
+  }, []);
 
-    return () => clearInterval(interval); // Limpiar intervalo al desmontar el componente
-  }, [reservationSuccess]);
+  useEffect(() => {
+    if (modalIsOpen) {
+      fetchTutorAvailability();
+      // Iniciar intervalo para actualización automática cada 5 minutos (300000 ms)
+      const interval = setInterval(fetchTutorAvailability, 1000); // 5 minutos
+
+      return () => clearInterval(interval); // Limpiar intervalo al desmontar el componente
+    }
+  }, [modalIsOpen]);
 
   useEffect(() => {
     if (!scrollEnabled) {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = 'hidden'; // Ocultar el scroll cuando se abre el modal
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = 'auto'; // Restaurar scroll cuando se cierra el modal
     }
   }, [scrollEnabled]);
 
@@ -101,53 +144,89 @@ function TutorCalendar() {
         classId: selectedClass._id,
         reserved: reservedValue 
       };
-
       try {
+
+
         const response = await axios.put(`${serverURL}/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue });
         setReservationSuccess(prevState => !prevState);
 
-        if (response.status === 201) {
+        if (response.status === 200) {
           // Crear constantes temporales para almacenar los valores formateados
           const formattedDate = new Date(selectedClass.date).toLocaleString('en-US', {
             day: 'numeric',
             month: 'long', // 'long' para mostrar el nombre completo del mes en inglés
             year: 'numeric'
-          });
-      
-          const formattedStartTime = new Date(selectedClass.startTime).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-          const formattedEndTime = new Date(selectedClass.endTime).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-      
-          // Datos del correo electrónico
-          const emailContent = `
-            <html>
-            <body>
-              <h1 style="color: #007bff;">¡Tu Clase ha sido Reservada Exitosamente!</h1>
-              <p>¡Hola ${userData.name}!</p>
-              <p>Tu clase ha sido reservada para el ${formattedDate}, desde las ${formattedStartTime} hasta las ${formattedEndTime}.</p>
-              <p>Por favor, asegúrate de estar preparado para tu clase y estar a tiempo.</p>
-              <p>¡Gracias por elegirnos para tu aprendizaje!</p>
-              <p>Saludos,<br/>El equipo de Torii</p>
-            </body>
-            </html>
+          });      
+         
+          // Datos del correo electrónico         
+          const emailContentEstudiante = `
+          <html>
+          <body>
+            <h1 style="color: #007bff;">¡Tu Clase ha sido Reservada Exitosamente!</h1>
+            <p>¡Hola ${userData.name}!</p>
+            <p>Tu clase ha sido reservada para el ${formattedDate}, desde las ${selectedClass.startTime} hasta las ${selectedClass.endTime}.</p>
+            <p>Por favor, asegúrate de estar preparado para tu clase y estar a tiempo.</p>
+            <p>¡Gracias por elegirnos para tu aprendizaje!</p>
+            <p>Saludos,<br/>El equipo de Torii</p>
+          </body>
+          </html>
           `;
       
-          const emailData = {
-            to: userData.email, 
-            subject: 'Confirmación de Reserva de Clase',
-            html: emailContent
+          const emailContentProfesor = `
+          <html>
+          <body>
+            <h1 style="color: #007bff;">Nueva Reserva de Clase</h1>
+            <p>¡Hola ${NameTutor}!</p>
+            <p>Se ha realizado una nueva reserva de clase por parte de ${userData.name}.</p>
+            <p>La clase está programada para el ${formattedDate}, desde las ${selectedClass.startTime} hasta las ${selectedClass.endTime}.</p>
+            <p>Por favor, asegúrate de estar preparado para la clase.</p>
+            <p>Saludos,<br/>El equipo de Torii</p>
+          </body>
+          </html>
+          `;
+
+          // Definir los datos para el correo del estudiante
+          const emailDataEstudiante = {
+          to: userData.email,
+          subject: 'Confirmación de Reserva de Clase',
+          text: emailContentEstudiante
           };
-      
-          // Envío de correo electrónico
-          const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
-          console.log(sentEmail)
 
+          // Definir los datos para el correo del profesor
+          const emailDataProfesor = {
+          to: EmailTutor, // Debes tener definida la variable EmailTutor con el correo del profesor
+          subject: 'Nueva Reserva de Clase',
+          text: emailContentProfesor
+          };
 
+          // Función para enviar correos electrónicos
+          const sendEmails = async () => {
+          try {
+            // Enviar correo al estudiante
+            const responseEstudiante = await axios.post(`${serverURL}/email/enviar-email`, emailDataEstudiante);
+            console.log('Correo enviado al estudiante:', responseEstudiante.data);
 
+            // Enviar correo al profesor
+            const responseProfesor = await axios.post(`${serverURL}/email/enviar-email`, emailDataProfesor);
+            console.log('Correo enviado al profesor:', responseProfesor.data);
 
+            // Puedes manejar respuestas o errores aquí si es necesario
+          } catch (error) {
+            console.error('Error al enviar correos electrónicos:', error);
+          }
+          };
 
+          // Llamar a la función para enviar los correos electrónicos
+          sendEmails();
 
+          Swal.fire({
+            icon: 'success',
+            title: '¡Clase reservada con éxito!',
+            text: 'Tu clase ha sido reservada exitosamente.',
+          }).then(() => {
+            closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+          });
           
-          closeModal();
         } else {
           throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
         }
@@ -186,14 +265,20 @@ function TutorCalendar() {
 
   return (
     <>
-      {showOpenButton && (
+      {pagina === 'Home' && (
+        <a href="#" onClick={() => {
+          setModalIsOpen(true);
+          setScrollEnabled(false);
+        }} style={{ marginTop: '15px', color: 'white' }}>Book a Ticket ✈️</a>
+      )}
+  
+      {pagina === 'Tutor' && (
         <button onClick={() => {
           setModalIsOpen(true);
-          setShowOpenButton(false);
           setScrollEnabled(false);
-        }} style={{marginTop:'15px',background:'#10104d',color:'white'}}>Book a Place</button>
+        }} style={{ marginTop: '15px', background: '#10104d', color: 'white' }}>Book a Place</button>
       )}
-
+  
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
         <Calendar
           onChange={handleDateChange}
@@ -211,7 +296,7 @@ function TutorCalendar() {
             return classes.join(' ');
           }}
         />
-
+  
         <select value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
           <option value="">Select time</option>
           {getAvailableTimesForDate(selectedDate).map((time, index) => (
