@@ -189,7 +189,7 @@ function TutorCalendar({ pagina, ID }) {
           const emailDataEstudiante = {
           to: userData.email,
           subject: 'Confirmación de Reserva de Clase',
-          text: emailContentEstudiante
+          text: emailContentEstudiante         
           };
 
           // Definir los datos para el correo del profesor
