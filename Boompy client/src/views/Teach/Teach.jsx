@@ -195,13 +195,13 @@ React.useEffect(()=>{
             {auth.user?.role === "Tutor" ? (
               <div className="Biography" style={{border:'none',padding:'0'}}>
 
-              <b><p style={{marginBottom:'10px'}}>Biography</p></b>
+              <b><p>Biography</p></b>
                 <TextArea
                 className="Biography"
                 name="biography"
                 value={userProfile.biography}
                 onChange={handleChange}
-                style={{ resize: "none", margin: "0",width:'100%' }}
+                style={{ resize: "none",width:'100%' }}
               ></TextArea>
 
               </div>
@@ -298,7 +298,8 @@ React.useEffect(()=>{
                   </div>
                 </div>
 
-                <TutorCalendar pagina="Tutor" ID="Null" />              </div>
+                <TutorCalendar />
+              </div>
             </div>
           ) : (
             <div>{/* <h1>Suggeries</h1> */}</div>
