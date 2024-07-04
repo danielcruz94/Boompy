@@ -19,20 +19,7 @@ body{
   padding: 15px; 
 }
 
-.read-the-docs {
-  color: #888;
-}
 
-
-.cutrvs {
-  background: white;
-}
-
-.gtYlpE {
-  text-align: left;
-  font-size: 94%;
-  box-sizing: content-box;
-}
 
 .hOedpm { 
   text-align: center;
@@ -43,31 +30,14 @@ a{
   color: #007bff !important;
 }
 
-.clarIF,
-.dEtQAT,
-.cxSFXU,
-.eJGAta,
-.cxSFXU,
-.dEtQAT,
-.iqkrVy,
-.iDaIvD,
-.eDCvhh,
-.ebCKof,
-.fXtVIN{
-  color:black !important;
-  /*ACA TIPO DE LETRA*/
+
+input[type="checkbox"] {
+  background: white;
+  color: white;
 }
 
-.WGPET {
-  font-size: 80% !important;
-  display: flex;
-  justify-content: center; 
-  align-items: center; 
-}
 
-.gNToef{
-  font-size: 80% !important;
-}
+
 
 
 
