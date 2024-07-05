@@ -7,7 +7,7 @@ import CalendarClass from '../Components/Calendar/Calendar_Class';
 import Carrito from '../../assets/carrito.svg';
 import Corazon from '../../assets/corazon.svg';
 import Button from '../../assets/Button.svg';
-import Vector from '../../assets/Vector.svg'; // Asegúrate de importar Vector correctamente
+import Vector from '../../assets/Vector.svg'; 
 
 const NavBar = ({ textBotton, onClick, userInfo }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -30,6 +30,8 @@ const NavBar = ({ textBotton, onClick, userInfo }) => {
 
   // Verifica si la ruta actual coincide con '/calls/:id'
   const isCallsActive = location.pathname.startsWith('/calls/');
+
+  console.log("Error imagen en el NavBar linea 39 imagen del LOGO")
 
   return (
     <ContainerBar>

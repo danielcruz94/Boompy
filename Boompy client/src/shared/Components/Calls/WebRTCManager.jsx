@@ -9,7 +9,7 @@ const setUserId = (userIdParam) => {
 
 const initializePeer = () => {
     if (!userId) {
-        console.error('Error: No se ha establecido el ID de usuario.');
+       // console.error('Error: No se ha establecido el ID de usuario.');
         return null;
     }
 

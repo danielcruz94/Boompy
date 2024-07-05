@@ -30,14 +30,15 @@ a{
   color: #007bff !important;
 }
 
-
-input[type="checkbox"] {
-  background: white;
+.iconSocial{
   color: white;
 }
 
-
-
+.checkboxRemember{
+  color: white !important;
+  background: white !important;
+  margin-right: 5px;
+}
 
 
 
