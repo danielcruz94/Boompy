@@ -21,6 +21,7 @@ function Landing() {
 
   const navegate =useNavigate()
 
+  console.log(auth)
   
 
   useEffect(() => {
