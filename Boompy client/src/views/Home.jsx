@@ -19,8 +19,6 @@ import Modal from "../shared/Components/Modals/Modal"
 import { useNavigate} from 'react-router-dom';
 import {login,completeInfo} from '../Redux/authSlice'
 import Section from '../assets/Section.svg';
-import Spinner  from "../shared/Components/Modals/Spinners/Spinner"
-import  {loadUser} from "./../Redux/authSlice"
       
       
 
@@ -63,11 +61,13 @@ const Home = ({auth}) => {
     ; // Reinicia al salir del mouse
   };
 
+  console.log(auth.isLoggedIn)
 
 
 
   useEffect(() => {
     if(!auth.isLoggedIn){
+   alert("false")
       navegate('/')
      
     }
@@ -131,11 +131,11 @@ const Home = ({auth}) => {
     <Container>
       <Headings></Headings>
 
-      <NavBar
+      {/* <NavBar
         textBotton={"Logout"}
         onClick={handleLogout}
         userInfo={localUser}
-      ></NavBar>
+      ></NavBar> */}
       <ContainerTitle>
         <img
           src={Section}
