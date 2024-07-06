@@ -30,7 +30,7 @@ const storedString = localStorage.getItem('userData');
 if (storedString !== null) {
   // El valor existe, procede a la conversión
   const userObject = JSON.parse(storedString);
-dispatch(loadUser())
+dispatch(loadUser(userObject))
 navegate("/home")
 
   ; // Imprimir el objeto convertido

@@ -25,7 +25,7 @@ import  {loadUser} from "./../Redux/authSlice"
       
 
 
-const Home = ({auth,logged}) => {
+const Home = ({auth}) => {
   const users = useSelector((state) => state.users);
   // const auth = useSelector((state) => state.auth);
   const serverURL = useSelector(state => state.serverURL.url);
@@ -67,8 +67,7 @@ const Home = ({auth,logged}) => {
 
 
   useEffect(() => {
-    if(logged===false){
-      
+    if(!auth.isLoggedIn){
       navegate('/')
      
     }
@@ -81,6 +80,7 @@ const Home = ({auth,logged}) => {
         email: parsedUserData.email,
         name: parsedUserData.name,
         token: parsedUserData.token,
+       
       });
     }
 
@@ -178,7 +178,7 @@ const Home = ({auth,logged}) => {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  logged:state.auth.isLoggedIn
+ 
  
 });
 

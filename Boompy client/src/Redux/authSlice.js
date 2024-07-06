@@ -15,6 +15,8 @@ const authSlice=createSlice({
                 ...state,
                 loading:true,
                 isLoggedIn:true,
+                user:action.payload
+
                
                 
 

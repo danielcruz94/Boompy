@@ -29,8 +29,7 @@ const Teach = ({auth}) => {
 
   React.useEffect(() => {
     window.scrollTo({ top: 0 });
-    if(!auth.isLoggedIn)
-    navegate("/")
+
 
 
   }, []);
