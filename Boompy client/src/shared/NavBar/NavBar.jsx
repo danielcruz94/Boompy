@@ -32,7 +32,7 @@ const userDataString = localStorage.getItem('userData');
 const userData = JSON.parse(userDataString);
 
   const [role, setRole] = useState(userData.role); 
-console.log('role',role)
+
   
 
   const auth = useSelector((state) => state.auth);
