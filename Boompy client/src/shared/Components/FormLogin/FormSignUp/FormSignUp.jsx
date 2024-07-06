@@ -4,6 +4,8 @@ import { FormLog,GoogleButton,Container,Span,Input,TextLogin,
   import { useState } from "react";
   import axios from "axios";
   import { useSelector,useDispatch } from "react-redux"
+  import Swal from 'sweetalert2';
+  import 'sweetalert2/dist/sweetalert2.css';
 
 const FormSignUp = () => {
 
@@ -35,7 +37,11 @@ const FormSignUp = () => {
     const newUser=await axios.post(`${serverURL}/signup`,userCredentials)
     try {
       if(newUser){
-        alert("User Register")
+        Swal.fire({
+          icon: 'success',
+          title: '¡Registro Exitoso!',
+          text: 'Eres un nuevo usuario de la App de Torii.',
+      })
       }
     } catch (error) {
       console.log(error)
