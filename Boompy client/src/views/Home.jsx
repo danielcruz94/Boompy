@@ -12,28 +12,28 @@ import NavBar from '../shared/NavBar/NavBar'
 import Form from '../shared/Components/FormLogin/Form'
 import Footer from '../shared/Components/Footer/Footer'
 import CardProfile from "../shared/Components/Cards/CardProfile"
-import { useSelector,useDispatch } from "react-redux"
+import { useSelector,useDispatch,connect } from "react-redux"
 import axios from 'axios'
 import {fetchUsers} from '../Redux/usersSlice'
 import Modal from "../shared/Components/Modals/Modal"
 import { useNavigate} from 'react-router-dom';
 import {login,completeInfo} from '../Redux/authSlice'
 import Section from '../assets/Section.svg';
-import Spinner  from "../shared/Components/Modals/Spinners/Spinner"
-      
       
       
 
 
-const Home = () => {
+const Home = ({auth}) => {
   const users = useSelector((state) => state.users);
-  const auth = useSelector((state) => state.auth);
+  // const auth = useSelector((state) => state.auth);
   const serverURL = useSelector(state => state.serverURL.url);
 
   const dispatch = useDispatch();
   const navegate = useNavigate();
 
   //locals Variable
+
+  
 
   const [isLoading, setIsLoading] = useState(true); // Estado de carga inicial
 
@@ -61,12 +61,15 @@ const Home = () => {
     ; // Reinicia al salir del mouse
   };
 
+  console.log(auth.isLoggedIn)
 
-  //
+
 
   useEffect(() => {
     if(!auth.isLoggedIn){
+   alert("false")
       navegate('/')
+     
     }
 
     const storedValue = window.localStorage.getItem("userData");
@@ -77,6 +80,7 @@ const Home = () => {
         email: parsedUserData.email,
         name: parsedUserData.name,
         token: parsedUserData.token,
+       
       });
     }
 
@@ -127,11 +131,11 @@ const Home = () => {
     <Container>
       <Headings></Headings>
 
-      <NavBar
+      {/* <NavBar
         textBotton={"Logout"}
         onClick={handleLogout}
         userInfo={localUser}
-      ></NavBar>
+      ></NavBar> */}
       <ContainerTitle>
         <img
         
@@ -143,7 +147,7 @@ const Home = () => {
       <H3>Choose your Trip</H3>
 
       <ContainerProfile>
-        {isLoading && <Spinner />}
+        {/* {isLoading && <Spinner />} */}
         {!auth.infoComplete && !isLoading && (
           <BackgrounModal>
             <Modal title={"Complete Your Information"} url={serverURL}></Modal>
@@ -173,4 +177,10 @@ const Home = () => {
   );
 };
 
-export default Home;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+ 
+ 
+});
+
+export default connect(mapStateToProps)(Home);

@@ -1,11 +1,11 @@
 import React from 'react';
-import { useSelector,useDispatch } from "react-redux"
+import { useSelector,useDispatch,connect} from "react-redux"
 import Footer from '../../shared/Components/Footer/Footer';
 import './Teach.css'; // Importa el archivo CSS personalizado
 import {Headings,
   TextArea,
   H4,
-  
+
 } from '../Landing.style'
 import NavBar from '../../shared/NavBar/NavBar';
 import { useParams } from "react-router-dom";
@@ -21,23 +21,27 @@ import { useState } from 'react';
 
 
 
-const Teach = () => {
-  const auth = useSelector((state) => state.auth);
-  
+const Teach = ({auth}) => {
+  // const auth = useSelector((state) => state.auth);
+
   const [isLoading, setIsLoading] = useState(true);
   const navegate = useNavigate();
 
   React.useEffect(() => {
     window.scrollTo({ top: 0 });
+
+
+
   }, []);
 
-  
-  
+
+
   const serverURL = useSelector(state => state.serverURL.url);
 
- 
 
 
+
+console.log(auth)
 
 
     const [userProfile,setUserProfile]=useState({});
@@ -48,11 +52,11 @@ const Teach = () => {
 React.useEffect(()=>{
     axios(`${serverURL}/user/${params.id}`)
     .then(({ data }) => {
-       
+
         if (data.name) {
-           
+
           setUserProfile({
-            
+
             email:data.email,
             name:data.name,
             lastName:data.lastName,
@@ -82,16 +86,16 @@ React.useEffect(()=>{
 
 
 
-   const handleLogout = () => {  
+   const handleLogout = () => {
     window.localStorage.removeItem("userData");
     navegate("/");
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-   
+
     setUserProfile({ ...userProfile, [name]: value });
-    
+
     fetch(`${serverURL}/userinformation`, {
       method: "POST", // Set the request method to POST
       headers: {
@@ -111,11 +115,11 @@ React.useEffect(()=>{
 
 
 
-    
+
     return (
       <div className="contenTeach">
         <Headings></Headings>
-        <NavBar textBotton={"Logout"} onClick={handleLogout}></NavBar>
+        {/* <NavBar textBotton={"Logout"} onClick={handleLogout}></NavBar> */}
         <div className="NavTeach"></div>
         {isLoading && <Spinner />}
 
@@ -171,7 +175,7 @@ React.useEffect(()=>{
 
                 <p>📍 {userProfile.country}</p>
 
-                
+
                 <div className="social-icons">
                   <div className="social-icon-wrapper">
                     <span href="#" className="iconos">
@@ -191,7 +195,7 @@ React.useEffect(()=>{
                 </div>
               </div>
             </div>
-            
+
             {auth.user?.role === "Tutor" ? (
               <div className="Biography" style={{border:'none',padding:'0'}}>
 
@@ -205,7 +209,7 @@ React.useEffect(()=>{
               ></TextArea>
 
               </div>
-              
+
             ) : (
               <div className="Biography">
                 <h4>Biography</h4>
@@ -297,7 +301,7 @@ React.useEffect(()=>{
                     />
                   </div>
                 </div>
-                <TutorCalendar pagina="Tutor" ID="Null" />              
+                <TutorCalendar pagina="Tutor" ID="Null" />
                 </div>
 
             </div>
@@ -307,7 +311,7 @@ React.useEffect(()=>{
         </div>
 
         <div className="contGalery">
-          
+
 
           <div className="gallery">
             <div className="galleryItem">
@@ -509,6 +513,12 @@ React.useEffect(()=>{
         <Footer />
       </div>
     );
-}
 
-export default Teach;
+   
+}
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+ 
+});
+
+export default connect(mapStateToProps)(Teach);

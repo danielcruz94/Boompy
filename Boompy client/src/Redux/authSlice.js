@@ -10,6 +10,18 @@ const authSlice=createSlice({
         infoComplete:false// Add a loading state to indicate ongoing login process
       },
     reducers:{
+        loadUser:(state,action)=>{
+            return {
+                ...state,
+                loading:true,
+                isLoggedIn:true,
+                user:action.payload
+
+               
+                
+
+            };
+        },
         login:(state,action)=>{
             return {
                 ...state,
@@ -40,5 +52,5 @@ const authSlice=createSlice({
     },
 });
 
-export const {login,completeInfo,logout}=authSlice.actions;
+export const {login,completeInfo,logout,loadUser}=authSlice.actions;
 export default authSlice.reducer;

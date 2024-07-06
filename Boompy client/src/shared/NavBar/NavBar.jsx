@@ -10,10 +10,23 @@ import Button from '../../assets/Button.svg';
 import Vector from '../../assets/Vector.svg'; 
 
 const NavBar = ({ textBotton, onClick, userInfo }) => {
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-  const userDataString = localStorage.getItem('userData');
-  const userData = JSON.parse(userDataString);
-  const [role, setRole] = useState(userData?.role); 
+
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
+
+ 
+const userDataString = localStorage.getItem('userData');
+const userData = JSON.parse(userDataString);
+
+  const [role, setRole] = useState(userData.role); 
+
+  
+
+  const auth = useSelector((state) => state.auth);
+ const dispatch=useDispatch()
+ const navegate =useNavigate()
+ 
+
+
 
   const navigate = useNavigate();
   const location = useLocation();
