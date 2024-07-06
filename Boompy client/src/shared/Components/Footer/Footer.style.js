@@ -76,7 +76,7 @@ margin:20px;
 
 
 export const LinkFooter = styled.li`
-
+color:white;
 
 @media (max-width: 500px) {
     font-Size:10px; 

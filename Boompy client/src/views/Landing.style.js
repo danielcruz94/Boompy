@@ -52,6 +52,7 @@ export const Bottom = styled.button`
   justify-content: center;
   align-items: center;
   border-Radius:50px;
+  color:black;
 `;
 
 
@@ -102,15 +103,15 @@ align-items:center;
 export const SubmitButton = styled.input`
   display: inline-block;
   height:26px;
-margin-left:10px;
-margin-right:10px;
+  margin-left:10px;
+  margin-right:10px;
   text-align: center;
   cursor: pointer;
   border:none;
   color: ${color.primary};
   width: 200px;
   background: white;
- 
+  color:black;
   top: 0;
 
   @media (max-width: 600px) {

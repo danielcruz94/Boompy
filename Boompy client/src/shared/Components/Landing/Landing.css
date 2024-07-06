@@ -45,7 +45,7 @@ body{
   
   .login-btn {
     background-color: rgb(252, 216, 14);
-    color: black;
+    color: black !important;
     font-weight: 700;
     border-radius: 42px;
     font-size: 12px;

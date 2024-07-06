@@ -53,9 +53,7 @@ function TutorCalendar({ pagina, ID }) {
 
     fetchUser();
 
-  }else{
-    console.log("no entro ")
- }
+  }
 
   }, [modalIsOpen]);
 

@@ -18,7 +18,7 @@ let userId = null;
 if (userData !== null && typeof userData === 'object' && 'id' in userData) {
     userId = userData.id;
 } else {
-    console.error("No se encontró 'id' en los datos del usuario");
+   // console.error("No se encontró 'id' en los datos del usuario");
 }
 
 
@@ -28,7 +28,7 @@ const peer = initializePeer();
 if (peer) {
     // Ahora puedes usar `peer` para la comunicación PeerJS
 } else {
-    console.error('No se pudo inicializar PeerJS debido a un error.');
+   // console.error('No se pudo inicializar PeerJS debido a un error.');
 }
 
 

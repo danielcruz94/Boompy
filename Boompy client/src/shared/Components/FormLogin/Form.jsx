@@ -101,7 +101,7 @@ const Form = () => {
     <ContenedorRemember>
       <div>
 
-    <input type="checkbox" />
+    <input  className="checkboxRemember" type="checkbox" />
     <Span>Remember me</Span>
 
       </div>

@@ -22,6 +22,7 @@ export const FormLog = styled.form`
 `;
 
 export const GoogleButton = styled.button`
+  color: black;
   width: 420px;
   height: 30px;
   background:#FFFFFF;
@@ -81,6 +82,7 @@ export const Input=styled.input`
   text-align:initial;
   border:1px solid #E1E1E1;
   border-radius:5px;
+  color: black;
  
 
 
@@ -112,7 +114,7 @@ export const TextLogin=styled.p`
 export const ContenedorRemember=styled.div`
 display:flex;
 justify-content:space-evenly;
- 
+ background: white;
   
 
 
