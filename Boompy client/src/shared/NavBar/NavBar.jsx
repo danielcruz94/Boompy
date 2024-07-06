@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ContainerBar, ContainerNavBar, Image, SubHeading, SubmitButton, Bottom } from '../../views/Landing.style';
 import { useSelector } from "react-redux";
 import { useNavigate, Link, useLocation } from 'react-router-dom';
@@ -13,10 +13,16 @@ const NavBar = ({ textBotton, onClick, userInfo }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const userDataString = localStorage.getItem('userData');
   const userData = JSON.parse(userDataString);
-  const [role, setRole] = useState(userData.role);
+  const [role, setRole] = useState(userData?.role); 
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    if (userData) {
+      setRole(userData.role);
+    }
+  }, [userData]);
 
   const toggleCalendar = () => {
     setIsCalendarOpen(!isCalendarOpen);
@@ -30,8 +36,6 @@ const NavBar = ({ textBotton, onClick, userInfo }) => {
 
   // Verifica si la ruta actual coincide con '/calls/:id'
   const isCallsActive = location.pathname.startsWith('/calls/');
-
-  console.log("Error imagen en el NavBar linea 39 imagen del LOGO")
 
   return (
     <ContainerBar>
