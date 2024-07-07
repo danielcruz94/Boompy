@@ -17,12 +17,12 @@ const NavBar = ({ textBotton, onClick, userInfo }) => {
 const userDataString = localStorage.getItem('userData');
 const userData = JSON.parse(userDataString);
 
-  const [role, setRole] = useState(userData.role); 
+  const [role, setRole] = useState(userData?.role); 
 
   
 
   const auth = useSelector((state) => state.auth);
- const dispatch=useDispatch()
+
  const navegate =useNavigate()
  
 

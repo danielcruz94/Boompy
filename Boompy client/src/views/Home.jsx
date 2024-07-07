@@ -67,7 +67,7 @@ const Home = ({auth}) => {
 
   useEffect(() => {
     if(!auth.isLoggedIn){
-   alert("false")
+  
       navegate('/')
      
     }
@@ -131,11 +131,11 @@ const Home = ({auth}) => {
     <Container>
       <Headings></Headings>
 
-      {/* <NavBar
+      <NavBar
         textBotton={"Logout"}
         onClick={handleLogout}
         userInfo={localUser}
-      ></NavBar> */}
+      ></NavBar> 
       <ContainerTitle>
         <img
         

@@ -119,7 +119,7 @@ React.useEffect(()=>{
     return (
       <div className="contenTeach">
         <Headings></Headings>
-        {/* <NavBar textBotton={"Logout"} onClick={handleLogout}></NavBar> */}
+        <NavBar textBotton={"Logout"} onClick={handleLogout}></NavBar>
         <div className="NavTeach"></div>
         {isLoading && <Spinner />}
 
