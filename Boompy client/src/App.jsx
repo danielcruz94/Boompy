@@ -45,7 +45,7 @@ navegate("/home")
       <Route path='/' element={<Landing />} />
       <Route path='/login' element={<Login />} />
       <Route path='/home' element={<Home />} />
-      <Route path='/signup' element={<Signup />} />
+      <Route path='https://boompy.vercel.app/signup' element={<Signup />} />
       <Route path='/tutor/:id' element={<Teach />} />
       <Route path='/calls/:id' element={<Calls />} />
       <Route path='*' element={<Error />} />
