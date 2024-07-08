@@ -199,7 +199,7 @@ React.useEffect(()=>{
             {auth.user?.role === "Tutor" ? (
               <div className="Biography" style={{border:'none',padding:'0'}}>
 
-              <b><p>Biography</p></b>
+              <b><p>Biography</p></b><span>Type something about you</span>
                 <TextArea
                 className="Biography"
                 name="biography"

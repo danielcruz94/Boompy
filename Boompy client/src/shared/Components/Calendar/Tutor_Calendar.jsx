@@ -267,14 +267,14 @@ function TutorCalendar({ pagina, ID }) {
         <a href="#" onClick={() => {
           setModalIsOpen(true);
           setScrollEnabled(false);
-        }} style={{ marginTop: '15px', color: 'white' }}>Book a Ticket ✈️</a>
+        }} style={{color: 'white' }}>Book a Ticket </a>
       )}
   
       {pagina === 'Tutor' && (
         <button onClick={() => {
           setModalIsOpen(true);
           setScrollEnabled(false);
-        }} style={{ marginTop: '15px', background: '#10104d', color: 'white' }}>Book a Place</button>
+        }} style={{ marginTop: '15px', background: '#10104d', color: 'white' }}>Book a Ticket</button>
       )}
   
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
