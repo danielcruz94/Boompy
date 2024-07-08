@@ -27,7 +27,7 @@ const Footer = () => {
           </b>
           <a href="mailto:info@torriapp.com">
             {" "}
-            <LinkFooter>Contact us: manage@toriiapp.com</LinkFooter>
+            <LinkFooter>Contact us: teamtoriiapp@gmail.com </LinkFooter>
           </a>
 
           <a href="/">

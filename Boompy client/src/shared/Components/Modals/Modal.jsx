@@ -152,14 +152,14 @@ const handleChange = (event) => {
                 </select>
               
             </ContainerIn>
-             <ContainerIn>
+            {settingInformation.role!=="Tutor" &&<ContainerIn>
             <Span >Goal</Span> 
             <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={handleChange} name={"goal"} >
             <option value="" >Select an option</option>
                 <option value="English">🇺🇸</option>
                 <option value="Spanish">🇪🇸</option>
             </select>
-            </ContainerIn>
+            </ContainerIn>}
 
             {settingInformation.role==="Tutor" &&<ContainerIn>
             <Span >Rate/hour</Span> 

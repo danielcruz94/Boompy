@@ -41,7 +41,7 @@ const Teach = ({auth}) => {
 
 
 
-console.log(auth)
+
 
 
     const [userProfile,setUserProfile]=useState({});
@@ -184,7 +184,7 @@ React.useEffect(()=>{
                   </div>
                   <div className="social-icon-wrapper">
                     <span href="#" className="iconos">
-                      🥎
+                      ⚽️
                     </span>
                   </div>
                   <div className="social-icon-wrapper">

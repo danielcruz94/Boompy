@@ -61,7 +61,7 @@ const Home = ({auth}) => {
     ; // Reinicia al salir del mouse
   };
 
-  console.log(auth.isLoggedIn)
+  
 
 
 
@@ -144,7 +144,7 @@ const Home = ({auth}) => {
           alt="section"
         />
       </ContainerTitle>
-      <H3>Choose your Trip</H3>
+      <H3>Choose your trip</H3>
 
       <ContainerProfile>
         {/* {isLoading && <Spinner />} */}

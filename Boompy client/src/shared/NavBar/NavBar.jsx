@@ -50,7 +50,7 @@ const userData = JSON.parse(userDataString);
     <ContainerBar>
       <Image>
         <img src={Torii} style={{ width: '50px' }} alt="logo" />
-        <b><p>{userInfo?.name}</p></b>
+        {/* <b><p>{userInfo?.name}</p></b> */}
       </Image>
       <div style={{ display: 'flex' }}>
         {/* Condicional para mostrar el enlace a '/home' o un texto inactivo */}
