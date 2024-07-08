@@ -267,7 +267,7 @@ function TutorCalendar({ pagina, ID,tutor}) {
         <a href="#" onClick={() => {
           setModalIsOpen(true);
           setScrollEnabled(false);
-        }} style={{color:'white',textDecoration:'none' }}>Book a <span style={{background:'#10104d',paddingLeft:'7px',paddingRight:'7px',paddingTop:'3px',paddingBottom:'3px',borderRadius:'10px',color:'white'}}>Ticket</span></a>
+        }} style={{color:'white',textDecoration:'none' }}><span style={{fontSize:'12px',background:'#10104d',paddingLeft:'7px',paddingRight:'7px',paddingTop:'3px',paddingBottom:'3px',borderRadius:'10px',color:'white'}}> Book a ticket</span></a>
       )}
   
       {pagina === 'Tutor' && (
