@@ -8,6 +8,7 @@ import Carrito from '../../assets/carrito.svg';
 import Corazon from '../../assets/corazon.svg';
 import Button from '../../assets/Button.svg';
 import Vector from '../../assets/Vector.svg'; 
+import Torii from '../../assets/torii.png'
 
 const NavBar = ({ textBotton, onClick, userInfo }) => {
 
@@ -48,7 +49,7 @@ const userData = JSON.parse(userDataString);
   return (
     <ContainerBar>
       <Image>
-        <img src="https://res.cloudinary.com/danielcruz/image/upload/v1716001393/images/c5bvvai78sokoqml83fk.png" style={{ width: '50px' }} alt="logo" />
+        <img src={Torii} style={{ width: '50px' }} alt="logo" />
         <b><p>{userInfo?.name}</p></b>
       </Image>
       <div style={{ display: 'flex' }}>
