@@ -44,7 +44,6 @@ const userData = JSON.parse(userDataString);
   // Verifica si la ruta actual coincide con '/calls/:id'
   const isCallsActive = location.pathname.startsWith('/calls/');
 
-  console.log("Error imagen en el NavBar linea 39 imagen del LOGO")
 
   return (
     <ContainerBar>
