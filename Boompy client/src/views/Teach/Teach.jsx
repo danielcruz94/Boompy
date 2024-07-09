@@ -41,7 +41,7 @@ const Teach = ({auth}) => {
 
 
 
-console.log(auth)
+
 
 
     const [userProfile,setUserProfile]=useState({});
@@ -119,7 +119,9 @@ React.useEffect(()=>{
     return (
       <div className="contenTeach">
         <Headings></Headings>
+
         { <NavBar textBotton={"Logout"} onClick={handleLogout}></NavBar> }
+
         <div className="NavTeach"></div>
         {isLoading && <Spinner />}
 
@@ -184,7 +186,7 @@ React.useEffect(()=>{
                   </div>
                   <div className="social-icon-wrapper">
                     <span href="#" className="iconos">
-                      🥎
+                      ⚽️
                     </span>
                   </div>
                   <div className="social-icon-wrapper">
@@ -199,7 +201,7 @@ React.useEffect(()=>{
             {auth.user?.role === "Tutor" ? (
               <div className="Biography" style={{border:'none',padding:'0'}}>
 
-              <b><p>Biography</p></b>
+              <b><p>Biography</p></b><span>Type something about you</span>
                 <TextArea
                 className="Biography"
                 name="biography"

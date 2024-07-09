@@ -14,6 +14,9 @@ import {completeInfo} from '../../../Redux/authSlice'
 
 import ImageFileUpload from '../ImageUpload/ImageFileUpdload'
 import CountrySelector from '../Select/CountrySelector';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.css';
+import { logout } from '../../../Redux/authSlice';
 
 
 
@@ -78,9 +81,14 @@ const handleChange = (event) => {
         const sendInfo = await axios.post(
             `${serverURL}/userinformation`,dataToSend );
 
-          alert("se actualizo la info")
+            Swal.fire({
+                icon: 'success',
+                title: '¡Infomación completa!',
+                text: 'Ahora puedes usar la app para practicar.',
+            }).then()
         dispatch(completeInfo())
         // setIsVisible(false)
+        dispatch(logout())
 
         
     } catch (error) {
@@ -111,7 +119,7 @@ const handleChange = (event) => {
                 
             </ContainerIn>
             <ContainerIn>
-            <Span >Select Your Country</Span>
+            <Span >Country</Span>
             <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={handleChange} name={"country"}>
             <option value="" >Select an option</option>
                 <option value="Colombia">Colombia</option>
@@ -125,7 +133,7 @@ const handleChange = (event) => {
             </ContainerIn>
             
             <ContainerIn>
-               <Span >Your Language</Span>
+               <Span >Native Language</Span>
             <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={handleChange} name={"language"}>
             <option value="" >Select an option</option>
                 <option value="English">English</option>
@@ -144,14 +152,14 @@ const handleChange = (event) => {
                 </select>
               
             </ContainerIn>
-             <ContainerIn>
+            {settingInformation.role!=="Tutor" &&<ContainerIn>
             <Span >Goal</Span> 
             <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={handleChange} name={"goal"} >
             <option value="" >Select an option</option>
                 <option value="English">🇺🇸</option>
                 <option value="Spanish">🇪🇸</option>
             </select>
-            </ContainerIn>
+            </ContainerIn>}
 
             {settingInformation.role==="Tutor" &&<ContainerIn>
             <Span >Rate/hour</Span> 

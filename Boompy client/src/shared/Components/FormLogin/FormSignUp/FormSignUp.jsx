@@ -41,14 +41,17 @@ const FormSignUp = () => {
           icon: 'success',
           title: '¡Registro Exitoso!',
           text: 'Eres un nuevo usuario de la App de Torii.',
-      })
+      }).then(() =>window.location.href = "/login" )
       }
     } catch (error) {
       console.log(error)
     }
 
+    
 
-    window.location.href = "/login";
+    
+
+   
    
 
     //
