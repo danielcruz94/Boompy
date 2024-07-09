@@ -23,7 +23,7 @@ import {useNavigate} from 'react-router-dom';
 function App() {
   const navegate = useNavigate();
   const dispatch=useDispatch();
-
+/*
 useEffect(() =>{
  
 const storedString = localStorage.getItem('userData');
@@ -38,7 +38,7 @@ navegate("/home")
 
 },[])
 
- 
+ */
 
   return (
     <Routes>      
