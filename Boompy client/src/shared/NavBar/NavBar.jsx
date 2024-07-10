@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ContainerBar, ContainerNavBar, Image, SubHeading, SubmitButton, Bottom } from '../../views/Landing.style';
 import { useSelector } from "react-redux";
 import { useNavigate, Link, useLocation } from 'react-router-dom';
@@ -11,7 +11,6 @@ import Vector from '../../assets/Vector.svg';
 import Torii from '../../assets/torii.png'
 
 const NavBar = ({ textBotton, onClick, userInfo }) => {
-
   const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
 
  
@@ -25,11 +24,16 @@ const userData = JSON.parse(userDataString);
   const auth = useSelector((state) => state.auth);
 
  const navegate =useNavigate()
- 
 
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    if (userData) {
+      setRole(userData.role);
+    }
+  }, [userData]);
 
   const toggleCalendar = () => {
     setIsCalendarOpen(!isCalendarOpen);
@@ -43,7 +47,6 @@ const userData = JSON.parse(userDataString);
 
   // Verifica si la ruta actual coincide con '/calls/:id'
   const isCallsActive = location.pathname.startsWith('/calls/');
-
 
   return (
     <ContainerBar>

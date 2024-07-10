@@ -8,6 +8,9 @@ import Footer from "../../shared/Components/Footer/Footer";
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import CallTimer from './CallsTime';
+import DeleteOnline from './DeleteOnline';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.css';
 
 
 
@@ -21,16 +24,16 @@ if (userData !== null && typeof userData === 'object' && 'id' in userData) {
    // console.error("No se encontró 'id' en los datos del usuario");
 }
 
-
 setUserId(userId);
 const peer = initializePeer();
 
 if (peer) {
     // Ahora puedes usar `peer` para la comunicación PeerJS
+    //console.log(userId)
+   
 } else {
    // console.error('No se pudo inicializar PeerJS debido a un error.');
 }
-
 
 
 const Calls = () => {
@@ -47,6 +50,7 @@ const Calls = () => {
   const [callDuration, setCallDuration] = useState(0);
   const [ID, setID] = useState();
   const [Cargando, setCargando] = useState(false);
+ 
 
   const serverURL = useSelector(state => state.serverURL.url);
 
@@ -54,6 +58,76 @@ const Calls = () => {
 const location = useLocation();
 const lastIndex = location.pathname.lastIndexOf('/');
 const idClase = location.pathname.substring(lastIndex + 1);
+
+
+
+      
+
+      //agregar online consultar online
+      useEffect(() => {
+           
+          async function enviarId(id) {
+            try {
+                const url = `http://localhost:3001/api/addId/${id}`;
+                const response = await axios.post(url); 
+               // console.log(response.data.message)          
+            } catch (error) {
+                console.error('Error al enviar el id:', error);
+            }
+          }
+          enviarId(userId);
+          
+          async function isUserOnline(userId) {
+            try {
+                const url = `http://localhost:3001/api/GetUserOnline/${ID}`;
+                const response = await axios.get(url);             
+              
+             
+                
+                if (!response.data.exists) {
+                    // Usuario no está online
+                    if (userData.role === 'Tutor') {
+                        
+                         Swal.fire({
+                          icon: 'info',
+                          title: '¡Waiting for Student!',
+                          text: 'wait here, it will connect in a few moments',
+                      }).then(() => {
+                        //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+                      });
+                        
+                    }
+                    if (userData.role === 'Student') {                       
+                         Swal.fire({
+                          icon: 'info',
+                          title: '¡Waiting for Tutor!',
+                          text: 'wait here, it will connect in a few moments',
+                      }).then(() => {
+                        //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+                      });
+                    }
+                }
+
+
+               
+                if (response.data.exists === true) {
+                    setTimeout(() => {                      
+                        startOutgoingCall();
+                    }, 2000);
+                }
+                
+            } catch (error) {
+                console.error(`Error al obtener estado de usuario ${userId}:`, error);
+                return { error: error.message }; // Devolver un objeto con el mensaje de error
+            }
+        }
+        
+          if(ID != undefined){        
+            isUserOnline(ID);
+          }      
+
+      }, [ID]); 
+   
 
       useEffect(() => {        
         const getCalendarClasses = async () => {
@@ -77,8 +151,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
         getCalendarClasses();
       }, [idClase]); 
 
-
-
+/*
         // Define handleBeforeUnload fuera del useEffect
       const handleBeforeUnload = (event) => {
         if (callInProgress) {
@@ -114,7 +187,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
         };
       }, [callInProgress]);
 
-
+*/
 
     // En endCall
       const endCall = () => {
@@ -138,13 +211,6 @@ const idClase = location.pathname.substring(lastIndex + 1);
           window.location.href = url;
         }, 100);
       };
-
-
-      
-      
-
-
-
 
   const toggleVolume = () => {
     if (callInProgress) {
@@ -180,6 +246,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
     }
   };
 
+  //mensaje de texto 
   const enviarInformacion = (mensaje) => {
     if (callInProgress) {
       const connection = peer.connect(ID); // Conéctate con el otro par
@@ -333,7 +400,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
       "Error al iniciar la llamada saliente. Por favor, inténtalo de nuevo más tarde."
     );
   }
-};
+  };
   
 
   const notificacionLlamada = () => {
@@ -372,8 +439,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
       {Cargando ? (
         <>
           <Headings />
-          <NavBar />
-          {console.log(ID)}
+          <NavBar />          
           <div className="full_screen">
             <div className="contenPantalla">
               {/* Contenido de la llamada */}
@@ -448,7 +514,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
                         }`}
                       ></i>
                     </div>
-                    {!callInProgress && userData.role !== 'Tutor' && (
+                    {!callInProgress && userData.role !== 'Tutor' && userData.role !== 'Student' && (
                       <div className="icon-wrapper on" onClick={startOutgoingCall}>
                         <i className="fas fa-phone on"></i>
                       </div>
@@ -489,6 +555,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
           </div>
           {error && <div>Error: {error}</div>}
           <Footer />
+          <DeleteOnline  userId={userId} callInProgress={callInProgress}  />
         </>
       ) : (
         // Mensaje de carga

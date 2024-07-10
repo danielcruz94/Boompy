@@ -136,6 +136,7 @@ const Home = ({auth}) => {
         onClick={handleLogout}
         userInfo={localUser}
       ></NavBar> 
+
       <ContainerTitle>
         <img
         

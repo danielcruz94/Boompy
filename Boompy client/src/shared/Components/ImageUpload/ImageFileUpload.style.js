@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { color } from '../../../shared/styles';
+import { color } from '../../styles';
 
 export const Container = styled.div`
 margin:7px;
