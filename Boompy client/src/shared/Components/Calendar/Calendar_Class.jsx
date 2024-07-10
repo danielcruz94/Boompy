@@ -227,9 +227,16 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
     
     // Comprobar si la hora actual está dentro del intervalo de la clase
     if (currentTimeLocal >= startTimeLocal && currentTimeLocal <= endTimeLocal) {
-      const host = window.location.hostname; 
-      const url = `https://${host}:5173/calls/${classId}`; 
-     
+      const host = window.location.hostname;
+      const port = window.location.port;
+      let url = null;
+
+      if(port === "5173"){
+        url = `https://${host}:${port}/calls/${classId}`; 
+      }else{
+        url = `https://${host}/calls/${classId}`; 
+      }
+     console.log(url)
       
       // Crear la cookie con los datos de la clase que expira al finalizar la clase
       document.cookie = `classId=${classId}; expires=${endTimeUTC.toUTCString()}; path=/`;

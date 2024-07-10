@@ -111,8 +111,15 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
   
     if (currentTime >= classStartTime && currentTime <= classEndTime) {
       const host = window.location.hostname;
-      const url = `https://${host}:5173/calls/${classId}`;    
-  
+      const port = window.location.port;
+      let url = null;
+
+      if(port === "5173"){
+        url = `https://${host}:${port}/calls/${classId}`; 
+      }else{
+        url = `https://${host}/calls/${classId}`; 
+      }
+      
       // Crear la cookie con los datos de la clase que expira al finalizar la clase
       document.cookie = `classId=${classId}; expires=${classEndTime.toUTCString()}; path=/`;
 
