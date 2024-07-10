@@ -68,7 +68,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
            
           async function enviarId(id) {
             try {
-                const url = `http://localhost:3001/api/addId/${id}`;
+                const url = `${serverURL}/api/addId/${id}`;
                 const response = await axios.post(url); 
                // console.log(response.data.message)          
             } catch (error) {
@@ -79,7 +79,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
           
           async function isUserOnline(userId) {
             try {
-                const url = `http://localhost:3001/api/GetUserOnline/${ID}`;
+                const url = `${serverURL}/GetUserOnline/${ID}`;
                 const response = await axios.get(url);             
               
              
