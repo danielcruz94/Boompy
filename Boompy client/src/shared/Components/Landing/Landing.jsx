@@ -10,7 +10,7 @@ import questionImage from './Home/question.png';
 import NavBar from '../../NavBar/NavBar';
 import {Headings} from '../../../views/Landing.style'
 import Footer from '../Footer/Footer';
-import { useNavigate} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import { useSelector,useDispatch } from "react-redux"
 
 
@@ -21,7 +21,7 @@ function Landing() {
 
   const navegate =useNavigate()
 
-  console.log(auth)
+
   
 
   useEffect(() => {
@@ -89,7 +89,7 @@ const go=() => {
                 Well help guide your way
               </p>
 
-              <button>Star Free Trial</button>
+              <button> Star Free Trial</button>
             </div>
           </div>
           <div className="right-div">

@@ -9,7 +9,7 @@ import 'sweetalert2/dist/sweetalert2.css';
 
 import './Calendar.css';
 
-function TutorCalendar({ pagina, ID }) {
+function TutorCalendar({ pagina, ID,tutor}) {
   const [tutorAvailability, setTutorAvailability] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -267,14 +267,14 @@ function TutorCalendar({ pagina, ID }) {
         <a href="#" onClick={() => {
           setModalIsOpen(true);
           setScrollEnabled(false);
-        }} style={{ marginTop: '15px', color: 'white' }}>Book a Ticket ✈️</a>
+        }} style={{color:'white',textDecoration:'none' }}><span style={{fontSize:'12px',background:'#10104d',paddingLeft:'7px',paddingRight:'7px',paddingTop:'3px',paddingBottom:'3px',borderRadius:'10px',color:'white'}}> Book a ticket</span></a>
       )}
   
       {pagina === 'Tutor' && (
         <button onClick={() => {
           setModalIsOpen(true);
           setScrollEnabled(false);
-        }} style={{ marginTop: '15px', background: '#10104d', color: 'white' }}>Book a Place</button>
+        }} style={{ marginTop: '15px', background: '#10104d', color: 'white' }}>Book a Ticket</button>
       )}
   
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
