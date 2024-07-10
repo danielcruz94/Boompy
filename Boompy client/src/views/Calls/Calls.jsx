@@ -9,6 +9,8 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import CallTimer from './CallsTime';
 import DeleteOnline from './DeleteOnline';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.css';
 
 
 
@@ -48,7 +50,7 @@ const Calls = () => {
   const [callDuration, setCallDuration] = useState(0);
   const [ID, setID] = useState();
   const [Cargando, setCargando] = useState(false);
-  const [UserOnline, setUserOnline] = useState(false);
+ 
 
   const serverURL = useSelector(state => state.serverURL.url);
 
@@ -68,7 +70,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
             try {
                 const url = `http://localhost:3001/api/addId/${id}`;
                 const response = await axios.post(url); 
-                console.log(response.data.message)          
+               // console.log(response.data.message)          
             } catch (error) {
                 console.error('Error al enviar el id:', error);
             }
@@ -78,17 +80,31 @@ const idClase = location.pathname.substring(lastIndex + 1);
           async function isUserOnline(userId) {
             try {
                 const url = `http://localhost:3001/api/GetUserOnline/${ID}`;
-                const response = await axios.get(url);                
+                const response = await axios.get(url);             
               
-                setUserOnline(response.data.exists); 
+             
                 
                 if (!response.data.exists) {
                     // Usuario no está online
                     if (userData.role === 'Tutor') {
-                        // alert("Waiting for Student");
+                        
+                         Swal.fire({
+                          icon: 'info',
+                          title: '¡Waiting for Student!',
+                          text: 'wait here, it will connect in a few moments',
+                      }).then(() => {
+                        //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+                      });
+                        
                     }
-                    if (userData.role === 'Student') {
-                        // alert("Waiting for Tutor");
+                    if (userData.role === 'Student') {                       
+                         Swal.fire({
+                          icon: 'info',
+                          title: '¡Waiting for Tutor!',
+                          text: 'wait here, it will connect in a few moments',
+                      }).then(() => {
+                        //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+                      });
                     }
                 }
 

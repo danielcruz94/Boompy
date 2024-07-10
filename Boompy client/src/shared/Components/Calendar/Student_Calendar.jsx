@@ -4,6 +4,8 @@ import Calendar from 'react-calendar';
 import Modal from 'react-modal';
 import axios from 'axios';
 import './Calendar.css';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.css';
 
 function StudentCalendar({ isOpen, onRequestClose, onClose }) {
   const [tutorAvailability, setTutorAvailability] = useState([]);
@@ -93,7 +95,7 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
     } else if (startHour === 12 && startTime.includes('AM')) {
       adjustedStartHour = 0;
     }
-
+  
     const [endHour, endMinute] = endTime.replace('AM', '').replace('PM', '').split(':').map(Number);
     let adjustedEndHour = endHour;
     if (endTime.includes('PM') && endHour !== 12) {
@@ -101,36 +103,34 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
     } else if (endHour === 12 && endTime.includes('AM')) {
       adjustedEndHour = 0;
     }
-
+  
     const classStartTime = new Date();
     classStartTime.setHours(adjustedStartHour, startMinute, 0);
     const classEndTime = new Date(classStartTime);
     classEndTime.setHours(adjustedEndHour, endMinute, 0);
-
+  
     if (currentTime >= classStartTime && currentTime <= classEndTime) {
       const host = window.location.hostname;
-      const url = `https://${host}:5173/calls/${classId}`;
+      const url = `https://${host}:5173/calls/${classId}`;    
+  
+      // Crear la cookie con los datos de la clase que expira al finalizar la clase
+      document.cookie = `classId=${classId}; expires=${classEndTime.toUTCString()}; path=/`;
+
       window.location.href = url;
     } else {
-      alert('Clase no disponible en este momento.');
+      Swal.fire({
+        icon: 'info',
+        title: 'Clase no disponible en este momento....',
+        text: '.',
+      }).then(() => {
+        //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+      });
     }
   };
-
-  const isToday = (date) => {
-    const today = new Date();
-    return date.getDate() === today.getDate() &&
-           date.getMonth() === today.getMonth() &&
-           date.getFullYear() === today.getFullYear();
-  };
+  
 
   const tileClassName = ({ date }) => {
     const classes = [];
-
-    const convertUTCtoLocal = (utcDate) => {
-      const utcDateTime = new Date(utcDate);
-      const localDateTime = new Date(utcDateTime.toLocaleString('en-US', { timeZone: 'UTC' }));
-      return localDateTime;
-    };
 
     const isToday = (localDate) => {
       const today = new Date();
@@ -139,18 +139,30 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
              localDate.getFullYear() === today.getFullYear();
     };
 
-    if (!isToday(date) && date < new Date()) {
+    // Función para verificar disponibilidad
+    const isAvailableOnDate = (checkDate) => {
+      return tutorAvailability.some(({ date: availabilityDate }) => {
+        const availabilityDateTime = new Date(availabilityDate);
+        return availabilityDateTime.getFullYear() === checkDate.getFullYear() &&
+               availabilityDateTime.getMonth() === checkDate.getMonth() &&
+               availabilityDateTime.getDate() === checkDate.getDate();
+      });
+    };
+
+    // Convertir fecha UTC a local
+    const convertUTCtoLocal = (utcDate) => {
+      const utcDateTime = new Date(utcDate);
+      const localDateTime = new Date(utcDateTime.getTime() + utcDateTime.getTimezoneOffset() * 60000);
+      return localDateTime;
+    };
+
+    const localDate = convertUTCtoLocal(date);
+
+    if (!isToday(localDate) && date < new Date()) {
       return '';
     }
 
-    const localDate = new Date(date.toLocaleString('en-US', { timeZone: 'UTC' }));
-    const formattedDate = localDate.toDateString();
-    const isAvailable = tutorAvailability.some(({ date: availabilityDate }) => {
-      const localAvailabilityDate = convertUTCtoLocal(availabilityDate);
-      return localAvailabilityDate.toDateString() === formattedDate;
-    });
-
-    if (isAvailable) {
+    if (isAvailableOnDate(localDate)) {
       classes.push('available');
     }
 

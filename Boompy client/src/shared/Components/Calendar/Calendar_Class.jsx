@@ -169,7 +169,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
       
     } catch (error) {
         console.error('Error al enviar los datos al servidor:', error.message);
-        alert(error.message || "Error al enviar los datos al servidor. Por favor, intente nuevamente.");
+       // alert(error.message || "Error al enviar los datos al servidor. Por favor, intente nuevamente.");
     }
 };
 
@@ -211,34 +211,44 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
   
   const viewReservedClassDetails = (startTime, endTime, classId) => {
     console.log(classId);
-  
+    
     const currentTime = new Date();
-  
+    
     // Convertir las cadenas de tiempo de UTC a objetos de fecha
     const startTimeUTC = new Date(startTime);
     const endTimeUTC = new Date(endTime);
-  
+    
     // Convertir la hora actual a la zona horaria local
     const currentTimeLocal = new Date(currentTime.toLocaleString('en-US', { timeZone: 'America/Bogota' }));
-  
+    
     // Convertir las fechas UTC a la hora local
     const startTimeLocal = new Date(startTimeUTC.toLocaleString('en-US', { timeZone: 'America/Bogota' }));
     const endTimeLocal = new Date(endTimeUTC.toLocaleString('en-US', { timeZone: 'America/Bogota' }));
-  
+    
     // Comprobar si la hora actual está dentro del intervalo de la clase
     if (currentTimeLocal >= startTimeLocal && currentTimeLocal <= endTimeLocal) {
       const host = window.location.hostname; 
       const url = `https://${host}:5173/calls/${classId}`; 
+     
+      
+      // Crear la cookie con los datos de la clase que expira al finalizar la clase
+      document.cookie = `classId=${classId}; expires=${endTimeUTC.toUTCString()}; path=/`;
       window.location.href = url;
     } else {
-      alert('Clase no disponible en este momento....');
+      Swal.fire({
+        icon: 'info',
+        title: 'Clase no disponible en este momento....',
+        text: '.',
+      }).then(() => {
+        //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+      });
       
       console.log("La primera hora local: " + currentTimeLocal);
-console.log("Segunda hora inicio: " + startTimeLocal);
-console.log("Hora fin: " + endTimeLocal);
-
+      console.log("Segunda hora inicio: " + startTimeLocal);
+      console.log("Hora fin: " + endTimeLocal);
     }
   };
+  
   
   
   
