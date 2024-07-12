@@ -95,7 +95,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
                           title: '¡Waiting for Student!',
                           text: 'wait here, it will connect in a few moments',
                       }).then(() => {
-                        //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+                       
                       });
                         
                     }
@@ -105,7 +105,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
                           title: '¡Waiting for Tutor!',
                           text: 'wait here, it will connect in a few moments',
                       }).then(() => {
-                        //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+                        
                       });
                     }
                 }
@@ -113,11 +113,19 @@ const idClase = location.pathname.substring(lastIndex + 1);
                 const fecha = new Date().toISOString();
                 
                
-                if (response.data.exists === true && fecha >= HoraInicio) {
-                    setTimeout(() => {                      
-                        startOutgoingCall();
-                    }, 2000);
-                }
+                let intervalId;
+                  if (response.data.exists === true) {
+                      setTimeout(() => {
+                          intervalId = setInterval(() => {
+                              if (fecha >= HoraInicio){
+                                    startOutgoingCall();
+                                  clearInterval(intervalId);
+                              }  
+
+                          }, 1000);
+                      }, 2000);
+                  }
+
                 
             } catch (error) {
                 console.error(`Error al obtener estado de usuario ${userId}:`, error);
