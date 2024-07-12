@@ -52,11 +52,14 @@ const Timer = ({ variable, endCall }) => {
       const MinFinal = parseInt(partesHora[1]); 
       const SegFinal = parseInt(partesHora[2]); 
       
-      if(minutosLocal >= 55){
-        document.getElementById('tiempo').classList.add('red');
-      }     
-     
-
+          if (minutosLocal >= 55 && minutosLocal <= 59) {          
+                if (!document.getElementById('tiempo').classList.contains('red')) {          
+                  document.getElementById('tiempo').classList.add('red');
+                }
+          } else {        
+                document.getElementById('tiempo').classList.remove('red');
+          }
+      
       if (HoraLocal ===FinClase && minutosLocal === MinFinal && segundosLocal === SegFinal) {
         console.log("¡Las horas locales coinciden con la hora final!");
         endCall();

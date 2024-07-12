@@ -9,6 +9,7 @@
   "author": "DanielCruz94",
   "license": "ISC",
   "dependencies": {
+    "@uiw/react-use-online": "^1.0.0",
     "sweetalert2": "^11.12.1"
   }
 }
