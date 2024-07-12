@@ -11,6 +11,7 @@ import CallTimer from './CallsTime';
 import DeleteOnline from './DeleteOnline';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.css';
+import { setActive, toggleActive } from '../../Redux/Calls';
 
 
 
@@ -50,25 +51,26 @@ const Calls = () => {
   const [callDuration, setCallDuration] = useState(0);
   const [ID, setID] = useState();
   const [Cargando, setCargando] = useState(false);
+  const [HoraInicio, setHoraInicio] = useState(false);
  
 
   const serverURL = useSelector(state => state.serverURL.url);
+  const dispatch = useDispatch();
+  const callsActive = useSelector((state) => state.callsActive);
 
 
 const location = useLocation();
 const lastIndex = location.pathname.lastIndexOf('/');
-const idClase = location.pathname.substring(lastIndex + 1);
-
-
-
-      
+const idClase = location.pathname.substring(lastIndex + 1);      
 
       //agregar online consultar online
       useEffect(() => {
            
           async function enviarId(id) {
             try {
-                const url = `${serverURL}/api/addId/${id}`;
+
+                const url = `${serverURL}/addId/${id}`;
+
                 const response = await axios.post(url); 
                // console.log(response.data.message)          
             } catch (error) {
@@ -108,9 +110,10 @@ const idClase = location.pathname.substring(lastIndex + 1);
                     }
                 }
 
-
+                const fecha = new Date().toISOString();
+                
                
-                if (response.data.exists === true) {
+                if (response.data.exists === true && fecha >= HoraInicio) {
                     setTimeout(() => {                      
                         startOutgoingCall();
                     }, 2000);
@@ -136,11 +139,13 @@ const idClase = location.pathname.substring(lastIndex + 1);
                                
                 const userDataString = localStorage.getItem('userData');
                 const userData = JSON.parse(userDataString);
+                
+                setHoraInicio(response.data.startTime);
                                 
                 if (userData.role === 'Tutor') {                  
                   setID(response.data.reserved);
                 } else if (userData.role === 'Student') {
-                  setID(response.data.userId);
+                  setID(response.data.userId);                 
                 }
                 setCargando(true)
                 
@@ -151,43 +156,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
         getCalendarClasses();
       }, [idClase]); 
 
-/*
-        // Define handleBeforeUnload fuera del useEffect
-      const handleBeforeUnload = (event) => {
-        if (callInProgress) {
-          const message = '¿Estás seguro de que quieres abandonar la llamada?';
-          event.preventDefault(); // Previene que el navegador cierre la página directamente
-          event.returnValue = message;
-          return message;
-        }
-      };
 
-      // En el componente, dentro de useEffect
-      useEffect(() => {
-        const handlePopstate = (event) => {
-          if (callInProgress) {
-            window.history.pushState(null, null, window.location.pathname);
-          }
-        };
-
-        const handleHashchange = (event) => {
-          if (callInProgress) {
-            window.location.hash = '#';
-          }
-        };
-
-        window.addEventListener('beforeunload', handleBeforeUnload);
-        window.addEventListener('popstate', handlePopstate);
-        window.addEventListener('hashchange', handleHashchange);
-
-        return () => {
-          window.removeEventListener('beforeunload', handleBeforeUnload);
-          window.removeEventListener('popstate', handlePopstate);
-          window.removeEventListener('hashchange', handleHashchange);
-        };
-      }, [callInProgress]);
-
-*/
 
     // En endCall
       const endCall = () => {
@@ -199,6 +168,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
           setRemoteStream(null);
         }
         setCallInProgress(false);
+        dispatch(setActive(false));
         
         // Desvincular el evento beforeunload
         window.removeEventListener('beforeunload', handleBeforeUnload);
@@ -368,6 +338,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
       setRemoteStream(remoteStream);
     });
     setCallInProgress(true);
+    dispatch(setActive(true));
   };
 
   const startOutgoingCall = async () => {
@@ -393,6 +364,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
       setRemoteStream(remoteStream);
     });
     setCallInProgress(true);    
+    dispatch(setActive(true));
 
   } catch (error) {
     console.error("Error al iniciar la llamada saliente:", error);

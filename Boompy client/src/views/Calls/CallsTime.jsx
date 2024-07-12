@@ -1,82 +1,77 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector,useDispatch } from "react-redux"
 
 const Timer = ({ variable, endCall }) => {
   const [isActive, setIsActive] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState(0);
-  const [isRed, setIsRed] = useState(false);
+  const [Cookie, setCookie] = useState('');  
+  const [HoraFinal, setHoraFinal] = useState('');
+  const [MinFinal, setMinFinal] = useState('');
 
+  const callsActive = useSelector((state) => state.callsActive);
+
+  // Obtener el valor de la cookie 'classId' al montar el componente
   useEffect(() => {
-    let timerId;
+    const todasLasCookies = document.cookie;
+    const cookiesSeparadas = todasLasCookies.split('; ');
 
-    const calculateTimeRemaining = () => {
-      // Obtener la hora de expiración de la cookie 'classEndTime'
-      const classEndTimeString = document.cookie.replace(/(?:(?:^|.*;\s*)classEndTime\s*=\s*([^;]*).*$)|^.*$/, "$1");
-      const classEndTime = new Date(classEndTimeString);
-
-      // Calcular el tiempo restante en segundos
-      const currentTime = new Date();
-      const timeDifferenceSeconds = Math.floor((classEndTime - currentTime) / 1000);
-
-      return timeDifferenceSeconds;
-    };
-
-    const startTimer = () => {
-      timerId = setInterval(() => {
-        const remaining = calculateTimeRemaining();
-        setTimeRemaining(remaining);
-
-        if (remaining <= 0) {
-          stopTimer();
-          endCall(); // Ejecutar la función endCall cuando se alcance la hora de finalización
-        } else if (remaining <= 3300 && !isRed) { // 3300 segundos = 55 minutos
-          setIsRed(true);
-        }
-      }, 1000);
-    };
-
-    const stopTimer = () => {
-      clearInterval(timerId);
-    };
-
-    if (isActive) {
-      startTimer();
-    } else {
-      stopTimer();
-    }
-
-    return () => clearInterval(timerId);
-  }, [isActive, isRed, endCall]);
-
+    cookiesSeparadas.forEach(cookie => {
+      let [nombre, valor] = cookie.split('=');
+      if (nombre.trim() === 'classId') {
+        setCookie(valor);
+      }
+    });
+  }, []); 
+  
   useEffect(() => {
-    setIsActive(variable);
-  }, [variable]);
-
-  const formatTime = (timeInSeconds) => {
-    const hours = Math.floor(timeInSeconds / 3600);
-    const minutes = Math.floor((timeInSeconds % 3600) / 60);
-    const seconds = timeInSeconds % 60;
-
-    if (hours > 0) {
-      return (
-        <div className={isRed ? "call-timer-red" : "call-timer"}>
-          {hours.toString().padStart(2, '0')}:
-          {minutes.toString().padStart(2, '0')}:
-          {seconds.toString().padStart(2, '0')}
-        </div>
-      );
-    } else {
-      return (
-        <div className={isRed ? "call-timer-red" : "call-timer"}>
-          {minutes.toString().padStart(2, '0')}:
-          {seconds.toString().padStart(2, '0')}
-        </div>
-      );
+    if (Cookie) {
+      const partes = Cookie.split('/');
+      const utcValue = partes[partes.length - 1];       
+      const fechaUTC = new Date(utcValue);
+      const horaLocalFormateada = fechaUTC.toLocaleTimeString();       
+       setHoraFinal(horaLocalFormateada);       
     }
+  }, [Cookie]);
+
+  // Función para formatear minutos y segundos a dos dígitos
+  const formatTwoDigits = (num) => {
+    return num.toString().padStart(2, '0');
   };
+
+  // Comparar HoraLocal y HoraFinal cada segundo
+  useEffect(() => {
+    const interval = setInterval(() => {
+      
+      const HoraLocal = formatTwoDigits(new Date().getHours());
+      const minutosLocal = formatTwoDigits(new Date().getMinutes());
+      const segundosLocal = formatTwoDigits(new Date().getSeconds());
+
+      const horaFinalTexto = HoraFinal.toString();
+      const partesHora = horaFinalTexto.split(":");
+
+      const FinClase = parseInt(partesHora[0]);   
+      const MinFinal = parseInt(partesHora[1]); 
+      const SegFinal = parseInt(partesHora[2]); 
+      
+      if(minutosLocal >= 55){
+        document.getElementById('tiempo').classList.add('red');
+      }     
+     
+
+      if (HoraLocal ===FinClase && minutosLocal === MinFinal && segundosLocal === SegFinal) {
+        console.log("¡Las horas locales coinciden con la hora final!");
+        endCall();
+        clearInterval(interval); 
+      }
+     
+      document.getElementById('tiempo').innerHTML = `${minutosLocal} : ${segundosLocal}`;
+
+    }, 1000); 
+    return () => clearInterval(interval);
+  }, [HoraFinal]);
 
   return (
     <div>
-      {formatTime(timeRemaining)}
+      {callsActive && <p id="tiempo" className='call-timer'></p>}
     </div>
   );
 };

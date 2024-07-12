@@ -16,19 +16,17 @@ const DeleteUserOnUnmount = ({ userId, callInProgress }) => {
     const handleBeforeUnload = (event) => {
       if (callInProgress) {
         const message = '¿Estás seguro de que quieres abandonar la llamada?';
-        event.preventDefault(); // Previene que el navegador cierre la página directamente
-        event.returnValue = message;
+        event.preventDefault(); 
         const result = window.confirm(message);
         if (!result) {
-          // Si el usuario cancela, no se hace nada
+         
           event.returnValue = '';
           return;
         }
-        // Si el usuario confirma, intenta eliminar al usuario
         deleteUserOnline();
         return message;
       } else {
-        // Si callInProgress es false, simplemente elimina al usuario sin mostrar mensaje
+      
         deleteUserOnline();
       }
     };
@@ -58,16 +56,15 @@ const DeleteUserOnUnmount = ({ userId, callInProgress }) => {
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
       window.removeEventListener('popstate', handlePopstate);
-      window.removeEventListener('hashchange', handleHashchange);
-      
-      // Asegurarse de eliminar al usuario si todavía está en progreso al desmontar el componente
+      window.removeEventListener('hashchange', handleHashchange);      
+ 
       if (callInProgress) {
         deleteUserOnline();
       }
     };
   }, [userId, callInProgress]);
 
-  return null; // Este componente no renderiza nada visualmente
+  return null; 
 };
 
 export default DeleteUserOnUnmount;

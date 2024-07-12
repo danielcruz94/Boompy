@@ -20,6 +20,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
   const userData = JSON.parse(userDataString);
 
   const serverURL = useSelector(state => state.serverURL.url);
+  const callsActive = useSelector((state) => state.callsActive);
 
  // console.log("url"+serverURL)
 
@@ -209,8 +210,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
     hoursOptions.push(hour);
   }
   
-  const viewReservedClassDetails = (startTime, endTime, classId) => {
-    console.log(classId);
+  const viewReservedClassDetails = (startTime, endTime, classId) => {   
     
     const currentTime = new Date();
     
@@ -224,36 +224,48 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
     // Convertir las fechas UTC a la hora local
     const startTimeLocal = new Date(startTimeUTC.toLocaleString('en-US', { timeZone: 'America/Bogota' }));
     const endTimeLocal = new Date(endTimeUTC.toLocaleString('en-US', { timeZone: 'America/Bogota' }));
-    
-    // Comprobar si la hora actual está dentro del intervalo de la clase
-    if (currentTimeLocal >= startTimeLocal && currentTimeLocal <= endTimeLocal) {
-      const host = window.location.hostname;
-      const port = window.location.port;
-      let url = null;
+    startTimeLocal.setMinutes(startTimeLocal.getMinutes() - 5);
 
-      if(port === "5173"){
-        url = `https://${host}:${port}/calls/${classId}`; 
-      }else{
-        url = `https://${host}/calls/${classId}`; 
-      }
-     console.log(url)
-      
-      // Crear la cookie con los datos de la clase que expira al finalizar la clase
-      document.cookie = `classId=${classId}; expires=${endTimeUTC.toUTCString()}; path=/`;
-      window.location.href = url;
-    } else {
+    if(callsActive === false){
+          // Comprobar si la hora actual está dentro del intervalo de la clase
+        
+          if (currentTimeLocal >= startTimeLocal && currentTimeLocal <= endTimeLocal) {
+            const host = window.location.hostname;
+            const port = window.location.port;
+            let url = null;
+
+            if(port === "5173"){
+              url = `https://${host}:${port}/calls/${classId}`; 
+            }else{
+              url = `https://${host}/calls/${classId}`; 
+            }
+          console.log(url)
+            
+            // Crear la cookie con los datos de la clase que expira al finalizar la clase
+            document.cookie = `classId=${classId}/${endTimeUTC.toUTCString()}; expires=${endTimeUTC.toUTCString()}; path=/`;
+            window.location.href = url;
+          } else {
+            Swal.fire({
+              icon: 'info',
+              title: 'Clase no disponible en este momento....',
+              text: '.',
+            }).then(() => {
+              //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+            });     
+          
+          }
+
+    }else{
       Swal.fire({
         icon: 'info',
-        title: 'Clase no disponible en este momento....',
-        text: '.',
+        title: 'Ya estas en una clase ....',
+        text: 'Intenta luego.....',
       }).then(() => {
         //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
-      });
-      
-      console.log("La primera hora local: " + currentTimeLocal);
-      console.log("Segunda hora inicio: " + startTimeLocal);
-      console.log("Hora fin: " + endTimeLocal);
+      });     
     }
+    
+   
   };
   
   
