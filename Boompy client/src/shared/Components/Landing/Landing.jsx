@@ -89,7 +89,7 @@ const go=() => {
                 Well help guide your way
               </p>
 
-              <button> Star Free Trial</button>
+              <button style={{marginTop:'10px'}}> Star Free Trial</button>
             </div>
           </div>
           <div className="right-div">
@@ -99,7 +99,7 @@ const go=() => {
       </section>
 
       {/* Sección de 2 */}
-      <section className="categories-section">
+      {/* <section className="categories-section">
         <h5>Trending Categories</h5>
         <h3>Top Category We Have</h3>
         <p>when known printer took a galley of type scrambl edmake</p>
@@ -117,7 +117,7 @@ const go=() => {
             <button className="next"> &gt; </button>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Sección de 3 */}
       <section className="hero Hero2">
@@ -129,16 +129,17 @@ const go=() => {
           <div className="left-div left-div2">
             <div>
               <h2>
-                Thousand Of Top Courses<br /> Now In One Place
+              Do you want to improve your language skills? Would you like to earn extra money?<br /><b>Now In One Place</b> 
               </h2>
               <p>
-                Groove's intuitive shared inbox makes it easy for team members to organize, prioritize and. In this episode of the Smashing Pod we're talking about Web Platform Baseline
+              The best way to learn a language is to practice it with native speakers.
+              Our platform connects you with people who want to learn your native language.
               </p>
 
-              <ul>
-                <li className="campo">The Most World Class Instructors</li>
-                <li className="campo">Access Your Class anywhere</li>
-                <li className="campo">Flexible Course Plan</li>
+              <ul style={{paddingLeft:'0'}}>
+                <li className="campo">Earn money from the comfort of your own home.</li>
+                <li className="campo">Access Your Class anywhere.</li>
+                <li className="campo">Offer private lessons.</li>
               </ul>
 
               <button>Star Free Trial</button>
@@ -173,7 +174,7 @@ const go=() => {
         </div>
       </section>
 
-      <section className="categories-section categories-section2">
+      {/* <section className="categories-section categories-section2">
   <h5>Top Class Courses</h5>
   <h3>Explore Our Worlds Best Courses</h3>
   <p>When known printer took a galley of type scrambledmake</p>
@@ -193,7 +194,7 @@ const go=() => {
       ))}
     </div>
   </div>
-</section>
+</section> */}
 
 
       <div className="subscribe">
@@ -203,11 +204,11 @@ const go=() => {
 
         <div>
           <h2>
-            Want To Stay Informed About<br /> New Courses & Study?
+          The best way to learn a language is <br /> Speaking!!
           </h2>
           <div className="InputSus">
-            <input type="text" placeholder="Type Your E-Mail" />
-            <button>Suscribe Now</button>
+            {/* <input type="text" placeholder="Type Your E-Mail" />
+            <button>Suscribe Now</button> */}
           </div>
         </div>
       </div>
@@ -217,12 +218,12 @@ const go=() => {
   <div>
     <h5>Skilled Introduce</h5>
     <h3>
-      Our Top Class & Expert Instructors In One Place
+      Our Top Class &  Instructors In One Place
     </h3>
     <p>
-      when an unknown printer took a galley of type and scrambled makespecimen book has survived not only five centuries
+    Share your experiences and cultures with people from all over the world who are looking to practice languages and meet new people.
     </p>
-    <button className="H_button">See All Instructors</button>
+    <button className="H_button" style={{marginTop:'10px'}}>See All Instructors</button>
   </div>
 
   <div>
@@ -282,12 +283,11 @@ const go=() => {
         </div>
 
         <div>
-        <h1>Start Learning From Worlds Pro Instructors</h1>
-        <p>Grooves intuitive shared inbox makes it easy for team members to organize, prioritize and. In this episode.</p>
-        <p>Whats Boompy Want to give you? Grooves intuitive shared inbox makes it easy for team members to organize, prioritize, and. In this episode. Survived not only five centuries. Edhen an unknown printer took a galley of type and scrambl</p>
-        <p>Why choose us for your education?</p>
-        <p>How We Provide Service For you?</p>
-        <p>Are you Affordable For Your Course</p>
+        <h1>Start Learning From Worlds Instructors</h1>
+        <p>Pay-as-you-go language lessons with the best prices around.</p>
+        <p>Book classes with your preferred tutor and enjoy a free trial lesson.</p>
+        <p>Sign up today and start learning your new language.</p>
+        
         </div>
       </section>
 
@@ -302,16 +302,16 @@ const go=() => {
         <div className="low-div">
           <div>
             <i className="fas fa-users custom-icon"></i>
-            <strong>Learn with Experts</strong>
-            <span>Curate anding area share Pluralsight</span>
+            <strong>Learn with people</strong>
+            <span>People around the world willing to help you</span>
             <span>content to reach your</span>
           </div>
 
           <div>
             <i className="fas fa-laptop custom-icon"></i>
-            <strong>Learn Anything</strong>
-            <span>Curate anding area share Pluralsight</span>
-            <span>content to reach your</span>
+            <strong>Best price</strong>
+            <span>Competitive prices to learn and keep practicing</span>
+            <span>Pay easily</span>
           </div>
 
           <div>
@@ -324,8 +324,8 @@ const go=() => {
           <div>
             <i className="fas fa-envelope custom-icon"></i>
             <strong>E-mail Marketing</strong>
-            <span>Curate anding area share Pluralsight</span>
-            <span>content to reach your</span>
+            <span>Contact us if you have any questions</span>
+        
           </div>
         </div>
       </section>
