@@ -68,7 +68,9 @@ const idClase = location.pathname.substring(lastIndex + 1);
            
           async function enviarId(id) {
             try {
+
                 const url = `${serverURL}/addId/${id}`;
+
                 const response = await axios.post(url); 
                // console.log(response.data.message)          
             } catch (error) {
