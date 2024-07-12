@@ -18,15 +18,15 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
   const studentId = userData.id;
 
   const serverURL = useSelector(state => state.serverURL.url);
+  const callsActive = useSelector((state) => state.callsActive);
 
   useEffect(() => {
     Modal.setAppElement('#root');
-    fetchStudentCalendarClasses(); // Realiza la primera consulta al montar el componente
+    fetchStudentCalendarClasses(); 
 
-    // Configura un intervalo para consultar cada 5 minutos (300,000 milisegundos)
     const interval = setInterval(fetchStudentCalendarClasses, 300000);
 
-    return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
+    return () => clearInterval(interval); 
   }, []);
 
   const fetchStudentCalendarClasses = async () => {
@@ -108,31 +108,45 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
     classStartTime.setHours(adjustedStartHour, startMinute, 0);
     const classEndTime = new Date(classStartTime);
     classEndTime.setHours(adjustedEndHour, endMinute, 0);
-  
-    if (currentTime >= classStartTime && currentTime <= classEndTime) {
-      const host = window.location.hostname;
-      const port = window.location.port;
-      let url = null;
+    classStartTime.setMinutes(classStartTime.getMinutes() - 5);
 
-      if(port === "5173"){
-        url = `https://${host}:${port}/calls/${classId}`; 
-      }else{
-        url = `https://${host}/calls/${classId}`; 
-      }
+    
+    if(callsActive === false){
+          if (currentTime >= classStartTime && currentTime <= classEndTime) {
+            const host = window.location.hostname;
+            const port = window.location.port;
+            let url = null;
       
-      // Crear la cookie con los datos de la clase que expira al finalizar la clase
-      document.cookie = `classId=${classId}; expires=${classEndTime.toUTCString()}; path=/`;
-
-      window.location.href = url;
-    } else {
-      Swal.fire({
-        icon: 'info',
-        title: 'Clase no disponible en este momento....',
-        text: '.',
-      }).then(() => {
-        //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
-      });
+            if(port === "5173"){
+              url = `https://${host}:${port}/calls/${classId}`; 
+            }else{
+              url = `https://${host}/calls/${classId}`; 
+            }
+            
+            // Crear la cookie con los datos de la clase que expira al finalizar la clase
+            document.cookie = `classId=${classId}/${classEndTime.toUTCString()}; expires=${classEndTime.toUTCString()}; path=/`;
+      
+            window.location.href = url;
+          } else {
+            Swal.fire({
+              icon: 'info',
+              title: 'Clase no disponible en este momento....',
+              text: '.',
+            }).then(() => {
+              //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+            });
+          }
+    }else{
+          Swal.fire({
+            icon: 'info',
+            title: 'Ya estas en una clase ....',
+            text: 'Intenta luego.....',
+          }).then(() => {
+            //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+          });     
     }
+  
+    
   };
   
 
