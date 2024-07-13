@@ -10,11 +10,6 @@
 
 
 /*NUEVA CSS*/
-
-body{
-  min-width: 320px;
-}
-
 .exRRDa {
   padding: 15px; 
 }
@@ -71,5 +66,24 @@ a{
     flex-direction: column;
   }
 
- 
+  .eSbmml > div{
+    display: block;
+  }
+
+  .gLdBYr{
+    justify-content: center;
+  }
+
+  .icon-wrapper {
+    height: 100%;
+    width: 100%;
+    padding: 7px;
+    margin: 5px;
+}
+
+
+.icon-wrapper > i{
+   font-size: 10px;
+}
+
 }
