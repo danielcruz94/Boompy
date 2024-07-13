@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
+import { useSelector} from "react-redux"
 
 const DeleteUserOnUnmount = ({ userId, callInProgress }) => {
-  useEffect(() => {
+
+  const serverURL = useSelector(state => state.serverURL.url);
+
+  useEffect(() => {  
+
     const deleteUserOnline = async () => {
       try {
-        const url = `http://localhost:3001/api/DeleteUserOnline/${userId}`;
+        const url = `${serverURL}/DeleteUserOnline/${userId}`;
         await axios.delete(url);
         console.log(`Usuario con ID ${userId} eliminado correctamente`);
       } catch (error) {

@@ -12,6 +12,7 @@ import DeleteOnline from './DeleteOnline';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.css';
 import { setActive, toggleActive } from '../../Redux/Calls';
+import { TimeUTC } from './TimeUTC';
 
 
 
@@ -69,7 +70,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
           async function enviarId(id) {
             try {
 
-                const url = `${serverURL}/addId/${id}`;
+                const url = `${serverURL}/addId/${id}`;                
 
                 const response = await axios.post(url); 
                // console.log(response.data.message)          
@@ -110,21 +111,36 @@ const idClase = location.pathname.substring(lastIndex + 1);
                     }
                 }
 
-                const fecha = new Date().toISOString();
-                
-               
-                let intervalId;
-                  if (response.data.exists === true) {
-                      setTimeout(() => {
-                          intervalId = setInterval(() => {
-                              if (fecha >= HoraInicio){
-                                    startOutgoingCall();
-                                  clearInterval(intervalId);
-                              }  
 
-                          }, 1000);
-                      }, 2000);
+                const HoraUTC = async () => {
+                  try {
+                      // Llamar a la función asincrónica para obtener la hora UTC
+                      const horaUTC = await TimeUTC(); 
+                      let FechaUTC = new Date(horaUTC);     
+                      
+                      let FechaInicio = new Date(HoraInicio);                   
+
+                      let intervalId;
+                      if (response.data.exists === true) {
+                        
+                              intervalId = setInterval(() => {  
+                                FechaUTC.setSeconds(FechaUTC.getSeconds() + 1);
+                                                   
+                                    if (FechaUTC.getTime() >= FechaInicio.getTime()){                                    
+                                        startOutgoingCall();
+                                        clearInterval(intervalId);
+                                    }  
+    
+                              }, 1000);
+                        
+                      }                      
+                 
+                  } catch (error) {                  
+                      console.error('Error al obtener la hora UTC:', error);
                   }
+              }
+              
+              HoraUTC();
 
                 
             } catch (error) {
@@ -176,18 +192,22 @@ const idClase = location.pathname.substring(lastIndex + 1);
           setRemoteStream(null);
         }
         setCallInProgress(false);
-        dispatch(setActive(false));
+        dispatch(setActive(false));              
         
-        // Desvincular el evento beforeunload
-        window.removeEventListener('beforeunload', handleBeforeUnload);
+            const host = window.location.hostname;
+            const port = window.location.port;
+            let url = null;
+
+            if(port === "5173"){
+              url = `https://${host}:${port}/home`; 
+            }else{
+              url = `https://${host}/home`; 
+            }
         
-        const host = window.location.hostname; 
-        const url = `https://${host}:5173/home`; 
-        
-        // Diferir la redirección ligeramente para asegurar que la eliminación del event listener se complete
+     
         setTimeout(() => {
           window.location.href = url;
-        }, 100);
+        }, 300);
       };
 
   const toggleVolume = () => {
