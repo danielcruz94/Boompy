@@ -11,7 +11,12 @@ import Section from '../../assets/Section.svg'
 
 const  Signup=() => {
 
+  React.useEffect(() => {
+    window.scrollTo({ top: 0 });
 
+
+
+  }, []);
 
     return (
         <Container>
