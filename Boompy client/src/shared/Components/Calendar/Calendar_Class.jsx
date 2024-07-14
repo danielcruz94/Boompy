@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector,useDispatch } from "react-redux"
+import { useState, useEffect } from 'react';
+import { useSelector } from "react-redux"
 import Calendar from 'react-calendar';
 import Modal from 'react-modal';
 import './Calendar.css'; 
@@ -239,7 +239,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
             }else{
               url = `https://${host}/calls/${classId}`; 
             }
-          console.log(url)
+          
             
             // Crear la cookie con los datos de la clase que expira al finalizar la clase
             document.cookie = `classId=${classId}/${endTimeUTC.toUTCString()}; expires=${endTimeUTC.toUTCString()}; path=/`;
