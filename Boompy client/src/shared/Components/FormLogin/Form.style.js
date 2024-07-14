@@ -9,7 +9,7 @@ export const FormLog = styled.form`
   min-height: 300px;
   background:#F7F7FA;
   margin 0 auto;
-  margin-top:70px;
+  margin-top:10px;
   border:1px solid #E1E1E1;
   border-radius:5px;
   margin-botton:70px;

@@ -32,11 +32,11 @@ const Footer = () => {
 
           <a href="/">
             {" "}
-            <LinkFooter>Términos de uso</LinkFooter>
+            <LinkFooter>Privacy Policy</LinkFooter>
           </a>
           <a href="/">
             {" "}
-            <LinkFooter>Política de privacidad</LinkFooter>
+            <LinkFooter>Information Privacy Policy</LinkFooter>
           </a>
         </Columns>
         <div>
@@ -103,7 +103,7 @@ const Footer = () => {
             </a>
           </ContenedorImg>
           <Span style={{ color: "white" }}>
-            &copy; 2024 Torii. Todos los derechos reservados.
+            &copy; 2024 Torii. All rights reserved.
           </Span>
         </div>
       </ContainerText>

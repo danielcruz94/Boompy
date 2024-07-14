@@ -65,8 +65,10 @@ const go=() => {
   // console.log("hihas")
    navegate('/login')
 }
-
-
+const signUpLink=() => {
+  navegate('/signup')
+   
+}
 
   return (
     <div className="containerHome">
@@ -90,7 +92,7 @@ const go=() => {
                 Well help guide your way
               </p>
 
-              <button style={{marginTop:'10px'}}> Star Free Trial</button>
+              <button style={{marginTop:'10px'}} onClick={signUpLink}> Star Free Trial</button>
             </div>
           </div>
           <div className="right-div">
@@ -143,7 +145,7 @@ const go=() => {
                 <li className="campo">Offer private lessons.</li>
               </ul>
 
-              <button>Star Free Trial</button>
+              <button onClick={signUpLink}>Star Free Trial</button>
             </div>
           </div>
         </div>
@@ -224,7 +226,7 @@ const go=() => {
     <p>
     Share your experiences and cultures with people from all over the world who are looking to practice languages and meet new people.
     </p>
-    <button className="H_button" style={{marginTop:'10px'}}>See All Instructors</button>
+    <button className="H_button" style={{marginTop:'10px'}} onClick={signUpLink}>See All Instructors</button>
   </div>
 
   <div>
@@ -294,10 +296,9 @@ const go=() => {
 
       <section className="Learning">
         <div className="top-div">
-          <h5>How We Start Journey</h5>
+          <h5 onClick={signUpLink}>How We Start Journey</h5>
           <h3>Start Your Learning Journey Today!</h3>
-          <p>Grooves intuitive shared inbox makesteam members together</p>
-          <p>organize, prioritize and.In this episode.</p>
+          
         </div>
 
         <div className="low-div">
@@ -310,17 +311,17 @@ const go=() => {
 
           <div>
             <i className="fas fa-laptop custom-icon"></i>
-            <strong>Best price</strong>
+            <strong>Best Price</strong>
             <span>Competitive prices to learn and keep practicing</span>
             <span>Pay easily</span>
           </div>
 
-          <div>
+          {/* <div>
             <i className="fas fa-award custom-icon"></i>
             <strong>Get Online Certificate</strong>
             <span>Curate anding area share Pluralsight</span>
             <span>content to reach your</span>
-          </div>
+          </div> */}
 
           <div>
             <i className="fas fa-envelope custom-icon"></i>
