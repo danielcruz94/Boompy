@@ -9,20 +9,20 @@ import {Container,
 import React,{useState} from 'react';
 import axios from 'axios';
 
-import { useSelector,useDispatch } from "react-redux"
-import {completeInfo} from '../../../Redux/authSlice'
+import { useSelector,useDispatch,connect } from "react-redux"
+import {completeInfo,logout} from '../../../Redux/authSlice'
 
 import ImageFileUpload from '../ImageUpload/ImageFileUpdload'
 import CountrySelector from '../Select/CountrySelector';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.css';
-import { logout } from '../../../Redux/authSlice';
 
 
 
-const Modal=({title,url}) => {   
+
+const Modal=({title,url,auth}) => {   
     const serverURL = useSelector(state => state.serverURL.url);
-    const auth=useSelector((state)=>state.auth);
+   
     const dispatch=useDispatch();
 
     const roles=[{value:'student',label:"Student"},
@@ -86,10 +86,8 @@ const handleChange = (event) => {
                 title: '¡Infomación completa!',
                 text: 'Ahora puedes usar la app para practicar.',
             }).then()
-        dispatch(completeInfo())
-        // setIsVisible(false)
-        dispatch(logout())
-
+        dispatch(completeInfo(settingInformation.role))
+     
         
     } catch (error) {
         console.log(error)
@@ -199,5 +197,10 @@ const handleChange = (event) => {
     )
     
 }
-
-export default Modal;
+const mapStateToProps = (state) => ({
+    auth: state.auth,
+   
+   
+  });
+  
+  export default connect(mapStateToProps)(Modal);

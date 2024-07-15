@@ -33,7 +33,6 @@ const Home = ({auth}) => {
 
   //locals Variable
 
-  
 
   const [isLoading, setIsLoading] = useState(true); // Estado de carga inicial
 
@@ -71,7 +70,7 @@ const Home = ({auth}) => {
       navegate('/')
      
     }
-
+    auth.user?.role==="Tutor"&&navegate(`/tutor/${auth.user.id}`)
     const storedValue = window.localStorage.getItem("userData");
     if (storedValue) {
       const parsedUserData = JSON.parse(storedValue);
@@ -84,9 +83,9 @@ const Home = ({auth}) => {
       });
     }
 
-    auth.user?.role==="Tutor"&&navegate(`/tutor/${auth.user.id}`)
+  
     // Effect code to run only once
-  }, []);
+  }, [auth.user.role]);
 
   useEffect(() => {
     const getData = async () => {

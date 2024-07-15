@@ -58,7 +58,7 @@ const Form = () => {
   };
 
   return (
-    <FormLog action={handleLogin}>
+    <FormLog>
       <Container>
         <br />
         <h2 style={{ textAlign: 'initial' }}>Welcome back!</h2>
