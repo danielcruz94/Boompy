@@ -85,7 +85,7 @@ const Home = ({auth}) => {
 
   
     // Effect code to run only once
-  }, [auth.user.role]);
+  }, [auth.user?.role]);
 
   useEffect(() => {
     const getData = async () => {
