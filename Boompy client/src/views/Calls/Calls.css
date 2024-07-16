@@ -79,9 +79,27 @@
     top: 0;
     left: 0;
     border-radius: 20px;
-    transform: scaleX(-1);
-    
+    transform: scaleX(-1);    
 }
+
+.VideoCall::-webkit-media-controls {
+    transform: scaleX(-1); 
+  }
+
+ .VideoCall::-webkit-media-controls-timeline {
+    display: none; 
+  }
+  
+  .VideoCall::-webkit-media-controls-current-time-display,
+  .VideoCall::-webkit-media-controls-time-remaining-display {
+    display: none; 
+  }
+
+  .VideoCall::-webkit-media-controls-play-button {
+    display: none; 
+  }
+  
+  
 
 .call-timer{
     font-weight: 700;
