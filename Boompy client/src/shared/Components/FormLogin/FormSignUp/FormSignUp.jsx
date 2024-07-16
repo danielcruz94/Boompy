@@ -69,7 +69,7 @@ const FormSignUp = () => {
 
 
     return (
-      <FormLog style={{ height: "600px" }}>
+      <FormLog style={{ height: "600px" }} >
         <Container>
           <br />
           <h2 style={{ textAlign: "initial" }}>Create Your Account!</h2>
