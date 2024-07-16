@@ -15,6 +15,29 @@ import { setActive, toggleActive } from '../../Redux/Calls';
 import { TimeUTC } from './TimeUTC';
 
 
+
+const userDataString = localStorage.getItem('userData');
+const userData = JSON.parse(userDataString);
+
+let userId = null;
+if (userData !== null && typeof userData === 'object' && 'id' in userData) {
+    userId = userData.id;
+} else {
+   // console.error("No se encontró 'id' en los datos del usuario");
+}
+
+setUserId(userId);
+const peer = initializePeer();
+
+if (peer) {
+    // Ahora puedes usar `peer` para la comunicación PeerJS
+     console.log(userId)
+   
+} else {
+   // console.error('No se pudo inicializar PeerJS debido a un error.');
+}
+
+
 const Calls = () => {
   const [localStream, setLocalStream] = useState(null);
   const [remoteStream, setRemoteStream] = useState(null);
@@ -39,29 +62,7 @@ const Calls = () => {
 
 const location = useLocation();
 const lastIndex = location.pathname.lastIndexOf('/');
-const idClase = location.pathname.substring(lastIndex + 1);    
-
-      //pe
-      const userDataString = localStorage.getItem('userData');
-      const userData = JSON.parse(userDataString);
-
-      let userId = null;
-      if (userData !== null && typeof userData === 'object' && 'id' in userData) {
-          userId = userData.id;
-      } else {
-        // console.error("No se encontró 'id' en los datos del usuario");
-      }
-
-      setUserId(userId);
-      const peer = initializePeer();
-
-      if (peer) {
-          // Ahora puedes usar `peer` para la comunicación PeerJS
-          //console.log(userId)
-        
-      } else {
-        // console.error('No se pudo inicializar PeerJS debido a un error.');
-      }
+const idClase = location.pathname.substring(lastIndex + 1);      
 
       //agregar online consultar online
       useEffect(() => {
@@ -401,6 +402,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
   }
   };
   
+
   const notificacionLlamada = () => {
     if (callInProgress) {
       setCallDuration((prevDuration) => {
@@ -417,6 +419,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
     }
   };
   
+
   const finalizarLlamada = () => {
     console.log("Función finalizar Llamada");
     endCall();
