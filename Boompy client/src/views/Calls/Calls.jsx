@@ -447,6 +447,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
                 {remoteStream ? (
                   <video
                     className="VideoCall"
+                    controls
                     autoPlay
                     ref={(video) => {
                       if (video && remoteStream) {
