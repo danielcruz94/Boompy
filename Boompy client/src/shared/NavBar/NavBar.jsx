@@ -45,6 +45,10 @@ const userData = JSON.parse(userDataString);
 
   const CalendarComponent = role === 'Tutor' ? CalendarClass : StudentCalendar;
 
+ 
+  console.log(userData)
+  console.log(CalendarComponent)
+
   // Verifica si la ruta actual coincide con '/calls/:id'
   const isCallsActive = location.pathname.startsWith('/calls/');
 

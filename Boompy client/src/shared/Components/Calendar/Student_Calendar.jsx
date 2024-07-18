@@ -38,7 +38,7 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
         endTime: new Date(item.endTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })
       })));
     } catch (error) {
-      console.error('Error fetching student calendar classes:', error);
+      //console.error('Error fetching student calendar classes:', error);
     }
   };
 
