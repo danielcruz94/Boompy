@@ -1,5 +1,5 @@
 :root {    
-    --tamano-alto-div: 100%; 
+    --tamano-alto-div: 45vw; 
     --div-llamadas: 50%;
     --color-primario: black;; 
   }
@@ -7,30 +7,32 @@
 .ContenCall{
     display: flex;
     flex-direction: column;       
-        
+    background: white;    
 }
 
 .full_screen{
-    background: white;
-    width: 98vw;
-    height: 100%;
-}
-
-.contenPantalla {
+    position: relative;    
     display: flex;
     width: 100%;    
-    height: 85vh;
-    padding: 20px;
+    height: var(--tamano-alto-div);  
+}
+
+
+.contenPantalla {
+    position: relative;
+    background: white;
+    width: 100vw;   
 }
 
 
 .InfoCall {
-    display: flex;
+    position: absolute;
+    display: block;
+    width: 100vw;
+    padding: 0px;   
     flex-direction: column;
-    height: var(--tamano-alto-div);
-    padding: 0px 10px;
-    width: 230px;
-   
+    height: 100%;
+    padding: 0px;
 }
 
 .DivUser{    
@@ -44,30 +46,32 @@
 }
 
 .Video_saliente {
-    position: relative;
+    width: 15%;
+    height: 150px;
+    position: absolute;
     display: flex;
-    align-items: center; /* Centra verticalmente */
-    justify-content: center; /* Centra horizontalmente */
-    height: var(--div-llamadas);
+    align-items: center;
+    justify-content: center;   
     background: var(--color-primario);
     border-radius: 20px;
     margin: 0px 0px 5px 0px;
     overflow: hidden;
-    border: 1px solid black;
+    border: 1px solid rgb(255, 255, 255);
+    right: 20px;
+    top: 50px;
 }
 
 
 .Video_Entrante {
-    position: relative;
-    width: 100%;
-    height: auto; /* Altura automática para ajustarse al contenido */
+    position: absolute;
+    width: 100vw;
+    height: var(--tamano-alto-div); 
     display: flex;
-    align-items: center; /* Centra verticalmente */
-    justify-content: center; /* Centra horizontalmente */
-    border-radius: 20px;
+    align-items: center;
+    justify-content: center; 
     border: 1px solid black;
     background: var(--color-primario);  
-    overflow: hidden; /* Para asegurar que el contenido no desborde el contenedor */
+    overflow: hidden; 
     
 }
 
@@ -77,14 +81,11 @@
     object-fit: cover; 
     position: absolute;
     top: 0;
-    left: 0;
-    border-radius: 20px;
-    transform: scaleX(-1);    
+    left: 0;       
+    transform: scaleX(-1);
 }
 
-.VideoCall::-webkit-media-controls {
-    transform: scaleX(-1); 
-  }
+
 
  .VideoCall::-webkit-media-controls-timeline {
     display: none; 
@@ -103,18 +104,21 @@
 
 .call-timer{
     font-weight: 700;
+    background: rgb(98, 98, 223);
+    width: 100vw;
 }
 
 .red{
     color: red;
 }
 
-.container {
+.Control-container {
     display: flex;
+    position: absolute;    
+    flex-direction: row;
+    width: 100%;
+    bottom: 0px;
     justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 50%;    
 }
 
 .video-call-icons {
@@ -140,6 +144,7 @@
     width: 100%;
     height: 100%;     
     border-radius: 20px; 
+  
 }
 
 
@@ -161,14 +166,14 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1; /* Ajusta el índice z para que esté encima del video */
+    z-index: 1; 
   }
 
 
   .incoming-audio-icon {
     position: absolute;
-    bottom: 10px; /* Distancia desde la parte inferior */
-    right: 10px; /* Distancia desde la parte derecha */
+    bottom: 10px; 
+    right: 10px; 
     display: flex;
     justify-content: center;
     align-items: center;    
@@ -210,11 +215,11 @@
 }
 
 .custom-icon2.green {
-  color: green; /* Color verde cuando el audio está activo */
+  color: green; 
 }
 
 .custom-icon2.red {
-  color: red; /* Color rojo cuando el audio está desactivado */
+  color: red;
 }
 
 .custom-icon i {
@@ -222,43 +227,76 @@
   color: white;
 }
 
+.Error{
+   margin: 2px;
+   color: red;
+   font-weight: 600;
+}
 
+.height-percent{
+    height: 100%;
+}
 
 @media screen and (max-width: 600px) {
+    
+    .full_screen {
+        width: 100%;
+        margin-bottom: 20px;
+        height: 130vw;
+    }
 
     .contenPantalla {
+        position: relative;
         display: flex;
-        justify-content: center; 
-        align-items: center; 
-        flex-direction: column;
-        padding: 0px 20px;
-        height: 90%;
+        align-items: center;
+        padding: 0px;
+        height: 100%;    
     }
 
-    .InfoCall {      
-        display: block;
-        width: 100%;     
-        padding: 0px;  
-        height: auto;
+    .InfoCall {       
+        height: 100%;
     }
 
-    .Video_saliente,
+   
     .Video_Entrante {
-        width: 100%;
-        height: 80vw;
-        margin-top: 15px;        
+        height: 130vw;
+        border-radius: 0px;
     }
 
-    .container {
-        height: auto;
-        margin-top: 20px;
-        flex-direction: row;
-        width: 100%;
+   
+    
+    .Video_Entrante > .VideoCall{
+      border-radius:  0px;    }
+
+    .Video_Entrante > .no-video-icon{
+        font-size: 300%;
+  }
+
+  .Video_saliente {
+    position: absolute;
+    width: 25%;
+    height: 20vw;
+    margin: 15px 5px;
+    border: 1px solid white;
+    right: 0px;
+    top: 17px;
+}
+
+    .Video_saliente > .VideoCall{
+        right: 10px;
     }
+
+    .Video_saliente > .no-video-icon{
+          font-size: 200%;
+    }
+
+
+  
 
     .video-call-icons {
         display: flex;
-        margin-bottom: 15px;       
+        justify-content: center;
+        margin-bottom: 0px;       
         width: 100%;
     }
 
@@ -268,7 +306,9 @@
        
     }
 
-    .full_screen {
-        width: 100%;
+    .height-percent{
+        height: 100%;
     }
+   
+
 }

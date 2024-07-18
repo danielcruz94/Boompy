@@ -31,7 +31,7 @@ const peer = initializePeer();
 
 if (peer) {
     // Ahora puedes usar `peer` para la comunicación PeerJS
-     console.log(userId)
+    //console.log(userId)
    
 } else {
    // console.error('No se pudo inicializar PeerJS debido a un error.');
@@ -277,6 +277,8 @@ const idClase = location.pathname.substring(lastIndex + 1);
 
   const handleFullScreen = () => {
     const element = document.querySelector(".full_screen");
+    const videoEntrante = document.querySelector('.Video_Entrante');
+
     if (callInProgress) {
       if (!isFullScreen) {
         if (element) {
@@ -289,6 +291,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
           } else if (element.msRequestFullscreen) {
             element.msRequestFullscreen();
           }
+          videoEntrante.classList.add('height-percent');
           setIsFullScreen(true);
         }
       } else {
@@ -301,10 +304,29 @@ const idClase = location.pathname.substring(lastIndex + 1);
         } else if (document.msExitFullscreen) {
           document.msExitFullscreen();
         }
+        videoEntrante.classList.remove('height-percent');
         setIsFullScreen(false);
       }
     }
   };
+
+  document.addEventListener('fullscreenchange', exitHandler);
+  document.addEventListener('webkitfullscreenchange', exitHandler);
+  document.addEventListener('mozfullscreenchange', exitHandler);
+  document.addEventListener('MSFullscreenChange', exitHandler);
+
+    function exitHandler() {
+      const videoEntrante = document.querySelector('.Video_Entrante');
+      
+      if (videoEntrante.classList.contains('height-percent')) {
+          if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+          
+              videoEntrante.classList.remove('height-percent');
+              setIsFullScreen(false);
+          }
+      }
+  }
+
 
   function alternarAudioVideo(audio, video) {
     return navigator.mediaDevices.getUserMedia({ audio: audio, video: video });
@@ -397,8 +419,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
   } catch (error) {
     console.error("Error al iniciar la llamada saliente:", error);
     setError(
-      "Error al iniciar la llamada saliente. Por favor, inténtalo de nuevo más tarde."
-    );
+       "Ya existe una conexión activa en otro dispositivo. Por favor, cierra la aplicación en ese dispositivo antes de continuar."    );
   }
   };
   
@@ -440,14 +461,14 @@ const idClase = location.pathname.substring(lastIndex + 1);
         <>
           <Headings />
           <NavBar />          
-          <div className="full_screen">
+          
             <div className="contenPantalla">
+            <div className="full_screen">
               {/* Contenido de la llamada */}
               <div className="Video_Entrante">
                 {remoteStream ? (
                   <video
-                    className="VideoCall"
-                    controls
+                    className="VideoCall"                    
                     autoPlay
                     ref={(video) => {
                       if (video && remoteStream) {
@@ -493,7 +514,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
                   )}
                 </div>
                 {callInProgress && <CallTimer variable={callInProgress} endCall={endCall} />}
-                <div className="container">
+                <div className="Control-container">
                   <div className="video-call-icons">
                     <div
                       className={`icon-wrapper ${isVolumeOn ? "on" : "off"}`}
@@ -554,7 +575,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
               </div>
             </div>
           </div>
-          {error && <div>Error: {error}</div>}
+          {error && <div className="Error">{error}</div>}
           <Footer />
           <DeleteOnline  userId={userId} callInProgress={callInProgress}  />
         </>
