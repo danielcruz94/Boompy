@@ -74,7 +74,7 @@ const Home = ({auth}) => {
     const storedValue = window.localStorage.getItem("userData");
     if (storedValue) {
       const parsedUserData = JSON.parse(storedValue);
-
+      console.log('entro al if')
       setLocalUser({
         email: parsedUserData.email,
         name: parsedUserData.name,
@@ -124,7 +124,7 @@ const Home = ({auth}) => {
 
 
 
- 
+ console.log(auth)
 
   return (
     <Container>
@@ -160,7 +160,7 @@ const Home = ({auth}) => {
             name={user.name}
             picture={user.picture}
             price={user.price}
-            goal={user.goal}
+            language={user.language}
             id={user.id}
             photos={user.photos}
             onMouseEnter={() => handleMouseEnter(user.id)} // Pasar ID de la tarjeta al entrar
