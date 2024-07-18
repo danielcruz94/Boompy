@@ -469,7 +469,8 @@ const idClase = location.pathname.substring(lastIndex + 1);
                 {remoteStream ? (
                   <video
                     className="VideoCall"                    
-                    autoPlay
+                    autoPlay 
+                    playsinline
                     ref={(video) => {
                       if (video && remoteStream) {
                         video.srcObject = remoteStream;
@@ -503,6 +504,7 @@ const idClase = location.pathname.substring(lastIndex + 1);
                       <video
                         className="VideoCall"
                         autoPlay
+                        playsinline
                         muted={true}
                         ref={(video) => {
                           if (video) video.srcObject = localStream;
