@@ -17,6 +17,7 @@ const NavBar = ({ textBotton, onClick, userInfo,auth }) => {
 const userDataString = localStorage.getItem('userData');
 const userData = auth;
 
+
   const [role, setRole] = useState(userData?.role); 
 
   
@@ -30,8 +31,11 @@ const userData = auth;
   const location = useLocation();
 
   useEffect(() => {
-    if (userData) {
-      setRole(userData.role);
+    if (userData.user) {
+      if(userData.user.role != undefined){
+        console.log(userData.user.role)
+          setRole(userData.user.role);
+      }      
     }
   }, [userData]);
 
@@ -43,11 +47,8 @@ const userData = auth;
     setIsCalendarOpen(false);
   };
 
-  const CalendarComponent = role === 'Tutor' ? CalendarClass : StudentCalendar;
-
+  const CalendarComponent = role === 'Tutor' ? CalendarClass : StudentCalendar;  
  
-  console.log(userData)
-  console.log(CalendarComponent)
 
   // Verifica si la ruta actual coincide con '/calls/:id'
   const isCallsActive = location.pathname.startsWith('/calls/');
