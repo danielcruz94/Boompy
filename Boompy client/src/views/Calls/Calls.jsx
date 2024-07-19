@@ -53,6 +53,7 @@ const Calls = () => {
   const [ID, setID] = useState();
   const [Cargando, setCargando] = useState(false);
   const [HoraInicio, setHoraInicio] = useState(false);
+  const [isiPhone, setIsiPhone] = useState(false);
  
 
   const serverURL = useSelector(state => state.serverURL.url);
@@ -60,9 +61,15 @@ const Calls = () => {
   const callsActive = useSelector((state) => state.callsActive);
 
 
-const location = useLocation();
-const lastIndex = location.pathname.lastIndexOf('/');
-const idClase = location.pathname.substring(lastIndex + 1);      
+    const location = useLocation();
+    const lastIndex = location.pathname.lastIndexOf('/');
+    const idClase = location.pathname.substring(lastIndex + 1);  
+
+      useEffect(() => {
+        const userAgent = navigator.userAgent;
+        const isiPhoneDevice = /iPhone/.test(userAgent);
+        setIsiPhone(isiPhoneDevice);
+      }, []);
 
       //agregar online consultar online
       useEffect(() => {
