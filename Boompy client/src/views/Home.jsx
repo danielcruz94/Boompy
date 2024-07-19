@@ -37,9 +37,10 @@ const Home = ({auth}) => {
   const [isLoading, setIsLoading] = useState(true); // Estado de carga inicial
 
   const [localUser, setLocalUser] = useState({
-    email: "",
-    token: "",
-    name: "",
+    email: auth.user.email,
+    token: auth.user.token,
+    name: auth.user.name,
+    role:auth.user.role
   });
 
   const [showTinyImg, setShowTinyImg] = useState(false); // Estado para cada tarjeta
