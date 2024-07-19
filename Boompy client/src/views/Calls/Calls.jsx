@@ -353,7 +353,9 @@ const idClase = location.pathname.substring(lastIndex + 1);
                             setVideoMute(true);
                             setIsVolumeOn(true);
                             setLocalStream(stream);
-                            handleCallAnswer(call, stream);                         
+                            handleCallAnswer(call, stream);       
+                            
+                            
 
                         })
                         .catch((error) => {
@@ -412,6 +414,8 @@ const idClase = location.pathname.substring(lastIndex + 1);
       setVideoMute(true);
       setIsVolumeOn(true);
       setRemoteStream(remoteStream);
+
+      
     });
     setCallInProgress(true);    
     dispatch(setActive(true));
@@ -517,63 +521,36 @@ const idClase = location.pathname.substring(lastIndex + 1);
                 </div>
                 {callInProgress && <CallTimer variable={callInProgress} endCall={endCall} />}
                 <div className="Control-container">
-                  <div className="video-call-icons">
-                    <div
-                      className={`icon-wrapper ${isVolumeOn ? "on" : "off"}`}
-                      onClick={toggleVolume}
-                    >
-                      <i
-                        className={`fas ${
-                          isVolumeOn ? "fa-volume-up" : "fa-volume-mute"
-                        }`}
-                      ></i>
-                    </div>
-                    <div
-                      className={`icon-wrapper ${!audioMute ? "off" : "on"}`}
-                      onClick={toggleAudioMute}
-                    >
-                      <i
-                        className={`fas ${
-                          !audioMute ? "fa-microphone-slash" : "fa-microphone"
-                        }`}
-                      ></i>
-                    </div>
-                    {!callInProgress && userData.role !== 'Tutor' && userData.role !== 'Student' && (
-                      <div className="icon-wrapper on" onClick={startOutgoingCall}>
-                        <i className="fas fa-phone on"></i>
-                      </div>
-                    )}
-
-                    {callInProgress && (
-                      <div className="icon-wrapper off" onClick={endCall}>
-                        <i className="fas fa-phone-slash off"></i>
-                      </div>
-                    )}
-
+                <div className="video-call-icons">
+                  <div className={`icon-wrapper ${isVolumeOn ? "on" : "off"}`} onClick={toggleVolume}>
+                    <i className={`fas ${isVolumeOn ? "fa-volume-up" : "fa-volume-mute"}`}></i>
                   </div>
-                  <div className="video-call-icons">
-                    <div
-                      className={`icon-wrapper ${!videoMute ? "off" : "on"}`}
-                      onClick={toggleVideoMute}
-                    >
-                      <i
-                        className={`fas ${
-                          !videoMute ? "fa-video-slash" : "fa-video"
-                        }`}
-                      ></i>
+                  <div className={`icon-wrapper ${!audioMute ? "off" : "on"}`} onClick={toggleAudioMute}>
+                    <i className={`fas ${!audioMute ? "fa-microphone-slash" : "fa-microphone"}`}></i>
+                  </div>
+                  {!callInProgress && userData.role !== 'Tutor' && userData.role !== 'Student' && (
+                    <div className="icon-wrapper on" onClick={startOutgoingCall}>
+                      <i className="fas fa-phone on"></i>
                     </div>
-                    <div
-                      className={`icon-wrapper ${isFullScreen ? "on" : "off"}`}
-                      onClick={handleFullScreen}
-                    >
-                      {isFullScreen ? (
-                        <i className="fas fa-compress"></i>
-                      ) : (
-                        <i className="fas fa-expand"></i>
-                      )}
+                  )}
+                  {callInProgress && (
+                    <div className="icon-wrapper off" onClick={endCall}>
+                      <i className="fas fa-phone-slash off"></i>
                     </div>
+                  )}
+                  <div className={`icon-wrapper ${!videoMute ? "off" : "on"}`} onClick={toggleVideoMute}>
+                    <i className={`fas ${!videoMute ? "fa-video-slash" : "fa-video"}`}></i>
+                  </div>
+                  <div className={`icon-wrapper ${isFullScreen ? "on" : "off"}`} onClick={handleFullScreen}>
+                    {isFullScreen ? (
+                      <i className="fas fa-compress"></i>
+                    ) : (
+                      <i className="fas fa-expand"></i>
+                    )}
                   </div>
                 </div>
+              </div>
+
               </div>
             </div>
           </div>
