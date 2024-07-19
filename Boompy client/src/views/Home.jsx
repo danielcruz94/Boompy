@@ -37,9 +37,10 @@ const Home = ({auth}) => {
   const [isLoading, setIsLoading] = useState(true); // Estado de carga inicial
 
   const [localUser, setLocalUser] = useState({
-    email: "",
-    token: "",
-    name: "",
+    email: auth.user?.email,
+    token: auth.user?.token,
+    name: auth.user?.name,
+    role:auth.user?.role
   });
 
   const [showTinyImg, setShowTinyImg] = useState(false); // Estado para cada tarjeta
@@ -74,7 +75,7 @@ const Home = ({auth}) => {
     const storedValue = window.localStorage.getItem("userData");
     if (storedValue) {
       const parsedUserData = JSON.parse(storedValue);
-
+      
       setLocalUser({
         email: parsedUserData.email,
         name: parsedUserData.name,
@@ -103,7 +104,7 @@ const Home = ({auth}) => {
           );
 
           if (prueba.data.completeInfo === true) {
-            dispatch(completeInfo());
+            dispatch(completeInfo(prueba.data.role));
           }
           setIsLoading(false);
         }
@@ -124,7 +125,7 @@ const Home = ({auth}) => {
 
 
 
- 
+ console.log(auth)
 
   return (
     <Container>
@@ -160,7 +161,7 @@ const Home = ({auth}) => {
             name={user.name}
             picture={user.picture}
             price={user.price}
-            goal={user.goal}
+            language={user.language}
             id={user.id}
             photos={user.photos}
             onMouseEnter={() => handleMouseEnter(user.id)} // Pasar ID de la tarjeta al entrar

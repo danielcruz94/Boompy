@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ContainerBar, ContainerNavBar, Image, SubHeading, SubmitButton, Bottom } from '../../views/Landing.style';
-import { useSelector } from "react-redux";
+import { useSelector ,connect} from "react-redux";
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import StudentCalendar from '../Components/Calendar/Student_Calendar';
 import CalendarClass from '../Components/Calendar/Calendar_Class';
@@ -10,18 +10,18 @@ import Button from '../../assets/Button.svg';
 import Vector from '../../assets/Vector.svg'; 
 import Torii from '../../assets/torii.png'
 
-const NavBar = ({ textBotton, onClick, userInfo }) => {
+const NavBar = ({ textBotton, onClick, userInfo,auth }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
 
  
 const userDataString = localStorage.getItem('userData');
-const userData = JSON.parse(userDataString);
+const userData = auth;
 
   const [role, setRole] = useState(userData?.role); 
 
   
 
-  const auth = useSelector((state) => state.auth);
+  // const auth = useSelector((state) => state.auth);
 
  const navegate =useNavigate()
 
@@ -96,4 +96,10 @@ const userData = JSON.parse(userDataString);
   );
 };
 
-export default NavBar;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+ 
+ 
+});
+
+export default connect(mapStateToProps)(NavBar);

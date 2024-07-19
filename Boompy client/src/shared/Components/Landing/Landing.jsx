@@ -207,7 +207,7 @@ const signUpLink=() => {
 
         <div>
           <h2>
-          The best way to learn a language is <br /> Speaking!!
+          The best way to learn a language is <br /> Speaking.
           </h2>
           <div className="InputSus">
             {/* <input type="text" placeholder="Type Your E-Mail" />
