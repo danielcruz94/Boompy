@@ -10,7 +10,7 @@ import React,{useState} from 'react';
 import axios from 'axios';
 
 import { useSelector,useDispatch,connect } from "react-redux"
-import {completeInfo,logout} from '../../../Redux/authSlice'
+import {completeInfo} from '../../../Redux/authSlice'
 
 import ImageFileUpload from '../ImageUpload/ImageFileUpdload'
 import CountrySelector from '../Select/CountrySelector';
@@ -83,8 +83,8 @@ const handleChange = (event) => {
 
             Swal.fire({
                 icon: 'success',
-                title: '¡Infomación completa!',
-                text: 'Ahora puedes usar la app para practicar.',
+                title: '¡Your account information has been updated.',
+                text: 'Now you can use the app to practice.',
             }).then()
         dispatch(completeInfo(settingInformation.role))
      

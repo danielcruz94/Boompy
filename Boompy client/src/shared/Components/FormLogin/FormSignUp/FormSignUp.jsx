@@ -40,8 +40,8 @@ const FormSignUp = () => {
       if(newUser){
         Swal.fire({
           icon: 'success',
-          title: '¡Registro Exitoso!',
-          text: 'Eres un nuevo usuario de la App de Torii.',
+          title: '¡successful registration!',
+          text: 'Welcome to the Torii App.',
       }).then(() =>window.location.href = "/login" )
       }
     } catch (error) {
