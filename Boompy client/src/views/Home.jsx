@@ -104,7 +104,7 @@ const Home = ({auth}) => {
           );
 
           if (prueba.data.completeInfo === true) {
-            dispatch(completeInfo());
+            dispatch(completeInfo(prueba.data.role));
           }
           setIsLoading(false);
         }
