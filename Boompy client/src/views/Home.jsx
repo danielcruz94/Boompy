@@ -37,10 +37,10 @@ const Home = ({auth}) => {
   const [isLoading, setIsLoading] = useState(true); // Estado de carga inicial
 
   const [localUser, setLocalUser] = useState({
-    email: auth.user.email,
-    token: auth.user.token,
-    name: auth.user.name,
-    role:auth.user.role
+    email: auth.user?.email,
+    token: auth.user?.token,
+    name: auth.user?.name,
+    role:auth.user?.role
   });
 
   const [showTinyImg, setShowTinyImg] = useState(false); // Estado para cada tarjeta
@@ -75,7 +75,7 @@ const Home = ({auth}) => {
     const storedValue = window.localStorage.getItem("userData");
     if (storedValue) {
       const parsedUserData = JSON.parse(storedValue);
-      console.log('entro al if')
+      
       setLocalUser({
         email: parsedUserData.email,
         name: parsedUserData.name,
