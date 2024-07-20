@@ -33,8 +33,7 @@ const userData = auth;
   useEffect(() => {
     if (userData.user) {
       if(userData.user.role != undefined){
-        console.log(userData.user.role)
-          setRole(userData.user.role);
+        setRole(userData.user.role);
       }      
     }
   }, [userData]);

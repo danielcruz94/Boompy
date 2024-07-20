@@ -463,6 +463,26 @@ const Calls = () => {
     return () => clearInterval(timer);
   }, []);
 
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {    
+      event.preventDefault();         
+      peer.destroy(); 
+      
+  console.log(peer)
+      setTimeout(() => {        
+       // window.location.reload(true); 
+      }, 3000); 
+    };
+  
+    window.addEventListener('beforeunload', handleBeforeUnload);
+  
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+  
+
   
 
   return (
