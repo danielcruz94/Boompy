@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useSelector} from "react-redux";
+import { setActive } from '../../Redux/Calls';
+import { useSelector,useDispatch } from "react-redux"
 import { TimeUTC } from './TimeUTC';
+
 
 const Timer = ({ variable, endCall }) => { 
   const [Cookie, setCookie] = useState('');  
@@ -8,6 +10,8 @@ const Timer = ({ variable, endCall }) => {
   
 
   const callsActive = useSelector((state) => state.callsActive);
+  const dispatch = useDispatch();
+ 
  
 
   // Obtener el valor de la cookie 'classId' al montar el componente
@@ -86,13 +90,34 @@ const Timer = ({ variable, endCall }) => {
                       }
                     } else {        
                           document.getElementById('tiempo').classList.remove('red');
+                    }          
+                                  
+                    
+                    // Aquí defines la lógica para verificar la condición y actuar en consecuencia
+                    if (HoraLocal === FinClase && minutosLocal === MinFinal && segundosLocal === SegFinal) {                       
+                    
+                        // Cambiar el estado a false usando la acción setActive de Redux
+                        dispatch(setActive(false));
+                    
+                        const host = window.location.hostname;
+                        const port = window.location.port;
+                        let url = null;
+                    
+                        if (port === "5173") {
+                            url = `https://${host}:${port}/home`;
+                        } else {
+                            url = `https://${host}/home`;
+                        }
+                    
+                        // Redireccionar a la URL después de 300ms
+                        setTimeout(() => {
+                            window.location.href = url;
+                        }, 900);
+                    
+                        // Limpiar el intervalo si es necesario
+                        clearInterval(interval);
                     }
-            
-                  if (HoraLocal ===FinClase && minutosLocal === MinFinal && segundosLocal === SegFinal) {
-                    console.log("¡Las horas locales coinciden con la hora final!");
-                    endCall();
-                    clearInterval(interval); 
-                  }
+                    
           
                   document.getElementById('tiempo').innerHTML = `${minutosF} : ${segundosF}`;
 

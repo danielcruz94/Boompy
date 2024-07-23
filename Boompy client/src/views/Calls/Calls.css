@@ -104,8 +104,9 @@
 
 .call-timer{
     font-weight: 700;
-    background: rgb(98, 98, 223);
+    background: #06042E;
     width: 100vw;
+    color: white;
 }
 
 .red{

@@ -3,7 +3,7 @@ import { color } from '../../styles';
 
 export const Container = styled.div`
 margin:7px;
-  input[type='file'] {
+  [type='file'] {
     display: none;
   }
 

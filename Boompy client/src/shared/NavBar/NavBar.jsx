@@ -9,6 +9,8 @@ import Corazon from '../../assets/corazon.svg';
 import Button from '../../assets/Button.svg';
 import Vector from '../../assets/Vector.svg'; 
 import Torii from '../../assets/torii.png'
+import Notification from '../Components/Notification/Notification';
+import Settings from '../Components/Settings/Settings';
 
 const NavBar = ({ textBotton, onClick, userInfo,auth }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
@@ -18,7 +20,9 @@ const userDataString = localStorage.getItem('userData');
 const userData = auth;
 
 
-  const [role, setRole] = useState(userData?.role); 
+  const [role, setRole] = useState(userData?.role);   
+  const currentUrl = window.location.href;    
+  const shouldHideButton = currentUrl.includes('calls');
 
   
 
@@ -83,12 +87,19 @@ const userData = auth;
         <SubmitButton placeholder="Search your partner"></SubmitButton>
         <img src={Button} style={{ width: '10px' }} alt="button" />
       </ContainerNavBar>
+
       {/* Sección inferior del NavBar */}
-      <div style={{ display: 'flex', gap: '5px' }}>
-        <img src={Corazon} alt="corazon" />
-        <img src={Carrito} alt="carrito" />
-        <Bottom onClick={onClick}>{textBotton}</Bottom>
-      </div>
+      <div style={{ display: 'flex', gap: '5px' }}>       
+          {
+            <Notification
+              numMessages={1}
+              messageIcon={<i className="fa fa-envelope" />}
+              messageContent="Contenido del mensaje aquí..."
+            />            
+          }   
+          {<Settings />}
+          {!shouldHideButton && <Bottom onClick={onClick}>{textBotton}</Bottom>}
+       </div>
 
       {/* Componente del calendario que se muestra si isCalendarOpen es true */}
       {isCalendarOpen && <CalendarComponent isOpen={isCalendarOpen} onRequestClose={closeCalendar} onClose={closeCalendar} />}

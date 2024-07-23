@@ -191,6 +191,10 @@ const Calls = () => {
 
     // En endCall
       const endCall = () => {
+        dispatch(setActive(false));    
+        setCallInProgress(false);
+
+
         if (localStream) {
           localStream.getTracks().forEach((track) => track.stop());
           setLocalStream(null);
@@ -198,8 +202,6 @@ const Calls = () => {
         if (remoteStream) {
           setRemoteStream(null);
         }
-        setCallInProgress(false);
-        dispatch(setActive(false));              
         
             const host = window.location.hostname;
             const port = window.location.port;
@@ -214,7 +216,7 @@ const Calls = () => {
      
         setTimeout(() => {
           window.location.href = url;
-        }, 300);
+        }, 600);
       };
 
   const toggleVolume = () => {
@@ -471,7 +473,7 @@ const Calls = () => {
       
   console.log(peer)
       setTimeout(() => {        
-       // window.location.reload(true); 
+       window.location.reload(true); 
       }, 3000); 
     };
   
