@@ -94,27 +94,8 @@ const Timer = ({ variable, endCall }) => {
                                   
                     
                     // Aquí defines la lógica para verificar la condición y actuar en consecuencia
-                    if (HoraLocal === FinClase && minutosLocal === MinFinal && segundosLocal === SegFinal) {                       
-                    
-                        // Cambiar el estado a false usando la acción setActive de Redux
-                        dispatch(setActive(false));
-                    
-                        const host = window.location.hostname;
-                        const port = window.location.port;
-                        let url = null;
-                    
-                        if (port === "5173") {
-                            url = `https://${host}:${port}/home`;
-                        } else {
-                            url = `https://${host}/home`;
-                        }
-                    
-                        // Redireccionar a la URL después de 300ms
-                        setTimeout(() => {
-                            window.location.href = url;
-                        }, 900);
-                    
-                        // Limpiar el intervalo si es necesario
+                    if (HoraLocal === FinClase && minutosLocal === MinFinal && segundosLocal === SegFinal) {  
+                        endCall();
                         clearInterval(interval);
                     }
                     

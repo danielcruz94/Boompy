@@ -191,9 +191,10 @@ const Calls = () => {
 
     // En endCall
       const endCall = () => {
-        dispatch(setActive(false));    
+          
         setCallInProgress(false);
 
+        console.log(callInProgress)
 
         if (localStream) {
           localStream.getTracks().forEach((track) => track.stop());
@@ -216,7 +217,7 @@ const Calls = () => {
      
         setTimeout(() => {
           window.location.href = url;
-        }, 600);
+        }, 200);
       };
 
   const toggleVolume = () => {
@@ -466,24 +467,6 @@ const Calls = () => {
   }, []);
 
 
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {    
-      event.preventDefault();         
-      peer.destroy(); 
-      
-  console.log(peer)
-      setTimeout(() => {        
-       window.location.reload(true); 
-      }, 3000); 
-    };
-  
-    window.addEventListener('beforeunload', handleBeforeUnload);
-  
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, []);
-  
 
   
 
@@ -502,8 +485,7 @@ const Calls = () => {
                 {remoteStream ? (
                   <video
                     className="VideoCall"                    
-                    autoPlay 
-                    playsinline
+                    autoPlay                   
                     ref={(video) => {
                       if (video && remoteStream) {
                         video.srcObject = remoteStream;
@@ -536,8 +518,7 @@ const Calls = () => {
                     localStream && (
                       <video
                         className="VideoCall"
-                        autoPlay
-                        playsinline
+                        autoPlay                      
                         muted={true}
                         ref={(video) => {
                           if (video) video.srcObject = localStream;
@@ -585,7 +566,7 @@ const Calls = () => {
           </div>
           {error && <div className="Error">{error}</div>}
           <Footer />
-          <DeleteOnline  userId={userId} callInProgress={callInProgress}  />
+          <DeleteOnline  userId={userId} callInProgress={callInProgress} peer={peer} />
         </>
       ) : (
         // Mensaje de carga

@@ -2,9 +2,12 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useSelector} from "react-redux"
 
-const DeleteUserOnUnmount = ({ userId, callInProgress }) => {
+const DeleteUserOnUnmount = ({ userId, callInProgress, peer }) => {
 
-  const serverURL = useSelector(state => state.serverURL.url);
+  const serverURL = useSelector(state => state.serverURL.url);  
+  const callsActive = useSelector((state) => state.callsActive);
+
+  console.log(callInProgress)
 
   useEffect(() => {  
 
@@ -12,6 +15,7 @@ const DeleteUserOnUnmount = ({ userId, callInProgress }) => {
       try {
         const url = `${serverURL}/DeleteUserOnline/${userId}`;
         await axios.delete(url);
+        peer.destroy()
         console.log(`Usuario con ID ${userId} eliminado correctamente`);
       } catch (error) {
         console.error(`Error al eliminar usuario con ID ${userId}:`, error);

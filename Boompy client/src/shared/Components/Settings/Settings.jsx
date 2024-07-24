@@ -32,7 +32,7 @@ const Settings = () => {
               <label htmlFor="accountName">add payment account:</label>
               <input
                 className='inputpay'
-                type="text"
+                type="number"
                 id="accountName"
                 value={accountName}
                 onChange={(e) => setAccountName(e.target.value)}
