@@ -22,7 +22,7 @@ const Settings = () => {
   return (
     <div>
       <div className="settings-icon" onClick={openModal}>
-        <i className="fa fa-cog" /> {/* Aquí puedes ajustar el ícono de engrane */}
+        <i className="fa fa-cog IconNavbar" /> {/* Aquí puedes ajustar el ícono de engrane */}
       </div>
       {showModal && (
         <div className="modal">

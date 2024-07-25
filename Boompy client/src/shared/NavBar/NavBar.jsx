@@ -93,7 +93,7 @@ const userData = auth;
           {
             <Notification
               numMessages={1}
-              messageIcon={<i className="fa fa-envelope" />}
+              messageIcon={<i className="fa fa-envelope IconNavbar" />}
               messageContent="Contenido del mensaje aquí..."
             />            
           }   
