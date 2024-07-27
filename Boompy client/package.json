@@ -11,6 +11,7 @@
     "host": "vite --host"
   },
   "dependencies": {
+    
     "@reduxjs/toolkit": "^2.2.3",
     "axios": "^1.6.8",
     "jsonwebtoken": "^9.0.2",

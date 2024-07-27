@@ -110,7 +110,8 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
             endTime: endTimeUTC,
             reserved: ""
         };
-      
+
+
         const response = await axios.post(`${serverURL}/calendar`, classData);
       
         if (response.status === 201) {

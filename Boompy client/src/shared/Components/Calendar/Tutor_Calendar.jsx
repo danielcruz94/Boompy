@@ -21,6 +21,11 @@ function TutorCalendar({ pagina, ID,tutor}) {
   const [NameTutor, setNameTutor] = useState(false);
 
 
+  //payment
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+
   const serverURL = useSelector(state => state.serverURL.url);  
   const location = useLocation();
   const lastIndex = location.pathname.lastIndexOf('/');
@@ -144,6 +149,25 @@ function TutorCalendar({ pagina, ID,tutor}) {
       };
       try {
 
+
+        const payment=await axios(`${serverURL}/createdorder`);
+
+
+        const IdPayment=payment.data.id;
+
+
+        const paymentUrl = payment.data.links[1].href; // Assuming the payment URL is at index 1
+        window.open(paymentUrl, '_blank')
+
+        const timeout = new Promise(resolve => setTimeout(resolve, 2 * 60 * 1000)); // 5 minutos
+
+    // Espera a que se complete el pago o que expire el tiempo de espera
+       await timeout;
+
+        
+
+
+        
 
         const response = await axios.put(`${serverURL}/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue });
         setReservationSuccess(prevState => !prevState);

@@ -23,7 +23,11 @@ import instagram from '../../shared/Components/Instagram/InstagramAuth';
 
 
 
+
 const Teach = ({auth}) => {
+
+
+  
   // const auth = useSelector((state) => state.auth);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -316,6 +320,9 @@ React.useEffect(()=>{
                   </div>
                 </div>
                 <TutorCalendar pagina="Tutor" ID="Null" />
+                <button onClick={() => window.location.href='https://gemini.google.com/app/71914a673a9c4ffa'}>ir a page</button>
+
+                
                 </div>
 
             </div>
