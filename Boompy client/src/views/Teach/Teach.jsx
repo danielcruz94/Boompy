@@ -17,7 +17,7 @@ import  Spinner  from '../../shared/Components/Modals/Spinners/Spinner'
 
 import TutorCalendar from '../../shared/Components/Calendar/Tutor_Calendar';
 import { useState } from 'react';
-import instagram from '../../shared/Components/Instagram/InstagramAuth';
+import Comp_instagram from '../../shared/Components/Instagram/InstagramAuth';
 
 
 
@@ -136,6 +136,7 @@ React.useEffect(()=>{
         <Headings></Headings>
 
         { <NavBar textBotton={"Logout"} onClick={handleLogout}></NavBar> }
+        {/*<Comp_instagram/>*/}
 
         <div className="NavTeach"></div>
         {isLoading && <Spinner />}

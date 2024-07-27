@@ -33,7 +33,6 @@ const Home = ({auth}) => {
 
   //locals Variable
 
-
   const [isLoading, setIsLoading] = useState(true); // Estado de carga inicial
 
   const [localUser, setLocalUser] = useState({
@@ -58,12 +57,8 @@ const Home = ({auth}) => {
     setTimeout(() => {
       setShowTinyImg(false);
     }, 100);
-    ; // Reinicia al salir del mouse
+     // Reinicia al salir del mouse
   };
-
-  
-
-
 
   useEffect(() => {
     if(!auth.isLoggedIn){
@@ -92,16 +87,16 @@ const Home = ({auth}) => {
     const getData = async () => {
       try {
 
-        const res = await axios( `${serverURL}/users`);
-
-        dispatch(fetchUsers(res.data));
+        //consulta usuarios 
+        const res = await axios( `${serverURL}/users`);   
 
         if (localUser.email) {
           const prueba = await axios.get(
-
             `${serverURL}/userdata?email=${localUser.email}`
-
           );
+       
+          const filteredData = res.data.filter(item => item.language === prueba.data.language);       
+          dispatch(fetchUsers(filteredData));
 
           if (prueba.data.completeInfo === true) {
             dispatch(completeInfo(prueba.data.role));
@@ -122,8 +117,6 @@ const Home = ({auth}) => {
     window.localStorage.removeItem("userData");
     navegate("/");
   };
-
-
 
  //console.log(auth)
 
@@ -154,6 +147,8 @@ const Home = ({auth}) => {
             <Modal title={"Complete Your Information"} url={serverURL}></Modal>
           </BackgrounModal>
         )}
+
+       
 
         {users.map((user) => (
           <CardProfile

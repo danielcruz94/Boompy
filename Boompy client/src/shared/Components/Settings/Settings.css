@@ -50,8 +50,19 @@
     width: 200px;
   }
 
-  .IconNavbar{    
-      color: #abb7c194;  
+  .IconNavbar {
+    color: #abb7c1;
+  }
+
+  .accountnumber::-webkit-inner-spin-button,
+  .accountnumber::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  }
+
+  /* Ocultar las flechas en Firefox */
+  .accountnumber {
+      -moz-appearance: textfield;
   }
   
   @media screen and (max-width: 600px) {
