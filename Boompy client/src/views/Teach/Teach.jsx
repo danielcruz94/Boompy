@@ -26,8 +26,16 @@ import Comp_instagram from '../../shared/Components/Instagram/InstagramAuth';
 const Teach = ({auth}) => {
   // const auth = useSelector((state) => state.auth);
 
+  const [location, setLocation] = useState(null);
+  const [isLatam, setIsLatam] = useState(false);
+
   const [isLoading, setIsLoading] = useState(true);
   const navegate = useNavigate();
+
+
+ 
+
+  
 
   React.useEffect(() => {
     if(!auth.isLoggedIn){
@@ -49,7 +57,12 @@ const Teach = ({auth}) => {
 
   const serverURL = useSelector(state => state.serverURL.url);
 
-
+  function extractNumber(priceStr) {
+    // Usar una expresión regular para extraer números
+    let number = priceStr.match(/[\d\.]+/);
+    // Convertir el número a formato numérico
+    return number ? parseFloat(number[0]) : null;
+}
 
 
 
@@ -60,37 +73,59 @@ const Teach = ({auth}) => {
 
     const params =useParams()
 
-React.useEffect(()=>{
-    axios(`${serverURL}/user/${params.id}`)
-    .then(({ data }) => {
+    React.useEffect(() => {
+      const fetchData = async () => {
+        try {
+          // Fetch user data
+          const { data } = await axios(`${serverURL}/user/${params.id}`);
+          
+          // Fetch location data
+          const response = await axios.get('https://ipinfo.io/json');
+          const countryCode = response.data.country?.toUpperCase();
+          setLocation(response.data.country);
+          
+          // Check if the country is in LATAM
+          const latamCountries = ['AR', 'BO', 'BR', 'CL', 'CO', 'CR', 'CU', 'DO', 'EC', 'SV', 'GT', 'HN', 'MX', 'NI', 'PA', 'PY', 'PE', 'PR', 'UY', 'VE'];
+          const isInLatam = latamCountries.includes(countryCode);
+          setIsLatam(isInLatam);
 
-        if (data.name) {
+          let numericPrice = extractNumber(data.price);
 
-          setUserProfile({
+         if(isInLatam === true){
+              numericPrice = numericPrice + 1 + " USD"
+         }
 
-            email:data.email,
-            name:data.name,
-            lastName:data.lastName,
-            picture:data.picture,
-            biography:data.biography,
-            hobbies:data.id,
-            price:data.price,
-            photos:data.photos,
-            country:data.country,
-            rates:data.teacherRates
+         if(isInLatam === false){
+          numericPrice = numericPrice + 3 + " USD"
+         }
 
-          })
-
-          setIsLoading(false)
-        } else {
-           window.alert('¡Something Wrong!');
+          
+          // Update user profile state
+          if (data.name) {
+            setUserProfile({
+              email: data.email,
+              name: data.name,
+              lastName: data.lastName,
+              picture: data.picture,
+              biography: data.biography,
+              hobbies: data.id,
+              price: numericPrice,
+              photos: data.photos,
+              country: data.country,
+              rates: data.teacherRates
+            });
+          } else {
+            window.alert('¡Something Wrong!');
+          }
+        } catch (error) {
+          alert('Not Network');
+        } finally {
+          setIsLoading(false);
         }
-     })
-     .catch(()=>{
-      alert("Not Network")
-     })
-     return setUserProfile({})
-   },[params?.id])
+      };
+  
+      fetchData();
+    }, [params?.id]);
 
 
 
@@ -253,7 +288,7 @@ React.useEffect(()=>{
               <div className="course-offer">
                 <div>
                   <p>Contribution</p>
-                  <p>${userProfile.price}</p>
+                  <p className="price">${userProfile.price}</p>
                 </div>
                 <ul className="course-includes">
                   <li>
