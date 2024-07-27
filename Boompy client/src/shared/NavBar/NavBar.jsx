@@ -97,7 +97,7 @@ const userData = auth;
               messageContent="Contenido del mensaje aquí..."
             />            
           }   
-          {<Settings />}
+          {role === 'Tutor' && <Settings />}
           {!shouldHideButton && <Bottom onClick={onClick}>{textBotton}</Bottom>}
        </div>
 
