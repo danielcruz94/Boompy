@@ -22,7 +22,7 @@ function TutorCalendar({ pagina, ID,tutor}) {
 
 
   //payment
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [status, setStatus] = useState('CREATED');
   const [errorMessage, setErrorMessage] = useState(null);
 
 
@@ -154,18 +154,60 @@ function TutorCalendar({ pagina, ID,tutor}) {
 
 
         const IdPayment=payment.data.id;
-
+        console.log(IdPayment)
 
         const paymentUrl = payment.data.links[1].href; // Assuming the payment URL is at index 1
         window.open(paymentUrl, '_blank')
 
-        const timeout = new Promise(resolve => setTimeout(resolve, 2 * 60 * 1000)); // 5 minutos
+        const timeout = new Promise(resolve => setTimeout(resolve, 30000)); // 0,5 segundos
 
     // Espera a que se complete el pago o que expire el tiempo de espera
        await timeout;
 
-        
+       const idNumber={id:IdPayment}
 
+
+       
+       const getStatus = async (id, timeout = 50000) => { // Set a default timeout
+        try {
+          const response = await axios.post(`${serverURL}/statuspayment`,  id );
+          const status = response.data;
+          console.log("se hizo la fun")
+      
+          if (status === 'COMPLETED') {
+            setStatus(status);
+            console.log("estado final",status)
+            console.log("se hizo el pago")
+            return; // Exit the recursion if status is not 'CREATED'
+          }
+      
+          // Implement a timeout mechanism to prevent infinite recursion
+          const timeoutId = setTimeout(async () => {
+            console.log('Payment status check timed out.');
+          
+          }, timeout);
+      
+         
+          await getStatus(id, timeout); // Decrement timeout on each recursion
+      
+        } catch (error) {
+          console.error('Error checking payment status:', error);
+        }
+      };
+
+
+      await getStatus(idNumber,3000)
+
+       console.log("el estado final es ",status)
+        
+  if(status!=="CREATED"){
+    
+    alert("se hizo el pago")
+
+
+  }else{
+    alert("no se hizo el pago")
+  }
 
         
 
@@ -262,6 +304,12 @@ function TutorCalendar({ pagina, ID,tutor}) {
     setScrollEnabled(true);
     setSelectedTime('');
   };
+
+
+
+
+
+
 
   const getAvailableTimesForDate = (date) => {
     const availabilityForDate = tutorAvailability.filter(availability => new Date(availability.date).toLocaleDateString() === date.toLocaleDateString());
