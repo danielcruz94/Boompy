@@ -159,38 +159,56 @@ function TutorCalendar({ pagina, ID,tutor}) {
         const paymentUrl = payment.data.links[1].href; // Assuming the payment URL is at index 1
         window.open(paymentUrl, '_blank')
 
-        const timeout = new Promise(resolve => setTimeout(resolve, 30000)); // 0,5 segundos
+      //   const timeout = new Promise(resolve => setTimeout(resolve, 30000)); // 0,5 segundos
 
-    // Espera a que se complete el pago o que expire el tiempo de espera
-       await timeout;
+      //  await timeout;
 
        const idNumber={id:IdPayment}
+      let startTime ;
 
+      let timeOut;
 
        
        const getStatus = async (id, timeout = 50000) => { // Set a default timeout
+        if(!startTime){
+          startTime = Date.now();
+        }
+        
         try {
+          
+          
+          
           const response = await axios.post(`${serverURL}/statuspayment`,  id );
-          const status = response.data;
-          console.log("se hizo la fun")
+          const answer = response.data;
+          console.log("Se ejecuto el getstatus,",answer)
       
-          if (status === 'COMPLETED') {
-            setStatus(status);
-            console.log("estado final",status)
-            console.log("se hizo el pago")
-            return; // Exit the recursion if status is not 'CREATED'
+          if (answer === 'COMPLETED') {
+            setStatus(answer);
+            timeOut=false;
+            return status; 
           }
       
-          // Implement a timeout mechanism to prevent infinite recursion
-          const timeoutId = setTimeout(async () => {
-            console.log('Payment status check timed out.');
           
-          }, timeout);
-      
+          const timeoutId = setTimeout(async () => {
+            console.log('Payment status check timed out.')
+           
+          
+          }, timeout); 
+
+          if (Date.now() - startTime > 300000) {
+            
+            clearTimeout(timeoutId);
+            timeOut=true;
+            console.log('Timeout alcanzado, deteniendo la recursión');
+            return timeOut;
+          }
          
-          await getStatus(id, timeout); // Decrement timeout on each recursion
+          await getStatus(id, timeout); 
       
         } catch (error) {
+
+
+
           console.error('Error checking payment status:', error);
         }
       };
@@ -198,16 +216,9 @@ function TutorCalendar({ pagina, ID,tutor}) {
 
       await getStatus(idNumber,3000)
 
-       console.log("el estado final es ",status)
-        
-  if(status!=="CREATED"){
-    
-    alert("se hizo el pago")
 
+      if(status==='COMPLETED'&&timeOut===false){
 
-  }else{
-    alert("no se hizo el pago")
-  }
 
         
 
@@ -285,8 +296,8 @@ function TutorCalendar({ pagina, ID,tutor}) {
 
           Swal.fire({
             icon: 'success',
-            title: '¡Clase reservada con éxito!',
-            text: 'Tu clase ha sido reservada exitosamente.',
+            title: '¡Great news! Your class is booked.!',
+            text: 'Your class has been booked successfully',
           }).then(() => {
             closeModal(); // Cierra el modal después de que el usuario confirme la alerta
           });
@@ -294,6 +305,14 @@ function TutorCalendar({ pagina, ID,tutor}) {
         } else {
           throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
         }
+
+
+
+      }else{
+       setErrorMessage("Time You have exceeded the payment time limit")
+      }
+
+
       } catch (error) {
         console.error("Error reserving class:", error);
       }
@@ -303,6 +322,8 @@ function TutorCalendar({ pagina, ID,tutor}) {
 
     setScrollEnabled(true);
     setSelectedTime('');
+
+
   };
 
 

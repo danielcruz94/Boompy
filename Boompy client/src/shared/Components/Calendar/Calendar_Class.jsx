@@ -156,8 +156,8 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
 
              Swal.fire({
                 icon: 'success',
-                title: '¡Horario reservado con éxito!',
-                text: 'El horario de clase que marcó como disponible ha sido reservado exitosamente.',
+                title: '¡Schedule updated successfully!',
+                text: 'Great news! Your available Schedule time is now booked.',
             }).then(() => {
               //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
             });
