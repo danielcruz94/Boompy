@@ -19,6 +19,7 @@ import TutorCalendar from '../../shared/Components/Calendar/Tutor_Calendar';
 import { useState } from 'react';
 import Comp_instagram from '../../shared/Components/Instagram/InstagramAuth';
 
+import {convertirMonedaANumero} from '../../shared/utils/funtions';
 
 
 
@@ -32,6 +33,7 @@ const Teach = ({auth}) => {
 
   const [location, setLocation] = useState(null);
   const [isLatam, setIsLatam] = useState(false);
+ 
 
   const [isLoading, setIsLoading] = useState(true);
   const navegate = useNavigate();
@@ -96,11 +98,11 @@ const Teach = ({auth}) => {
           let numericPrice = extractNumber(data.price);
 
          if(isInLatam === true){
-              numericPrice = numericPrice + 1 + " USD"
+              numericPrice = numericPrice + 1 
          }
 
          if(isInLatam === false){
-          numericPrice = numericPrice + 3 + " USD"
+          numericPrice = numericPrice + 3 
          }
 
           
@@ -162,8 +164,9 @@ const Teach = ({auth}) => {
       });
   };
 
+ 
 
-
+  
 
 
     return (
@@ -292,7 +295,7 @@ const Teach = ({auth}) => {
               <div className="course-offer">
                 <div>
                   <p>Contribution</p>
-                  <p className="price">${userProfile.price}</p>
+                  <p className="price">${userProfile.price +'USD'}</p>
                 </div>
                 <ul className="course-includes">
                   <li>
@@ -355,10 +358,10 @@ const Teach = ({auth}) => {
                     />
                   </div>
                 </div>
-                <TutorCalendar pagina="Tutor" ID="Null" />
-                <button onClick={() => window.location.href='https://gemini.google.com/app/71914a673a9c4ffa'}>ir a page</button>
-
                 
+                <TutorCalendar pagina="Tutor" ID="Null" amount={userProfile.price} />
+
+                {/* userProfile.country?extractNumber(userProfile.country):'6.00' */}
                 </div>
 
             </div>

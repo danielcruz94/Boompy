@@ -9,7 +9,7 @@ import 'sweetalert2/dist/sweetalert2.css';
 
 import './Calendar.css';
 
-function TutorCalendar({ pagina, ID,tutor}) {
+function TutorCalendar({ pagina, ID,tutor,amount}) {
   const [tutorAvailability, setTutorAvailability] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -26,12 +26,12 @@ function TutorCalendar({ pagina, ID,tutor}) {
   const [errorMessage, setErrorMessage] = useState(null);
 
 
-  const serverURL = useSelector(state => state.serverURL.url);  
+  const serverURL = useSelector(state => state.serverURL.url);
   const location = useLocation();
   const lastIndex = location.pathname.lastIndexOf('/');
   let id = null;
 
-  if(ID === "Null"){   
+  if(ID === "Null"){
     id = location.pathname.substring(lastIndex + 1);
   }else{
     id = ID;
@@ -49,10 +49,10 @@ function TutorCalendar({ pagina, ID,tutor}) {
         }
         const userData = await response.json();
         setEmailTutor(userData.email);
-        setNameTutor(userData.name);       
+        setNameTutor(userData.name);
       } catch (error) {
         console.error('Error fetching user:', error);
-       
+
       }
     };
 
@@ -92,10 +92,10 @@ function TutorCalendar({ pagina, ID,tutor}) {
       const processedAvailabilityData = availabilityData.map(avail => {
         const startDateTime = new Date(avail.startTime);
         const endDateTime = new Date(avail.endTime);
-        
+
         const startTimeLocal = startDateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
         const endTimeLocal = endDateTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
-        
+
         // Filtrar las clases que aún no han comenzado
         if (startDateTime > new Date()) {
           return {
@@ -107,9 +107,9 @@ function TutorCalendar({ pagina, ID,tutor}) {
           return null; // Excluir las clases que ya han comenzado
         }
       }).filter(Boolean); // Eliminar elementos nulos del array
-      
+
       setTutorAvailability(processedAvailabilityData);
-      
+
     } catch (error) {
       console.error('Error fetching tutor availability:', error);
     }
@@ -145,12 +145,12 @@ function TutorCalendar({ pagina, ID,tutor}) {
         endTime: selectedClass.endTime,
         userId: selectedClass.userId,
         classId: selectedClass._id,
-        reserved: reservedValue 
+        reserved: reservedValue
       };
       try {
 
 
-        const payment=await axios(`${serverURL}/createdorder`);
+        const payment=await axios.post(`${serverURL}/createdorder`,{amount:amount});
 
 
         const IdPayment=payment.data.id;
@@ -166,45 +166,46 @@ function TutorCalendar({ pagina, ID,tutor}) {
        const idNumber={id:IdPayment}
       let startTime ;
 
-      let timeOut;
+      let timeOut= false;
 
-       
+
        const getStatus = async (id, timeout = 50000) => { // Set a default timeout
         if(!startTime){
           startTime = Date.now();
         }
-        
+
         try {
-          
-          
-          
+
+
+
           const response = await axios.post(`${serverURL}/statuspayment`,  id );
           const answer = response.data;
           console.log("Se ejecuto el getstatus,",answer)
-      
-          if (answer === 'COMPLETED') {
-            setStatus(answer);
+          
+          if (response.data === 'COMPLETED') {
+            setStatus(response.data);
+            console.log('status cuando es compled',status)
             timeOut=false;
-            return status; 
+            return status;
           }
-      
-          
-          const timeoutId = setTimeout(async () => {
-            console.log('Payment status check timed out.')
-           
-          
-          }, timeout); 
+
+
+          // const timeoutId = setTimeout(async () => {
+          //   console.log('Payment status check timed out.')
+
+
+          // }, timeout);
 
           if (Date.now() - startTime > 300000) {
-            
-            clearTimeout(timeoutId);
+
+            // clearTimeout(timeoutId);
             timeOut=true;
             console.log('Timeout alcanzado, deteniendo la recursión');
             return timeOut;
           }
-         
-          await getStatus(id, timeout); 
-      
+
+          await getStatus(id, timeout);
+
         } catch (error) {
 
 
@@ -216,11 +217,11 @@ function TutorCalendar({ pagina, ID,tutor}) {
 
       await getStatus(idNumber,3000)
 
-
+console.log('el estaus antes de guardar clase',status)
       if(status==='COMPLETED'&&timeOut===false){
 
 
-        
+
 
         const response = await axios.put(`${serverURL}/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue });
         setReservationSuccess(prevState => !prevState);
@@ -231,9 +232,9 @@ function TutorCalendar({ pagina, ID,tutor}) {
             day: 'numeric',
             month: 'long', // 'long' para mostrar el nombre completo del mes en inglés
             year: 'numeric'
-          });      
-         
-          // Datos del correo electrónico         
+          });
+
+          // Datos del correo electrónico
           const emailContentEstudiante = `
           <html>
           <body>
@@ -246,7 +247,7 @@ function TutorCalendar({ pagina, ID,tutor}) {
           </body>
           </html>
           `;
-      
+
           const emailContentProfesor = `
           <html>
           <body>
@@ -264,7 +265,7 @@ function TutorCalendar({ pagina, ID,tutor}) {
           const emailDataEstudiante = {
           to: userData.email,
           subject: 'Confirmación de Reserva de Clase',
-          text: emailContentEstudiante         
+          text: emailContentEstudiante
           };
 
           // Definir los datos para el correo del profesor
@@ -301,7 +302,7 @@ function TutorCalendar({ pagina, ID,tutor}) {
           }).then(() => {
             closeModal(); // Cierra el modal después de que el usuario confirme la alerta
           });
-          
+
         } else {
           throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
         }
@@ -346,7 +347,7 @@ function TutorCalendar({ pagina, ID,tutor}) {
     const dateString = new Date(date).toLocaleDateString();
     customClasses[dateString] = 'available';
     if (!getAvailableTimesForDate(new Date(date)).length) {
-      customClasses[dateString] = ''; 
+      customClasses[dateString] = '';
     }
   });
 
@@ -362,14 +363,14 @@ function TutorCalendar({ pagina, ID,tutor}) {
           setScrollEnabled(false);
         }} style={{color:'white',textDecoration:'none' }}><span style={{fontSize:'12px',background:'#10104d',paddingLeft:'7px',paddingRight:'7px',paddingTop:'3px',paddingBottom:'3px',borderRadius:'10px',color:'white'}}> Book a ticket</span></a>
       )}
-  
+
       {pagina === 'Tutor' && (
         <button onClick={() => {
           setModalIsOpen(true);
           setScrollEnabled(false);
         }} style={{ marginTop: '15px', background: '#10104d', color: 'white' }}>Book a Ticket</button>
       )}
-  
+
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
         <Calendar
           onChange={handleDateChange}
@@ -387,7 +388,7 @@ function TutorCalendar({ pagina, ID,tutor}) {
             return classes.join(' ');
           }}
         />
-  
+
         <select value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
           <option value="">Select time</option>
           {getAvailableTimesForDate(selectedDate).map((time, index) => (
@@ -395,7 +396,7 @@ function TutorCalendar({ pagina, ID,tutor}) {
           ))}
         </select>
         <div style={{ marginTop: 10 }}>
-          <button onClick={assignClass} disabled={!selectedTime} className="assign-class-btn">Assign Class</button>  
+          <button onClick={assignClass} disabled={!selectedTime} className="assign-class-btn">Assign Class</button>
           <button onClick={closeModal} className="close-btn">Close</button>
         </div>
       </Modal>
