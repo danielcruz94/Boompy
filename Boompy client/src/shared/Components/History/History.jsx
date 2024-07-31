@@ -16,6 +16,9 @@ const AttendanceModal = ({ userId, price }) => {
     const [itemsPerPage] = useState(20);
 
     const serverURL = useSelector(state => state.serverURL.url);
+    const userDataString = localStorage.getItem('userData');
+    const userData = JSON.parse(userDataString);
+    const role = userData.role;
 
     const openModal = () => {
         setShowModal(true);
@@ -30,8 +33,7 @@ const AttendanceModal = ({ userId, price }) => {
             const fetchAttendances = async () => {
                 try {
                     const response = await axios.get(`${serverURL}/attendances/${userId}`);
-                    console.log(response.data);
-
+                  
                     const data = response.data;
                     const calendarClassesMap = data.calendarClasses.reduce((map, cal) => {
                         map[cal._id] = cal;
@@ -42,6 +44,8 @@ const AttendanceModal = ({ userId, price }) => {
                         map[user.id] = user;
                         return map;
                     }, {});
+
+                    const filteredUsers = getFilteredUsers(data.users, role); // Filtra los usuarios
 
                     const updatedAttendances = data.attendances.map(attendance => {
                         const calendarClass = calendarClassesMap[attendance.eventId] || {};
@@ -66,7 +70,7 @@ const AttendanceModal = ({ userId, price }) => {
 
             fetchAttendances();
         }
-    }, [userId, showModal, price, serverURL]);
+    }, [userId, showModal, price, serverURL, role]);
 
     const handleScroll = (e) => {
         const { scrollTop, clientHeight, scrollHeight } = e.target;
@@ -89,18 +93,39 @@ const AttendanceModal = ({ userId, price }) => {
 
     const convertUTCToLocal = (utcDate) => {
         const date = new Date(utcDate);
-        return date.toLocaleString(); // Para mostrar fecha y hora en la zona horaria local
+    
+        const options = {
+            year: 'numeric',
+            month: 'long', // Usa 'short' para abreviar el mes (e.g., "Jul" en vez de "July")
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true // Usa formato de 12 horas (cambia a false para formato de 24 horas)
+        };
+    
+        return date.toLocaleString('en-US', options); // Configura el locale a inglés
     };
 
     const convertStartTime = (utcTime) => {
         const date = new Date(utcTime);
-        return date.toLocaleTimeString(); // Para mostrar solo la hora en la zona horaria local
+    
+        const options = {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true // Usa formato de 12 horas (cambia a false para formato de 24 horas)
+        };
+    
+        return date.toLocaleTimeString('en-US', options); // Configura el locale a inglés
+    };
+
+    const getFilteredUsers = (users, role) => {
+        return users.filter(user => user.role !== role);
     };
 
     return (
         <div>
             <div className="settings-icon" onClick={openModal}>
-            <i className="fa fa-cog IconNavbar" />
+                <i className="fa fa-clock IconNavbar" />
             </div>
             {showModal && (
                 <Modal
@@ -108,24 +133,30 @@ const AttendanceModal = ({ userId, price }) => {
                     onRequestClose={closeModal}
                     contentLabel="Attendance Modal"
                     onScroll={handleScroll}
-                    className="modal"
+                    className="modalHistory"
                 >
-                    <h2>Detalles de Asistencia</h2>
-                    <button onClick={closeModal} className="close">Cerrar</button>
+                    <h2>Support Details</h2>
+                    <button onClick={closeModal} className="close">X</button>
 
-                    {loading && <p>Cargando...</p>}
+                    {loading && <p>loading...</p>}
                     {error && <p>{error}</p>}
 
                     {attendances.length > 0 && (
                         <>
-                            <p>Saldo Total: ${total.toFixed(2)}</p>
+                           {role === 'Tutor' && (
+                                <p>Total balance: {total.toFixed(2)}</p>
+                            )}
                             <ul>
                                 {paginatedAttendances().map((attendance, index) => (
-                                    <li key={index}>
-                                        <p>Timestamp: {convertUTCToLocal(attendance.timestamp)}</p>
-                                        <p>Fecha de Clase: {attendance.calendarClass.date ? convertUTCToLocal(attendance.calendarClass.date) : 'No disponible'}</p>
-                                        <p>Hora de Inicio: {attendance.calendarClass.startTime ? convertStartTime(attendance.calendarClass.startTime) : 'No disponible'}</p>
-                                        <p>Tutor: {attendance.user.name && attendance.user.lastName ? `${attendance.user.name} ${attendance.user.lastName}` : 'No disponible'}</p>
+                                    <li className='date_class' key={index}>
+                                        <p>Class Date: {attendance.calendarClass.date ? convertUTCToLocal(attendance.calendarClass.date) : 'No disponible'}</p>
+                                        <p>Start Time: {attendance.calendarClass.startTime ? convertStartTime(attendance.calendarClass.startTime) : 'No disponible'}</p>
+                                        <p>Connection: {convertUTCToLocal(attendance.timestamp)}</p>        
+                                        <p>
+                                            {attendance.user.name && attendance.user.lastName ? 
+                                                `${attendance.user.role}: ${attendance.user.name} ${attendance.user.lastName}` 
+                                                : 'No disponible'}
+                                        </p>
                                     </li>
                                 ))}
                             </ul>

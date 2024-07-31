@@ -1,10 +1,9 @@
-/* Estilos para el Modal */
-.modal {
-    /* Asegúrate de que el modal esté centrado en la pantalla */
+/* Estilos para el modalHistory */
+.modalHistory {
+    /* Asegúrate de que el modalHistory esté centrado en la pantalla */
+    position: fixed; /* Cambiado de absolute a fixed */
     top: 50%;
     left: 50%;
-    right: auto;
-    bottom: auto;
     transform: translate(-50%, -50%);
     width: 80%;
     max-width: 600px;
@@ -15,15 +14,17 @@
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    display: flex; /* Asegúrate de que el contenido del modalHistory esté en columna */
     flex-direction: column;
+    z-index: 1000; /* Asegúrate de que el modalHistory esté sobre otros elementos */
 }
 
-.modal h2 {
+.modalHistory h2 {
     font-size: 1.5rem;
     margin-top: 0;
 }
 
-.modal button {
+.modalHistory button {
     background-color: #007bff;
     color: white;
     border: none;
@@ -35,14 +36,11 @@
     transition: background-color 0.3s ease;
 }
 
-.modal button:hover {
-    background-color: #0056b3;
-}
 
-.modal .close {
+.modalHistory .close {
     background: transparent;
-    color: #007bff;
-    font-size: 1.2rem;
+    color: #000000;
+    font-size: 1.5rem;
     position: absolute;
     top: 10px;
     right: 20px;
@@ -50,39 +48,44 @@
     cursor: pointer;
 }
 
-.modal ul {
+.modalHistory ul {
     list-style: none;
     padding: 0;
 }
 
-.modal ul li {
+.modalHistory ul li {
     border-bottom: 1px solid #ddd;
     padding: 10px 0;
 }
 
-.modal ul li:last-child {
+.modalHistory ul li:last-child {
     border-bottom: none;
 }
 
-.modal p {
-    margin: 5px 0;
+.modalHistory p {
+    color: black;
+    margin: 2px 10px;
     font-size: 0.9rem;
 }
 
-/* Estilo para el contenedor del icono de configuración */
-.settings-icon {
-    position: fixed;
-    top: 20px;
-    right: 20px;
+/* Estilo para el contenedor del ícono de historial */
+.history-icon {   
     cursor: pointer;
 }
 
-.settings-icon .fa {
-    font-size: 2rem;
-    color: #007bff;
-    transition: color 0.3s ease;
+.date_class {
+    background: rgb(223 213 213 / 51%);  
+    border-radius: 15px;
 }
 
-.settings-icon .fa:hover {
-    color: #0056b3;
+
+
+
+@media (max-width: 499px) {
+
+    .modalHistory {   
+        transform: none;
+        width: 100% !important; 
+        max-height: 100% !important;    
+    }
 }
