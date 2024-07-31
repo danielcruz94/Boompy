@@ -112,6 +112,8 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
         };
       
         const response = await axios.post(`${serverURL}/calendar`, classData);
+
+       
       
         if (response.status === 201) {
             // Esperar 20 segundos antes de ejecutar fetchDataAndSetAvailability
@@ -150,13 +152,13 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
             };
           
             // Envío de correo electrónico
-             const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
-             console.log(sentEmail);
+            const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
+            console.log(sentEmail);
 
              Swal.fire({
-                icon: 'success',
-                title: '¡Horario reservado con éxito!',
-                text: 'El horario de clase que marcó como disponible ha sido reservado exitosamente.',
+              icon: 'success',
+              title: 'Schedule successfully booked!',
+              text: 'The time slot you marked as available has been successfully reserved.',
             }).then(() => {
               //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
             });

@@ -92,11 +92,11 @@ const Teach = ({auth}) => {
           let numericPrice = extractNumber(data.price);
 
          if(isInLatam === true){
-              numericPrice = numericPrice + 1 + " USD"
+              numericPrice = numericPrice + 1;
          }
 
          if(isInLatam === false){
-          numericPrice = numericPrice + 3 + " USD"
+          numericPrice = numericPrice + 3;
          }
 
           
@@ -288,7 +288,7 @@ const Teach = ({auth}) => {
               <div className="course-offer">
                 <div>
                   <p>Contribution</p>
-                  <p className="price">${userProfile.price}</p>
+                  <p className="price">{"$" + userProfile.price + " USD"}</p>
                 </div>
                 <ul className="course-includes">
                   <li>

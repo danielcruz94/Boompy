@@ -65,6 +65,31 @@ const Calls = () => {
     const lastIndex = location.pathname.lastIndexOf('/');
     const idClase = location.pathname.substring(lastIndex + 1);  
 
+    console.log(idClase)
+    console.log(userId)
+
+    const updateAttendanceByUserId = async (eventId, userId) => {
+      if (!eventId || !userId) {
+        throw new Error('eventId y userId son necesarios.');
+      }
+    
+      try {
+        const response = await axios.put(`${serverURL}/attendances/${eventId}/${userId}`);
+        console.log('Asistencias actualizadas:');      
+      } catch (error) {
+        console.error('Error al actualizar asistencias:', error);
+        throw error;
+      }
+    };
+    
+
+
+
+        updateAttendanceByUserId(idClase, userId)
+          
+
+
+
       useEffect(() => {
         const userAgent = navigator.userAgent;
         const isiPhoneDevice = /iPhone/.test(userAgent);

@@ -144,6 +144,7 @@ function TutorCalendar({ pagina, ID,tutor}) {
       };
       try {
 
+       
 
         const response = await axios.put(`${serverURL}/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue });
         setReservationSuccess(prevState => !prevState);
@@ -201,8 +202,8 @@ function TutorCalendar({ pagina, ID,tutor}) {
           const sendEmails = async () => {
           try {
             // Enviar correo al estudiante
-            const responseEstudiante = await axios.post(`${serverURL}/email/enviar-email`, emailDataEstudiante);
-            console.log('Correo enviado al estudiante:', responseEstudiante.data);
+           const responseEstudiante = await axios.post(`${serverURL}/email/enviar-email`, emailDataEstudiante);
+           console.log('Correo enviado al estudiante:', responseEstudiante.data);
 
             // Enviar correo al profesor
             const responseProfesor = await axios.post(`${serverURL}/email/enviar-email`, emailDataProfesor);
@@ -217,11 +218,28 @@ function TutorCalendar({ pagina, ID,tutor}) {
           // Llamar a la función para enviar los correos electrónicos
           sendEmails();
 
+          const createAttendance = async (eventId, userIds) => {
+            try {
+                const response = await axios.post(`${serverURL}/attendances`, {
+                    eventId,
+                    userIds
+                });
+               
+            } catch (error) {
+                console.error('Error al crear asistencias:', error.response ? error.response.data : error.message);
+            }
+        };
+        
+        // Ejemplo de uso
+        createAttendance(newClassData.classId, [newClassData.userId, newClassData.reserved]);
+
+          console.log(newClassData)
+
           Swal.fire({
             icon: 'success',
-            title: '¡Clase reservada con éxito!',
-            text: 'Tu clase ha sido reservada exitosamente.',
-          }).then(() => {
+            title: 'Class successfully booked!',
+            text: 'Your class has been successfully reserved.',
+          }).then(() => {            
             closeModal(); // Cierra el modal después de que el usuario confirme la alerta
           });
           

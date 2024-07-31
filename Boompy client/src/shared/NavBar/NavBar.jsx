@@ -11,6 +11,7 @@ import Vector from '../../assets/Vector.svg';
 import Torii from '../../assets/torii.png'
 import Notification from '../Components/Notification/Notification';
 import Settings from '../Components/Settings/Settings';
+import AttendanceModal from '../Components/History/History';
 
 const NavBar = ({ textBotton, onClick, userInfo,auth }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
@@ -98,6 +99,17 @@ const userData = auth;
             />            
           }   
           {role === 'Tutor' && <Settings />}
+
+
+          <AttendanceModal
+                userId={"6686088e8c9622aa1c1ed579"}
+                price={"5"}
+            />
+
+
+
+
+
           {!shouldHideButton && <Bottom onClick={onClick}>{textBotton}</Bottom>}
        </div>
 
