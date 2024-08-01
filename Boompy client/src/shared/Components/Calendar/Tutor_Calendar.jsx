@@ -166,7 +166,119 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
        const idNumber={id:IdPayment}
       let startTime ;
 
+      let timeOut;;
+
+
+      const getStatus = async (id, timeout = 50000) => {
+        let startTime;
+      
+        try {
+          startTime = Date.now();
+      
+          const response = await axios.post(`${serverURL}/statuspayment`, id);
+          const answer = response.data;
+      
+          if (answer === 'COMPLETED') {
+            console.log('Pago completado');
+            return 'COMPLETED';
+          }
+      
+          if (Date.now() - startTime > timeout) {
+            console.log('Tiempo de espera agotado');
+            return 'TIMEOUT';
+          }
+      
+          // Retroceso exponencial (ejemplo)
+          
+      
+          return await getStatus(id, timeout);
+        } catch (error) {
+          console.error('Error al verificar el estado del pago:', error);
+          return 'ERROR';
+        }
+      };
+      
+
+      const isPaid = await getStatus(idNumber, 30000);
+
+      switch (isPaid) {
+        case 'COMPLETED':
+          console.log('El pago se ha completado.');
+          break;
+        case 'TIMEOUT':
+          console.log('Se ha alcanzado el tiempo máximo de espera.');
+          break;
+        case 'ERROR':
+          console.error('Ha ocurrido un error al verificar el pago.');
+          break;
+        default:
+          console.error('Resultado inesperado:', isPaid);
+      }
+      if(status){
+
+
+
+
+        const response = await axios.put(`${serverURL}/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue });
+        setReservationSuccess(prevState => !prevState);
+
+        if (response.status === 200) {
+          // Crear constantes temporales para almacenar los valores formateados
+          const formattedDate = new Date(selectedClass.date).toLocaleString('en-US', {
+            day: 'numeric',
+            month: 'long', // 'long' para mostrar el nombre completo del mes en inglés
+            year: 'numeric'
+          });
+
+          // Datos del correo electrónico
+          const emailContentEstudiante = `
+          <html>
+          <body>
+            <h1 style="color: #007bff;">¡Tu Clase ha sido Reservada Exitosamente!</h1>
+            <p>¡Hola ${userData.name}!</p>
+            <p>Tu clase ha sido reservada para el ${formattedDate}, desde las ${selectedClass.startTime} hasta las ${selectedClass.endTime}.</p>
+            <p>Por favor, asegúrate de estar preparado para tu clase y estar a tiempo.</p>
+            <p>¡Gracias por elegirnos para tu aprendizaje!</p>
+            <p>Saludos,<br/>El equipo de Torii</p>
+          </body>
+          </html>
+          `;
+
+          const emailContentProfesor = `
+          <html>
+          <body>
+            <h1 style="color: #007bff;">Nueva Reserva de Clase</h1>
+            <p>¡Hola ${NameTutor}!</p>
+            <p>Se ha realizado una nueva reserva de clase por parte de ${userData.name}.</p>
+            <p>La clase está programada para el ${formattedDate}, desde las ${selectedClass.startTime} hasta las ${selectedClass.endTime}.</p>
+            <p>Por favor, asegúrate de estar preparado para la clase.</p>
+            <p>Saludos,<br/>El equipo de Torii</p>
+          </body>
+          </html>
+          `;
+
+          // Definir los datos para el correo del estudiante
+          const emailDataEstudiante = {
+          to: userData.email,
+          subject: 'Confirmación de Reserva de Clase',
+          text: emailContentEstudiante
+          };
+
+        const IdPayment=payment.data.id;
+        console.log(IdPayment)
+
+        const paymentUrl = payment.data.links[1].href; // Assuming the payment URL is at index 1
+        window.open(paymentUrl, '_blank')
+
+      //   const timeout = new Promise(resolve => setTimeout(resolve, 30000)); // 0,5 segundos
+
+      //  await timeout;
+
+       const idNumber={id:IdPayment}
+      let startTime ;
+
       let timeOut= false;
+
 
 
        const getStatus = async (id, timeout = 50000) => { // Set a default timeout
@@ -342,6 +454,21 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
       enviarAsistencia(newClassData.classId, [newClassData.userId, newClassData.reserved]);    
 
 
+          Swal.fire({
+            icon: 'success',
+            title: '¡Great news! Your class is booked.!',
+            text: 'Your class has been booked successfully',
+          }).then(() => {
+            closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+          });
+
+        } else {
+          throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
+        }
+
+
+
+
       }else{
        setErrorMessage("Time You have exceeded the payment time limit")
       }
@@ -351,7 +478,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
         console.error("Error reserving class:", error);
       }
     } else {
-      console.error("No class found for the selected date and time.");
+      // console.error("No class found for the selected date and time.");
     }
 
     setScrollEnabled(true);

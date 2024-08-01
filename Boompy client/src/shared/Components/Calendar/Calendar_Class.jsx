@@ -110,7 +110,8 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
             endTime: endTimeUTC,
             reserved: ""
         };
-      
+
+
         const response = await axios.post(`${serverURL}/calendar`, classData);
 
        
@@ -156,9 +157,11 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
             console.log(sentEmail);
 
              Swal.fire({
-              icon: 'success',
-              title: 'Schedule successfully booked!',
-              text: 'The time slot you marked as available has been successfully reserved.',
+
+                icon: 'success',
+                title: '¡Schedule updated successfully!',
+                text: 'Great news! Your available Schedule time is now booked.',
+
             }).then(() => {
               //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
             });

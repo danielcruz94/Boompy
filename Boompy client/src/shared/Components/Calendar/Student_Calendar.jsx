@@ -197,7 +197,7 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
 
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
-      <Calendar
+      <Calendar 
         onChange={handleDateChange}
         value={selectedDate}
         tileClassName={tileClassName}
