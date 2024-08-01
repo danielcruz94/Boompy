@@ -17,7 +17,8 @@ import  Spinner  from '../../shared/Components/Modals/Spinners/Spinner'
 
 import TutorCalendar from '../../shared/Components/Calendar/Tutor_Calendar';
 import { useState } from 'react';
-import Comp_instagram from '../../shared/Components/Instagram/InstagramAuth';
+import  Saldo  from '../../shared/Components/Saldo/saldo'
+//import Comp_instagram from '../../shared/Components/Instagram/InstagramAuth';
 
 
 
@@ -282,6 +283,8 @@ const Teach = ({auth}) => {
               </div>
             )}
           </div>
+
+          <Saldo/>
 
           {auth.user?.role !== "Tutor" ? (
             <div className="payment">

@@ -14,6 +14,7 @@ import Settings from '../Components/Settings/Settings';
 import AttendanceModal from '../Components/History/History';
 
 const NavBar = ({ textBotton, onClick, userInfo,auth }) => {
+  
   const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
   const [IdUSer, setIduser] = useState("0"); 
   const [Price, setPrice] = useState(0);  
@@ -24,7 +25,7 @@ const NavBar = ({ textBotton, onClick, userInfo,auth }) => {
   const currentUrl = window.location.href;    
   const shouldHideButton = currentUrl.includes('calls');
 
-  
+
 
   // const auth = useSelector((state) => state.auth);
 
@@ -39,8 +40,9 @@ const NavBar = ({ textBotton, onClick, userInfo,auth }) => {
       if(userData.user.role != undefined){
         setRole(userData.user.role);
         setIduser(userData.user.id);
-        //setPrice(userData.user.role)
-       
+        if(userData.user.price != ""){
+           setPrice(userData.user.price)
+        }
       }      
     }
   }, [userData]);

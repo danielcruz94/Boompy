@@ -27,6 +27,9 @@ const Home = ({auth}) => {
   const users = useSelector((state) => state.users);
   // const auth = useSelector((state) => state.auth);
   const serverURL = useSelector(state => state.serverURL.url);
+  
+  const [location, setLocation] = useState('');
+  const [isInLatam, setIsLatam] = useState(false);
 
   const dispatch = useDispatch();
   const navegate = useNavigate();
@@ -59,6 +62,31 @@ const Home = ({auth}) => {
     }, 100);
      // Reinicia al salir del mouse
   };
+
+
+  
+
+  useEffect(() => {    
+    const fetchLocationData = async () => {
+      try {      
+        const response = await axios.get('https://ipinfo.io/json');
+        const countryCode = response.data.country?.toUpperCase();
+        setLocation(response.data.country);
+        
+       
+        const latamCountries = ['AR', 'BO', 'BR', 'CL', 'CO', 'CR', 'CU', 'DO', 'EC', 'SV', 'GT', 'HN', 'MX', 'NI', 'PA', 'PY', 'PE', 'PR', 'UY', 'VE'];
+        const isInLatam = latamCountries.includes(countryCode);
+        setIsLatam(isInLatam);
+      } catch (error) {
+        console.error('Error fetching location data:', error);
+      
+      }
+    };
+
+    
+    fetchLocationData();
+  }, []); 
+
 
   useEffect(() => {
     if(!auth.isLoggedIn){
@@ -120,6 +148,14 @@ const Home = ({auth}) => {
 
  //console.log(auth)
 
+ 
+ function extractNumber(priceStr) { 
+  let number = priceStr.match(/[\d\.]+/); 
+  return number ? parseFloat(number[0]) : null;
+}
+
+ console.log(users)
+
   return (
     <Container>
       <Headings></Headings>
@@ -148,22 +184,33 @@ const Home = ({auth}) => {
           </BackgrounModal>
         )}
 
-       
+      
 
-        {users.map((user) => (
-          <CardProfile
-            key={user.id}
-            name={user.name}
-            picture={user.picture}
-            price={user.price}
-            language={user.language}
-            id={user.id}
-            photos={user.photos}
-            onMouseEnter={() => handleMouseEnter(user.id)} // Pasar ID de la tarjeta al entrar
-            onMouseLeave={handleMouseLeave}
-            showTinyImg={showTinyImg === user.id}
-          ></CardProfile>
-        ))}
+            {users.map((user) => {
+              let numericPrice = extractNumber(user.price);
+
+              if (isInLatam === true) {
+                numericPrice = numericPrice + 1;
+              } else if (isInLatam === false) {
+                numericPrice = numericPrice + 3;
+              }
+
+              return (
+                <CardProfile
+                  key={user.id}
+                  name={user.name}
+                  picture={user.picture}
+                  price={numericPrice} 
+                  language={user.language}
+                  id={user.id}
+                  photos={user.photos}
+                  onMouseEnter={() => handleMouseEnter(user.id)} // Pasar ID de la tarjeta al entrar
+                  onMouseLeave={handleMouseLeave}
+                  showTinyImg={showTinyImg === user.id}
+                />
+              );
+            })}
+
       </ContainerProfile>
 
       <br />
