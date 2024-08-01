@@ -20,7 +20,7 @@ const initializePeer = () => {
     });
 
     peer.on('error', (error) => {
-        console.error('Error en la conexión:', error);
+       // console.error('Error en la conexión:', error);
     });
 
     return peer;

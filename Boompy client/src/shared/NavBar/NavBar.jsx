@@ -11,20 +11,21 @@ import Vector from '../../assets/Vector.svg';
 import Torii from '../../assets/torii.png'
 import Notification from '../Components/Notification/Notification';
 import Settings from '../Components/Settings/Settings';
+import AttendanceModal from '../Components/History/History';
 
 const NavBar = ({ textBotton, onClick, userInfo,auth }) => {
+  
   const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
+  const [IdUSer, setIduser] = useState("0"); 
+  const [Price, setPrice] = useState(0);  
 
- 
-const userDataString = localStorage.getItem('userData');
-const userData = auth;
-
+  const userData = auth;
 
   const [role, setRole] = useState(userData?.role);   
   const currentUrl = window.location.href;    
   const shouldHideButton = currentUrl.includes('calls');
 
-  
+
 
   // const auth = useSelector((state) => state.auth);
 
@@ -38,9 +39,15 @@ const userData = auth;
     if (userData.user) {
       if(userData.user.role != undefined){
         setRole(userData.user.role);
+        setIduser(userData.user.id);
+        if(userData.user.price != ""){
+           setPrice(userData.user.price)
+        }
       }      
     }
   }, [userData]);
+
+
 
   const toggleCalendar = () => {
     setIsCalendarOpen(!isCalendarOpen);
@@ -98,6 +105,17 @@ const userData = auth;
             />            
           }   
           {role === 'Tutor' && <Settings />}
+
+
+          <AttendanceModal
+                userId={IdUSer}
+                price={Price}
+            />
+
+
+
+
+
           {!shouldHideButton && <Bottom onClick={onClick}>{textBotton}</Bottom>}
        </div>
 

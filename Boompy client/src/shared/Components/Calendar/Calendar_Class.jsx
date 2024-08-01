@@ -113,6 +113,8 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
 
 
         const response = await axios.post(`${serverURL}/calendar`, classData);
+
+       
       
         if (response.status === 201) {
             // Esperar 20 segundos antes de ejecutar fetchDataAndSetAvailability
@@ -151,13 +153,15 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
             };
           
             // Envío de correo electrónico
-             const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
-             console.log(sentEmail);
+            const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
+            console.log(sentEmail);
 
              Swal.fire({
+
                 icon: 'success',
                 title: '¡Schedule updated successfully!',
                 text: 'Great news! Your available Schedule time is now booked.',
+
             }).then(() => {
               //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
             });

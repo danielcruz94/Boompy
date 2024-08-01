@@ -17,7 +17,8 @@ import  Spinner  from '../../shared/Components/Modals/Spinners/Spinner'
 
 import TutorCalendar from '../../shared/Components/Calendar/Tutor_Calendar';
 import { useState } from 'react';
-import Comp_instagram from '../../shared/Components/Instagram/InstagramAuth';
+import  Saldo  from '../../shared/Components/Saldo/saldo'
+//import Comp_instagram from '../../shared/Components/Instagram/InstagramAuth';
 
 import {convertirMonedaANumero} from '../../shared/utils/funtions';
 
@@ -98,7 +99,7 @@ const Teach = ({auth}) => {
           let numericPrice = extractNumber(data.price);
 
          if(isInLatam === true){
-              numericPrice = numericPrice + 1 
+              numericPrice = numericPrice + 1;
          }
 
          if(isInLatam === false){
@@ -290,12 +291,15 @@ const Teach = ({auth}) => {
             )}
           </div>
 
+          <Saldo/>
+
           {auth.user?.role !== "Tutor" ? (
             <div className="payment">
               <div className="course-offer">
                 <div>
                   <p>Contribution</p>
-                  <p className="price">${userProfile.price +'USD'}</p>
+                  <p className="price">{"$" + userProfile.price + " USD"}</p>
+
                 </div>
                 <ul className="course-includes">
                   <li>

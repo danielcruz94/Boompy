@@ -130,8 +130,9 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
           } else {
             Swal.fire({
               icon: 'info',
-              title: 'Clase no disponible en este momento....',
+              title: 'Class not available at the moment....',
               text: '.',
+
             }).then(() => {
               //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
             });
@@ -139,8 +140,8 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
     }else{
           Swal.fire({
             icon: 'info',
-            title: 'Ya estas en una clase ....',
-            text: 'Intenta luego.....',
+            title: 'You are already in a class ....',
+            text: 'Try again later.....',            
           }).then(() => {
             //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
           });     
