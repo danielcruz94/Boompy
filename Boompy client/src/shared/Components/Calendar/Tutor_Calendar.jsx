@@ -166,59 +166,55 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
        const idNumber={id:IdPayment}
       let startTime ;
 
-      let timeOut= false;
+      let timeOut;;
 
 
-       const getStatus = async (id, timeout = 50000) => { // Set a default timeout
-        if(!startTime){
-          startTime = Date.now();
-        }
-
+      const getStatus = async (id, timeout = 50000) => {
+        let startTime;
+      
         try {
-
-
-
-          const response = await axios.post(`${serverURL}/statuspayment`,  id );
+          startTime = Date.now();
+      
+          const response = await axios.post(`${serverURL}/statuspayment`, id);
           const answer = response.data;
-          console.log("Se ejecuto el getstatus,",answer)
+      
+          if (answer === 'COMPLETED') {
+            console.log('Pago completado');
+            return 'COMPLETED';
+          }
+      
+          if (Date.now() - startTime > timeout) {
+            console.log('Tiempo de espera agotado');
+            return 'TIMEOUT';
+          }
+      
+          // Retroceso exponencial (ejemplo)
           
-          if (response.data === 'COMPLETED') {
-            setStatus(response.data);
-            console.log('status cuando es compled',status)
-            timeOut=false;
-            return status;
-          }
-
-
-          // const timeoutId = setTimeout(async () => {
-          //   console.log('Payment status check timed out.')
-
-
-          // }, timeout);
-
-          if (Date.now() - startTime > 300000) {
-
-            // clearTimeout(timeoutId);
-            timeOut=true;
-            console.log('Timeout alcanzado, deteniendo la recursión');
-            return timeOut;
-          }
-
-          await getStatus(id, timeout);
-
+      
+          return await getStatus(id, timeout);
         } catch (error) {
-
-
-
-          console.error('Error checking payment status:', error);
+          console.error('Error al verificar el estado del pago:', error);
+          return 'ERROR';
         }
       };
+      
 
+      const isPaid = await getStatus(idNumber, 30000);
 
-      await getStatus(idNumber,3000)
-
-console.log('el estaus antes de guardar clase',status)
-      if(status==='COMPLETED'&&timeOut===false){
+      switch (isPaid) {
+        case 'COMPLETED':
+          console.log('El pago se ha completado.');
+          break;
+        case 'TIMEOUT':
+          console.log('Se ha alcanzado el tiempo máximo de espera.');
+          break;
+        case 'ERROR':
+          console.error('Ha ocurrido un error al verificar el pago.');
+          break;
+        default:
+          console.error('Resultado inesperado:', isPaid);
+      }
+      if(status){
 
 
 
@@ -318,7 +314,7 @@ console.log('el estaus antes de guardar clase',status)
         console.error("Error reserving class:", error);
       }
     } else {
-      console.error("No class found for the selected date and time.");
+      // console.error("No class found for the selected date and time.");
     }
 
     setScrollEnabled(true);
