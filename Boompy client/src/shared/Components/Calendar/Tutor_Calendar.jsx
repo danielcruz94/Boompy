@@ -150,7 +150,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
       try {
 
 
-        const payment=await axios.post(`${serverURL}/createdorder`,{amount:amount});
+          const payment=await axios.post(`${serverURL}/createdorder`,{amount:amount});
 
 
         const IdPayment=payment.data.id;
@@ -216,121 +216,6 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
       }
       if(status){
 
-
-
-
-        const response = await axios.put(`${serverURL}/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue });
-        setReservationSuccess(prevState => !prevState);
-
-        if (response.status === 200) {
-          // Crear constantes temporales para almacenar los valores formateados
-          const formattedDate = new Date(selectedClass.date).toLocaleString('en-US', {
-            day: 'numeric',
-            month: 'long', // 'long' para mostrar el nombre completo del mes en inglés
-            year: 'numeric'
-          });
-
-          // Datos del correo electrónico
-          const emailContentEstudiante = `
-          <html>
-          <body>
-            <h1 style="color: #007bff;">¡Tu Clase ha sido Reservada Exitosamente!</h1>
-            <p>¡Hola ${userData.name}!</p>
-            <p>Tu clase ha sido reservada para el ${formattedDate}, desde las ${selectedClass.startTime} hasta las ${selectedClass.endTime}.</p>
-            <p>Por favor, asegúrate de estar preparado para tu clase y estar a tiempo.</p>
-            <p>¡Gracias por elegirnos para tu aprendizaje!</p>
-            <p>Saludos,<br/>El equipo de Torii</p>
-          </body>
-          </html>
-          `;
-
-          const emailContentProfesor = `
-          <html>
-          <body>
-            <h1 style="color: #007bff;">Nueva Reserva de Clase</h1>
-            <p>¡Hola ${NameTutor}!</p>
-            <p>Se ha realizado una nueva reserva de clase por parte de ${userData.name}.</p>
-            <p>La clase está programada para el ${formattedDate}, desde las ${selectedClass.startTime} hasta las ${selectedClass.endTime}.</p>
-            <p>Por favor, asegúrate de estar preparado para la clase.</p>
-            <p>Saludos,<br/>El equipo de Torii</p>
-          </body>
-          </html>
-          `;
-
-          // Definir los datos para el correo del estudiante
-          const emailDataEstudiante = {
-          to: userData.email,
-          subject: 'Confirmación de Reserva de Clase',
-          text: emailContentEstudiante
-          };
-
-        const IdPayment=payment.data.id;
-        console.log(IdPayment)
-
-        const paymentUrl = payment.data.links[1].href; // Assuming the payment URL is at index 1
-        window.open(paymentUrl, '_blank')
-
-      //   const timeout = new Promise(resolve => setTimeout(resolve, 30000)); // 0,5 segundos
-
-      //  await timeout;
-
-       const idNumber={id:IdPayment}
-      let startTime ;
-
-      let timeOut= false;
-
-
-
-       const getStatus = async (id, timeout = 50000) => { // Set a default timeout
-        if(!startTime){
-          startTime = Date.now();
-        }
-
-        try {
-
-
-
-          const response = await axios.post(`${serverURL}/statuspayment`,  id );
-          const answer = response.data;
-          console.log("Se ejecuto el getstatus,",answer)
-          
-          if (response.data === 'COMPLETED') {
-            setStatus(response.data);
-            console.log('status cuando es compled',status)
-            timeOut=false;
-            return status;
-          }
-
-
-          // const timeoutId = setTimeout(async () => {
-          //   console.log('Payment status check timed out.')
-
-
-          // }, timeout);
-
-          if (Date.now() - startTime > 300000) {
-
-            // clearTimeout(timeoutId);
-            timeOut=true;
-            console.log('Timeout alcanzado, deteniendo la recursión');
-            return timeOut;
-          }
-
-          await getStatus(id, timeout);
-
-        } catch (error) {
-
-
-
-          console.error('Error checking payment status:', error);
-        }
-      };
-
-
-      await getStatus(idNumber,3000)
-
-      console.log('el estaus antes de guardar clase',status)
-      if(status==='COMPLETED'&&timeOut===false){
 
 
         const response = await axios.put(`${serverURL}/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue });
@@ -454,21 +339,6 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
       enviarAsistencia(newClassData.classId, [newClassData.userId, newClassData.reserved]);    
 
 
-          Swal.fire({
-            icon: 'success',
-            title: '¡Great news! Your class is booked.!',
-            text: 'Your class has been booked successfully',
-          }).then(() => {
-            closeModal(); // Cierra el modal después de que el usuario confirme la alerta
-          });
-
-        } else {
-          throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
-        }
-
-
-
-
       }else{
        setErrorMessage("Time You have exceeded the payment time limit")
       }
@@ -478,7 +348,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
         console.error("Error reserving class:", error);
       }
     } else {
-      // console.error("No class found for the selected date and time.");
+      console.error("No class found for the selected date and time.");
     }
 
     setScrollEnabled(true);
