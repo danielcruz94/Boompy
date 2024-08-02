@@ -63,6 +63,19 @@ const NavBar = ({ textBotton, onClick, userInfo,auth }) => {
   // Verifica si la ruta actual coincide con '/calls/:id'
   const isCallsActive = location.pathname.startsWith('/calls/');
 
+       function extraerNumero(cadena) {   
+            if (!cadena) {
+                return 1;
+            }    
+            const resultado = cadena.match(/\d+/);    
+            
+            if (resultado) {
+                return parseInt(resultado[0], 10);
+            } else {      
+                return 1;
+            }
+        }
+
   return (
     <ContainerBar>
       <Image>
@@ -109,7 +122,7 @@ const NavBar = ({ textBotton, onClick, userInfo,auth }) => {
 
           <AttendanceModal
                 userId={IdUSer}
-                price={Price}
+                price={extraerNumero(Price)}
             />
 
 

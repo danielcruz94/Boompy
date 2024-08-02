@@ -6,7 +6,7 @@ const serverURLSlice = createSlice({
 
 
      //url: "https://torii-tau.vercel.app/api",
-     url:'http://localhost:3001/api',
+    url:'http://localhost:3001/api',
 
 
 

@@ -35,6 +35,10 @@ const AttendanceModal = ({ userId, price }) => {
                     const response = await axios.get(`${serverURL}/attendances/${userId}`);
                   
                     const data = response.data;
+
+
+
+
                     const calendarClassesMap = data.calendarClasses.reduce((map, cal) => {
                         map[cal._id] = cal;
                         return map;
@@ -122,6 +126,7 @@ const AttendanceModal = ({ userId, price }) => {
         return users.filter(user => user.role !== role);
     };
 
+
     return (
         <div>
             <div className="settings-icon" onClick={openModal}>
@@ -144,7 +149,7 @@ const AttendanceModal = ({ userId, price }) => {
                     {attendances.length > 0 && (
                         <>
                            {role === 'Tutor' && (
-                                <p>Total balance: {total.toFixed(2)}</p>
+                                <p>Total balance: ${total.toFixed(2) + " USD"}</p>
                             )}
                             <ul>
                                 {paginatedAttendances().map((attendance, index) => (

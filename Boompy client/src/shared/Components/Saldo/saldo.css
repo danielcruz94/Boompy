@@ -2,7 +2,7 @@
 .saldocontainer {
     padding: 20px;
     font-family: Arial, sans-serif;
-    background-color: rgb(84, 106, 247);
+    background-color: rgb(17, 15, 80);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 400px;
@@ -37,3 +37,8 @@
     color: #fff;
 }
 
+@media screen and (max-width: 600px) {
+    .saldocontainer {
+      width: 40% !important;        
+    }
+}
