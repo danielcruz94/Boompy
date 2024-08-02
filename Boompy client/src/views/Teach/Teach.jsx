@@ -20,15 +20,21 @@ import { useState } from 'react';
 import  Saldo  from '../../shared/Components/Saldo/saldo'
 //import Comp_instagram from '../../shared/Components/Instagram/InstagramAuth';
 
+import {convertirMonedaANumero} from '../../shared/utils/funtions';
+
 
 
 
 
 const Teach = ({auth}) => {
+
+
+  
   // const auth = useSelector((state) => state.auth);
 
   const [location, setLocation] = useState(null);
   const [isLatam, setIsLatam] = useState(false);
+ 
 
   const [isLoading, setIsLoading] = useState(true);
   const navegate = useNavigate();
@@ -97,7 +103,7 @@ const Teach = ({auth}) => {
          }
 
          if(isInLatam === false){
-          numericPrice = numericPrice + 3;
+          numericPrice = numericPrice + 3 
          }
 
           
@@ -159,8 +165,9 @@ const Teach = ({auth}) => {
       });
   };
 
+ 
 
-
+  
 
 
     return (
@@ -292,6 +299,7 @@ const Teach = ({auth}) => {
                 <div>
                   <p>Contribution</p>
                   <p className="price">{"$" + userProfile.price + " USD"}</p>
+
                 </div>
                 <ul className="course-includes">
                   <li>
@@ -354,7 +362,10 @@ const Teach = ({auth}) => {
                     />
                   </div>
                 </div>
-                <TutorCalendar pagina="Tutor" ID="Null" />
+                
+                <TutorCalendar pagina="Tutor" ID="Null" amount={userProfile.price} />
+
+                {/* userProfile.country?extractNumber(userProfile.country):'6.00' */}
                 </div>
 
             </div>
