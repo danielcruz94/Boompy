@@ -11,7 +11,7 @@ import TutorCalendar from "../Calendar/Tutor_Calendar"
 
 const CardProfile=({name,id,picture,price,language,onMouseEnter,onMouseLeave,showTinyImg,photos}) => {
 
-   
+  
     return (
        <ContenedorCard >
         {showTinyImg&& <SmallImage photos={photos}></SmallImage>}
@@ -29,7 +29,7 @@ const CardProfile=({name,id,picture,price,language,onMouseEnter,onMouseLeave,sho
             <span style={{color:'#390099',margin:'0',display:'block'}}>{language}</span>
             {/* <span>🔥 200 Likes</span> */}
             <span style={{color:'#FFC224',fontWeight: '800'}}>${price +" USD"}</span>
-            <TutorCalendar pagina="Home" ID={id} tutor={name} />
+            <TutorCalendar pagina="Home" ID={id} tutor={name} amount={price} />
             
             
 
