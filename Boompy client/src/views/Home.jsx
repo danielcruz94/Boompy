@@ -122,9 +122,16 @@ const Home = ({auth}) => {
           const prueba = await axios.get(
             `${serverURL}/userdata?email=${localUser.email}`
           );
-       
-          const filteredData = res.data.filter(item => item.language === prueba.data.language);       
-          dispatch(fetchUsers(filteredData));
+               
+          let filteredData;
+            if (prueba.data.goal) {             
+              filteredData = res.data.filter(item => item.language === prueba.data.goal);
+            } else {              
+              filteredData = res.data;
+            }
+           
+            dispatch(fetchUsers(filteredData));
+
 
           if (prueba.data.completeInfo === true) {
             dispatch(completeInfo(prueba.data.role));
