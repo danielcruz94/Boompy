@@ -153,8 +153,7 @@ const Home = ({auth}) => {
   let number = priceStr.match(/[\d\.]+/); 
   return number ? parseFloat(number[0]) : null;
 }
-
- console.log(users)
+ 
 
   return (
     <Container>
