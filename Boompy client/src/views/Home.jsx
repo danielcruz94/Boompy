@@ -122,8 +122,10 @@ const Home = ({auth}) => {
           const prueba = await axios.get(
             `${serverURL}/userdata?email=${localUser.email}`
           );
+
+          console.log(res.data)
        
-          const filteredData = res.data.filter(item => item.language === prueba.data.language);       
+          const filteredData = res.data.filter(item => item.language === prueba.data.goal);       
           dispatch(fetchUsers(filteredData));
 
           if (prueba.data.completeInfo === true) {
