@@ -309,7 +309,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
   <li key={index} className={reserved ? 'reserved' : ''}>
     {new Date(startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })} - {new Date(endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
     {reserved && (
-     <button className="view-class-button" onClick={() => viewReservedClassDetails(startTime, endTime, _id)}>Ver clase</button>
+     <button className="view-class-button" onClick={() => viewReservedClassDetails(startTime, endTime, _id)}>Forward</button>
     )}
   </li>
 ))}
