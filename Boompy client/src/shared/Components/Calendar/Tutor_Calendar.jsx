@@ -154,7 +154,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
          
 
         const IdPayment=payment.data.id;
-        console.log(IdPayment)
+       // console.log(IdPayment)
 
         const paymentUrl = payment.data.links[1].href; // Assuming the payment URL is at index 1
         window.open(paymentUrl, '_blank')
@@ -176,9 +176,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
           startTime = Date.now();
       
           const response = await axios.post(`${serverURL}/statuspayment`, id);
-          const answer = response.data;
-
-          console.log(response)
+          const answer = response.data;          
       
           if (answer === 'COMPLETED') {
             console.log('Pago completado');

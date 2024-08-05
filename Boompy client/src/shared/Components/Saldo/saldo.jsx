@@ -27,6 +27,7 @@ const AttendanceCount = () => {
 
     // Asegúrate de que auth y auth.user existen y que el rol es "Tutor"
     const isAuthorized = auth && auth.user && auth.user.role === 'Tutor';
+    
 
     useEffect(() => {
         if (!isAuthorized || !serverURL) {
@@ -54,18 +55,24 @@ const AttendanceCount = () => {
         fetchAttendanceCount();
     }, [isAuthorized, serverURL, userId, multiplier]);
 
-    return (
-        <div className="saldocontainer">
-            {loading && <p className="status loading">Loading...</p>}
-            {error && <p className="balance-label">$0 USD</p>}
-            {attendanceCount !== null && !loading && !error && (
-                <>
-                    <p className="balance-label">Balance cash:</p>
-                    <p className="balance-amount">${multiplier.toFixed(0) + " USD"}</p>
-                </>
-            )}
-        </div>
-    );
+ 
+        return (
+            <>
+                {auth.user.role === 'Tutor' && (
+                    <div className="saldocontainer">
+                        {loading && <p className="status loading">Loading...</p>}
+                        {error && <p className="balance-label">$0 USD</p>}
+                        {attendanceCount !== null && !loading && !error && (
+                            <>
+                                <p className="balance-label">Balance cash:</p>
+                                <p className="balance-amount">${multiplier.toFixed(0) + " USD"}</p>
+                            </>
+                        )}
+                    </div>
+                )}
+            </>
+        );
+   
 };
 
 export default AttendanceCount;
