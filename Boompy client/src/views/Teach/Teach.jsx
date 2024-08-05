@@ -26,6 +26,7 @@ import {convertirMonedaANumero} from '../../shared/utils/funtions';
 
 
 
+
 const Teach = ({auth}) => {
 
 
