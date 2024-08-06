@@ -14,6 +14,7 @@ const AttendanceModal = ({ userId, price }) => {
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(20);
+    const [roleuser, setRoleuser] = useState(null); // Estado para roleuser
 
     const serverURL = useSelector(state => state.serverURL.url);
     const userDataString = localStorage.getItem('userData');
@@ -33,23 +34,21 @@ const AttendanceModal = ({ userId, price }) => {
             const fetchAttendances = async () => {
                 try {
                     const response = await axios.get(`${serverURL}/attendances/${userId}`);
-                  
                     const data = response.data;
-
-
-
 
                     const calendarClassesMap = data.calendarClasses.reduce((map, cal) => {
                         map[cal._id] = cal;
                         return map;
                     }, {});
-                    
+
                     const usersMap = data.users.reduce((map, user) => {
                         map[user.id] = user;
                         return map;
                     }, {});
 
-                    const filteredUsers = getFilteredUsers(data.users, role); // Filtra los usuarios
+                    const filteredUsers = getFilteredUsers(data.users, role);
+                    const roleuser = filteredUsers[0]; // Actualiza roleuser aquí
+                    setRoleuser(roleuser); // Actualiza el estado de roleuser
 
                     const updatedAttendances = data.attendances.map(attendance => {
                         const calendarClass = calendarClassesMap[attendance.eventId] || {};
@@ -97,17 +96,17 @@ const AttendanceModal = ({ userId, price }) => {
 
     const convertUTCToLocal = (utcDate) => {
         const date = new Date(utcDate);
-    
+
         const options = {
             year: 'numeric',
-            month: 'long', // Usa 'short' para abreviar el mes (e.g., "Jul" en vez de "July")
+            month: 'long',
             day: 'numeric',
             hour: '2-digit',
             minute: '2-digit',
-            hour12: true // Usa formato de 12 horas (cambia a false para formato de 24 horas)
+            hour12: true
         };
-    
-        return date.toLocaleString('en-US', options); // Configura el locale a inglés
+
+        return date.toLocaleString('en-US', options);
     };
 
     const formatUTCDateToLocal = (utcDate) => {
@@ -115,31 +114,28 @@ const AttendanceModal = ({ userId, price }) => {
     
         const options = {
             year: 'numeric',
-            month: 'long', // Usa 'short' para abreviar el mes (e.g., "Jul" en vez de "July")
-            day: 'numeric',
-            // Omite la configuración de hora y minuto
+            month: 'long',
+            day: 'numeric'
         };
     
-        return date.toLocaleString('en-US', options); // Configura el locale a inglés
+        return date.toLocaleString('en-US', options);
     };
-    
 
     const convertStartTime = (utcTime) => {
         const date = new Date(utcTime);
-    
+
         const options = {
             hour: '2-digit',
             minute: '2-digit',
-            hour12: true // Usa formato de 12 horas (cambia a false para formato de 24 horas)
+            hour12: true
         };
-    
-        return date.toLocaleTimeString('en-US', options); // Configura el locale a inglés
+
+        return date.toLocaleTimeString('en-US', options);
     };
 
     const getFilteredUsers = (users, role) => {
         return users.filter(user => user.role !== role);
     };
-
 
     return (
         <div>
@@ -162,7 +158,7 @@ const AttendanceModal = ({ userId, price }) => {
 
                     {attendances.length > 0 && (
                         <>
-                           {role === 'Tutor' && (
+                            {role === 'Tutor' && (
                                 <p>Total balance: ${total.toFixed(2) + " USD"}</p>
                             )}
                             <ul>
@@ -172,8 +168,8 @@ const AttendanceModal = ({ userId, price }) => {
                                         <p>Start Time: {attendance.calendarClass.startTime ? convertStartTime(attendance.calendarClass.startTime) : 'No disponible'}</p>
                                         <p>Connection: {convertUTCToLocal(attendance.timestamp)}</p>        
                                         <p>
-                                            {attendance.user.name && attendance.user.lastName ? 
-                                                `${attendance.user.role}: ${attendance.user.name} ${attendance.user.lastName}` 
+                                            {roleuser && roleuser.name && roleuser.lastName
+                                                ? `${roleuser.role}: ${roleuser.name} ${roleuser.lastName}`
                                                 : 'No disponible'}
                                         </p>
                                     </li>
