@@ -42,6 +42,8 @@ const AttendanceCount = () => {
                 const response = await axios.get(`${serverURL}/attendances/count/${userId}`);
                 const count = response.data.total;
 
+                console.log(count)
+
                 // Multiplicar el conteo por el multiplicador
                 setAttendanceCount(count * multiplier);
             } catch (err) {
@@ -53,8 +55,7 @@ const AttendanceCount = () => {
         };
 
         fetchAttendanceCount();
-    }, [isAuthorized, serverURL, userId, multiplier]);
-
+    }, [isAuthorized, userId, multiplier]);   
  
         return (
             <>
@@ -65,7 +66,7 @@ const AttendanceCount = () => {
                         {attendanceCount !== null && !loading && !error && (
                             <>
                                 <p className="balance-label">Balance cash:</p>
-                                <p className="balance-amount">${multiplier.toFixed(0) + " USD"}</p>
+                                <p className="balance-amount">${attendanceCount.toFixed(0) + " USD"}</p>
                             </>
                         )}
                     </div>

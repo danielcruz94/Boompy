@@ -110,6 +110,20 @@ const AttendanceModal = ({ userId, price }) => {
         return date.toLocaleString('en-US', options); // Configura el locale a inglés
     };
 
+    const formatUTCDateToLocal = (utcDate) => {
+        const date = new Date(utcDate);
+    
+        const options = {
+            year: 'numeric',
+            month: 'long', // Usa 'short' para abreviar el mes (e.g., "Jul" en vez de "July")
+            day: 'numeric',
+            // Omite la configuración de hora y minuto
+        };
+    
+        return date.toLocaleString('en-US', options); // Configura el locale a inglés
+    };
+    
+
     const convertStartTime = (utcTime) => {
         const date = new Date(utcTime);
     
@@ -154,7 +168,7 @@ const AttendanceModal = ({ userId, price }) => {
                             <ul>
                                 {paginatedAttendances().map((attendance, index) => (
                                     <li className='date_class' key={index}>
-                                        <p>Class Date: {attendance.calendarClass.date ? convertUTCToLocal(attendance.calendarClass.date) : 'No disponible'}</p>
+                                        <p>Class Date: {attendance.calendarClass.date ? formatUTCDateToLocal(attendance.calendarClass.date) : 'No disponible'}</p>
                                         <p>Start Time: {attendance.calendarClass.startTime ? convertStartTime(attendance.calendarClass.startTime) : 'No disponible'}</p>
                                         <p>Connection: {convertUTCToLocal(attendance.timestamp)}</p>        
                                         <p>

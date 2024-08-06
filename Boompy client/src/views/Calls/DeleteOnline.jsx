@@ -7,8 +7,7 @@ const DeleteUserOnUnmount = ({ userId, callInProgress, peer }) => {
   const serverURL = useSelector(state => state.serverURL.url);  
   const callsActive = useSelector((state) => state.callsActive);
 
-  console.log(callInProgress)
-
+  
   useEffect(() => {  
 
     const deleteUserOnline = async () => {
