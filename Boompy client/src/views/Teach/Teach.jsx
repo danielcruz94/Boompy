@@ -395,6 +395,7 @@ const Teach = ({auth}) => {
                   id="img#1"
                   text="Change"
                   accept="image/png,image/jpeg"
+                  priority
                   name="img#1"
                   onChange={(fileUrl) => {
                     const updatedPhotos = [
@@ -461,6 +462,7 @@ const Teach = ({auth}) => {
                   text="Change"
                   accept="image/png,image/jpeg"
                   name="img#2"
+                  priority
                   onChange={(fileUrl) => {
                     const updatedPhotos = [
                       userProfile.photos[0],
@@ -525,6 +527,7 @@ const Teach = ({auth}) => {
                   id="img#3"
                   text="Change"
                   accept="image/png,image/jpeg"
+                  priority
                   name="img#3"
                   onChange={(fileUrl) => {
                     const updatedPhotos = [
