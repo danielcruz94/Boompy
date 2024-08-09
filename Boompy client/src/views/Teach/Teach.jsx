@@ -12,13 +12,11 @@ import { useParams } from "react-router-dom";
 import axios from 'axios'
 import { useNavigate} from 'react-router-dom';
 import ImageFileUpload from '../../shared/Components/ImageUpload/ImageFileUpdload'
-
 import  Spinner  from '../../shared/Components/Modals/Spinners/Spinner'
 
 import TutorCalendar from '../../shared/Components/Calendar/Tutor_Calendar';
 import { useState } from 'react';
 import  Saldo  from '../../shared/Components/Saldo/saldo'
-//import Comp_instagram from '../../shared/Components/Instagram/InstagramAuth';
 
 import {convertirMonedaANumero} from '../../shared/utils/funtions';
 
@@ -41,6 +39,8 @@ const Teach = ({auth}) => {
 
 
  
+  const userDataString = localStorage.getItem('userData');
+  const userData = JSON.parse(userDataString);
 
   
 
@@ -77,6 +77,7 @@ const Teach = ({auth}) => {
 
     const [userProfile,setUserProfile]=useState({});
 
+    
 
     const params =useParams()
 
@@ -85,7 +86,7 @@ const Teach = ({auth}) => {
         try {
           // Fetch user data
           const { data } = await axios(`${serverURL}/user/${params.id}`);
-          
+          console.log(data)
           // Fetch location data
           const response = await axios.get('https://ipinfo.io/json');
           const countryCode = response.data.country?.toUpperCase();
@@ -106,6 +107,7 @@ const Teach = ({auth}) => {
           numericPrice = numericPrice + 3 
          }
 
+        
           
           // Update user profile state
           if (data.name) {
@@ -119,7 +121,8 @@ const Teach = ({auth}) => {
               price: numericPrice,
               photos: data.photos,
               country: data.country,
-              rates: data.teacherRates
+              rates: data.teacherRates,
+              instagram: data.instagram
             });
           } else {
             window.alert('¡Something Wrong!');
@@ -165,17 +168,26 @@ const Teach = ({auth}) => {
       });
   };
 
- 
-
-  
+    const handleClick = () => {
+      if (auth.user?.role === "Tutor") {
+        navegate('/instagram'); // Corrección del error de tipeo aquí
+      } else {
+        const instagramUrl = userProfile.instagram;
+        if (instagramUrl && /^https?:\/\//.test(instagramUrl)) { // Verifica que sea una URL válida
+          window.open(instagramUrl, '_blank');
+        } else {
+          console.error("URL de Instagram no válida");
+        }
+      }
+    };
+      
 
 
     return (
       <div className="contenTeach">
         <Headings></Headings>
 
-        { <NavBar textBotton={"Logout"} onClick={handleLogout}></NavBar> }
-        {/*<Comp_instagram/>*/}
+        { <NavBar textBotton={"Logout"} onClick={handleLogout}></NavBar> }      
 
         <div className="NavTeach"></div>
         {isLoading && <Spinner />}
@@ -249,6 +261,19 @@ const Teach = ({auth}) => {
                       🧠
                     </span>
                   </div>
+
+                  {!(userData.role === "Student" && userProfile.instagram === "") && (
+                <div className="social-icon-wrapper" onClick={handleClick}>
+                  <span className="iconos">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                      alt="Instagram"
+                      style={{ width: '15px', height: '15px' }}
+                    />
+                  </span>
+                </div>
+              )}
+
                   
                 </div>
               </div>

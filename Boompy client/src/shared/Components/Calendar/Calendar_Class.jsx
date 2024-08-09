@@ -15,9 +15,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
   const [selectedStartTime, setSelectedStartTime] = useState('');
   const [selectedEndTime, setSelectedEndTime] = useState('');
   const [scrollEnabled, setScrollEnabled] = useState(true); 
-
-  const userDataString = localStorage.getItem('userData');
-  const userData = JSON.parse(userDataString);
+  userData
 
   const serverURL = useSelector(state => state.serverURL.url);
   const callsActive = useSelector((state) => state.callsActive);

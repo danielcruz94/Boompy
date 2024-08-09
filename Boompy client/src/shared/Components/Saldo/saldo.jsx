@@ -8,11 +8,12 @@ const AttendanceCount = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Obtén el estado auth y verifica si está disponible
+    const userDataString = localStorage.getItem('userData');
+    const userData = JSON.parse(userDataString);
+   
     const auth = useSelector((state) => state.auth);
     const serverURL = useSelector(state => state.serverURL.url);
-
-    // Extrae el multiplicador y el ID de usuario
+    
     const multiplier = extractNumber(auth?.user?.price || '0');
     const userId = auth?.user?.id || '0';
 
@@ -25,7 +26,6 @@ const AttendanceCount = () => {
         return isNaN(number) ? 0 : number;
     }
 
-    // Asegúrate de que auth y auth.user existen y que el rol es "Tutor"
     const isAuthorized = auth && auth.user && auth.user.role === 'Tutor';
     
 
@@ -37,14 +37,10 @@ const AttendanceCount = () => {
         }
 
         const fetchAttendanceCount = async () => {
-            try {
-                // Solicitar el conteo de asistencias desde la API
+            try {                
                 const response = await axios.get(`${serverURL}/attendances/count/${userId}`);
-                const count = response.data.total;
-
-                console.log(count)
-
-                // Multiplicar el conteo por el multiplicador
+                const count = response.data.total;               
+               
                 setAttendanceCount(count * multiplier);
             } catch (err) {
                 console.error('Error al obtener el conteo de asistencias:', err);
@@ -56,10 +52,11 @@ const AttendanceCount = () => {
 
         fetchAttendanceCount();
     }, [isAuthorized, userId, multiplier]);   
+
  
         return (
             <>
-                {auth.user.role === 'Tutor' && (
+                {userData.role === 'Tutor' && (
                     <div className="saldocontainer">
                         {loading && <p className="status loading">Loading...</p>}
                         {error && <p className="balance-label">$0 USD</p>}

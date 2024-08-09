@@ -88,7 +88,8 @@ const Home = ({auth}) => {
   }, []); 
 
 
-  useEffect(() => {
+  useEffect(() => {   
+
     if(!auth.isLoggedIn){
   
       navegate('/')
@@ -156,8 +157,11 @@ const Home = ({auth}) => {
  //console.log(auth)
 
  
- function extractNumber(priceStr) { 
-  let number = priceStr.match(/[\d\.]+/); 
+ function extractNumber(priceStr) {
+  if (typeof priceStr !== 'string') {
+    return null;
+  }
+  let number = priceStr.match(/[\d.]+/);
   return number ? parseFloat(number[0]) : null;
 }
  
