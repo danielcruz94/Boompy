@@ -1,7 +1,6 @@
-/* Estilos para el modalHistory */
-.modalHistory {
-    /* Asegúrate de que el modalHistory esté centrado en la pantalla */
-    position: fixed; /* Cambiado de absolute a fixed */
+
+.modalHistory {   
+    position: fixed; 
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -14,9 +13,9 @@
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-    display: flex; /* Asegúrate de que el contenido del modalHistory esté en columna */
+    display: flex;
     flex-direction: column;
-    z-index: 1000; /* Asegúrate de que el modalHistory esté sobre otros elementos */
+    z-index: 1000; 
 }
 
 .modalHistory h2 {
@@ -68,7 +67,6 @@
     font-size: 0.9rem;
 }
 
-/* Estilo para el contenedor del ícono de historial */
 .history-icon {   
     cursor: pointer;
 }

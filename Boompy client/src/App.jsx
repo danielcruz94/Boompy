@@ -10,6 +10,7 @@ import { Routes, Route,useNavigate,useLocation} from 'react-router-dom';
 import Login from "./views/Login";
 import Home from "./views/Home"
 import Landing from "./shared/Components/Landing/Landing";
+import Instagram from "./shared/Components/Instagram/instagram";
 import Error from "./views/Error/Error";
 import Teach from './views/Teach/Teach';
 import Calls from './views/Calls/Calls';
@@ -33,10 +34,13 @@ if (storedString !== null) {
   // El valor existe, procede a la conversión
 const userObject = JSON.parse(storedString);
 dispatch(loadUser(userObject))
-const pathRegex = /\/calls\/.*/; // Regular expression for paths starting with "/calls/"
-const isCallsPath = pathRegex.test(location.pathname);
-isCallsPath?"":navegate("/home");
- 
+// Verificar si la ruta actual contiene 'instagram' o empieza con '/calls/'
+const isInstagramPath = location.pathname.includes('instagram');
+const isCallsPath = /\/calls\/.*/.test(location.pathname);
+
+if (!isInstagramPath && !isCallsPath) {
+  navegate("/home");
+}
 
 
 
@@ -54,6 +58,8 @@ isCallsPath?"":navegate("/home");
       <Route path='/login' element={<Login />} />
       <Route path='/home' element={<Home />} />
       <Route path='/signup' element={<Signup />} />
+      <Route path='/instagram' element={<Instagram />} />
+      <Route path='/instagram/:code' element={<Instagram />} />
       <Route path='/tutor/:id' element={<Teach />} />
       <Route path='/calls/:id' element={<Calls />} />
       <Route path='*' element={<Error />} />

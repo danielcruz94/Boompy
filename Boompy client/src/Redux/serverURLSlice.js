@@ -8,9 +8,7 @@ const initialURL =
   currentHost === "toriiapp.netlify.app"
     ? "https://torii-tau.vercel.app/api"
     : "http://localhost:3001/api";
-
-    console.log(initialURL)
-
+   
 const serverURLSlice = createSlice({
   name: "serverURL",
   initialState: {
