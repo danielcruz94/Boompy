@@ -1,26 +1,42 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import  Saldo  from '../Saldo/saldo'
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.css';
 import './Settings.css'; 
 
 const Settings = () => {
+  const [showMenu, setShowMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState(''); // Controla el contenido del modal
   const [accountName, setAccountName] = useState('');
   const [bankName, setBankName] = useState('');
+  const [withdrawalAmount, setWithdrawalAmount] = useState('');
 
   const serverURL = useSelector(state => state.serverURL.url);
- 
   const userDataString = localStorage.getItem('userData');
   const userData = JSON.parse(userDataString);
 
-  const openModal = () => {
+  const iconRef = useRef(null);
+  const menuRef = useRef(null);
+  const modalRef = useRef(null);
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
+
+  const openModal = (content) => {
+    setModalContent(content);
+    setShowMenu(false); // Cierra el menú al abrir el modal
     setShowModal(true);
   };
 
   const closeModal = () => {
     setShowModal(false);
+    setModalContent(''); // Resetea el contenido del modal
   };
- 
+
   const fetchBankDetails = async (userId) => {
     try {
       const response = await axios.get(`${serverURL}/user/${userId}/bank-details`);  
@@ -34,13 +50,13 @@ const Settings = () => {
       console.error('Error al obtener detalles bancarios:', error);
     }
   };
-  
+
   useEffect(() => {
     if (userData && userData.id) {
       fetchBankDetails(userData.id);
     }
-  }, []);
- 
+  }, [userData]);
+
   const handleAddAccount = async () => {    
     if (!accountName || !bankName) {
       alert('Por favor, completa todos los campos.');
@@ -54,7 +70,6 @@ const Settings = () => {
 
     try {     
       const response = await axios.put(`${serverURL}/user/${userData.id}/bank-details`, data);
-      
       closeModal(); 
     } catch (error) {     
       if (error.response) {       
@@ -67,38 +82,202 @@ const Settings = () => {
     }
   };
 
+  const handleWithdraw = async () => {
+  
+    const balanceElement = document.querySelector('.balance-amount');
+    const balanceText = balanceElement ? balanceElement.textContent : '$0 USD';
+    const balanceAmount = parseFloat(balanceText.replace(/[^0-9.]/g, ''));
+
+    if (!withdrawalAmount) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Monto requerido',
+            text: 'Por favor, ingresa un monto.',
+        });
+        return;
+    }
+        
+    if (withdrawalAmount < 20) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Monto insuficiente',
+            text: 'El monto de retiro debe ser de al menos $20.',
+        });
+        return;
+    }
+    
+    if (withdrawalAmount > balanceAmount) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Saldo insuficiente',
+            text: 'El monto ingresado excede su saldo disponible.',
+        });
+        return;
+    }
+    
+    const formatAmount = (amount) => {
+        return `$${amount.toLocaleString()}`;
+    };
+    
+    const adminEmailContent = `
+        <html>
+        <body>
+            <h1 style="color: #007bff;">¡Nuevo Retiro Solicitado!</h1>
+            <p>¡Hola!</p>
+            <p>Se ha recibido una solicitud de retiro con los siguientes detalles:</p>
+            <p><strong>Nombre del Usuario:</strong> ${userData.name}</p>
+            <p><strong>ID del Usuario:</strong> ${userData.id}</p>
+            <p><strong>Monto del Retiro:</strong> ${formatAmount(withdrawalAmount)}</p>
+            <p>Por favor, revisa el pedido y procede con el procesamiento.</p>
+            <p>Saludos,<br/>El equipo de Torii</p>
+        </body>
+        </html>
+    `;
+    
+    const userEmailContent = `
+        <html>
+        <body>
+            <h1 style="color: #007bff;">¡Tu Retiro ha sido Programado Exitosamente!</h1>
+            <p>¡Hola ${userData.name}!</p>
+            <p>Tu solicitud de retiro por un monto de ${formatAmount(withdrawalAmount)} ha sido recibida y está siendo procesada.</p>
+            <p>Recuerda que el tiempo de procesamiento puede variar, pero te notificaremos cuando el retiro se haya completado.</p>
+            <p>¡Gracias por ser parte de nuestro equipo de tutores!</p>
+            <p>Saludos,<br/>El equipo de Torii</p>
+        </body>
+        </html>
+    `;
+
+    const emailDataAdmin = {
+        to: 'dz677806@gmail.com',   
+        subject: 'Nuevo Retiro Solicitado - Torii',
+        text: adminEmailContent
+    };
+
+    const emailDataUser = {
+        to: userData.email,   
+        subject: 'Confirmación de Retiro - Torii',
+        text: userEmailContent
+    };
+
+    try {
+        // Enviar correo al administrador
+        await axios.post(`${serverURL}/email/enviar-email`, emailDataAdmin);
+
+        // Enviar correo al usuario
+        await axios.post(`${serverURL}/email/enviar-email`, emailDataUser);
+
+        Swal.fire({
+            icon: 'success',
+            title: '¡Retiro solicitado exitosamente!',
+            text: '¡Tu solicitud de retiro ha sido recibida y estamos procesándola!',
+        }).then(() => {
+            // Puedes cerrar un modal aquí si es necesario
+            // closeModal();
+        });
+
+    } catch (error) {
+        console.error('Error durante el proceso de retiro:', error);
+        Swal.fire({
+            icon: 'error',
+            title: '¡Error!',
+            text: 'Hubo un problema al procesar tu solicitud de retiro. Por favor, intenta de nuevo más tarde.',
+        });
+    }
+  };
+
+
+
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target) && !event.target.closest('.settings-icon')) {
+        setShowMenu(false);
+      }
+      if (modalRef.current && !modalRef.current.contains(event.target) && !event.target.closest('.settings-icon')) {
+        setShowModal(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (showMenu && iconRef.current && menuRef.current) {
+      const iconRect = iconRef.current.getBoundingClientRect();
+      menuRef.current.style.top = `${iconRect.bottom + window.scrollY}px`;
+      menuRef.current.style.left = `${iconRect.left + window.scrollX}px`;
+    }
+  }, [showMenu]);
+
   return (
     <div>
-      <div className="settings-icon" onClick={openModal}>
-        <i className="fa fa-cog IconNavbar" /> 
+      <div className="settings-icon" ref={iconRef} onClick={toggleMenu}>
+      <i className="fa fa-wallet IconNavbar" />
       </div>
+      {showMenu && (
+        <div className="menu" ref={menuRef}>
+          <button className="menu-item" onClick={() => openModal('account')}>Add Bank Account</button>
+          <button className="menu-item" onClick={() => openModal('withdrawal')}>Pay</button>
+        </div>
+      )}
       {showModal && (
-        <div className="modal">
+        <div className="modal" ref={modalRef}>
           <div className="modal-content">
             <span className="close" onClick={closeModal}>&times;</span>
-            <form>
-              <label htmlFor="accountName">Add savings account for payment.</label>
-              <input
-                className='inputpay'
-                type="text"
-                id="BankName"
-                placeholder="Bank"
-                value={bankName}
-                onChange={(e) => setBankName(e.target.value)}
-              />
+            {modalContent === 'account' && (
+              <div className="tab-content">
+                <form>
+                  <label htmlFor="accountName">Add savings account for payment.</label>
+                  <input
+                    className='inputpay'
+                    type="text"
+                    id="BankName"
+                    placeholder="Bank"
+                    value={bankName}
+                    onChange={(e) => setBankName(e.target.value)}
+                  />
+                  <input
+                    className='inputpay accountnumber'
+                    type="number"
+                    id="accountName"
+                    placeholder="Account Number"
+                    value={accountName}
+                    onChange={(e) => setAccountName(e.target.value)}
+                  />
+                  <button className='buttonplay' type="button" onClick={handleAddAccount}>
+                    Add and update
+                  </button>
+                </form>
+              </div>
+            )}
+            {modalContent === 'withdrawal' && (
+              <div className="tab-content">
+                <form>
+                  <label htmlFor="withdrawalAmount">Withdrawal amount:</label>
 
-              <input
-                className='inputpay accountnumber'
-                type="number"
-                id="accountName"
-                placeholder="Account Number"
-                value={accountName}
-                onChange={(e) => setAccountName(e.target.value)}
-              />
-              <button className='buttonplay' type="button" onClick={handleAddAccount}>
-              Add and update
-              </button>
-            </form>
+                  <di className='pay'>
+                    <Saldo/>
+                    </di>
+                    
+
+                  <input
+                    className='inputpay'
+                    type="number"
+                    id="withdrawalAmount"
+                    placeholder="Amount to withdraw"
+                    value={withdrawalAmount}
+                    onChange={(e) => setWithdrawalAmount(e.target.value)}
+                  />
+                  <button className='buttonplay' type="button" onClick={handleWithdraw}>
+                  Withdraw
+                  </button>
+                </form>
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -86,7 +86,6 @@ const Teach = ({auth}) => {
         try {
           // Fetch user data
           const { data } = await axios(`${serverURL}/user/${params.id}`);
-          console.log(data)
           // Fetch location data
           const response = await axios.get('https://ipinfo.io/json');
           const countryCode = response.data.country?.toUpperCase();
@@ -174,7 +173,7 @@ const Teach = ({auth}) => {
       } else {
         const instagramUrl = userProfile.instagram;
         if (instagramUrl && /^https?:\/\//.test(instagramUrl)) { // Verifica que sea una URL válida
-          window.open(instagramUrl, '_blank');
+         // window.open(instagramUrl, '_blank');
         } else {
           console.error("URL de Instagram no válida");
         }
@@ -316,7 +315,10 @@ const Teach = ({auth}) => {
             )}
           </div>
 
-          <Saldo/>
+            <div className="TeachSaldo">
+            <Saldo/>
+            </div>
+         
 
           {auth.user?.role !== "Tutor" ? (
             <div className="payment">
