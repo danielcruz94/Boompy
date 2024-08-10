@@ -1,74 +1,111 @@
+/* Estilos para el menú desplegable */
 .settings-icon {
-    cursor: pointer;
-    position: relative;
-    font-size: 26px;
-    border-radius: 100%;
-    padding: 1px;
-    border: solid 1px #abb7c194;  
-    width: 43px;
+  cursor: pointer;
+  position: relative;
+  font-size: 26px;
+  border-radius: 100%;
+  padding: 1px;
+  border: solid 1px #abb7c194;  
+  width: 43px;
 }
 
+.menu {
+  position: absolute;
+  top: 50px; /* Ajusta según el diseño */
+  right: 10px; /* Ajusta según el diseño */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Asegura que el menú esté por encima de otros elementos */
+}
+
+.menu-item {
+  display: block;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #ddd;
+  background-color: #f0f0f0;
+  color: #333;
+  text-align: center;
+  cursor: pointer;
+  font-size: 80%;
+  width: 100%;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-item:hover {
+  background-color: #ddd;
+}
+
+/* Modal Styling */
 .modal-content {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 80%;
-    max-height: 80%;
-    overflow: auto;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  label {
-    margin-bottom: 0.5rem;
-  }
-  
-  .inputpay {
-    color: black;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
-    background: white;
-    width: 500px;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 80%;
+  max-height: 80%;
+  overflow: auto;
 }
-  
-  .buttonplay {
-    padding: 0.7rem 1rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-    width: 200px;
-  }
 
-  .IconNavbar {
-    color: #abb7c1;
-  }
+.inputpay {  
+  color: black;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  background: white;
+  width: 500px;
+  display: block;
+}
 
-  .accountnumber::-webkit-inner-spin-button,
-  .accountnumber::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-  }
+.buttonplay {
+  padding: 0.7rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 200px;
+}
 
-  /* Ocultar las flechas en Firefox */
-  .accountnumber {
-      -moz-appearance: textfield;
-  }
-  
-  @media screen and (max-width: 600px) {
-    .inputpay  {
-      width: 50%;
+/* Hide arrows in number input */
+.accountnumber::-webkit-inner-spin-button,
+.accountnumber::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.accountnumber {
+  -moz-appearance: textfield;
+}
+
+/* Para navegadores basados en WebKit (Chrome, Safari) */
+.inputpay::-webkit-inner-spin-button,
+.inputpay::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Para navegadores basados en Gecko (Firefox) */
+.inputpay[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Para navegadores basados en Microsoft Edge */
+.inputpay[type=number] {
+  -ms-appearance: none;
+}
+
+
+@media screen and (max-width: 600px) {
+  .inputpay {
+      width: 100%;
       min-width: 200px;
-    }
-
   }
+}

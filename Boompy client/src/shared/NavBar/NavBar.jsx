@@ -117,15 +117,13 @@ const NavBar = ({ textBotton, onClick, userInfo,auth }) => {
               messageContent="Contenido del mensaje aquí..."
             />            
           }   
-          {role === 'Tutor' && <Settings />}
-
-
+          
           <AttendanceModal
                 userId={IdUSer}
                 price={extraerNumero(Price)}
             />
 
-
+           {role === 'Tutor' && <Settings />}
 
 
 

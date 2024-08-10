@@ -26,7 +26,7 @@ p {
 
 .InfTeach {
     display: flex;       
-    padding: 20px 10px;  
+    padding: 20px 0px;  
 
    
 }
@@ -41,6 +41,11 @@ p {
 
 .InfTeach > div:nth-child(2) {   
      width: 30%;
+}
+
+.TeachSaldo {
+    height: min-content;
+    width: 13% !important;
 }
 
 /*PERFIL*/
@@ -407,6 +412,12 @@ li > .Div-li2 {
    #root > div > div.InfTeach > div:nth-child(1) {
     width: 100%;
     align-items: center;
+   }
+
+
+   .TeachSaldo {
+    height: min-content;
+    width: 100% !important;
    }
 }
 
