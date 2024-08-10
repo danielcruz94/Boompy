@@ -148,7 +148,7 @@ const Settings = () => {
     `;
 
     const emailDataAdmin = {
-        to: 'dz677806@gmail.com',   
+        to: 'daniel94cruz@gmail.com',   
         subject: 'Nuevo Retiro Solicitado - Torii',
         text: adminEmailContent
     };
