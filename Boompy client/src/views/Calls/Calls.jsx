@@ -65,8 +65,6 @@ const Calls = () => {
     const lastIndex = location.pathname.lastIndexOf('/');
     const idClase = location.pathname.substring(lastIndex + 1);  
 
-    console.log(idClase)
-    console.log(userId)
 
     const updateAttendanceByUserId = async (eventId, userId) => {
       if (!eventId || !userId) {
