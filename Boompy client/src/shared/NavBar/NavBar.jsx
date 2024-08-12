@@ -8,10 +8,11 @@ import Carrito from '../../assets/carrito.svg';
 import Corazon from '../../assets/corazon.svg';
 import Button from '../../assets/Button.svg';
 import Vector from '../../assets/Vector.svg'; 
-import Torii from '../../assets/torii.png'
+import Torii from '../../assets/rii (2).svg'
 import Notification from '../Components/Notification/Notification';
 import Settings from '../Components/Settings/Settings';
 import AttendanceModal from '../Components/History/History';
+
 
 const NavBar = ({ textBotton, onClick, userInfo,auth }) => {
   
@@ -79,7 +80,7 @@ const NavBar = ({ textBotton, onClick, userInfo,auth }) => {
   return (
     <ContainerBar>
       <Image>
-        <img src={'/src/assets/rii (2).svg'} style={{ width: '50px' }} alt="logo" />
+        <img src={Torii} style={{ width: '50px' }} alt="logo" />
         {/* <b><p>{userInfo?.name}</p></b> */}
       </Image>
       <div style={{ display: 'flex' }}>
