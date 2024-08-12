@@ -258,13 +258,13 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
                 const emailDataEstudiante = {
                     to: userData.email,
                     subject: 'Confirmación de Reserva de Clase',
-                    html: emailContentEstudiante
+                    text: emailContentEstudiante
                 };    
                
                 const emailDataProfesor = {
                     to: EmailTutor,
                     subject: 'Nueva Reserva de Clase',
-                    html: emailContentProfesor
+                    text: emailContentProfesor
                 };
                    
                 const sendEmails = async () => {
