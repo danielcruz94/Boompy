@@ -50,13 +50,13 @@ const Settings = () => {
 
   const openModal = (content) => {
     setModalContent(content);
-    setShowMenu(false); // Cierra el menú al abrir el modal
+    setShowMenu(false); 
     setShowModal(true);
   };
 
   const closeModal = () => {
     setShowModal(false);
-    setModalContent(''); // Resetea el contenido del modal
+    setModalContent(''); 
   };
 
   const fetchBankDetails = async (userId) => {
@@ -69,7 +69,7 @@ const Settings = () => {
       }
 
     } catch (error) {
-      console.error('Error al obtener detalles bancarios:', error);
+      console.error('Error getting bank details:', error);
     }
   };
 
@@ -116,27 +116,27 @@ const Settings = () => {
 
     if (!withdrawalAmount) {
         Swal.fire({
-            icon: 'warning',
-            title: 'Monto requerido',
-            text: 'Por favor, ingresa un monto.',
+          icon: 'warning',
+          title: 'Amount Required',
+          text: 'Please enter an amount.'
         });
         return;
     }
         
     if (withdrawalAmount < 20) {
         Swal.fire({
-            icon: 'warning',
-            title: 'Monto insuficiente',
-            text: 'El monto de retiro debe ser de al menos $20.',
+          icon: 'warning',
+          title: 'Insufficient Amount',
+          text: 'The withdrawal amount must be at least $20.'
         });
         return;
     }
     
     if (withdrawalAmount > balanceAmount) {
         Swal.fire({
-            icon: 'warning',
-            title: 'Saldo insuficiente',
-            text: 'El monto ingresado excede su saldo disponible.',
+          icon: 'warning',
+          title: 'Insufficient Balance',
+          text: 'The amount entered exceeds your available balance.'
         });
         return;
     }
@@ -194,9 +194,9 @@ const Settings = () => {
         await axios.post(`${serverURL}/email/enviar-email`, emailDataUser);
 
         Swal.fire({
-            icon: 'success',
-            title: '¡Retiro solicitado exitosamente!',
-            text: '¡Tu solicitud de retiro ha sido recibida y estamos procesándola!',
+          icon: 'success',
+          title: 'Withdrawal Requested Successfully!',
+          text: 'Your withdrawal request has been received and is being processed!'          
         }).then(() => {
             // Puedes cerrar un modal aquí si es necesario
             // closeModal();
@@ -205,9 +205,9 @@ const Settings = () => {
     } catch (error) {
         console.error('Error durante el proceso de retiro:', error);
         Swal.fire({
-            icon: 'error',
-            title: '¡Error!',
-            text: 'Hubo un problema al procesar tu solicitud de retiro. Por favor, intenta de nuevo más tarde.',
+          icon: 'error',
+          title: 'Error!',
+          text: 'There was a problem processing your withdrawal request. Please try again later.'          
         });
     }
   };
@@ -248,7 +248,7 @@ const Settings = () => {
       {showMenu && (
         <div className="menu" ref={menuRef}>
           <button className="menu-item" onClick={() => openModal('account')}>Add Bank Account</button>
-          <button className="menu-item" onClick={() => openModal('withdrawal')}>Pay</button>
+          <button className="menu-item" onClick={() => openModal('withdrawal')}>Withdraw</button>
         </div>
       )}
       {showModal && (
@@ -259,22 +259,25 @@ const Settings = () => {
               <div className="tab-content">
                 <form>
                   <label htmlFor="accountName">Add savings account for payment.</label>
-                  <input
-                    className='inputpay'
-                    type="text"
-                    id="BankName"
-                    placeholder="Bank"
-                    value={bankName}
-                    onChange={(e) => setBankName(e.target.value)}
-                  />
-                  <input
-                    className='inputpay accountnumber'
-                    type="number"
-                    id="accountName"
-                    placeholder="Account Number"
-                    value={accountName}
-                    onChange={(e) => setAccountName(e.target.value)}
-                  />
+
+                  <div className='Continputpay'>                  
+                      <input
+                        className='inputpay'
+                        type="text"
+                        id="BankName"
+                        placeholder="Bank"
+                        value={bankName}
+                        onChange={(e) => setBankName(e.target.value)}
+                      />
+                      <input
+                        className='inputpay accountnumber'
+                        type="number"
+                        id="accountName"
+                        placeholder="Account Number"
+                        value={accountName}
+                        onChange={(e) => setAccountName(e.target.value)}
+                      />
+                  </div>
                   <button className='buttonplay' type="button" onClick={handleAddAccount}>
                     Add and update
                   </button>
@@ -290,15 +293,16 @@ const Settings = () => {
                     <Saldo/>
                     </di>
                     
-
-                  <input
-                    className='inputpay'
-                    type="number"
-                    id="withdrawalAmount"
-                    placeholder="Amount to withdraw"
-                    value={withdrawalAmount}
-                    onChange={(e) => setWithdrawalAmount(e.target.value)}
-                  />
+                  <div className='Continputpay'>  
+                      <input
+                        className='inputpay'
+                        type="number"
+                        id="withdrawalAmount"
+                        placeholder="Amount to withdraw"
+                        value={withdrawalAmount}
+                        onChange={(e) => setWithdrawalAmount(e.target.value)}
+                      />
+                  </div>
                   <button className='buttonplay' type="button" onClick={handleWithdraw}>
                   Withdraw
                   </button>

@@ -254,8 +254,8 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
           } else {
             Swal.fire({
               icon: 'info',
-              title: 'Clase no disponible en este momento....',
-              text: '.',
+              title: 'Class Not Available at the Moment...',
+              text: '.',              
             }).then(() => {
               //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
             });     

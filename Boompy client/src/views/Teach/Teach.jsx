@@ -316,9 +316,12 @@ const Teach = ({auth}) => {
             )}
           </div>
 
+          {auth.user?.role === "Tutor" && (
             <div className="TeachSaldo">
-            <Saldo/>
+              <Saldo />
             </div>
+          )}
+
          
 
           {auth.user?.role !== "Tutor" ? (

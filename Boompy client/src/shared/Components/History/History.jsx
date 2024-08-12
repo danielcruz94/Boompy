@@ -33,6 +33,7 @@ const AttendanceModal = ({ userId, price }) => {
         if (showModal) {
             const fetchAttendances = async () => {
                 try {
+                   
                     const response = await axios.get(`${serverURL}/attendances/${userId}`);
                     const data = response.data;
 
@@ -47,8 +48,8 @@ const AttendanceModal = ({ userId, price }) => {
                     }, {});
 
                     const filteredUsers = getFilteredUsers(data.users, role);
-                    const roleuser = filteredUsers[0]; // Actualiza roleuser aquí
-                    setRoleuser(roleuser); // Actualiza el estado de roleuser
+                    const roleuser = filteredUsers[0]; 
+                    setRoleuser(roleuser); 
 
                     const updatedAttendances = data.attendances.map(attendance => {
                         const calendarClass = calendarClassesMap[attendance.eventId] || {};
@@ -65,8 +66,9 @@ const AttendanceModal = ({ userId, price }) => {
                     setTotal(data.total * price);
                     setLoading(false);
                 } catch (err) {
-                    console.error('Error al obtener datos de asistencias:', err);
-                    setError('Error al obtener datos de asistencias');
+                    console.error('Error fetching attendance data:', err);
+                    setError('Error fetching attendance data');
+
                     setLoading(false);
                 }
             };
