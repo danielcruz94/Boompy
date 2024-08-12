@@ -79,7 +79,7 @@ const NavBar = ({ textBotton, onClick, userInfo,auth }) => {
   return (
     <ContainerBar>
       <Image>
-        <img src={Torii} style={{ width: '50px' }} alt="logo" />
+        <img src={'/src/assets/rii (2).svg'} style={{ width: '50px' }} alt="logo" />
         {/* <b><p>{userInfo?.name}</p></b> */}
       </Image>
       <div style={{ display: 'flex' }}>
