@@ -263,7 +263,7 @@ const Teach = ({auth}) => {
                   </div>
 
                   {!(userData.role === "Student" && userProfile.instagram === "") && (
-                <div className="social-icon-wrapper" onClick={handleClick}>
+               <div className="social-icon-wrapper instagram" onClick={handleClick} style={{ display: 'block' }}>
                   <span className="iconos">
                     <img
                       src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"

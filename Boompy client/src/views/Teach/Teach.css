@@ -359,6 +359,11 @@ li > .Div-li2 {
 }
 
 
+.instagram{
+    display: none;
+    padding: 4px;
+}
+
 
 @media screen and (max-width: 600px) {
     .gallery {

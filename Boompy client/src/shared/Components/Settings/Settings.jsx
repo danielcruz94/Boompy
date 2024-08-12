@@ -9,18 +9,40 @@ import './Settings.css';
 const Settings = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState(''); // Controla el contenido del modal
+  const [modalContent, setModalContent] = useState(''); 
   const [accountName, setAccountName] = useState('');
   const [bankName, setBankName] = useState('');
   const [withdrawalAmount, setWithdrawalAmount] = useState('');
+  const [Price, setPrice] = useState(0);
 
   const serverURL = useSelector(state => state.serverURL.url);
   const userDataString = localStorage.getItem('userData');
   const userData = JSON.parse(userDataString);
 
+ 
+
   const iconRef = useRef(null);
   const menuRef = useRef(null);
   const modalRef = useRef(null);
+
+  function extraerNumero(cadena) {
+    // Usamos una expresión regular para encontrar todos los dígitos en la cadena
+    const coincidencias = cadena.match(/\d+/g);
+    
+    if (coincidencias) {
+        // Unimos las coincidencias en una sola cadena y la convertimos a número
+        return parseInt(coincidencias.join(''), 10);
+    } else {
+        // Retornamos null si no se encuentran dígitos
+        return null;
+    }
+  
+  
+  }
+
+   
+          
+   
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -55,6 +77,9 @@ const Settings = () => {
     if (userData && userData.id) {
       fetchBankDetails(userData.id);
     }
+
+    setPrice(extraerNumero(userData.price));  
+
   }, [userData]);
 
   const handleAddAccount = async () => {    
@@ -81,6 +106,7 @@ const Settings = () => {
       }
     }
   };
+
 
   const handleWithdraw = async () => {
   
@@ -127,6 +153,7 @@ const Settings = () => {
             <p>Se ha recibido una solicitud de retiro con los siguientes detalles:</p>
             <p><strong>Nombre del Usuario:</strong> ${userData.name}</p>
             <p><strong>ID del Usuario:</strong> ${userData.id}</p>
+             <p><strong>Precio por Clase:</strong> ${formatAmount(Price)}</p>
             <p><strong>Monto del Retiro:</strong> ${formatAmount(withdrawalAmount)}</p>
             <p>Por favor, revisa el pedido y procede con el procesamiento.</p>
             <p>Saludos,<br/>El equipo de Torii</p>
