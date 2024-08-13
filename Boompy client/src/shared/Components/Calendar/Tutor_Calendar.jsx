@@ -326,7 +326,8 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
         default:
           console.error('Resultado inesperado:', isPaid);
       }
-      if(status){
+      if(status==="COMPLETED"){
+
 
 
 
