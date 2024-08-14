@@ -133,6 +133,7 @@ body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calenda
 .close-button-container { 
   display: flex; 
   justify-content: center;
+  color: white;
 }
 
 .close-button-container > button { 

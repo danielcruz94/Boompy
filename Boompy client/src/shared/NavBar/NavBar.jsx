@@ -64,6 +64,7 @@ const NavBar = ({ textBotton, onClick, userInfo,auth }) => {
   const isCallsActive = location.pathname.startsWith('/calls/');
 
        function extraerNumero(cadena) {   
+        
             if (!cadena) {
                 return 1;
             }    
@@ -114,7 +115,7 @@ const NavBar = ({ textBotton, onClick, userInfo,auth }) => {
             <Notification
               numMessages={1}
               messageIcon={<i className="fa fa-envelope IconNavbar" />}
-              messageContent="Contenido del mensaje aquí..."
+              userData={userData}
             />            
           }   
           
