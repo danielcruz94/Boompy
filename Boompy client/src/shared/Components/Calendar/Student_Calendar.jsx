@@ -205,15 +205,17 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
       />
 
       <div className="close-button-container" style={{ marginTop: 10 }}>
-        <button onClick={closeModal}>Cerrar</button>
+        <button onClick={closeModal}>Close</button>
       </div>
 
       {selectedClasses.length > 0 && (
         selectedClasses.map((classInfo, index) => (
           <div key={index} className="class-info">
             <p>{new Date(classInfo.date).toLocaleDateString()}</p>
-            <p>Horario: {classInfo.startTime} - {classInfo.endTime}</p>
-            <button className="cancelButton" onClick={() => cancelClass()}>Cancel</button>
+
+            <p>Time: {classInfo.startTime} - {classInfo.endTime}</p>
+            <button className="cancelButton" onClick={() => cancelClass()}>Cancell</button>
+
             <button className="viewButton" onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}>Forward</button>
           </div>
         ))

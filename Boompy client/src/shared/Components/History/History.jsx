@@ -178,12 +178,12 @@ const AttendanceModal = ({ userId, price }) => {
                                 ))}
                             </ul>
                             {attendances.length > (currentPage * itemsPerPage) && (
-                                <button onClick={loadMore}>Cargar más</button>
+                                <button onClick={loadMore}>loading...</button>
                             )}
                         </>
                     )}
 
-                    {attendances.length === 0 && !loading && <p>No se encontraron asistencias.</p>}
+                    {attendances.length === 0 && !loading && <p>No assists found.</p>}
                 </Modal>
             )}
         </div>

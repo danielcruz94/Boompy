@@ -157,7 +157,7 @@ const Home = ({auth}) => {
  //console.log(auth)
 
  
- function extractNumber(priceStr) {
+ function extractNumber(priceStr) {  
   if (typeof priceStr !== 'string') {
     return null;
   }
