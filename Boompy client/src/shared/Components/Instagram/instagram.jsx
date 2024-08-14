@@ -48,6 +48,8 @@ const InstagramAuth = () => {
             fetch(`${serverURL}/media?accessToken=${accessToken}`)
               .then(response => response.json())
               .then(mediaResponse => {
+
+                console.log(mediaResponse.data)
                 const mediaUrls = mediaResponse.data
                   .slice(0, 3)
                   .map(media => media.media_url); 
@@ -60,7 +62,7 @@ const InstagramAuth = () => {
 
                 axios.put(`${serverURL}/instagram/${userData.id}`, updateData)
                   .then(() => {
-                    window.location.href = URL;
+                    //window.location.href = URL;
                   })
                   .catch(error => {
                     console.error('Error al actualizar Instagram:', error);

@@ -34,8 +34,9 @@ body {
   display: flex;
   place-items: center; 
   min-height: 100vh;
-  
-  /* overflow: hidden; */
+  overflow-x: hidden !important;  
+  /* overflow: hidden;
+   */
 }
 
 h1 {
