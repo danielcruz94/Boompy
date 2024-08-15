@@ -33,6 +33,8 @@ const Notification = ({ numMessages, messageIcon, userData }) => {
     setShowModal(false);
   };
 
+
+
  
   const videoUrl = videoUrls[language] || ''; 
   const description = textDescriptions[language] || 'No description available for the selected language.';
