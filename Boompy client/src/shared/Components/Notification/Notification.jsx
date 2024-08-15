@@ -20,23 +20,43 @@ const Notification = ({ numMessages, messageIcon, userData }) => {
 
   useEffect(() => {
     if (userData && userData.user && userData.user.language) {
-      setLanguage(userData.user.language);
+      setLanguage(userData.user.language);      
     } else {
-      setLanguage(''); 
+      setLanguage('');      
     }
   }, [userData]);
 
   const openModal = () => {
-    setShowModal(true);
+    setShowModal(true);   
   };
 
-  console.log(userData.user)
   const closeModal = () => {
-    setShowModal(false);
+    setShowModal(false);   
   };
 
   const videoUrl = videoUrls[language] || ''; 
-  const description = textDescriptions[language] || 'No description available for the selected language.';
+  const description = textDescriptions[language] || '';
+
+  const handleLoadedMetadata = () => {
+    console.log('Metadata del video cargada');
+  };
+
+  const handleCanPlay = () => {
+    console.log('El video está listo para reproducirse');
+  };
+
+  const handleError = (e) => {
+    console.error('Error al cargar el video:', e);
+    e.target.style.display = 'none'; 
+  };
+
+  const handleStalled = () => {
+    console.warn('Carga del video estancada');
+  };
+
+  const handleAbort = () => {
+    console.warn('Carga del video abortada');
+  };
 
   return (
     <div>
@@ -50,9 +70,15 @@ const Notification = ({ numMessages, messageIcon, userData }) => {
             <span className="close" onClick={closeModal}>&times;</span>
             <p className="description">{description}</p>
             {videoUrl ? (
-              <video className="notification-Video" controls>
+              <video className="notification-Video" controls
+                onLoadedMetadata={handleLoadedMetadata}
+                onCanPlay={handleCanPlay}
+                onError={handleError}
+                onStalled={handleStalled}
+                onAbort={handleAbort}
+              >
                 <source src={videoUrl} type="video/mp4" />
-                Your browser does not support the video tag.
+                <p>Your browser does not support the video tag.</p>
               </video>
             ) : (
               <p>No video available for the selected language.</p>
@@ -64,10 +90,9 @@ const Notification = ({ numMessages, messageIcon, userData }) => {
   );
 };
 
-// Define propTypes para validar las props del componente
 Notification.propTypes = {
   numMessages: PropTypes.number.isRequired,
-  messageIcon: PropTypes.node.isRequired, // `node` permite cualquier cosa que pueda ser renderizada (texto, elementos, etc.)
+  messageIcon: PropTypes.node.isRequired, 
   userData: PropTypes.shape({
     user: PropTypes.shape({
       language: PropTypes.string.isRequired,
