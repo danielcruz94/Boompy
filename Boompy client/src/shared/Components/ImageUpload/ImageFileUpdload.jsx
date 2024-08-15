@@ -8,7 +8,7 @@ import {
   UpPhotos
 } from './ImageFileUpload.style';
 
-const ImageFileUpload = ({ id, text, onChange, description,picture, ...props }) => {
+const ImageFileUpload = ({ id, text, onChange, description, picture, ...props }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const uploadImage = async (e) => {

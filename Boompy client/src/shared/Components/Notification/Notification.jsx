@@ -30,6 +30,7 @@ const Notification = ({ numMessages, messageIcon, userData }) => {
     setShowModal(true);
   };
 
+  console.log(userData.user)
   const closeModal = () => {
     setShowModal(false);
   };
