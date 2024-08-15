@@ -13,10 +13,9 @@ const InstagramAuth = () => {
   const userData = JSON.parse(userDataString);
 
   const currentHost = window.location.hostname; 
-  
   const URL = currentHost === "toriiapp.netlify.app"
     ? 'https://toriiapp.netlify.app/'
-    : 'https://localhost:5173/';
+    : 'https://192.168.1.51:5173/';
 
   // Redirige al usuario para iniciar sesión en Instagram
   const handleLogin = async () => {
@@ -35,55 +34,68 @@ const InstagramAuth = () => {
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
     const code = queryParams.get('code');
-    
-    if (code) {
-      fetch(`${serverURL}/callback?code=${code}`)
-        .then(response => response.json())
-        .then(data => {
-          if (data.error) {
-            setError(data.error);
-          } else {
-            const accessToken = data.access_token;
 
-            fetch(`${serverURL}/media?accessToken=${accessToken}`)
-              .then(response => response.json())
+    if (code) {
+      // Obtiene el token de acceso y el perfil del usuario
+      axios.get(`${serverURL}/callback?code=${code}`)
+        .then(response => {
+          if (response.data.error) {
+            setError(response.data.error);
+          } else {
+            const { access_token, username } = response.data;
+
+            // Obtiene las fotos del usuario
+            axios.get(`${serverURL}/media?accessToken=${access_token}`)
               .then(mediaResponse => {
-                const mediaUrls = mediaResponse.data
+                const mediaUrls = mediaResponse.data.data
                   .slice(0, 3)
                   .map(media => media.media_url); 
 
-                const updateData = {
-                  id: userData.id,
-                  instagram: `https://www.instagram.com/${data.username}`,
-                  photos: mediaUrls
-                };
+                // Envía las URLs de las fotos al servidor para guardarlas
+                axios.post(`${serverURL}/download-images`, {
+                  userId: userData.id,
+                  imageUrls: mediaUrls
+                })
+                .then(downloadResponse => {
+                  // Actualiza los datos del usuario con las nuevas rutas de las imágenes
+                  const updateData = {
+                    instagram: `https://www.instagram.com/${username}`,
+                    photos: downloadResponse.data.filePaths
+                  };
 
-                axios.put(`${serverURL}/instagram/${userData.id}`, updateData)
-                  .then(() => {
-                    window.location.href = URL;
-                  })
-                  .catch(error => {
-                    console.error('Error al actualizar Instagram:', error);
-                    setError('Error al actualizar Instagram.');
-                    window.location.href = URL;
-                  });
+                  axios.put(`${serverURL}/instagram/${userData.id}`, updateData)
+                    .then(() => {
+                      // Redirige al usuario o muestra un mensaje de éxito
+                      window.location.href = URL;
+                    })
+                    .catch(updateError => {
+                      console.error('Error al actualizar Instagram:', updateError);
+                      setError('Error al actualizar Instagram.');
+                      window.location.href = URL;
+                    });
+                })
+                .catch(downloadError => {
+                  console.error('Error al descargar las imágenes:', downloadError);
+                  setError('Error al descargar las imágenes.');
+                  window.location.href = URL;
+                });
               })
-              .catch(error => {
-                console.error('Error al obtener las fotos:', error);
+              .catch(mediaError => {
+                console.error('Error al obtener las fotos:', mediaError);
                 setError('Error al obtener las fotos.');
                 window.location.href = URL;
               });
           }
         })
-        .catch(error => {
-          console.error('Error al obtener el perfil:', error);
+        .catch(callbackError => {
+          console.error('Error al obtener el perfil:', callbackError);
           setError('Error al obtener el perfil.');
           window.location.href = URL;
         });
     } else {
       handleLogin();
     }
-  }, [location, serverURL]);
+  }, [location, serverURL, userData.id]);
 
   return (
     <div>
