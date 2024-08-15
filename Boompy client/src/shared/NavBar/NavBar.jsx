@@ -7,7 +7,7 @@ import StudentCalendar from '../Components/Calendar/Student_Calendar';
 import CalendarClass from '../Components/Calendar/Calendar_Class';
 import Button from '../../assets/Button.svg';
 import Vector from '../../assets/Vector.svg'; 
-import Torii from '../../assets/torii.png'
+import Torii from '../../assets/rii (2).svg'
 import Notification from '../Components/Notification/Notification';
 import Settings from '../Components/Settings/Settings';
 import AttendanceModal from '../Components/History/History';
