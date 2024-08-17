@@ -17,6 +17,8 @@ const InstagramAuth = () => {
     ? 'https://toriiapp.netlify.app/'
     : 'https://localhost:5173/';
 
+    //: 'https://192.168.1.51:5173/';
+
   // Redirige al usuario para iniciar sesión en Instagram
   const handleLogin = async () => {
     try {

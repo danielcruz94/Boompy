@@ -27,6 +27,7 @@ const NavBar = ({ textBotton, onClick, userInfo, auth }) => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  
 
   useEffect(() => {
     if (userData.user) {
@@ -64,6 +65,11 @@ const NavBar = ({ textBotton, onClick, userInfo, auth }) => {
     }
   }
 
+  if (!userData || !userData.user) {
+    // O puedes devolver null o un componente de carga
+    return <div>Loading...</div>;
+  }
+
   return (
     <ContainerBar>
       <Image>
@@ -92,7 +98,8 @@ const NavBar = ({ textBotton, onClick, userInfo, auth }) => {
         <img src={Button} style={{ width: '10px' }} alt="button" />
       </ContainerNavBar>
 
-      <div style={{ display: 'flex', gap: '5px' }}>       
+      <div style={{ display: 'flex', gap: '5px' }}>    
+       
           <Notification
             numMessages={1}
             messageIcon={<i className="fa fa-envelope IconNavbar" />}

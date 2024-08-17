@@ -131,6 +131,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     const userDataString = localStorage.getItem('userData');
     const userData = JSON.parse(userDataString);
     const reservedValue = userData.id;
+   
 
     const selectedClass = tutorAvailability.find(availability => {
       const availabilityDate = new Date(availability.date).toLocaleDateString();
@@ -148,197 +149,161 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
         reserved: reservedValue
       };
       try {
-
-
-          const payment=await axios.post(`${serverURL}/createdorder`,{amount:amount});
-         
-
-        const IdPayment=payment.data.id;
-       // console.log(IdPayment)
-
+        const payment = await axios.post(`${serverURL}/createdorder`, { amount: amount });
+        const IdPayment = payment.data.id;
         const paymentUrl = payment.data.links[1].href; // Assuming the payment URL is at index 1
-        window.open(paymentUrl, '_blank')
+        window.open(paymentUrl, '_blank');
 
-      //   const timeout = new Promise(resolve => setTimeout(resolve, 30000)); // 0,5 segundos
+        const idNumber = { id: IdPayment };
 
-      //  await timeout;
+        const getStatus = async (id, timeout = 50000) => {
+          const startTime = Date.now();
+          try {
+            const response = await axios.post(`${serverURL}/statuspayment`, id);
+            const answer = response.data;
 
-       const idNumber={id:IdPayment}
-      let startTime ;
+            if (answer === 'COMPLETED') return 'COMPLETED';
+            if (Date.now() - startTime > timeout) return 'TIMEOUT';
 
-      let timeOut;;
-
-
-      const getStatus = async (id, timeout = 50000) => {
-        let startTime;
-      
-        try {
-          startTime = Date.now();
-      
-          const response = await axios.post(`${serverURL}/statuspayment`, id);
-          const answer = response.data;          
-      
-          if (answer === 'COMPLETED') {
-            console.log('Pago completado');
-            return 'COMPLETED';
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            return await getStatus(id, timeout);
+          } catch (error) {
+            console.error('Error al verificar el estado del pago:', error);
+            return 'ERROR';
           }
-      
-          if (Date.now() - startTime > timeout) {
-            console.log('Tiempo de espera agotado');
-            return 'TIMEOUT';
-          }
-      
-          // Retroceso exponencial (ejemplo)
-          
-      
-          return await getStatus(id, timeout);
-        } catch (error) {
-          console.error('Error al verificar el estado del pago:', error);
-          return 'ERROR';
-        }
-      };
+        };
 
-
-      const enviarAsistencia = async (eventId, userIds) => {  
-        try {
+        const enviarAsistencia = async (eventId, userIds) => {  
+          try {
             if (!eventId || !Array.isArray(userIds) || userIds.length === 0) {
-                throw new Error('Faltan datos requeridos: eventId o userIds.');
-            }        
-                
-            const response = await fetch(`${serverURL}/attendances`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ eventId, userIds })
-            });
-            console.log('Respuesta del servidor recibida:', response);
-    
-           if (!response.ok) {
-                const errorData = await response.json();
-                console.error(`Error ${response.status}: ${errorData.message}`);
-                throw new Error(`Error ${response.status}: ${errorData.message}`);
+              throw new Error('Faltan datos requeridos: eventId o userIds.');
             }
-    
+
+            const response = await fetch(`${serverURL}/attendances`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ eventId, userIds })
+            });
+
+            if (!response.ok) {
+              const errorData = await response.json();
+              console.error(`Error ${response.status}: ${errorData.message}`);
+              throw new Error(`Error ${response.status}: ${errorData.message}`);
+            }
+
             if (response.status === 201) {
-           
-                const formattedDate = new Date(selectedClass.date).toLocaleString('en-US', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                });
-                console.log('Fecha formateada:', formattedDate);    
-               
-                const emailContentEstudiante = `
-                <html>
-                <body>
-                  <h1 style="color: #007bff;">¡Tu Clase ha sido Reservada Exitosamente!</h1>
-                  <p>¡Hola ${userData.name}!</p>
-                  <p>Tu clase ha sido reservada para el ${formattedDate}, desde las ${selectedClass.startTime} hasta las ${selectedClass.endTime}.</p>
-                  <p>Por favor, asegúrate de estar preparado para tu clase y estar a tiempo.</p>
-                  <p>¡Gracias por elegirnos para tu aprendizaje!</p>
-                  <p>Saludos,<br/>El equipo de Torii</p>
-                </body>
-                </html>
-                `;
-    
-                const emailContentProfesor = `
-                <html>
-                <body>
-                  <h1 style="color: #007bff;">Nueva Reserva de Clase</h1>
-                  <p>¡Hola ${NameTutor}!</p>
-                  <p>Se ha realizado una nueva reserva de clase por parte de ${userData.name}.</p>
-                  <p>La clase está programada para el ${formattedDate}, desde las ${selectedClass.startTime} hasta las ${selectedClass.endTime}.</p>
-                  <p>Por favor, asegúrate de estar preparado para la clase.</p>
-                  <p>Saludos,<br/>El equipo de Torii</p>
-                </body>
-                </html>
-                `;
-                                 
-                const emailDataEstudiante = {
-                    to: userData.email,
-                    subject: 'Confirmación de Reserva de Clase',
-                    text: emailContentEstudiante
-                };    
-               
-                const emailDataProfesor = {
-                    to: EmailTutor,
-                    subject: 'Nueva Reserva de Clase',
-                    text: emailContentProfesor
-                };
-                   
-                const sendEmails = async () => {
-                    try {
-                        // Enviar correo al estudiante
-                        const responseEstudiante = await axios.post(`${serverURL}/email/enviar-email`, emailDataEstudiante);
-                        console.log('Respuesta del correo enviado al estudiante:', responseEstudiante.data);
-    
-                        // Enviar correo al profesor
-                        const responseProfesor = await axios.post(`${serverURL}/email/enviar-email`, emailDataProfesor);
-                        console.log('Respuesta del correo enviado al profesor:', responseProfesor.data);
-    
-                    } catch (error) {
-                        console.error('Error al enviar correos electrónicos:', error);
-                    }
-                };
-                
-                await sendEmails();
-    
-                Swal.fire({
-                    icon: 'success',
-                    title: '¡Great news! Your class is booked!',
-                    text: 'Your class has been booked successfully',
-                }).then(() => {
-                    closeModal(); 
-                });
-    
+              const formattedDate = new Date(selectedClass.date).toLocaleString('en-US', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+              });
+
+              const emailContentEstudiante = `
+              <html>
+              <body>
+                <h1 style="color: #007bff;">¡Tu Clase ha sido Reservada Exitosamente!</h1>
+                <p>¡Hola ${userData.name}!</p>
+                <p>Tu clase ha sido reservada para el ${formattedDate}, desde las ${selectedClass.startTime} hasta las ${selectedClass.endTime}.</p>
+                <p>Por favor, asegúrate de estar preparado para tu clase y estar a tiempo.</p>
+                <p>¡Gracias por elegirnos para tu aprendizaje!</p>
+                <p>Saludos,<br/>El equipo de Torii</p>
+              </body>
+              </html>
+              `;
+
+              const emailContentProfesor = `
+              <html>
+              <body>
+                <h1 style="color: #007bff;">Nueva Reserva de Clase</h1>
+                <p>¡Hola ${NameTutor}!</p>
+                <p>Se ha realizado una nueva reserva de clase por parte de ${userData.name}.</p>
+                <p>La clase está programada para el ${formattedDate}, desde las ${selectedClass.startTime} hasta las ${selectedClass.endTime}.</p>
+                <p>Por favor, asegúrate de estar preparado para la clase.</p>
+                <p>Saludos,<br/>El equipo de Torii</p>
+              </body>
+              </html>
+              `;
+
+              const emailDataEstudiante = {
+                to: userData.email,
+                subject: 'Confirmación de Reserva de Clase',
+                text: emailContentEstudiante
+              };
+
+              const emailDataProfesor = {
+                to: EmailTutor,
+                subject: 'Nueva Reserva de Clase',
+                text: emailContentProfesor
+              };
+
+              const sendEmails = async () => {
+                try {
+                  
+                    // Enviar correo al estudiante
+                    const responseEstudiante = await axios.post(`${serverURL}/email/enviar-email`, emailDataEstudiante);
+                    console.log('Respuesta del correo enviado al estudiante:', responseEstudiante.data);
+
+                    // Enviar correo al profesor
+                    const responseProfesor = await axios.post(`${serverURL}/email/enviar-email`, emailDataProfesor);
+                    console.log('Respuesta del correo enviado al profesor:', responseProfesor.data);
+                  
+                } catch (error) {
+                  console.error('Error al enviar correos electrónicos:', error);
+                }
+              };
+
+              await sendEmails();
+
+              Swal.fire({
+                icon: 'success',
+                title: '¡Great news! Your class is booked!',
+                text: 'Your class has been booked successfully',
+              }).then(() => {
+                closeModal(); 
+              });
+
             } else {
-                throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
-            }    
-          
+              throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
+            }
+
             const responseData = await response.json();
             console.log('Asistencias creadas exitosamente:', responseData);
             return responseData;
-    
-        } catch (error) {
+
+          } catch (error) {
             console.error('Error al enviar la asistencia:', error);
             throw error;
+          }
+        };
+
+        const isPaid = await getStatus(idNumber, 30000);
+
+        console.log(isPaid);
+
+        switch (isPaid) {
+          case 'COMPLETED':
+            console.log('El pago se ha completado.');
+
+            const response = await axios.put(`${serverURL}/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue });
+            if (!response || !response.data) {
+              throw new Error('No se recibió respuesta del servidor al reservar la clase.');
+            }
+
+            setReservationSuccess(prevState => !prevState);
+            await enviarAsistencia(newClassData.classId, [newClassData.userId, newClassData.reserved]);
+
+            break;
+          case 'TIMEOUT':
+            console.log('Se ha alcanzado el tiempo máximo de espera.');
+            break;
+          case 'ERROR':
+            console.error('Ha ocurrido un error al verificar el pago.');
+            break;
+          default:
+            console.error('Resultado inesperado:', isPaid);
         }
-      };
-    
-      
-
-      const isPaid = await getStatus(idNumber, 30000);
-
-      console.log(isPaid)
-
-      switch (isPaid) {
-        case 'COMPLETED':
-          console.log('El pago se ha completado.');
-          enviarAsistencia(newClassData.classId, [newClassData.userId, newClassData.reserved]);   
-          break;
-        case 'TIMEOUT':
-          console.log('Se ha alcanzado el tiempo máximo de espera.');
-          break;
-        case 'ERROR':
-          console.error('Ha ocurrido un error al verificar el pago.');
-          break;
-        default:
-          console.error('Resultado inesperado:', isPaid);
-      }
-      if(status==="COMPLETED"){
-
-
-
-
-        const response = await axios.put(`${serverURL}/calendar/reserve/${selectedClass._id}`, { reserved: reservedValue });
-        setReservationSuccess(prevState => !prevState);       
-
-
-      }else{
-       setErrorMessage("Time You have exceeded the payment time limit")
-      }
-
 
       } catch (error) {
         console.error("Error reserving class:", error);
@@ -349,9 +314,8 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
 
     setScrollEnabled(true);
     setSelectedTime('');
+};
 
-
-  };
 
 
 
