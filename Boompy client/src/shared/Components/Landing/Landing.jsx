@@ -12,6 +12,7 @@ import {Headings} from '../../../views/Landing.style'
 import Footer from '../Footer/Footer';
 import { Link, useNavigate} from 'react-router-dom';
 import { useSelector,useDispatch } from "react-redux"
+import axios from 'axios';
 
 
 
@@ -19,6 +20,7 @@ function Landing() {
   const auth = useSelector((state) => state.auth);
   const [carouselData1, setCarouselData1] = useState([]);
   const [carouselData2, setCarouselData2] = useState([]);
+  const serverURL = useSelector(state => state.serverURL.url);
 
   const navegate =useNavigate()
 
@@ -29,7 +31,7 @@ function Landing() {
     // Función para cargar el primer JSON
     const fetchCarouselData1 = async () => {
       try {
-        const response = await fetch('../../../../public/Datos/carouselData1.json');
+        const response = await fetch('src/assets/Datos/carouselData1.json');
         if (!response.ok) {
           throw new Error(`Failed to fetch carouselData1: ${response.status} ${response.statusText}`);
         }
@@ -40,26 +42,44 @@ function Landing() {
         console.error('Error fetching carouselData1:', error);
       }
     };
+
+    const shuffleArray = (array) => {
+      let shuffledArray = [...array];
+    
+      for (let i = shuffledArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+      }
+    
+      return shuffledArray;
+    };
+   
   
-    // Función para cargar el segundo JSON
+    
     const fetchCarouselData2 = async () => {
       try {
-        const response = await fetch('../../../../public/Datos/carouselData2.json');
-        if (!response.ok) {
-          throw new Error(`Failed to fetch carouselData2: ${response.status} ${response.statusText}`);
-        }
-        const data = await response.json();
-        setCarouselData2(data);
+   
+        const url = `${serverURL}/users/picture`;         
+        const response = await axios.get(url);     
+
+        setCarouselData2(shuffleArray(response.data));
         
-      } catch (error) {
-        console.error('Error fetching carouselData2:', error);
+      } catch (error) {       
+        if (error.response) {          
+          console.error('Error response:', error.response.data);
+          console.error('Status code:', error.response.status);
+          console.error('Headers:', error.response.headers);
+        } else if (error.request) {          
+          console.error('Error request:', error.request);
+        } else {
+          console.error('Error message:', error.message);
+        }
       }
     };
-  
-    // Llamar a las funciones de carga de datos al montar el componente
+     
     fetchCarouselData1();
     fetchCarouselData2();
-  }, []); // El segundo argumento [] asegura que el efecto se ejecute solo una vez, al montar el componente
+  }, []); 
   
 const go=() => {
   // console.log("hihas")
@@ -69,6 +89,41 @@ const signUpLink=() => {
   navegate('/signup')
    
 }
+
+useEffect(() => {
+ 
+  const ajustarCuadrado = () => {
+     
+      const elementos = document.querySelectorAll('.Tutorimg');
+      const elementos2 = document.querySelectorAll('.H_img > div:first-child');
+     
+     // console.log('Elementos Tutorimg:', elementos);
+      //console.log('Elementos H_img > div:first-child:', elementos2);      
+     
+      elementos.forEach(elemento => {
+          const ancho = elemento.offsetWidth;        
+          elemento.style.height = `${ancho}px`;
+      });
+
+      elementos2.forEach(elemento2 => {
+          const ancho = elemento2.offsetWidth;        
+          elemento2.style.height = `${ancho}px`;
+      });
+  };
+
+  
+  const timeoutId = setTimeout(() => {
+      ajustarCuadrado();
+  }, 400); 
+
+ 
+  window.addEventListener('resize', ajustarCuadrado);
+
+  return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', ajustarCuadrado);
+  };
+}, []); 
 
   return (
     <div className="containerHome">
@@ -231,25 +286,24 @@ const signUpLink=() => {
 
   <div>
     {carouselData2.slice(0, 2).map((item, index) => (
-      <div key={index} className="H_img">
-        <div>
-          <img src={item.image} alt="Boompy" />
-        </div>
-        <div>
-          <h5>Name</h5>
-          <div>
-            {item.rating}
-            <i className="fas fa-star"></i>
-          </div>
-          <p>Spanish</p>
-          <p>{item.language}</p>
-          <div>
-            <i className="fab fa-facebook-square mr-3"></i>
-            <i className="fab fa-twitter-square mr-3"></i>
-            <i className="fab fa-instagram-square mr-3"></i>
-          </div>
-        </div>
-      </div>
+       <div key={index} className="H_img">
+       <div>
+         <img src={item.picture} alt="Boompy" className="Tutorimg" />
+       </div>
+       <div>
+         <h5>{item.name}</h5>
+         <div>
+           {item.rating + " "}
+           <i className="fas fa-star"></i>
+         </div>         
+         <p>{item.language}</p>
+         <div>
+           <i className="fab fa-facebook-square mr-3"></i>
+           <i className="fab fa-twitter-square mr-3"></i>
+           <i className="fab fa-instagram-square mr-3"></i>
+         </div>
+       </div>
+     </div>
     ))}
   </div>
 
@@ -257,15 +311,14 @@ const signUpLink=() => {
     {carouselData2.slice(2, 4).map((item, index) => (
       <div key={index} className="H_img">
         <div>
-          <img src={item.image} alt="Boompy" />
+          <img src={item.picture} alt="Boompy" className="Tutorimg"/>
         </div>
         <div>
-          <h5>Name</h5>
+          <h5>{item.name}</h5>
           <div>
-            {item.rating}
+            {item.rating + " "}
             <i className="fas fa-star"></i>
-          </div>
-          <p>Spanish</p>
+          </div>         
           <p>{item.language}</p>
           <div>
             <i className="fab fa-facebook-square mr-3"></i>

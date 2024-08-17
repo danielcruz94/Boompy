@@ -321,15 +321,24 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;  
-    
+    flex-direction: row;      
   }
-  
-  .H_img > div > img {
+
+  .H_img > div:first-child {
     width: 150px;
     height: 150px;
     margin: 15px;
     border-radius: 100%;
+    display: flex;           
+    align-items: center;     
+    justify-content: center; 
+    overflow: hidden;
+}
+
+  
+  .Tutorimg {
+   width: 100%;   
+   object-fit: cover;
   }
   
   .questions {
@@ -478,6 +487,12 @@ body{
     background-color: #0056b3;
   }
 
+  @media screen and (max-width: 900px) {
+      .H_img {        
+        flex-direction: column;
+    }
+  }
+
   
   
   @media screen and (max-width: 600px) {
@@ -518,19 +533,19 @@ body{
         width: 90%;
         margin-left: auto;
         margin-right: auto;
+        margin-top: 10px;
     }
     
 
-    .H_img {        
-        flex-direction: column;
+    
+
+    .H_img > div:first-child {
+       width: 50%;
+       height: auto;
+       background: red;
     }
 
-    .H_img > div > img {
-        width: 50%;
-        height: 50%;
-        margin: 15px;
-        border-radius: 100%;
-    }
+    
 
     .fab, .far {        
         font-size: 20px;

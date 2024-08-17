@@ -8,10 +8,8 @@ const Notification = ({ numMessages, messageIcon, userData }) => {
   
   // Define las URLs de los videos para cada idioma
   const videoUrls = {
-    //English: '../../../../public/Videos/Ingles.mp4',
-   //Spanish: '../../../../public/Videos/español.mp4' 
-    English: 'public/Videos/Ingles.mp4',
-    Spanish: 'public/Videos/español.mp4' 
+    English: 'src/assets/Videos/Ingles.mp4',
+    Spanish: 'src/assets/Videos/Español.mp4',   
   };
 
   // Define los textos para cada idioma
