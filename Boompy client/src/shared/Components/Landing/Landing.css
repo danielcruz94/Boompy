@@ -541,8 +541,7 @@ body{
 
     .H_img > div:first-child {
        width: 50%;
-       height: auto;
-       background: red;
+       height: auto;       
     }
 
     

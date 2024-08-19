@@ -343,7 +343,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
 
         <div style={{ marginTop: 10 }}>
           <button className="assign-class-button" onClick={assignClass} disabled={!selectedStartTime || !selectedEndTime}>Assign Class</button>
-          <button id="closeButton" onClick={closeModal}>Close</button>         
+          <button className="closeButton" id="closeButton" onClick={closeModal}>Close</button>         
         </div>
       </div>
     </Modal>
