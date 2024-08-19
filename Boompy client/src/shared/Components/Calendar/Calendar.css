@@ -213,9 +213,10 @@ body > div:nth-child(6) > div > div > div:nth-child(2) > ul > li{
 }
 
 .close-btn,
+.closeButton,
 .assign-class-btn{
   background: #00aeff;
-  color: white;
+  color: white !important;
   margin: 10px;
 }
 

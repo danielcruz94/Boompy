@@ -63,7 +63,7 @@ width:100vw;
   background:#faeffa;
   margin-top:10px;
   display:flex;
- 
+ background-color: transparent;
   
   justify-content:flex-start;
 
@@ -130,7 +130,7 @@ export const SubmitButton = styled.input`
 
 export const Image = styled.div`
   height: 70%;
-
+  background-color: transparent;
   background-size: cover;
   // background-position: center;
   background-repeat: no-repeat;
