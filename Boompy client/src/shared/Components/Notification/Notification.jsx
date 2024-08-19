@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types'; // Importa PropTypes para la validación
+import PropTypes from 'prop-types';
 import './Notification.css'; 
 
 const Notification = ({ numMessages, messageIcon, userData }) => {
   const [showModal, setShowModal] = useState(false);
   const [language, setLanguage] = useState('');
   
-  // Define las URLs de los videos para cada idioma
-  const videoUrls = {
-    English: 'src/assets/Videos/Ingles.mp4',
-    Spanish: 'src/assets/Videos/Español.mp4',   
+  // Define las URLs de los iframes para cada idioma
+  const iframeUrls = {
+    English: 'https://drive.google.com/file/d/1HKGsKgEbFZMRk7l64qf412qpYKMyeaZM/preview',
+    Spanish: 'https://drive.google.com/file/d/1VkOH0Z-JOMY1CtzkRgeYsgsdO6XCbZBH/preview',   
   };
 
   // Define los textos para cada idioma
@@ -34,52 +34,27 @@ const Notification = ({ numMessages, messageIcon, userData }) => {
     setShowModal(false);   
   };
 
-  const videoUrl = videoUrls[language] || ''; 
+  const iframeUrl = iframeUrls[language] || ''; 
   const description = textDescriptions[language] || '';
-
-  const handleLoadedMetadata = () => {
-    console.log('Metadata del video cargada');
-  };
-
-  const handleCanPlay = () => {
-    console.log('El video está listo para reproducirse');
-  };
-
-  const handleError = (e) => {
-    console.error('Error al cargar el video:', e);
-    e.target.style.display = 'none'; 
-  };
-
-  const handleStalled = () => {
-    console.warn('Carga del video estancada');
-  };
-
-  const handleAbort = () => {
-    console.warn('Carga del video abortada');
-  };
 
   return (
     <div>
       <div className="notification-icon" onClick={openModal}>
-        {messageIcon} {/* Aquí deberías pasar el icono como componente o imagen */}
-        <span className="badge">{numMessages}</span> {/* Número de mensajes */}
+        {messageIcon}
+        <span className="badge">{numMessages}</span>
       </div>
       {showModal && (
         <div className="modal-Notification">
           <div className="content-Notification">
             <span className="close" onClick={closeModal}>&times;</span>
             <p className="description">{description}</p>
-            {videoUrl ? (
-              <video className="notification-Video" controls
-                onLoadedMetadata={handleLoadedMetadata}
-                onCanPlay={handleCanPlay}
-                onError={handleError}
-                onStalled={handleStalled}
-                onAbort={handleAbort}
-              >
-                <source src={videoUrl} type="video/mp4" />
-                <p>Your browser does not support the video tag.</p>
-              </video>
+            {iframeUrl ? (
+              <iframe 
+                src={iframeUrl} 
+                className="iframeVideo"
+                allow="autoplay" 
+                title="Notification Video"
+              ></iframe>
             ) : (
               <p>No video available for the selected language.</p>
             )}
