@@ -163,10 +163,10 @@ const handleChange = (event) => {
             <Span >Rate/hour</Span> 
             <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'} } onChange={handleChange} name={"price"}>
             <option value="" >Select an option</option>
+                <option value="3 USD">3 USD</option>
+                <option value="4 USD">4 USD</option>
                 <option value="5 USD">5 USD</option>
-                <option value="6 USD">6 USD</option>
-                <option value="7 USD">7 USD</option>
-                <option value="10 USD">10 USD</option>
+                
             </select>
             
             
