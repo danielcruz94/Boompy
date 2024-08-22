@@ -11,7 +11,22 @@ import TutorCalendar from "../Calendar/Tutor_Calendar"
 
 const CardProfile=({name,id,picture,price,language,onMouseEnter,onMouseLeave,showTinyImg,photos}) => {
 
-  
+    function capitalizeFirstName(fullName) {       
+        const names = fullName.trim().split(' ');   
+        if (names.length === 0) {
+          return '';
+        }       
+        let firstName = names[0];        
+       
+        if (firstName) {
+          firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1).toLowerCase();
+        }        
+        
+        return firstName;
+      }
+
+
+
     return (
        <ContenedorCard >
         {showTinyImg&& <SmallImage photos={photos}></SmallImage>}
@@ -25,7 +40,7 @@ const CardProfile=({name,id,picture,price,language,onMouseEnter,onMouseLeave,sho
             </MainPhoto>
             
             <ConteinerText>
-            <h3 style={{ fontWeight: '600',margin:'0'}}>{name}</h3>
+            <h3 style={{ fontWeight: '600',margin:'0'}}>{capitalizeFirstName(name)}</h3>
             <span style={{color:'#390099',margin:'0',display:'block'}}>{language}</span>
             {/* <span>🔥 200 Likes</span> */}
             <span style={{color:'#FFC224',fontWeight: '800'}}>${price +" USD"}</span>
