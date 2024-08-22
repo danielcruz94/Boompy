@@ -587,6 +587,20 @@ body{
       display: none;
     }
 
+    .Hero2 > div > div{
+      width: 80%;
+    }
+
+    .IMG_Hero2{
+      max-width: 200px;
+    }
+
+
+    .H2_Landing {     
+      font-size: 25px;
+      margin-bottom: 30px;
+  }
+
 
   }
   

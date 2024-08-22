@@ -30,13 +30,13 @@ const Footer = () => {
             <LinkFooter>Contact us: teamtoriiapp@gmail.com </LinkFooter>
           </a>
 
-          <a href="/">
-            {" "}
-            <LinkFooter>Privacy Policy</LinkFooter>
+          <a href="/Service">
+            {""}
+            <LinkFooter>Terms of Service</LinkFooter>
           </a>
-          <a href="/">
-            {" "}
-            <LinkFooter>Information Privacy Policy</LinkFooter>
+          <a href="/Privacy">
+            {""}
+            <LinkFooter>Data Privacy Policies</LinkFooter>
           </a>
         </Columns>
         <div>

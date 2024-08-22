@@ -45,6 +45,16 @@ a{
   background: #007bff;
 }
 
+.legal-links{
+  width: 100% !important;
+}
+
+
+.legal-links p { 
+  display: inline;
+  font-size: 12px;
+  margin: 0px 10px;
+}
 
 
 @media screen and (max-width: 600px) {
