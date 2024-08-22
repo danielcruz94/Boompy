@@ -201,14 +201,12 @@ body > div:nth-child(6) > div > div > div:nth-child(2) > ul > li{
   color: black;
 }
 
-.reserved{
-  color: red !important;
-}
+
 
 .view-class-button {
   color: white;
   background: #00aeff;
-  margin: 10px 20px;
+  margin: 5px 20px;
   font-size: 50%;
 }
 
@@ -218,6 +216,21 @@ body > div:nth-child(6) > div > div > div:nth-child(2) > ul > li{
   background: #00aeff;
   color: white !important;
   margin: 10px;
+}
+
+.time-slot{
+  width: max-content !important;
+} 
+
+.time-range {
+  display: inline-block;
+  margin: 1px 10px;
+  width: 84px;
+}
+
+
+.reserved{
+  color: red !important;
 }
 
 @media (max-width: 499px) {

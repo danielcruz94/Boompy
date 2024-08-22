@@ -11,6 +11,8 @@ import Login from "./views/Login";
 import Home from "./views/Home"
 import Landing from "./shared/Components/Landing/Landing";
 import Instagram from "./shared/Components/Instagram/instagram";
+import PrivacyPolicy from "./shared/Components/politicas/PrivacyPolicy";
+import TermsService from "./shared/Components/politicas/TermsService";
 import Error from "./views/Error/Error";
 import Teach from './views/Teach/Teach';
 import Calls from './views/Calls/Calls';
@@ -60,6 +62,8 @@ if (!isInstagramPath && !isCallsPath) {
       <Route path='/signup' element={<Signup />} />
       <Route path='/instagram' element={<Instagram />} />
       <Route path='/instagram/:code' element={<Instagram />} />
+      <Route path='/Privacy' element={<PrivacyPolicy />} />
+      <Route path='/Service' element={<TermsService />} />
       <Route path='/tutor/:id' element={<Teach />} />
       <Route path='/calls/:id' element={<Calls />} />
       <Route path='*' element={<Error />} />

@@ -276,8 +276,12 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
   };
   
   
-  
-  
+  function formatTime(date) { 
+    const options = { hour: '2-digit', minute: '2-digit', hour12: true };   
+    let timeString = new Date(date).toLocaleTimeString([], options);     
+    timeString = timeString.replace(/\s(a|p)\.?\s*m/, (match, p1) => ` ${p1.toUpperCase()}m`);  
+    return timeString;
+  }
   
   
   
@@ -308,13 +312,24 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
           
         {availableHoursForDate.map(({ _id, startTime, endTime, reserved }, index) => (
           
-  <li key={index} className={reserved ? 'reserved' : ''}>
-    {new Date(startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })} - {new Date(endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
-    {reserved && (
-     <button className="view-class-button" onClick={() => viewReservedClassDetails(startTime, endTime, _id)}>Forward</button>
-    )}
-  </li>
-))}
+          <li key={index} className={`time-slot ${reserved ? 'reserved' : ''}`}>
+          <span className="time-range">
+            {formatTime(startTime)}
+            </span>
+            -
+            <span className="time-range">  
+            {formatTime(endTime)}
+          </span>
+          {reserved && (
+            <button className="view-class-button" onClick={() => viewReservedClassDetails(startTime, endTime, _id)}>
+              Forward
+            </button>
+          )}
+        </li>
+
+          ))}
+
+
         </ul>
       </div>
 

@@ -181,12 +181,12 @@ useEffect(() => {
       <section className="hero Hero2">
         <div>
           <div className="right-div">
-            <img src={imaheImage} alt="Boompy" />
+            <img className="IMG_Hero2" src={imaheImage} alt="Boompy" />
           </div>
 
           <div className="left-div left-div2">
             <div>
-              <h2>
+              <h2 className="H2_Landing">
               Do you want to improve your language skills? Would you like to earn extra money?<br /><b>Now In One Place</b> 
               </h2>
               <p>

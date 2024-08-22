@@ -6,6 +6,7 @@ import { FormLog,GoogleButton,Container,Span,Input,TextLogin,
   import { useSelector,useDispatch } from "react-redux"
   import Swal from 'sweetalert2';
   import 'sweetalert2/dist/sweetalert2.css';
+  import { Link } from "react-router-dom"
 
 const FormSignUp = () => {
 
@@ -147,6 +148,7 @@ const FormSignUp = () => {
           />
           {passwordsUnMatch&&<p style={{color:'red'}}>Passwords do not match</p>}
           <ContenedorRemember></ContenedorRemember>
+
           <GoogleButton
            onClick={handleSubmit}
             style={{
@@ -160,11 +162,26 @@ const FormSignUp = () => {
             Sign Up
           </GoogleButton>
           <div>
+            
             <Span>Already have an account?</Span>
             <a href="/login" style={{ margin: "4px" }}>
               Login
             </a>
+            
           </div>
+
+
+
+          <div className="legal-links">
+     
+     <p>
+       <Link to="/Privacy">Data Privacy Policies</Link>
+     </p>
+     <p>
+       <Link to="/Service">Terms of Service</Link>
+     </p>
+   
+       </div>
         </Container>
       </FormLog>
     );
