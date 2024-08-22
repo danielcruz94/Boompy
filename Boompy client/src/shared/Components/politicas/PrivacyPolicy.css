@@ -13,6 +13,11 @@
   margin-top: 15px;
 }
 
+.privacy-policy-container > p {
+  display: grid;
+  justify-content: center;
+}
+
 .privacy-policy-container > h2 {
   font-size: 20px;
   cursor: pointer;

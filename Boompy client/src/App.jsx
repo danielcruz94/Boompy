@@ -13,6 +13,7 @@ import Landing from "./shared/Components/Landing/Landing";
 import Instagram from "./shared/Components/Instagram/instagram";
 import PrivacyPolicy from "./shared/Components/politicas/PrivacyPolicy";
 import TermsService from "./shared/Components/politicas/TermsService";
+import Deleteimg from "./shared/Components/politicas/delete";
 import Error from "./views/Error/Error";
 import Teach from './views/Teach/Teach';
 import Calls from './views/Calls/Calls';
@@ -38,9 +39,12 @@ const userObject = JSON.parse(storedString);
 dispatch(loadUser(userObject))
 // Verificar si la ruta actual contiene 'instagram' o empieza con '/calls/'
 const isInstagramPath = location.pathname.includes('instagram');
+const isprivacyPath = location.pathname.includes('privacy');
+const isservicePath = location.pathname.includes('service');
+const isdeletePath = location.pathname.includes('delete');
 const isCallsPath = /\/calls\/.*/.test(location.pathname);
 
-if (!isInstagramPath && !isCallsPath) {
+if (!isInstagramPath && !isCallsPath && !isprivacyPath && !isservicePath && !isdeletePath) {
   navegate("/home");
 }
 
@@ -62,8 +66,9 @@ if (!isInstagramPath && !isCallsPath) {
       <Route path='/signup' element={<Signup />} />
       <Route path='/instagram' element={<Instagram />} />
       <Route path='/instagram/:code' element={<Instagram />} />
-      <Route path='/Privacy' element={<PrivacyPolicy />} />
-      <Route path='/Service' element={<TermsService />} />
+      <Route path='/privacy' element={<PrivacyPolicy />} />
+      <Route path='/service' element={<TermsService />} />
+      <Route path='/delete' element={<Deleteimg/>} />
       <Route path='/tutor/:id' element={<Teach />} />
       <Route path='/calls/:id' element={<Calls />} />
       <Route path='*' element={<Error />} />
