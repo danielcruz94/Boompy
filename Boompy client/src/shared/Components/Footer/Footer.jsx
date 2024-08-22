@@ -30,13 +30,18 @@ const Footer = () => {
             <LinkFooter>Contact us: teamtoriiapp@gmail.com </LinkFooter>
           </a>
 
-          <a href="/Service">
+          <a href="/service">
             {""}
             <LinkFooter>Terms of Service</LinkFooter>
           </a>
-          <a href="/Privacy">
+          <a href="/privacy">
             {""}
             <LinkFooter>Data Privacy Policies</LinkFooter>
+          </a>
+          <a href="/privacy">
+            {""}
+            <LinkFooter>Delete iamgen from instagram
+            </LinkFooter>
           </a>
         </Columns>
         <div>

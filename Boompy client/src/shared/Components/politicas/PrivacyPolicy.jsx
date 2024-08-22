@@ -27,20 +27,20 @@ El Consentimiento del interesado/usuario es cualquier indicación dada librement
 
 Torii trata sus datos personales solo cuando tenemos la base jurídica. En concreto, Torii trata sus datos personales si:
 
-- el tratamiento se basa en el consentimiento que ha otorgado. Como tales, nuestros boletines, recopilación, análisis y publicación de comentarios y reseñas de los usuarios, análisis de lecciones en vídeo, su participación en nuestros eventos y seminarios web, y la colocación de diferentes tipos de cookies, y la publicación de los ganadores del sorteo se basan en su consentimiento;
-- el tratamiento es necesario para brindarle nuestros servicios de acuerdo con nuestros Términos de servicio que constituyen un contrato entre usted y nosotros en lo que respecta a los servicios de información de Torii; en particular esto afecta a la mejora de la experiencia de aprendizaje para profesores y estudiantes mediante recomendaciones personalizadas basadas en la IA, una mejor planificación de las clases y herramientas de aprendizaje interactivas;
-- el tratamiento se basa en el consentimiento explícito que nos ha dado a nosotros y a nuestro proveedor de verificación en línea para tratar sus datos biométricos con fines de verificación de la identidad del tutor y de identificación del fraude;
-- el tratamiento es necesario para los fines de nuestros intereses legítimos. Estos intereses legítimos son entre otros:
-  - el cumplimiento de la legislación financiera y contable de COLOMBIA.;
-  - la evaluación de la eficiencia empresarial de Torii mediante el análisis del tráfico de la Plataforma Torii y los indicadores de rendimiento financiero;
-  - la promoción de Torii a través de redes sociales, medios de comunicación, entidades de referencia y socios, como blogueros o influencers; todo ello referido, en particular, al derecho de Torii a utilizar el nombre, la foto de perfil y otros datos del tutor con fines de marketing, publicidad o promoción de conformidad con los Términos de servicio;
-  - la ejecución de los contratos con clientes empresariales y el suministro de informes sobre el desempeño de sus empleados y contratistas;
-  - el control de la sesión del usuario y prevención del fraude garantizando la protección adecuada de los datos personales;
-  - la verificación de profesores y el desarrollo de programas de aprendizaje de alta calidad con profesores;
-  - formación de datos de IA;
+ el tratamiento se basa en el consentimiento que ha otorgado. Como tales, nuestros boletines, recopilación, análisis y publicación de comentarios y reseñas de los usuarios, análisis de lecciones en vídeo, su participación en nuestros eventos y seminarios web, y la colocación de diferentes tipos de cookies, y la publicación de los ganadores del sorteo se basan en su consentimiento;
+el tratamiento es necesario para brindarle nuestros servicios de acuerdo con nuestros Términos de servicio que constituyen un contrato entre usted y nosotros en lo que respecta a los servicios de información de Torii; en particular esto afecta a la mejora de la experiencia de aprendizaje para profesores y estudiantes mediante recomendaciones personalizadas basadas en la IA, una mejor planificación de las clases y herramientas de aprendizaje interactivas;
+ el tratamiento se basa en el consentimiento explícito que nos ha dado a nosotros y a nuestro proveedor de verificación en línea para tratar sus datos biométricos con fines de verificación de la identidad del tutor y de identificación del fraude;
+ el tratamiento es necesario para los fines de nuestros intereses legítimos. Estos intereses legítimos son entre otros:
+ el cumplimiento de la legislación financiera y contable de COLOMBIA.;
+ la evaluación de la eficiencia empresarial de Torii mediante el análisis del tráfico de la Plataforma Torii y los indicadores de rendimiento financiero;
+ la promoción de Torii a través de redes sociales, medios de comunicación, entidades de referencia y socios, como blogueros o influencers; todo ello referido, en particular, al derecho de Torii a utilizar el nombre, la foto de perfil y otros datos del tutor con fines de marketing, publicidad o promoción de conformidad con los Términos de servicio;
+ la ejecución de los contratos con clientes empresariales y el suministro de informes sobre el desempeño de sus empleados y contratistas;
+ el control de la sesión del usuario y prevención del fraude garantizando la protección adecuada de los datos personales;
+ la verificación de profesores y el desarrollo de programas de aprendizaje de alta calidad con profesores;
+ formación de datos de IA;
 
 cuando sea necesario, cumplimiento de la legislación aplicable (p. ej., tratamiento de la solicitud del interesado);
-- en casos excepcionales, para proteger sus intereses fundamentales o los intereses fundamentales de otra persona física; o para el desempeño de una tarea realizada en interés público o en el ejercicio de la autoridad oficial que se nos ha conferido. En todos los casos, le notificaremos sobre la base legal aplicada para el tratamiento y otros detalles relevantes, antes de comenzar a tratar sus datos personales sobre una base legal específica, a menos que no podamos hacerlo de acuerdo con nuestras obligaciones bajo cualquier legislación.
+ en casos excepcionales, para proteger sus intereses fundamentales o los intereses fundamentales de otra persona física; o para el desempeño de una tarea realizada en interés público o en el ejercicio de la autoridad oficial que se nos ha conferido. En todos los casos, le notificaremos sobre la base legal aplicada para el tratamiento y otros detalles relevantes, antes de comenzar a tratar sus datos personales sobre una base legal específica, a menos que no podamos hacerlo de acuerdo con nuestras obligaciones bajo cualquier legislación.
 
 ## 3. Datos que recopilamos: Alcance
 
@@ -94,14 +94,14 @@ Usamos sus datos personales para proteger nuestros derechos y los de otros, como
 
 Usted tiene ciertos derechos con respecto a sus datos personales, que incluyen:
 
-- **Derecho de confirmación**: Puede solicitar la confirmación de si estamos procesando sus datos personales.
-- **Derecho de acceso**: Puede solicitar acceso a sus datos personales y obtener una copia de los mismos.
-- **Derecho de rectificación**: Puede solicitar la corrección de datos personales inexactos o incompletos.
-- **Derecho a la eliminación (derecho al olvido)**: Puede solicitar la eliminación de sus datos personales cuando ya no sean necesarios para los fines para los que fueron recopilados.
-- **Derecho de restricción del tratamiento**: Puede solicitar que restrinjamos el procesamiento de sus datos personales en determinadas circunstancias.
-- **Derecho a la portabilidad de los datos**: Puede solicitar que le proporcionemos sus datos personales en un formato estructurado, de uso común y legible por máquina, y transmitirlos a otro controlador.
-- **Derecho a oponerse al tratamiento de sus datos personales por parte de Torii**: Puede oponerse al tratamiento de sus datos personales en función de intereses legítimos.
-- **Derecho a revocar el consentimiento en cualquier momento**: Puede retirar su consentimiento para el procesamiento de sus datos personales en cualquier momento, sin afectar la legalidad del procesamiento basado en el consentimiento previo a su retirada.
+Derecho de confirmación: Puede solicitar la confirmación de si estamos procesando sus datos personales.
+Derecho de acceso: Puede solicitar acceso a sus datos personales y obtener una copia de los mismos.
+Derecho de rectificación: Puede solicitar la corrección de datos personales inexactos o incompletos.
+Derecho a la eliminación (derecho al olvido): Puede solicitar la eliminación de sus datos personales cuando ya no sean necesarios para los fines para los que fueron recopilados.
+Derecho de restricción del tratamiento: Puede solicitar que restrinjamos el procesamiento de sus datos personales en determinadas circunstancias.
+Derecho a la portabilidad de los datos: Puede solicitar que le proporcionemos sus datos personales en un formato estructurado, de uso común y legible por máquina, y transmitirlos a otro controlador.
+Derecho a oponerse al tratamiento de sus datos personales por parte de Torii: Puede oponerse al tratamiento de sus datos personales en función de intereses legítimos.
+Derecho a revocar el consentimiento en cualquier momento: Puede retirar su consentimiento para el procesamiento de sus datos personales en cualquier momento, sin afectar la legalidad del procesamiento basado en el consentimiento previo a su retirada.
 
 ## 6. Cómo protegemos sus datos personales
 
@@ -111,9 +111,9 @@ Implementamos medidas técnicas y organizativas adecuadas para proteger sus dato
 
 Podemos compartir sus datos personales con terceros en los siguientes casos:
 
-- **Proveedores de Servicios**: Con proveedores de servicios que nos ayudan a proporcionar nuestros servicios, como servicios de alojamiento, procesamiento de pagos, análisis de datos y soporte al cliente.
-- **Cumplimiento Legal**: Cuando sea necesario para cumplir con obligaciones legales o para proteger nuestros derechos y los de otros.
-- **Transferencias Internacionales**: Podemos transferir sus datos personales a terceros ubicados en otros países, de conformidad con las leyes aplicables y con las medidas adecuadas para garantizar la protección de sus datos.
+Proveedores de Servicios: Con proveedores de servicios que nos ayudan a proporcionar nuestros servicios, como servicios de alojamiento, procesamiento de pagos, análisis de datos y soporte al cliente.
+Cumplimiento Legal: Cuando sea necesario para cumplir con obligaciones legales o para proteger nuestros derechos y los de otros.
+Transferencias Internacionales: Podemos transferir sus datos personales a terceros ubicados en otros países, de conformidad con las leyes aplicables y con las medidas adecuadas para garantizar la protección de sus datos.
 
 ## 8. Cambios en esta Política de Privacidad
 
@@ -123,7 +123,7 @@ Podemos actualizar esta Política de Privacidad ocasionalmente para reflejar cam
 
 Si tiene alguna pregunta sobre esta Política de Privacidad o sobre cómo tratamos sus datos personales, no dude en ponerse en contacto con nosotros a través de teamtoriiapp@gmail.com.
 
-**Última modificación: 21 Agosto 2024**
+Última modificación: 21 Agosto 2024
 `;
 
 const PrivacyPolicy = () => {

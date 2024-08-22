@@ -175,10 +175,10 @@ const FormSignUp = () => {
           <div className="legal-links">
      
      <p>
-       <Link to="/Privacy">Data Privacy Policies</Link>
+       <Link to="/privacy">Data Privacy Policies</Link>
      </p>
      <p>
-       <Link to="/Service">Terms of Service</Link>
+       <Link to="/service">Terms of Service</Link>
      </p>
    
        </div>
