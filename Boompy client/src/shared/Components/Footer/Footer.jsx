@@ -38,7 +38,7 @@ const Footer = () => {
             {""}
             <LinkFooter>Data Privacy Policies</LinkFooter>
           </a>
-          <a href="/privacy">
+          <a href="/delete">
             {""}
             <LinkFooter>Delete iamgen from instagram
             </LinkFooter>
