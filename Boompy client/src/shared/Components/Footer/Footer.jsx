@@ -40,7 +40,7 @@ const Footer = () => {
           </a>
           <a href="/delete">
             {""}
-            <LinkFooter>Delete iamgen from instagram
+            <LinkFooter>Delete image from instagram
             </LinkFooter>
           </a>
         </Columns>
