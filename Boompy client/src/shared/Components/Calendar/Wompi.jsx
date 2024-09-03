@@ -2,35 +2,24 @@ import { useState, useEffect } from 'react';
 import { useSelector } from "react-redux"; 
 import axios from 'axios';
 
-const WompiButton = ({ amount, TRM }) => {
+const WompiButton = ({ amount, TRM, Factura }) => {
     const [COP, setCOP] = useState(0);
-    const [Factura, setFactur] = useState("0");
+    
+
+    const userDataString = localStorage.getItem('userData');
+  const userData = JSON.parse(userDataString);
     
   const serverURL = useSelector(state => state.serverURL.url);
   const publickey= "pub_test_Jpqg96o9auaU9EVzfMVBS1FTI8bTvnhv";
 
+ 
 
-  function generarFactura(longitud = 6) {
-    // Conjunto de caracteres que incluye letras (mayúsculas y minúsculas) y números
-    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    
-    // Variable para almacenar la combinación generada
-    let combinacion = '';
-    
-    // Genera la combinación aleatoria
-    for (let i = 0; i < longitud; i++) {
-        const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
-        combinacion += caracteres[indiceAleatorio];
-    }
-    
-    return combinacion;
-}
+ 
 
     // Calcular COP cuando amount o TRM cambien
     useEffect(() => {
         const result = Math.round(amount * TRM * 100);
-        setCOP(result);
-        setFactur(generarFactura(6))
+        setCOP(result);        
     }, [amount, TRM]);
 
 
@@ -46,8 +35,7 @@ const WompiButton = ({ amount, TRM }) => {
         };
 
         try {
-            const response = await axios.post(`${serverURL}/generate-signature`, data);
-            console.log(response.data.signature)
+            const response = await axios.post(`${serverURL}/generate-signature`, data);           
             return response.data.signature;
         } catch (error) {
             console.error('Error al enviar los datos:', error);
@@ -65,7 +53,7 @@ const WompiButton = ({ amount, TRM }) => {
                 // Obtener la firma de integridad
                 const signature = await fetchSignature();
                 if (!signature) return;
-
+             
                 // Crear un nuevo script
                 const script = document.createElement('script');
                 script.src = 'https://checkout.wompi.co/widget.js';
@@ -75,7 +63,10 @@ const WompiButton = ({ amount, TRM }) => {
                 script.setAttribute('data-amount-in-cents', COP.toString());
                 script.setAttribute('data-reference', Factura);
                 script.setAttribute('data-signature:integrity', signature);
-               // script.setAttribute('data-redirect-url', "https://192.168.1.51:5173/home");
+                script.setAttribute('data-signature:integrity', signature);
+                script.setAttribute('data-customer-data:full-name', userData.name);
+                script.setAttribute('data-customer-data:email', userData.email);              
+               
                 
 
                 // Encontrar el div con la clase 'Form-Wompi'

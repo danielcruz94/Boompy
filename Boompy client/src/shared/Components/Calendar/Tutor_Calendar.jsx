@@ -23,6 +23,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   const [NameTutor, setNameTutor] = useState(false);
   const [PayIsOpen, setPayIsOpen] = useState(false);  
   const [TRM, setTrm] = useState(false);
+  const [Factura, setFactur] = useState("0");
 
   //payment
  // const [status, setStatus] = useState('CREATED');
@@ -104,6 +105,28 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     fetchData();
   }, []); 
 
+  //Numero Factura
+
+    function generarFactura(longitud = 6) {
+      // Conjunto de caracteres que incluye letras (mayúsculas y minúsculas) y números
+      const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      
+      // Variable para almacenar la combinación generada
+      let combinacion = '';
+      
+      // Genera la combinación aleatoria
+      for (let i = 0; i < longitud; i++) {
+          const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
+          combinacion += caracteres[indiceAleatorio];
+      }
+      
+      return combinacion;
+  }
+
+      useEffect(() => {           
+          setFactur(generarFactura(6))
+    }, []); 
+
   const fetchTutorAvailability = async () => {
     try {
       const response = await axios.get(`${serverURL}/calendar/${id}`);
@@ -153,6 +176,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     setModalIsOpen(false); 
     setPayIsOpen(true)
     setScrollEnabled(true);
+    consultapago()
   };
 
   const closepay = () => {    
@@ -160,7 +184,41 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     setScrollEnabled(true);
   };
 
+  const PayPal= () => {
+    assignClass(null)
+  }
 
+  //consulta pago 
+  async function consultapago() {
+    const url = `${serverURL}/wompi/${Factura}`;
+    const retryInterval = 500; // Intervalo de reintento en milisegundos
+    const maxRetries = 100; // Número máximo de intentos
+
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+            const response = await axios.get(url);
+            const data = response.data;
+
+            if (data) {              
+                if(data[0].status === "APPROVED"){
+                  console.log('Datos recibidos:', data[0].status);
+                    assignClass(data[0].status)
+                  
+                }
+
+                
+                return; // Sale de la función si los datos son recibidos
+            }
+        } catch (error) {
+           // console.log('Error al obtener los datos:', error.message);
+        }
+
+        // Espera antes de realizar el siguiente intento
+        await new Promise(resolve => setTimeout(resolve, retryInterval));
+    }
+
+    console.log('Número máximo de intentos alcanzado. Deteniéndose.');
+  }
 
   //asistencia
   //email comentado descomentar al finalizar
@@ -249,6 +307,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
         };
 
         await sendEmails();
+        setFactur(generarFactura(6))
 
         Swal.fire({
           icon: 'success',
@@ -321,12 +380,14 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     }
   }
 
-  const assignClass = async () => {
+  const assignClass = async (status) => {
   
     // Recupera los datos del usuario almacenados en localStorage
     const userDataString = localStorage.getItem('userData');
     const userData = JSON.parse(userDataString);
     const reservedValue = userData.id;
+
+    let isPaid = status
 
     // Busca la clase disponible que coincide con la fecha y hora seleccionadas
     const selectedClass = tutorAvailability.find(availability => {
@@ -349,15 +410,23 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
         };
 
         try {         
-       
+          console.log(isPaid)
+      
+          if(isPaid != "APPROVED"){
                 const payment = await axios.post(`${serverURL}/createdorder`, { amount: amount });
-              
+                  
                 const IdPayment = payment.data.id;
                 const paymentUrl = payment.data.links[1]?.href;               
                 if (paymentUrl) {window.open(paymentUrl, '_blank')} 
               
                 const idNumber = { id: IdPayment };
-                const isPaid = await getStatus(idNumber, 30000);               
+                isPaid = await getStatus(idNumber, 30000);       
+          }else{
+               isPaid = "COMPLETED";
+          }
+                   
+                
+                
 
                 handlePaymentStatus(isPaid, selectedClass, reservedValue, newClassData, userData);
       
@@ -374,14 +443,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     // Habilita el desplazamiento y limpia el tiempo seleccionado
     //setScrollEnabled(true);
     //setSelectedTime('');
-  };
-  
-
-
-
-
-
-
+  }; 
 
 
   const getAvailableTimesForDate = (date) => {
@@ -438,11 +500,11 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     {/* Aquí podrías agregar un menú para seleccionar el método de pago */}
   </div>
   <div className="payment-modal-options">
-    <Wompi amount={amount} TRM={TRM}/>
+    <Wompi amount={amount} TRM={TRM} Factura={Factura}/>
   </div>
   <div className="payment-modal-actions">
     <button 
-      onClick={assignClass}           
+      onClick={PayPal}           
       className="payment-modal-confirm-btn"
     >
       PayPal
