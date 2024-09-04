@@ -176,7 +176,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     setModalIsOpen(false); 
     setPayIsOpen(true)
     setScrollEnabled(true);
-    setTimeout(consultapago, 10000);
+    setTimeout(consultapago, 7000);
 
   };
 
