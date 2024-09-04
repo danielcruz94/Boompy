@@ -176,7 +176,8 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     setModalIsOpen(false); 
     setPayIsOpen(true)
     setScrollEnabled(true);
-    consultapago()
+    setTimeout(consultapago, 10000);
+
   };
 
   const closepay = () => {    
@@ -191,8 +192,8 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   //consulta pago 
   async function consultapago() {
     const url = `${serverURL}/wompi/${Factura}`;
-    const retryInterval = 500; // Intervalo de reintento en milisegundos
-    const maxRetries = 100; // Número máximo de intentos
+    const retryInterval = 1000; 
+    const maxRetries = 1000; 
 
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
         try {
@@ -205,15 +206,12 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
                     assignClass(data[0].status)
                   
                 }
-
                 
-                return; // Sale de la función si los datos son recibidos
+                return; 
             }
         } catch (error) {
            // console.log('Error al obtener los datos:', error.message);
-        }
-
-        // Espera antes de realizar el siguiente intento
+        }        
         await new Promise(resolve => setTimeout(resolve, retryInterval));
     }
 
@@ -298,8 +296,8 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
               console.log('Respuesta del correo enviado al estudiante:', responseEstudiante.data);
 
               // Enviar correo al profesor
-             //const responseProfesor = await axios.post(`${serverURL}/email/enviar-email`, emailDataProfesor);
-              //console.log('Respuesta del correo enviado al profesor:', responseProfesor.data);
+             const responseProfesor = await axios.post(`${serverURL}/email/enviar-email`, emailDataProfesor);
+            console.log('Respuesta del correo enviado al profesor:', responseProfesor.data);
             
           } catch (error) {
             console.error('Error al enviar correos electrónicos:', error);
@@ -507,6 +505,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
       onClick={PayPal}           
       className="payment-modal-confirm-btn"
     >
+     <i className="fab fa-paypal ico_paypal"></i>
       PayPal
     </button>
     <button onClick={closepay} className="payment-modal-close-btn">Close</button>

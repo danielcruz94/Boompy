@@ -12,10 +12,6 @@ const WompiButton = ({ amount, TRM, Factura }) => {
   const serverURL = useSelector(state => state.serverURL.url);
   const publickey= "pub_test_Jpqg96o9auaU9EVzfMVBS1FTI8bTvnhv";
 
- 
-
- 
-
     // Calcular COP cuando amount o TRM cambien
     useEffect(() => {
         const result = Math.round(amount * TRM * 100);
@@ -43,18 +39,14 @@ const WompiButton = ({ amount, TRM, Factura }) => {
         }
     };
 
-  
-
-
     // Manejar la carga del script de Wompi
     useEffect(() => {
         const loadWompiScript = async () => {
             if (COP > 0) {
-                // Obtener la firma de integridad
+              
                 const signature = await fetchSignature();
-                if (!signature) return;
-             
-                // Crear un nuevo script
+                if (!signature) return;             
+              
                 const script = document.createElement('script');
                 script.src = 'https://checkout.wompi.co/widget.js';
                 script.setAttribute('data-render', 'button');
@@ -66,16 +58,12 @@ const WompiButton = ({ amount, TRM, Factura }) => {
                 script.setAttribute('data-signature:integrity', signature);
                 script.setAttribute('data-customer-data:full-name', userData.name);
                 script.setAttribute('data-customer-data:email', userData.email);              
-               
-                
-
-                // Encontrar el div con la clase 'Form-Wompi'
+                               
                 const container = document.querySelector('.Form-Wompi');
                 if (container) {
                     container.appendChild(script);
                 }
 
-                // Limpiar el script cuando el componente se desmonte
                 return () => {
                     if (container) {
                         container.removeChild(script);
@@ -89,7 +77,7 @@ const WompiButton = ({ amount, TRM, Factura }) => {
 
     return (
         <form className="Form-Wompi">
-            {/* El botón Wompi se agregará dinámicamente aquí */}
+           
         </form>
     );
 };
