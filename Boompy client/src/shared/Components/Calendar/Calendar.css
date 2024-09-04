@@ -4,11 +4,6 @@ body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calenda
  margin: 0px 0px 25px 0px;
 }
 
- /*DIV Boton para abrir calendario tutor*/
- #root > div > div.InfTeach > div:nth-child(1) > div.profile-container > div.profile-info > div.social-icons > div:nth-child(4){
-   
- }
-
 /*Boton para abrir calendario tutor*/
 #root > div > div.InfTeach > div:nth-child(1) > div.profile-container > div.profile-info > div.social-icons > div:nth-child(4) > button{
   background: #00aeff;
@@ -233,23 +228,119 @@ body > div:nth-child(6) > div > div > div:nth-child(2) > ul > li{
   color: red !important;
 }
 
-@media (max-width: 499px) {
+/*modal pagos*/
+.Form-Wompi{
+  display: flex;
+  justify-content: center;
+}
 
-  /*DIV Boton para abrir calendario tutor*/
-  #root > div > div.InfTeach > div:nth-child(1) > div.profile-container > div.profile-info > div.social-icons > div:nth-child(4){
-   
+
+/* Overlay específico para el modal de pagos */
+.payment-modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999; 
+}
+
+/* Contenido del modal específico para pagos */
+.payment-modal-content {
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px; 
+  background: white;
+  position: relative;
+  margin: auto;
+}
+
+/* Cabecera del modal de pagos */
+.payment-modal-header h5 {
+  margin: 0;
+  font-size: 1.25em;
+  text-align: center;
+}
+
+/* Contenedor de selección de pagos */
+.payment-modal-select-container {
+  margin-top: 20px;
+}
+
+/* Opciones de pago */
+.payment-modal-options {
+  margin-top: 20px;
+}
+
+/* Contenedor de acciones del modal */
+.payment-modal-actions {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Botón de confirmación específico para pagos */
+.payment-modal-confirm-btn {
+  width: 162px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 4px 20px !important;
+  border-radius: 4px;
+  cursor: pointer !important;
+  margin-bottom: 10px;
+  font-size: 130% !important; 
+}
+
+.ico_paypal{
+  margin-right: 10px;
+}
+
+/* Botón de cerrar específico para pagos */
+.payment-modal-close-btn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Ajustes responsivos específicos para el modal de pagos */
+@media (max-width: 600px) {
+
+
+  .payment-modal-content {
+    width: 100%;
+    height: min-content !important;
+    padding: 15px;
+  }
+  
+  .payment-modal-header h5 {
+    font-size: 1.1em;
   }
 
+  .payment-modal-confirm-btn, .payment-modal-close-btn {
+    padding: 8px 16px;
+    font-size: 0.9em;
+  }
+}
+
+
+@media (max-width: 499px) {
   /*Boton para abrir calendario tutor*/
 #root > div > div.InfTeach > div:nth-child(1) > div.profile-container > div.profile-info > div.social-icons > div:nth-child(4) > button{
   background: #00aeff;
   color: white;
 }
 
-  .ReactModal__Content.ReactModal__Content--after-open {
-    inset: auto !important;
-    height: 100% !important;
-  }
+  
 
   body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__navigation > button.react-calendar__navigation__label > span{
     font-size: 10px;
@@ -282,6 +373,11 @@ body > div:nth-child(6) > div > div > div:nth-child(2) > ul > li{
   body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > button,
   body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > button > abbr{
     font-size: 80%;
+  }
+
+  .ReactModal__Content.ReactModal__Content--after-open {
+    inset: auto !important;
+    height: min-content !important;
   }
 
   
