@@ -4,10 +4,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const currentHost = window.location.hostname;
 
 // Condicionar el valor de la URL en función del host
-const initialURL =
-  currentHost === "https://torii.com.co"
-    ? "https://torii-tau.vercel.app/api"
-    : "http://localhost:3001/api";
+
+const initialURL = currentHost.includes("torii.com.co")
+? "https://torii-tau.vercel.app/api"
+: "http://localhost:3001/api";
    
 const serverURLSlice = createSlice({
   name: "serverURL",
@@ -19,12 +19,15 @@ const serverURLSlice = createSlice({
   reducers: {
     setLoading: (state, action) => {
       state.loading = action.payload;
+      console.log("URL",initialURL)
     },
     setError: (state, action) => {
       state.error = action.payload;
+      
     },
     setURL: (state, action) => {
       state.url = action.payload;
+      console.log("URL",initialURL)
     }
   }
 });
