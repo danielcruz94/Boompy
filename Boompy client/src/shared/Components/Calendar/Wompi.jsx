@@ -10,7 +10,7 @@ const WompiButton = ({ amount, TRM, Factura }) => {
   const userData = JSON.parse(userDataString);
     
   const serverURL = useSelector(state => state.serverURL.url);
-  const publickey= "pub_test_Jpqg96o9auaU9EVzfMVBS1FTI8bTvnhv";
+  const publickey= "pub_prod_NdBSvCs74XuJQbzhHzdO2zVoszUZBrgY";
 
     // Calcular COP cuando amount o TRM cambien
     useEffect(() => {
