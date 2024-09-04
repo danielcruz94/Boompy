@@ -13,8 +13,8 @@ const InstagramAuth = () => {
   const userData = JSON.parse(userDataString);
 
   const currentHost = window.location.hostname; 
-  const URL = currentHost === "toriiapp.netlify.app"
-    ? 'https://toriiapp.netlify.app/'
+  const URL = currentHost === "https://torii.com.co"
+    ? 'https://torii.com.co/'
     : 'https://localhost:5173/';
 
     //: 'https://192.168.1.51:5173/';
