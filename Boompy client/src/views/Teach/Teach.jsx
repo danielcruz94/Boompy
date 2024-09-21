@@ -38,12 +38,25 @@ const Teach = ({auth}) => {
   const [isLoading, setIsLoading] = useState(true);
   const navegate = useNavigate();
 
+  const [isLoaded1, setIsLoaded1] = useState(false);
+  const [isLoaded2, setIsLoaded2] = useState(false);
+  const [isLoaded3, setIsLoaded3] = useState(false);
 
  
   const userDataString = localStorage.getItem('userData');
   const userData = JSON.parse(userDataString);
 
+  const handleLoad1 = () => {
+    setIsLoaded1(true);
+  };
   
+  const handleLoad2 = () => {
+    setIsLoaded2(true);
+  };
+
+  const handleLoad3 = () => {
+    setIsLoaded3(true);
+  };
 
   React.useEffect(() => {
     if(!auth.isLoggedIn){
@@ -413,7 +426,11 @@ const Teach = ({auth}) => {
               {userProfile &&
               Array.isArray(userProfile.photos) &&
               userProfile?.photos[0] ? (
-                <img src={userProfile?.photos[0]} alt="ImgProfile#1" />
+                <img src={userProfile?.photos[0]} 
+                     alt="ImgProfile#1" 
+                     onLoad={handleLoad1}
+                     style={{ display: isLoaded1 ? 'block' : 'none' }}                     
+                />
               ) : auth.user?.role === "Tutor" ? (
                 <p>Please Upload Pictures</p>
               ) : (
@@ -479,7 +496,12 @@ const Teach = ({auth}) => {
               {userProfile &&
               Array.isArray(userProfile.photos) &&
               userProfile?.photos[1] ? (
-                <img src={userProfile?.photos[1]} alt="ImgProfile#2" />
+                <img src={userProfile?.photos[1]} 
+                    alt="ImgProfile#2" 
+                    onLoad={handleLoad2}
+                    style={{ display: isLoaded2 ? 'block' : 'none' }}         
+                
+                />
               ) : auth.user?.role === "Tutor" ? (
                 <p>Please Upload Pictures</p>
               ) : (
@@ -545,7 +567,12 @@ const Teach = ({auth}) => {
               {userProfile &&
               Array.isArray(userProfile.photos) &&
               userProfile?.photos[2] ? (
-                <img src={userProfile?.photos[2]} alt="ImgProfile#3" />
+                <img src={userProfile?.photos[2]} 
+                     alt="ImgProfile#3" 
+                     onLoad={handleLoad3}
+                     style={{ display: isLoaded3 ? 'block' : 'none' }}        
+                     
+                />
               ) : auth.user?.role === "Tutor" ? (
                 <p>Please Upload Pictures</p>
               ) : (

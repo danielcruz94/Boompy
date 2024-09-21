@@ -63,6 +63,13 @@ const Home = ({auth}) => {
      // Reinicia al salir del mouse
   };
 
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
 
   
 
@@ -82,6 +89,8 @@ const Home = ({auth}) => {
       
       }
     };
+
+ 
 
     
     fetchLocationData();
@@ -122,8 +131,8 @@ const Home = ({auth}) => {
         if (localUser.email) {
           const prueba = await axios.get(
             `${serverURL}/userdata?email=${localUser.email}`
-          );
-               
+          );                      
+                    
           let filteredData;
             if (prueba.data.goal) {             
               filteredData = res.data.filter(item => item.language === prueba.data.goal);
@@ -131,7 +140,8 @@ const Home = ({auth}) => {
               filteredData = res.data;
             }
            
-            dispatch(fetchUsers(filteredData));
+           
+            dispatch(fetchUsers((shuffleArray(filteredData))));
 
 
           if (prueba.data.completeInfo === true) {

@@ -102,9 +102,10 @@ body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calenda
 
 .cancelButton,
 .viewButton{
+  display: inline;
   background: #007bff;
   color: white;
-  margin: 0px 20px;
+  margin: 10px;
 }
 
 
@@ -312,6 +313,20 @@ body > div:nth-child(6) > div > div > div:nth-child(2) > ul > li{
   cursor: pointer;
 }
 
+.TotalPagar {
+  margin-top: 20px;
+  font-size: larger;
+  display: flex;
+  justify-content: center;
+}
+
+.ValorPagar{ 
+  font-size: larger;
+  display: flex;
+  justify-content: center;
+  color: red;
+}
+
 /* Ajustes responsivos específicos para el modal de pagos */
 @media (max-width: 600px) {
 
@@ -363,12 +378,7 @@ body > div:nth-child(6) > div > div > div:nth-child(2) > ul > li{
   }
 
   
- .cancelButton,
- .viewButton{
-   display: block;
-    margin: auto;
-    margin-bottom: 10px;
-  }
+ 
 
   body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > button,
   body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > button > abbr{

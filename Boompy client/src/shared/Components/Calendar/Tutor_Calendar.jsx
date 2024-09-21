@@ -24,6 +24,11 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   const [PayIsOpen, setPayIsOpen] = useState(false);  
   const [TRM, setTrm] = useState(false);
   const [Factura, setFactur] = useState("0");
+  const [hasExecuted, sethasExecuted] = useState(false);
+  const [RealPrice, setRealPrice] = useState(0);
+  const [RealPoint, setRealPoint] = useState(0);
+
+  
 
   //payment
  // const [status, setStatus] = useState('CREATED');
@@ -41,7 +46,10 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     id = ID;
   }
 
+
   useEffect(() => {
+
+    setRealPrice(amount)
 
     if (modalIsOpen) {
 
@@ -61,7 +69,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     };
 
     fetchUser();
-
+ 
   }
 
   }, [modalIsOpen]);
@@ -183,11 +191,87 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   const closepay = () => {    
     setPayIsOpen(false)
     setScrollEnabled(true);
+
+    sethasExecuted(false);
+    amount = RealPrice;
+
+    const spanPoints = document.querySelector('.points');
+    spanPoints.textContent = `Points: ${RealPoint}`
   };
 
   const PayPal= () => {
     assignClass(null)
   }
+
+  const updateUserPointsRequest = async (userId, points) => {
+    try {
+      const response = await axios.patch(`${serverURL}/users/${userId}/updatePoints`, { points });
+      
+      // Verifica la respuesta
+      return response.data.updated || false;
+    } catch (error) {
+      console.error('Error al actualizar los puntos:', error);
+      return false;
+    }
+  };
+  
+
+  const PayPoint = async () => {
+    let points
+
+    if (hasExecuted) {
+      //console.log("La función ya se ha ejecutado una vez.");
+      return; // Sale si ya se ejecutó
+    }
+  
+    
+  
+    try {
+      const userDataString = localStorage.getItem('userData');
+      const userData = JSON.parse(userDataString);
+      const studentId = userData.id;
+  
+      const response = await axios.get(`${serverURL}/users/${studentId}/points`);
+      points = response.data.points
+
+      if(points != 0){
+  
+        setRealPoint(points)
+        sethasExecuted(true);
+
+          if (points / 100 >= amount) {
+                  points = points - (amount * 100);
+                  const result = await updateUserPointsRequest(studentId, points);
+
+                  if(result){ assignClass("APPROVED"); }                 
+                  
+              } else {
+                  console.log("Se descuentan puntos");
+                  amount = amount - (points / 100);
+                  points = 0;
+                  console.log(amount);
+                  console.log(points);
+          }
+
+          
+
+            const spanPoints = document.querySelector('.points');
+            spanPoints.textContent = `Points: ${points}`
+
+            const spanValor = document.querySelector('.ValorPagar');
+            spanValor.textContent = `$${amount} USD`
+    }else{
+      alert("no tienes suficientes puntos.")
+    }
+
+
+
+    } catch (error) {
+      console.error("Error fetching points:", error);
+    }
+  };
+  
+
 
   //consulta pago 
   async function consultapago() {
@@ -292,12 +376,15 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
           try {
             
               // Enviar correo al estudiante
-              const responseEstudiante = await axios.post(`${serverURL}/email/enviar-email`, emailDataEstudiante);
-              console.log('Respuesta del correo enviado al estudiante:', responseEstudiante.data);
+             // const responseEstudiante = await axios.post(`${serverURL}/email/enviar-email`, emailDataEstudiante);
+            //  console.log('Respuesta del correo enviado al estudiante:', responseEstudiante.data);
 
               // Enviar correo al profesor
-             const responseProfesor = await axios.post(`${serverURL}/email/enviar-email`, emailDataProfesor);
-            console.log('Respuesta del correo enviado al profesor:', responseProfesor.data);
+            // const responseProfesor = await axios.post(`${serverURL}/email/enviar-email`, emailDataProfesor);
+           //console.log('Respuesta del correo enviado al profesor:', responseProfesor.data);
+
+           sethasExecuted(false);
+           amount = RealPrice;
             
           } catch (error) {
             console.error('Error al enviar correos electrónicos:', error);
@@ -320,7 +407,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
       }
 
       const responseData = await response.json();
-      console.log('Asistencias creadas exitosamente:', responseData);
+      //console.log('Asistencias creadas exitosamente:', responseData);
       return responseData;
 
     } catch (error) {
@@ -352,7 +439,8 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
         case 'COMPLETED': {
             try {
                 const response = await axios.put(`${serverURL}/calendar/reserve/${selectedClass._id}`, {
-                    reserved: reservedValue
+                    reserved: reservedValue,
+                    price: amount
                 });
                 
                 if (!response || !response.data) {
@@ -404,11 +492,13 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
             endTime: selectedClass.endTime,
             userId: selectedClass.userId,
             classId: selectedClass._id,
-            reserved: reservedValue
-        };
+            reserved: reservedValue,
+            price: amount
+        };        
 
         try {         
-          console.log(isPaid)
+        
+          
       
           if(isPaid != "APPROVED"){
                 const payment = await axios.post(`${serverURL}/createdorder`, { amount: amount });
@@ -493,12 +583,25 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
 >
   <div className="payment-modal-header">
     <h5>Select Payment Method</h5>
+
+    <span className='TotalPagar'>Total to Pay </span>
+    <span className='ValorPagar'>${amount} USD</span>
+
   </div>
   <div className="payment-modal-select-container">
     {/* Aquí podrías agregar un menú para seleccionar el método de pago */}
   </div>
+  
   <div className="payment-modal-options">
     <Wompi amount={amount} TRM={TRM} Factura={Factura}/>
+  </div>
+  <div className="payment-modal-actions">
+    <button 
+        onClick={PayPoint}           
+        className="payment-modal-confirm-btn"
+      >      
+        Points
+      </button>
   </div>
   <div className="payment-modal-actions">
     <button 
@@ -510,6 +613,8 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     </button>
     <button onClick={closepay} className="payment-modal-close-btn">Close</button>
   </div>
+  
+
 </Modal>
 
 

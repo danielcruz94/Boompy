@@ -81,10 +81,27 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
     setScrollEnabled(true);
   };
 
-  const cancelClass = () => {
-    alert('Clase cancelada');
-    closeModal();
-  };
+  const cancelClass = async (classID) => {
+    const utcDate = new Date().toISOString(); // Obtén la fecha y hora UTC actual
+
+    try {
+        const response = await axios.delete(`${serverURL}/calendar/Cancelclass/${classID}`, {
+            params: { utcDate: utcDate } // Envía la fecha UTC como parámetro
+        });
+
+        //console.log(response.data.message); // Muestra el mensaje devuelto por el servidor
+        Swal.fire({
+          icon: 'info',
+          title: 'Class canceled....',
+          text: '.',
+
+        }).then(() => {
+          closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+        });
+    } catch (error) {
+        console.error('Error al cancelar la clase:', error.response?.data || error.message);
+    }
+};
 
   const viewClass = (startTime, endTime, classId) => {
     const currentTime = new Date();
@@ -214,7 +231,7 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
             <p>{new Date(classInfo.date).toLocaleDateString()}</p>
 
             <p>Time: {classInfo.startTime} - {classInfo.endTime}</p>
-            <button className="cancelButton" style={{ display: 'none' }} onClick={() => cancelClass()}>Cancell</button>
+            <button className="cancelButton"  onClick={() => cancelClass(classInfo._id)}>Cancell</button>
 
             <button className="viewButton" onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}>Forward</button>
           </div>
