@@ -61,6 +61,7 @@ const WompiButton = ({ amount, TRM, Factura }) => {
                                
                 const container = document.querySelector('.Form-Wompi');
                 if (container) {
+                    container.innerHTML = "";
                     container.appendChild(script);
                 }
 
@@ -76,9 +77,14 @@ const WompiButton = ({ amount, TRM, Factura }) => {
    }, [COP]);
 
     return (
-        <form className="Form-Wompi">
+
+        <div className='WonpiCot'>
+            <form className="Form-Wompi">
            
-        </form>
+           </form>
+        <img src='/src/assets/wompi.PNG' className="pngwompi"></img>
+      </div>
+        
     );
 };
 

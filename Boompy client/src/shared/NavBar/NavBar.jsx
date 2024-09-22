@@ -120,9 +120,11 @@ const NavBar = ({ textBotton, onClick, auth }) => {
         <img src={Button} style={{ width: '10px' }} alt="button" />
       </ContainerNavBar>
 
-      <Points/>
+     
 
       <div style={{ display: 'flex', gap: '5px' }}>    
+
+      <Points/>
        
         <Notification
           numMessages={1}

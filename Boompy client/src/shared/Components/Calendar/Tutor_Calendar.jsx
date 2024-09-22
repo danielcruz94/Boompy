@@ -47,9 +47,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   }
 
 
-  useEffect(() => {
-
-    setRealPrice(amount)
+  useEffect(() => {    
 
     if (modalIsOpen) {
 
@@ -98,6 +96,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
 
   //TRM
   useEffect(() => {    
+    
     const fetchData = async () => {
         try {
             const response = await fetch('https://www.datos.gov.co/resource/32sa-8pi3.json');
@@ -112,6 +111,15 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     
     fetchData();
   }, []); 
+
+
+  useEffect(() => {
+    const spanValor = document.querySelector('.ValorPagar');
+
+    if (spanValor) {
+        spanValor.textContent = `$${RealPrice} USD`;
+    }
+}, [RealPrice]);
 
   //Numero Factura
 
@@ -177,7 +185,6 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     setScrollEnabled(true);
   };
 
- 
   //---------------ORGANIZAR PAGOS-------------------------------------------------------------------------
 
   const PayChange = () => {
@@ -185,7 +192,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     setPayIsOpen(true)
     setScrollEnabled(true);
     setTimeout(consultapago, 7000);
-
+   
   };
 
   const closepay = () => {    
@@ -193,12 +200,15 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     setScrollEnabled(true);
 
     sethasExecuted(false);
-    amount = RealPrice;
+    setRealPrice(amount); 
 
     const spanPoints = document.querySelector('.points');
     spanPoints.textContent = `Points: ${RealPoint}`
   };
+ 
 
+
+       
   const PayPal= () => {
     assignClass(null)
   }
@@ -247,19 +257,19 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
                   
               } else {
                   console.log("Se descuentan puntos");
-                  amount = amount - (points / 100);
+                  let total = amount - (points / 100)
+                  setRealPrice(total); 
                   points = 0;
-                  console.log(amount);
+                  console.log(RealPrice);
                   console.log(points);
+                  
           }
 
           
 
             const spanPoints = document.querySelector('.points');
             spanPoints.textContent = `Points: ${points}`
-
-            const spanValor = document.querySelector('.ValorPagar');
-            spanValor.textContent = `$${amount} USD`
+            
     }else{
       alert("no tienes suficientes puntos.")
     }
@@ -384,7 +394,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
            //console.log('Respuesta del correo enviado al profesor:', responseProfesor.data);
 
            sethasExecuted(false);
-           amount = RealPrice;
+           setRealPrice(amount); 
             
           } catch (error) {
             console.error('Error al enviar correos electrónicos:', error);
@@ -440,7 +450,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
             try {
                 const response = await axios.put(`${serverURL}/calendar/reserve/${selectedClass._id}`, {
                     reserved: reservedValue,
-                    price: amount
+                    price: RealPrice
                 });
                 
                 if (!response || !response.data) {
@@ -493,7 +503,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
             userId: selectedClass.userId,
             classId: selectedClass._id,
             reserved: reservedValue,
-            price: amount
+            price: RealPrice
         };        
 
         try {         
@@ -501,7 +511,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
           
       
           if(isPaid != "APPROVED"){
-                const payment = await axios.post(`${serverURL}/createdorder`, { amount: amount });
+                const payment = await axios.post(`${serverURL}/createdorder`, { amount: RealPrice });
                   
                 const IdPayment = payment.data.id;
                 const paymentUrl = payment.data.links[1]?.href;               
@@ -565,6 +575,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
         <a href="#" onClick={() => {
           setModalIsOpen(true);
           setScrollEnabled(false);
+          setRealPrice(amount); 
         }} style={{color:'white',textDecoration:'none' }}><span style={{fontSize:'12px',background:'#10104d',paddingLeft:'7px',paddingRight:'7px',paddingTop:'3px',paddingBottom:'3px',borderRadius:'10px',color:'white'}}> Book a ticket</span></a>
       )}
 
@@ -572,6 +583,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
         <button onClick={() => {
           setModalIsOpen(true);
           setScrollEnabled(false);
+          setRealPrice(amount); 
         }} style={{ marginTop: '15px', background: '#10104d', color: 'white' }}>Book a Ticket</button>
       )}
 
@@ -585,15 +597,15 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     <h5>Select Payment Method</h5>
 
     <span className='TotalPagar'>Total to Pay </span>
-    <span className='ValorPagar'>${amount} USD</span>
+    <span className='ValorPagar'>${RealPrice} USD</span>
 
   </div>
   <div className="payment-modal-select-container">
     {/* Aquí podrías agregar un menú para seleccionar el método de pago */}
   </div>
   
-  <div className="payment-modal-options">
-    <Wompi amount={amount} TRM={TRM} Factura={Factura}/>
+  <div className="payment-modal-options ">
+    <Wompi amount={RealPrice} TRM={TRM} Factura={Factura}/>      
   </div>
   <div className="payment-modal-actions">
     <button 
@@ -613,7 +625,8 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     </button>
     <button onClick={closepay} className="payment-modal-close-btn">Close</button>
   </div>
-  
+
+ 
 
 </Modal>
 

@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
 import axios from 'axios';
 
+import './points.css';
+
 const UserPoints = () => {
   const [points, setPoints] = useState(null);
 
