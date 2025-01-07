@@ -1,10 +1,4 @@
 import { Link } from "react-router-dom"
-import {ContainerProfile,
-    MainPhoto,
-    ContenedorCard,
-    ConteinerText
-} from "./Cards.style"
-
 import SmallImage from "./TinyImages/SmallImage"
 import TutorCalendar from "../Calendar/Tutor_Calendar"
 
@@ -28,29 +22,29 @@ const CardProfile=({name,id,picture,price,language,onMouseEnter,onMouseLeave,sho
 
 
     return (
-       <ContenedorCard >
+       <div className="ContenedorCard" >
         {showTinyImg&& <SmallImage photos={photos}></SmallImage>}
        
-            <MainPhoto>
+            <div className="MainPhoto">
                 <Link to={`/tutor/${id}`} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
               
-                <img src={picture} alt="mainPhoto"  style={{width:'150px',height:'150px',borderRadius:'50%'}}/>
+                <img src={picture} alt="mainPhoto"/>
                 </Link>
             
-            </MainPhoto>
+            </div>
             
-            <ConteinerText>
-            <h3 style={{ fontWeight: '600',margin:'0'}}>{capitalizeFirstName(name)}</h3>
-            <span style={{color:'#390099',margin:'0',display:'block'}}>{language}</span>
+            <div className="ConteinerText">
+            <h3 >{capitalizeFirstName(name)}</h3>
+            <p>{language}</p>
             {/* <span>🔥 200 Likes</span> */}
-            <span style={{color:'#FFC224',fontWeight: '800'}}>${price +" USD"}</span>
+            <span >${price +" USD"}</span>
             <TutorCalendar pagina="Home" ID={id} tutor={name} amount={price} />
             
             
 
-            </ConteinerText>
+            </div>
            
-            </ContenedorCard>
+            </div>
     ) 
 }
 

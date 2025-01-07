@@ -1,12 +1,6 @@
 body{
     margin-top: 10px;
 }
-
-
-
-  p{
-    margin-bottom: 0px;
-  }
   
   .containerHome {     
     margin: 0px  0px 0px 0px;
@@ -18,589 +12,746 @@ body{
     width: 100%;
     background: white;
   }
-  
- 
-  
-  .Redes > div{
-    margin-left: 5px;
-  }
-  
-  .cabecera {
-    background: white;
-    width: 100%;
-    color: #090909;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row; 
-    padding: 7px;
-    font-size: 12px;
-  }
-  
-  .cabecera > div{
-    display: flex;
-    justify-content: center;
-    align-items: center;  
-    width: 100%;
-  }
-  
-  .login-btn {
-    background-color: rgb(252, 216, 14);
-    color: black !important;
-    font-weight: 700;
-    border-radius: 42px;
-    font-size: 12px;
-    height: 35px;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    width: 75px;
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: bold;   
-  }
-  
-  .hero {
-    display: flex;  
-    text-align: center;
+   
+  /*HERO 1*/
+  .hero {    
+    position: absolute;
+    display: block;  
+    text-align: center;   
     padding: 0px;
-    width: 100%;
+    width: 100%;    
+    top: 0px;
   }
-  
-  .hero > div {
+
+  .hero_one {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row; 
-    background-image: url('./Fondo1.jpg');
+    position: relative;    
+    flex-direction: column;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 1) 88%), 
+      url('landing/portada.JPG');
     background-size: cover;
+    background-position: center;    
     width: 100%;
-  }
-  
-  .right-div > img{
-    width: 80%;
-    margin: 10px;
-  }
-  
-  .left-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10%;
-  }
-  
-  .left-div > Div{
-    text-align: left;
-  }
-  
-  .left-div > div > button {
-    background: rebeccapurple;
-    color: rgb(255, 255, 255);
-    font-weight: 300;
-    font-size: 15px;
-    border-radius: 30px;
-    padding: 0px 10px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  }
-  
-  .categories-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  
-  .categories-section > h5 {
-    display: block;
-    text-align: center;
-    font-size: 15px;
-    background: #80808061;
-    width: 160px;
-    border-radius: 30px;
-    margin-top: 10px;
-  }
-  
-  .category{
-    display: block;
-  }
-  
-  .carousel-container {
-    margin-top: 2%;
-    width: 90%;
-    max-width: 800px;
-    display: flex;
-    align-items: center;
-    background: #b5abab4f;
-    border-radius: 50%;
-    padding: 2%;
-    box-sizing: border-box;
-  }
-  
-  .carousel {
-    display: flex;
-    overflow: hidden;
-    flex: 1;
-  }
-  
-  .slide {
-    flex: 0 0 20%;
-    text-align: center;
-    padding: 2%;
-    box-sizing: border-box;
-  }
-  
-  .slide img {
-    width: 100%;
-    max-width: 100px;
-    height: auto;
-    border-radius: 50%;   
-  }
-  
-  .prev,
-  .next {
-    display: none;
-    margin: 0 2%;
-  }
-
-  .Hero2 > div > div{
-    width: 50%;
-  }
-  
-  .Hero2 > div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row; 
-    background: none;
-    background-size: cover;   
-  }
-  
-  .left-div2{
-    width: 75%;
-  }
-  
-  .categories-section2 {    
-    margin-top: 80px;
-  }
-  
-  .category2 {
-    display: block;
-    height: 300px;   
-  }
-  
-  .carousel-container {
-    background: none;
-    margin-top: 2%;
-    width: 90%;
-    max-width: 800px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2%;
-    box-sizing: border-box;
-  }
-  
-  .slide2 {
-    flex: 0 0 18%;
-    width: 80px;
-    margin: 1%;
-    padding: 2%;
-    background: #80808038;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .slide2 img {
-    width: 50%;
-    height: auto;
-    border-radius: 0px;
-    margin-bottom: 5px;
-  }
-  
-  .Enrol {
-    border-radius: 10px;
-    font-size: 70%;
-    padding: 7px;
-  }
-  
-  .next2, .prev2 {
-    display: none;
-    background-color: rgba(34, 150, 196, 0.768);
-    border: none;
-    padding: 2%;
-    cursor: pointer;
-    color: black;
-    font-size: 2.5vw;
-    border-radius: 50%;
-  }
-  
-  .subscribe {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    background-image: url('./suscribe.jpg');
-    background-size: cover;
-    background-repeat: no-repeat; 
-  }
-  
-  .subscribe > div:first-child {
-    width: 25%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .subscribe > div > img {
-    width: 150px;
-    padding: 15px;
-  }
-  
-  .InputSus > input {
-    width: 350px;
-    border: none;
-    background: #41c5e5;
-    padding: 4px;
-    margin: 10px;
-    border-radius: 50px;
-  }
-  
-  .InputSus > button {
-    background: yellow;
-    border-radius: 30px;
-    padding: 5px 20px;
-    font-size: 96%;
-    color: black;
-  }
-
- .campo {    
-    color: black; 
-    font-family: inherit; 
-    list-style: none; 
-  }
-  
-  .hero4{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    padding: 1%;
-    margin-top: 30px;
-  }
-  
-  .hero4 > div {
-    width: 25%;
-  }
-  
-  .hero4 > div > h5{
-    display: block;
-    text-align: center;
-    font-size: 15px;
-    background: #80808061;
-    width: 160px;
-    border-radius: 30px;
-    margin-top: 10px;   
-  }
-  
-  .H_button{
-    background: rebeccapurple;
-    color: rgb(255, 255, 255);
-    font-weight: 300;
-    font-size: 15px;
-    border-radius: 30px;
-    padding: 0px 10px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  }
-  
-  .H_img{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;      
-  }
-
-  .H_img > div:first-child {
-    width: 150px;
-    height: 150px;
-    margin: 15px;
-    border-radius: 100%;
-    display: flex;           
-    align-items: center;     
-    justify-content: center; 
-    overflow: hidden;
+    height: 900px;   
 }
+   
+.Logo_TORII {
+    position: absolute;    
+    width: 175px;
+    height: 71px;
+    top: 40px;                
+    left: 3%;               
+    z-index: 10000;            
+} 
 
-  
-  .Tutorimg {
-   width: 100%;   
-   object-fit: cover;
-  }
-  
-  .questions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;   
-    margin: 90px 0px;
-    width: 80%;
-  }
-  
-  .questions > div {
-    width: 50%;   
-    margin: auto; 
-  }
-  
-  .questions > div > img{
-    width: 350px;
-    margin: auto;
-  }
-  
-  .Learning {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background: #282568;
-    width: 100%;   
-    padding: 70px 0px;
-}
-  
-  .top-div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    color: rgb(236, 222, 222);
-    font-size: 90%;
-  }
-  
-  .top-div > h5{
-    background: #0e527a;
-    padding: 1% 2%;
-    border-radius: 30px;
-    font-size: 80%;
-  }
-  
-  .low-div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    width: 90%;
-  }
-  
-  .low-div > div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; 
-    color: white;
-    margin: 1%;
-  }
-  
-  .custom-icon {
-     font-size: 5vw;
-     margin-bottom: 2%;
-  }
-  
-  .containertext{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row; 
-  }
-
-  /*Cambio de carrucel por imagenes fijas */
-  .ocultar{
-    display: none;
-  }
-  
-  .categories-section {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .category {
-    margin-top: 20px;
-    display: contents;
-}
-  
-.course-images {
+.Button_Headings {
+  position: absolute;
+  top: 40px;
+  z-index: 10000;
+  width: 10%;
+  min-width: 120px;
+  max-width: 180px;
+  height: 35px;
+  border-radius: 50px;
   display: flex;
   align-items: center;
-  justify-content: center;  
-  width: 100%;
+  justify-content: center;
+  font-size: clamp(12px, 1.5vw, 20px);  
+  font-weight: 500;
+  line-height: 32px;
+  letter-spacing: 1px;
+  text-align: center;
+  color: white;
+  background: #B31A31B2;
+  border: none;
 }
-  
-.course-image {
-  flex: 0 0 18%;
-  margin: 10px;
-  background: #b6b3b3e6;
-  max-width: 140px;
-  padding: 13px;
-  border-radius: 10px;
+
+.Estudiante {  
+  left: 75%;
+  transform: translateX(-75%);
 }
-  
-.course-image img {
-  max-width: 136px;
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
+
+.Profesor { 
+  left: 77%;
+  transform: translateX(25%);
 }
-  
-  .image-details {
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 10px;
-    border-radius: 8px;
-    margin-top: 10px;
-    width: 100%;
+
+
+.menu-container{
+   display: none;
 }
-  
-  .text-container {
+
+
+.cont_texto {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  align-items: baseline;
+  top: 240px;
+  width: 33%;
+  height: 50%;
+  left: 68%;
+}
+
+.cont_texto span {
+  color: white;
+  font-size: 4vw;
+  line-height: 1;
+}
+
+.cont_texto span:nth-of-type(2) {
+  color: transparent; 
+  -webkit-text-stroke: .5px rgb(255, 255, 255); 
+  margin-bottom: 10px;
+}
+
+
+.cont_texto p {
+  display: inline;
+  color: white;
+  font-size: 2vw;
+  line-height: 1;
+  font-weight: 300;
+}
+
+  .bold{    
+    font-weight: 600;
+  }
+
+  .Button_Registrate {
+    width: 10%;
+    min-width: 140px;
+    max-width: 180px;
+    height: 40px;
+    margin: 15px 0px;
+    border-radius: 50px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-direction: column;
-  }
-  
-  .rating {
-    font-size: 18px;
-    color: gold;
-  }
-  
-  .Enrol {
-    background-color: #007bff;
-    color: #fff;
+    justify-content: center;
+    font-size: clamp(12px, 1.5vw, 20px);    
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: 1px;
+    text-align: center;
+    color: white;
+    background: #B31A31B2;
     border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
+}
+
+.PQRS {
+  position: absolute;
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  width: fit-content;
+  height:fit-content;
+  color: white;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  bottom: 200px;
+  right: 30px;
+  z-index: 9999999;
+}
+
+.PQRS div {
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  background: #D90D2BBF;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+}
+
+.Icon_TORII{  
+  width: 20px;
+}
+
+
+.Learning { 
+  position: relative; 
+  display: flex;
+  align-items: center;   
+}
+
+.Learning  div {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 25%;
+  max-width: 300px;
+  height: 250px;
+  border-radius: 20px;
+  flex-direction: column;
+  color: white;
+  margin: 1%;
+  background: #CC2F47B2;
+  padding: 20px;
+  top: -200px;
+  z-index: 99999999;
+}
+
+
+.Learning div:nth-child(1) {
+  left: 20%;
+  transform: translateX(-50%);
+}
+
+.Learning div:nth-child(2) {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.Learning div:nth-child(3) {
+  left: 80%; 
+  transform: translateX(-50%);
+}
+
+.custom-icon {
+   font-size: 5vw;
+   margin-bottom: 1vw;  
+}
+
+
+.Learning  div strong{
+  font-size: 2vw;
+  margin-bottom: 10px;
+  line-height: 1; 
+}
+
+.Learning  div p {
+  font-weight: 400;
+  font-size: clamp(15px, 1vw, 40px);
+  line-height: 1;  
+}
+
+
+/*HERO 2*/
+.hero2 {
+  position: absolute;
+  width: 100%;
+  top: 840px;
+  background: rgb(255, 255, 255);
+  height: 1900px;
+}
+
+
+.hero2-one {
+  position: absolute;
+  border-top: solid 10px #dc3545; 
+  width: 100%;
+  top: 185px; 
+  padding-top: 10px;
+}
+
+.hero2-line-two{
+  border-top: solid 10px #dc3545; 
+  padding-left: 30px;
+}
+
+.hero2-line-three {
+  display: flex;
+  position: absolute;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: baseline;
+  border-left: solid 10px #CC2F47;
+  border-right: solid 10px #CC2F47;    
+  height: 400px; 
+  width: 95%; 
+  padding-left: 50px;
+}
+
+
+.hero2-line-three h2 {
+  color: #CD3148;
+  font-size: 4vw;
+  width: 100%;
+  text-align: left;
+  font-weight: 600;
+}
+
+.hero2-line-three p {
+  width: 40%;
+  text-align: left;
+  color: #353535;
+  font-size: clamp(15px, 1.5vw, 30px);
+}
+
+.div_icon {
+  position: absolute;
+  left: 60%;
+  top: 70px;
+  width: 30%;
+  height: 70%;
+  background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 60%), url('landing/img_section2.jpeg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 0px 30px 30px 0px;
+}
+
+.Icon2 {
+  position: absolute;
+  bottom: 15px;
+  left: 29px;
+  width: 35px;
+}
+
+.div_img {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  top: 410px; 
+  height: 400px; 
+  background-image: url('landing/80d2f35bd074ce23ae91d6a681c19572.JPG');
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+}
+
+.div_img h1 {
+  color: white;
+  width: 39%;
+  text-align: left;
+  font-size: 4vw;
+}
+
+.div_img div {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.div_img div button{
+  background: #D90D2BBF ;
+}
+
+
+.hero3 {
+  position: absolute;
+  display: flex;               
+  justify-content: center;     
+  align-items: center;  
+  flex-direction: row; 
+  top: 830px; 
+  width: 100%;     
+  height: 400px            
+}
+
+.h1-respon{
+  display: none;
+}
+
+.hero3-one {
+  background-image: url('landing/5cfb766005af9f5577e51125fc8d2b94.jpeg');
+  background-size: cover; 
+  background-position: center; 
+  width: 400px;
+  height: 300px; 
+  border-radius: 30px;
+  margin-right: 5%;
+}
+
+.hero3-two {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  width: 40%;
+}
+
+.hero3-two h1{
+  color: #CD3148;
+  text-align: left;
+  font-weight: 600;
+  font-size: 4vw;
+}
+
+.hero3-two p{ 
+  text-align: left; 
+  margin-bottom: 20px;
+  font-size: clamp(12px, 1.5vw, 20px);   
+}
+
+.Button_Quiero {
+  background: #D90D2B;
+  border-radius: 40px;
+  border: none;
+  color: white;
+  padding: 6px 10px;
+  letter-spacing: 1px;
+}
+
+.hero3-three {
+  position: absolute;
+  display: flex;               
+  justify-content: center;     
+  align-items: center;
+  width: 100%;
+  height: 150px;
+  background: #CD3148BF;
+  top: 400px;
+}
+
+.hero3-three h1{
+  color: white;
+}
+
+
+/*Footer*/
+.Footer {
+  position: relative;
+  top: 1358px;
+  left: 0;
+  width: 100%;
+  height: 330px;
+  background: #CD3148;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Footer img{ 
+  position: absolute;
+  margin-bottom: 20px;  
+  left: 50%;
+  transform: translateX(-50%);
+  width: 11%;
+  height: max-content;
+  margin-top: 20px;
+}
+
+.Footer-icon {
+  position: absolute;
+  width: 100%;
+  top: 160px;
+}
+
+.iconSocial {
+  margin: 0px 20px;
+  color: white;  
+  width: 100px;
+  width: 3vw;    
+  height: 3vw;  
+}
+
+.Footer p {
+    position: absolute;
+    bottom: 55px;
+    color: white;
+    font-size: 1vw;
+}
+
+
+  @media screen and (max-width: 850px) {
+    .hero_one {
+      height: 390px;
+      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 1) 88%), 
+         url('landing/portada2.JPG');
+      background-position: 101%  100%;
+      background-size: cover;
+  }
+
+    .Logo_TORII {
+      width: 30%;
+      height: auto;
+      left: 20px;
+      top: 20px;
+  }
+
+  .Estudiante {  
+    display: none;
+  }
+  
+  .Profesor { 
+    display: none;
+  }
+  
+  
+  /* HAMBURGUESA */
+  .menu-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    right: 15px;
+    top: 15px;   
+  }
+
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 25px;
     cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .Enrol:hover {
-    background-color: #0056b3;
   }
 
-  @media screen and (max-width: 900px) {
-      .H_img {        
-        flex-direction: column;
-    }
+  .hamburger .bar {
+    height: 5px;
+    background-color: #ffffff;
+    border-radius: 3px;
   }
 
-  
-  
-  @media screen and (max-width: 600px) {
-    .hero > div {       
-      flex-direction: column;        
-    }
-  
-    #root > div > section:nth-child(4) > h3,
-    #root > div > section:nth-child(4) > p {    
-      text-align: center;       
-      padding: 0px 10px;  
-    }
-  
-    .subscribe {
-      display: block;
-      padding: 8%;
-    }
-  
-    .subscribe > div > img {
-      width: 60%;        
-    }
-  
-    .subscribe > div:first-child {
-      width: 100%; 
-    }
-  
-    .InputSus > input {
-      margin: 10px 0px;
-      background: #033931ab;
-      width: 100%;
+  .hamburger.open .bar:nth-child(1) {
+    transform: rotate(45deg);
+    position: relative;
+    top: 9px;
   }
-  
-    .hero4 {       
-      flex-direction: column;       
+
+  .hamburger.open .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.open .bar:nth-child(3) {
+    transform: rotate(-45deg);
+    position: relative;
+    top: -9px;
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 40px;
+    left: 0px;
+    transform: translateX(-68%);
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: max-content;
+    height: min-content;
+  }
+
+  .Estudiante2 {
+    position: static;
+    margin-bottom: 15px;
+  }
+
+  .Profesor2 { 
+    position: static;
+  }
+
+  .menu.open {
+    display: flex;
+  } 
+    
+  .cont_texto {
+    top: 90px;
+    left: 65%;
+  }  
+
+  .Button_Registrate {
+    width: 10px;
+    min-width: 91px;
+    height: 30px;
+    margin: 8px;
+    font-size: clamp(10px, 1.5vw, 20px);
+  }
+
+    .PQRS {  
+      bottom: 95px;
+      right: 5px;   
     }
 
-    .hero4 > div {
-        width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 10px;
+    .PQRS div {  
+      width: 30px;
+      height: 30px;   
+    }
+
+    .PQRS p {  
+      font-size: 9px;
     }
     
+    .Icon_TORII {
+      width: 12px;
+    }
 
+    .Learning div {
+      top: -100px;
+      height: 160px;
+    }
+
+    .Learning  div p {
+      font-size: clamp(9px, 1vw, 40px);   
+    }
+
+    .hero2 {   
+      top: 370px;  
+      height: 1337px;
+    }
+
+    .hero2-one {    
+      top: 120px;    
+    }
+
+    .hero2-line-three {
+      align-items: center;
+      padding: 0px;
+      width: 87%;
+      height: 480px;
+    }
+
+    .hero2-line-three h2 {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .hero2-line-three p {
+      width: 90%;
+      text-align: center;
+      margin-bottom: 20px;
+      
+    }
     
-
-    .H_img > div:first-child {
-       width: 50%;
-       height: auto;       
-    }
-
-    
-
-    .fab, .far {        
-        font-size: 20px;
-    }
-
-    .questions {
-       flex-direction: column;       
-    }
-
-    .questions > div {
-       width: auto;
-    }
-
-    .questions > div > img {
-        width: 100%;
-     }
-
-     .low-div {
-        flex-direction: column;
-    }
-
-    .custom-icon {
-        font-size: 500%;       
-    }
-
-    .low-div > div {
-        padding: 20px;
-        width: 80%;
-    }
-
-    .course-images {
-       flex-direction: column;
-    }
-
-    .course-image {
-      max-width: 100%;     
-    }
-
-    .carousel-container{
-      display: none;
-    }
-
-    .Hero2 > div > div{
+    .div_icon {
+      position: static;
+      background-image: url('landing/img_section2.jpeg');    
       width: 80%;
-    }
-
-    .IMG_Hero2{
-      max-width: 200px;
-    }
-
-
-    .H2_Landing {     
-      font-size: 25px;
-      margin-bottom: 30px;
+      border-radius: 30px;
+      margin-bottom: 66px;
   }
 
+  .Icon2 {
+    position: absolute;
+    bottom: 160px;
+    left: 85px;
+    width: 50px;
+  }
+
+  .div_img {
+    top: 480px;
+    height: max-content;
+  }
+
+  .div_img h1 {
+    margin-top: 4%;    
+    width: 67%;
+    text-align: center;
+    font-size: 5vw;
+  }
+
+  .div_img div {
+    margin-bottom: 4%;
+}
+
+.hero3 {
+  flex-direction: column;
+  top: 660px;
+  width: 100%;
+  height: max-content;
+}
+
+.h1-respon {
+  display: flex;
+  color: #CD3148;
+  text-align: left;
+  font-weight: 600;
+  font-size: 8vw;
+  margin-bottom: 20px;
+}
+
+.hero3-two h1{
+  display: none;
+}
+
+
+.hero3-one {
+  width: 70%;
+  height: 200px;
+  border-radius: 30px;
+  margin-right: 5%;
+}
+
+.hero3-two {  
+  width: 100%;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.hero3-two p {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: clamp(14px, 4vw, 20px);
+  font-weight: 600;
+}
+
+
+.hero3-three {
+  top: 465px;
+  height: 200px;
+  height: 150px;
+  align-items: baseline;
+}
+
+.hero3-three h1 {  
+  font-size: 5vw;
+  margin: 20px 0px;
+}
+
+.Footer {
+  top: 1178px;
+  height: max-content;
+}
+
+.Footer img {
+  width: 25%;
+  position: static;
+  margin: 0px;
+  margin-top: 20px;
+  transform: translateX(0%);
+}
+
+
+.Footer-icon {
+  position: static;
+  margin: 20px 0px;
+}
+
+
+.iconSocial {  
+  width: 5vw;    
+  height: 5vw;
+  margin: 0px 6%;  
+}
+
+
+.Footer p {
+  position: static;  
+  font-size: 2vw;
+  margin-bottom: 15px;
+}
+
 
   }
+
   
+  
+  @media screen and (max-width: 620px) {
+    .hero_one {      
+      background-position: 80%  100%;    
+  }
+
+  .cont_texto {
+    top: 90px;
+    left: 45%;
+    width: 50%;
+  }
+
+  .cont_texto span {   
+    font-size: 7vw;    
+}
+
+.cont_texto p {  
+  font-size: 3vw;
+  line-height: normal; 
+}
+
+
+}

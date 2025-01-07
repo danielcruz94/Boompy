@@ -1,38 +1,36 @@
 
-import React from "react"
-import {Container,Headings,ContainerPicture} from './Landing.style'
-import NavBar from '../shared/NavBar/NavBar'
-
 import Form from '../shared/Components/FormLogin/Form'
-import Footer from '../shared/Components/Footer/Footer'
-import Section from '../assets/Section.svg';
+import { Link } from 'react-router-dom';
+
+
 
 const Login=() => {
     return (
    
-    <Container>
-    <Headings>
-    </Headings>
-    {/* <NavBar>
-
-    </NavBar> */}
-    <ContainerPicture>
-        <img src={Section} style={{width:'100%',height:'100%',objectFit:'cover'}} alt="section" />
-    </ContainerPicture>
+      <div className="container-login">
+        <img src="/login/logo.png" alt="TORII" className="form_logo" />
+        <img src="/login/pqrs.png" alt="TORII" className="form_pqrs" />    
+         
     <Form></Form>
 
-    <br />
-    <br />
-    <br />
-  <Footer>
+   
+      <a href="/signup" >
+      <img src="/login/Vector 1.png" alt="TORII" className="form_vector" />
+      </a>
+    
 
-  </Footer>
+      <p className='Tex_condiciones'>© 2024 Torii. All rights reserved | <Link to="/service">Terminos y Condiciones</Link> | <Link to="/privacy">Politica de privacidad de datos</Link></p>    
+      </div>
+    
+
+   
+   
+
     
  
 
 
 
-    </Container>
     
     
     )

@@ -572,12 +572,14 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   return (
     <>
       {pagina === 'Home' && (
-        <a href="#" onClick={() => {
-          setModalIsOpen(true);
-          setScrollEnabled(false);
-          setRealPrice(amount); 
-        }} style={{color:'white',textDecoration:'none' }}><span style={{fontSize:'12px',background:'#10104d',paddingLeft:'7px',paddingRight:'7px',paddingTop:'3px',paddingBottom:'3px',borderRadius:'10px',color:'white'}}> Book a ticket</span></a>
-      )}
+  <a href="#" onClick={() => {
+    setModalIsOpen(true);
+    setScrollEnabled(false);
+    setRealPrice(amount); 
+  }}>
+    <span>Reservar Torii</span>
+  </a>
+)}
 
       {pagina === 'Tutor' && (
         <button onClick={() => {
@@ -623,7 +625,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
      <i className="fab fa-paypal ico_paypal"></i>
       PayPal
     </button>
-    <button onClick={closepay} className="payment-modal-close-btn">Close</button>
+    <button onClick={closepay} className="payment-modal-close-btn">Close 1</button>
   </div>
 
  
@@ -632,6 +634,15 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
 
 
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
+
+      <div className="close-button-container" style={{ marginTop: 10 }}>
+         <h3>
+         Calendario
+         </h3>
+
+         <button onClick={closeModal} className="close-btn">X</button>
+         </div>
+
         <Calendar
           onChange={handleDateChange}
           value={selectedDate}
@@ -649,15 +660,14 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
           }}
         />
 
-        <select value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
-          <option value="">Select time</option>
+        <select className='Tutor_Select_Clase' value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
+          <option value="">Hora y disponibilidad:</option>
           {getAvailableTimesForDate(selectedDate).map((time, index) => (
             <option key={index} value={time}>{time}</option>
           ))}
         </select>
         <div style={{ marginTop: 10 }}>
           <button onClick={PayChange} disabled={!selectedTime} className="assign-class-btn">Assign Class</button>
-          <button onClick={closeModal} className="close-btn">Close</button>
         </div>
       </Modal>
     </>

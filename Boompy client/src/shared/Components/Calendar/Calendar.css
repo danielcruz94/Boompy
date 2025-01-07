@@ -1,424 +1,174 @@
-body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__navigation{
- display: flex;
- justify-content: center;
- margin: 0px 0px 25px 0px;
+.close-button-container {
+	width: 100%;
+	display: flex;
+	justify-content: end;
+	margin-bottom: 10px;
 }
 
-/*Boton para abrir calendario tutor*/
-#root > div > div.InfTeach > div:nth-child(1) > div.profile-container > div.profile-info > div.social-icons > div:nth-child(4) > button{
-  background: #00aeff;
-  color: white;
+.close-button-container h3 {
+	font-size: 2vw;
+	color: #D90D2B;
+	font-weight: 700;
+	margin-bottom: 20px;
+	margin: auto;
+}
+
+.close-button-container button {
+	background: none;
+	border: none;
+	color: red;
+	font-size: 1.5vw;
+	padding: 0;
+	width: 20px;
+	height: min-content;
 }
 
 
-body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__navigation > button.react-calendar__navigation__arrow.react-calendar__navigation__prev2-button,
-body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__navigation > button.react-calendar__navigation__arrow.react-calendar__navigation__prev-button,
-body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__navigation > button.react-calendar__navigation__arrow.react-calendar__navigation__next-button,
-body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__navigation > button.react-calendar__navigation__arrow.react-calendar__navigation__next2-button{
-    background: #10104d;
-    border-radius: 0px;
-    color: white;
+.react-calendar {
+	display: flex;
+	flex-direction: row;
+	padding: 5px 0px;
+	padding-bottom: 20px;
+	border: 1px solid rgba(0, 0, 0, 0.107);
+	border-radius: 30px;
 }
 
-body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__navigation > button.react-calendar__navigation__label{
-  background: #10104d;
-  border-radius: 0px;
-  max-width: 300px;
-  color: white;
+.ReactModal__Content {
+	border-radius: 30px !important;
+	padding: 20px 60px 10px 60px !important;
+	display: flex;
+	flex-direction: column;
 }
 
-body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__weekdays > div{
-  display: flex;
-  justify-content: center; 
-  align-items: center;
-  background: #1c07fda1;
-  border: 1px solid white;
-  border-radius: 0px;
+/*NAVEGADOR CALENDARIO*/
+.react-calendar__navigation {
+	max-width: 590px;
+	width: 50%;
+	display: flex;
+	align-items: center;
 }
 
-body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__weekdays > div > abbr{
-  text-decoration: none;
-  font-size: 20px;
+.react-calendar__navigation__label {
+	width: 80%;
+	background: none;
+	border: none;
+}
+
+.react-calendar__navigation__label__labelText {
+	font-size: 5vw;
+	color: #D90D2B;
+	font-weight: 700;
+	text-transform: uppercase;
+
+}
+
+.react-calendar__navigation__arrow {
+	background: none;
+	border: none;
+	color: #D90D2B;
+	font-weight: 700;
+	font-size: 2vw;
+}
+
+
+/*DIAS CALENDARIO*/
+.react-calendar__viewContainer {
+	max-width: 350px;
+	margin: auto;
+}
+
+.react-calendar__month-view__days {
+	width: 100%;
+
+}
+
+.react-calendar__month-view__weekdays__weekday {
+	display: flex;
+	justify-content: center;
+	color: #D90D2B;
+	font-weight: 500;
+	font-size: 1vw;
+	border-radius: 100%;
+	text-decoration: none;
+}
+
+.react-calendar__month-view__days button {
+	background: none;
+	border: solid 1px white;
+	overflow: hidden;
+	border-radius: 100%;
+	width: 1px;
+	height: 47px;
+}
+
+
+.react-calendar__month-view__days button:focus {
+	background: rgba(128, 128, 128, 0.382);
+	border: 1px solid black
+}
+
+.react-calendar__month-view__days button:hover {
+	background: rgba(128, 128, 128, 0.382);
+}
+
+.react-calendar__month-view__days button abbr {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	font-weight: 600;
+}
+
+.Tutor_Select_Clase{
+  color: #D90D2B;
   font-weight: 600;
-}
-
-body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__days > button{
-  background: #bdc2d9;
-  border-radius: 0px;
-  border: 1px solid white;
-  color: black;
-}
-
-body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__days > .available{
-  background: #bcf3bc;
-}
-
-body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__days > button.react-calendar__tile.react-calendar__tile--now.react-calendar__month-view__days__day.today{
-  background: #9393f1;
-  
-}
-
-body > div.ReactModalPortal > div > div > select {
-  padding: 10px;
-  font-size: 16px;
-  border: 2px solid #000;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  color: black;
-  width: 50%;
-  margin: 20px 0px;
-  min-width: 200px;
-}
-
-body > div.ReactModalPortal > div > div > select:hover {
-  border-color: #aaa;
-}
-
-body > div.ReactModalPortal > div > div > select:focus {
-  outline: none;
-  border-color: #007bff; /* Cambiar el color al enfocar */
-}
-
-body > div.ReactModalPortal > div > div > select option:hover {
-  background-color: #f0f0f0;
-  cursor: pointer;
-}
-
-body > div.ReactModalPortal > div > div > select option:selected {
-  background-color: #007bff;
-  color: #fff;
-}
-
-body > div.ReactModalPortal > div > div > select.rounded {
-  border-radius: 20px;
-}
-
-body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__days > button:focus,
-body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__days > button:hover{
-  background: #007bff;
-  border-radius: 0px;
-  outline: none;
-}
-
-.cancelButton,
-.viewButton{
-  display: inline;
-  background: #007bff;
-  color: white;
-  margin: 10px;
-}
-
-
-body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > button{
-  background: #007bff;
-  border-radius: 0px;
-  border: 1px white;
-  color: white;
-}
-
-body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__navigation > button.react-calendar__navigation__label > span{
-  color: white;
-}
-
-.custom-calendar-icon{
-  color: white;
-}
-
-
-/*CALENDARIO ESTUDIANTES*/
-.close-button-container { 
-  display: flex; 
-  justify-content: center;
-  color: white;
-}
-
-.close-button-container > button { 
-  background: #007bff;
-}
-
-.class-info{
-  background: rgb(226, 223, 223);
-  border-radius: 10px;
-  padding: 10px;
-  margin: 10px 0px 0px 0px;
-}
-
-.class-info > p {
-  padding: 2px;
-  font-weight: 600;
-  margin-left: 17px;
-}
-
-.times-list{
-  padding: 10px;
-}
-
-.times-list > span{
-  margin: 10px;
-}
-
-/*CALENDARIO CLASS*/
-body > div:nth-child(6) > div > div > div:nth-child(2){
-  margin-top: 10px;
-}
-
-body > div:nth-child(6) > div > div > div:nth-child(3) > div:nth-child(1) > label, 
-body > div:nth-child(6) > div > div > div:nth-child(3) > div:nth-child(2) > label{
-  width: 85px;
-  font-weight: 600;
-}
-
-.start-time-select, 
-.end-time-select{
-  color: rgb(0, 0, 0);
-  background: white;
-  width: 200px;
-  justify-content: center;
-  text-align: center;
-  padding: 5px;
-  margin: 5px;
-  border-radius: 10px;
-}
-
-#closeButton,
-.assign-class-button{
-  background: #00aeff;
-  color: white;
-  margin: 10px;
-}
-
-.assign-class-button:disabled {
-  background-color: #ccc; 
-  color: #999; 
-  cursor: not-allowed;   
-}
-
-body > div:nth-child(6) > div > div > div:nth-child(2) > ul > li{
-  color: black;
-}
-
-
-
-.view-class-button {
-  color: white;
-  background: #00aeff;
-  margin: 5px 20px;
-  font-size: 50%;
-}
-
-.close-btn,
-.closeButton,
-.assign-class-btn{
-  background: #00aeff;
-  color: white !important;
-  margin: 10px;
-}
-
-.time-slot{
-  width: max-content !important;
-} 
-
-.time-range {
-  display: inline-block;
-  margin: 1px 10px;
-  width: 84px;
-}
-
-
-.reserved{
-  color: red !important;
-}
-
-/*modal pagos*/
-.WonpiCot {
-  position: relative;
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-}
-
-.Form-Wompi{
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  height: 40px;
-  z-index: 9999; 
-}
-
-.pngwompi{  
-  position: absolute;
-  width: 165px;
-  height: 40px;
-}
-
-
-/* Overlay específico para el modal de pagos */
-.payment-modal-overlay {
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 9999; 
-}
-
-/* Contenido del modal específico para pagos */
-.payment-modal-content {
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 500px; 
-  background: white;
-  position: relative;
-  margin: auto;
-}
-
-/* Cabecera del modal de pagos */
-.payment-modal-header h5 {
-  margin: 0;
-  font-size: 1.25em;
-  text-align: center;
-}
-
-/* Contenedor de selección de pagos */
-.payment-modal-select-container {
-  margin-top: 20px;
-}
-
-/* Opciones de pago */
-.payment-modal-options {
-  height: 30px;
-}
-
-/* Contenedor de acciones del modal */
-.payment-modal-actions { 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Botón de confirmación específico para pagos */
-.payment-modal-confirm-btn {
-  width: 162px;
-  background-color: #007bff;
-  color: white;
   border: none;
-  padding: 4px 20px !important;
-  border-radius: 4px;
-  cursor: pointer !important;
-  margin-bottom: 10px;
-  font-size: 130% !important; 
+  width: min-content;
 }
 
-.ico_paypal{
-  margin-right: 10px;
-}
-
-/* Botón de cerrar específico para pagos */
-.payment-modal-close-btn {
-  background-color: #6c757d;
-  color: white;
+.Tutor_Select_Clase option:first-child {
+  color: #D90D2B;
+  font-weight: 600;
   border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
+  width: min-content;
 }
 
-.TotalPagar {
-  margin-top: 20px;
-  font-size: larger;
-  display: flex;
-  justify-content: center;
-}
-
-.ValorPagar{ 
-  font-size: larger;
-  display: flex;
-  justify-content: center;
-  color: red;
-  height: 50px;
-}
-
-/* Ajustes responsivos específicos para el modal de pagos */
-@media (max-width: 600px) {
-
-
-  .payment-modal-content {
-    width: 100%;
-    height: min-content !important;
-    padding: 15px;
-  }
-  
-  .payment-modal-header h5 {
-    font-size: 1.1em;
-  }
-
-  .payment-modal-confirm-btn, .payment-modal-close-btn {
-    padding: 8px 16px;
-    font-size: 0.9em;
-  }
+.Tutor_Select_Clase option:not(:first-child) {
+  color: black; 
+  font-weight: normal; 
+  border: none;
+  width: auto;
 }
 
 
-@media (max-width: 499px) {
-  /*Boton para abrir calendario tutor*/
-#root > div > div.InfTeach > div:nth-child(1) > div.profile-container > div.profile-info > div.social-icons > div:nth-child(4) > button{
-  background: #00aeff;
-  color: white;
-}
-
-  
-
-  body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__navigation > button.react-calendar__navigation__label > span{
-    font-size: 10px;
-  }
-
-  body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__days > button> abbr{
-    font-size: 13px;
-  }
-
-  body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__days > button{
-    display: flex;
-    justify-content: center; /* Centrado horizontal */
-    align-items: center; /* Centrado vertical */
-    text-align: center; /* Asegura que el texto esté centrado horizontalmente */
-  }
-
-  
-  body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__weekdays > div > abbr{
-     font-size: 15px;    
-  }
-
-  
- 
-
-  body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > button,
-  body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > button > abbr{
-    font-size: 80%;
-  }
-
-  .ReactModal__Content.ReactModal__Content--after-open {
-    inset: auto !important;
-    height: min-content !important;
-  }
-
-  
-}
 
 
-@media (max-width: 499px) {
-  body > div.ReactModalPortal > div > div > div.react-calendar > div.react-calendar__viewContainer > div > div > div > div.react-calendar__month-view__weekdays > div > abbr{
-    font-size: 13px;    
- }
 
- .close-btn,
-.assign-class-btn {
-  display: block;
-  margin: 15px auto; 
-}
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*coloca el dia que hay clase activa */
+.available {}
+
+body>div.ReactModalPortal>div>div>div.react-calendar>div.react-calendar__viewContainer>div>div>div>div.react-calendar__month-view__days>.available {}

@@ -214,16 +214,24 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
 
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
+      
+       <div className="close-button-container" style={{ marginTop: 10 }}>
+         <h3>
+         Calendario
+         </h3>
+
+        <button onClick={closeModal}>X</button>
+      </div>
+
       <Calendar 
         onChange={handleDateChange}
         value={selectedDate}
         tileClassName={tileClassName}
-        locale="en-US"
+        //locale="en-US"
+        locale="es-ES"
       />
 
-      <div className="close-button-container" style={{ marginTop: 10 }}>
-        <button onClick={closeModal}>Close</button>
-      </div>
+     
 
       {selectedClasses.length > 0 && (
         selectedClasses.map((classInfo, index) => (

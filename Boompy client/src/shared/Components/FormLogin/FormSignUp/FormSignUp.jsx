@@ -1,28 +1,24 @@
-
-import { FormLog,GoogleButton,Container,Span,Input,TextLogin,
-    ContenedorRemember } from "../Form.style";
-  import { useState } from "react";
-  import axios from "axios";
-  import { useSelector,useDispatch } from "react-redux"
-  import Swal from 'sweetalert2';
-  import 'sweetalert2/dist/sweetalert2.css';
-  import { Link } from "react-router-dom"
+import { useState } from "react";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.css";
+import { Link } from "react-router-dom";
 
 const FormSignUp = () => {
-
   const [userCredentials, setUserCredentials] = useState({
-    name: '',
-    lastName:'',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    name: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const [passwordsUnMatch, setPasswordsUnMatch] = useState(false);
-  const { name,lastName, email, password, confirmPassword } = userCredentials;
-  const serverURL = useSelector(state => state.serverURL.url);
+  const { name, lastName, email, password, confirmPassword } = userCredentials;
+  const serverURL = useSelector((state) => state.serverURL.url);
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -32,33 +28,18 @@ const FormSignUp = () => {
       setPasswordsUnMatch(false);
     }
 
-    
-   
-
-   
-    const newUser=await axios.post(`${serverURL}/signup`,userCredentials)
+    const newUser = await axios.post(`${serverURL}/signup`, userCredentials);
     try {
-      if(newUser){
+      if (newUser) {
         Swal.fire({
-          icon: 'success',
-          title: '¡successful registration!',
-          text: 'Welcome to the Torii App.',
-      }).then(() =>window.location.href = "/login" )
+          icon: "success",
+          title: "¡Registro exitoso!",
+          text: "Bienvenido a la aplicación Torii.",
+        }).then(() => (window.location.href = "/login"));
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
-    
-
-    
-
-   
-   
-
-    //
-
-    // register({ name, email, password });
   };
 
   const handleChange = (event) => {
@@ -66,126 +47,72 @@ const FormSignUp = () => {
     setUserCredentials({ ...userCredentials, [name]: value });
   };
 
+  return (
+    <form onSubmit={handleSubmit} className="form-log form-registro">
+      <div>
+        <br />
+        <h2>Crea tu Torii aquí</h2>
+        <span className="span_registro">
+        ¡Hola! <strong>¿Listo para unirse a la fiesta? </strong> 
+        Solo necesitamos algunos detalles de usted para comenzar. 
+        <strong> ¡Hagamos esto!</strong>
+        </span>
+        <br />
 
-
-
-    return (
-      <FormLog style={{ height: "600px" }} >
-        <Container>
-          <br />
-          <h2 style={{ textAlign: "initial" }}>Create Your Account!</h2>
-          <Span>
-            Hey there! Ready to join the party? We just need a few details from
-            you to get started. Let's do this!
-          </Span>
-          <br />
-
-          {/* <GoogleButton>
-         
-          <img src='' style={{width:'20px',margin:'10px'}} alt="imgGoogle" /><span>Continue with google</span>
-        </GoogleButton> */}
-
-          <div style={{ display: "flex", justifyContent: "start" }}>
-            <div style={{ marginRight: "15px" }}>
-              <TextLogin>First Name</TextLogin>
-              <Input
-                type="First Name"
-                name="name"
-                placeholder="First Name"
-                value={name}
-                onChange={handleChange}
-
-                style={{
-                  marginBottom: "20px",
-                  paddingLeft: "20px",
-                  width: "100%",
-                }}
-              />
-            </div>
-            <div>
-              <TextLogin>Last Name</TextLogin>
-              <Input
-                type="Last Name"
-                placeholder="Last Name"
-                name="lastName"
-                value={lastName}
-                onChange={handleChange}
-                style={{
-                  marginBottom: "20px",
-                  paddingLeft: "20px",
-                  width: "100%",
-                }}
-              />
-            </div>
-          </div>
-
-          <TextLogin>Email</TextLogin>
-          <Input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={email.toLowerCase()}
-            onChange={handleChange}
-            style={{ marginBottom: "20px", paddingLeft: "20px" }}
-          />
-          <TextLogin>Password</TextLogin>
-          <Input
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-            style={{ marginBottom: "20px", paddingLeft: "20px" }}
-          />
-          <TextLogin>Confirm Password</TextLogin>
-          <Input
-            type="password"
-            placeholder=" Confirm Password"
-            value={confirmPassword}
-            name="confirmPassword"
-            onChange={handleChange}
-            style={{ marginBottom: "20px", paddingLeft: "20px" }}
-          />
-          {passwordsUnMatch&&<p style={{color:'red'}}>Passwords do not match</p>}
-          <ContenedorRemember></ContenedorRemember>
-
-          <GoogleButton
-           onClick={handleSubmit}
-            style={{
-              background: "#FFC224",
-              border: "2px solid black",
-              boxShadow: "2px 2px 2px",
-              height: "35px",
-              borderRadius: "20px",
-            }}
-          >
-            Sign Up
-          </GoogleButton>
+        <div className="cont_name">
           <div>
-            
-            <Span>Already have an account?</Span>
-            <a href="/login" style={{ margin: "4px" }}>
-              Login
-            </a>
-            
+            <p>Nombre</p>
+            <input
+              type="text"
+              name="name"             
+              value={name}
+              onChange={handleChange}
+            />
           </div>
+          <div>
+            <p>Apellido</p>
+            <input
+              type="text"
+              name="lastName"             
+              value={lastName}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
 
+        <p>Correo electronico</p>
+        <input
+          type="email"
+          name="email"         
+          value={email.toLowerCase()}
+          onChange={handleChange}
+        />
 
+        <p>Contraseña</p>
+        <input
+          type="password"
+          name="password"         
+          value={password}
+          onChange={handleChange}
+        />
 
-          <div className="legal-links">
-     
-     <p>
-       <Link to="/privacy">Data Privacy Policies</Link>
-     </p>
-     <p>
-       <Link to="/service">Terms of Service</Link>
-     </p>
-   
-       </div>
-        </Container>
-      </FormLog>
-    );
-  };
-  
-  export default FormSignUp;
-  
+        <p>Confirmar contraseña</p>
+        <input
+          type="password"
+          name="confirmPassword"         
+          value={confirmPassword}
+          onChange={handleChange}
+        />
+
+        {passwordsUnMatch && <p style={{ color: "red" }}>Passwords do not match</p>}
+
+        <div className="registro-button">
+          <button type="submit" className="login-button">Unirme a &nbsp;<strong> Torii</strong></button>
+        </div>      
+        
+      </div>
+    </form>
+  );
+};
+
+export default FormSignUp;

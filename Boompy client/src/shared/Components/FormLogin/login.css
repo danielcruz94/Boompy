@@ -1,0 +1,227 @@
+.container-login {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-image: url('login/fondo.png');   
+    background-position: 0cap  -390px;
+    background-size: 140%;    
+}
+
+.form_logo{
+    position: absolute;
+    width: 150px;
+    top: 20px;
+    left: 3%;
+}
+
+.form_vector {
+    position: absolute;
+    width: 380px;
+    top: 13%;
+}
+
+.form-log {
+    position: absolute;
+    background: #D9D9D9D1;
+    bottom: 160px;
+    left: 75px;
+    width: 40%;
+    height: max-content;    
+    border-radius: 30px;
+    padding: 10px 30px;
+    border: solid 1px rgba(0, 0, 0, 0.192);
+}
+
+.form_pqrs{
+    position: absolute;
+    width: 80px;
+    bottom: 20px;
+    right: 20px;
+}
+
+
+.form-log h2{
+    color: #CD3048;
+}
+
+
+.text-login {
+    text-align: left;
+    width: 80%;
+    font-weight: 500;
+    margin-top: 10px;
+    font-size: 1vw;
+    margin-bottom: 1px;
+}
+
+.form-log input {
+    width: 100%;
+    padding: 5px 20px;
+    border-radius: 30px;
+    border: solid 1px rgba(0, 0, 0, 0.535);
+    background-color: #C2C2C280;
+}
+
+.form-log input:hover  {
+    border: solid 1px #CD3048 !important;
+    border-color: #CD3048 !important;
+} 
+
+
+.conten_password a{
+    color: black;
+    font-size: 1vw;
+    font-weight: 500;
+}
+
+.conten_login_button{
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 10px 0px;   
+}
+
+
+.login-button {
+    width: 35%;   
+    background: #E62B3F;
+    color: white;
+    list-style: none;
+    letter-spacing: 1px;
+    font-weight: 400;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    border: none;     
+    border-radius: 20px; 
+    height: 35px;
+}
+
+.material-icons{
+    font-size: 20px;
+}
+
+.Tex_condiciones{
+    position: absolute;
+    bottom: 10px;
+    color: #2C2E43;
+    font-size: 1vw;
+}
+
+
+/*registro*/
+
+.cont_name{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;   
+}
+
+.form-log p{
+  text-align: left;
+  margin-top: 10px;
+  margin-bottom: 3px;
+  font-size: 1vw;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.form-registro{
+bottom: 100px;
+}
+
+.registro-button {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 10px;
+ }
+
+ .span_registro{
+     font-size: 1vw;     
+ }
+
+@media screen and (max-width: 850px) {
+
+    .container-login {      
+        background-position: 50%  0px;
+        background-size: cover;
+        height: 130%;
+    }
+
+    .form_logo { 
+        width: 200px;
+        top: 38px;
+        left: auto;
+    }
+
+    .form-log{
+        width: 90%;
+        top: 18%;
+        left: auto;
+    }
+
+    .form-log h2 {        
+        font-size: 6vw;
+    }
+
+    .form-log span {        
+        font-size: 3vw;
+    }
+
+    .text-login {
+        text-align: center;
+        width: 100%;       
+        font-size: 3vw;      
+    }
+
+    .conten_password a{
+        font-size: 3vw;
+    }
+
+    .form-log input {       
+        padding: 0px 20px;       
+    }
+
+    .conten_login_button{
+        flex-direction: column;
+    }
+
+    .login-button {
+        width: 90%;
+        margin: 5px;
+        height: auto;
+    }
+
+    .login-button span{
+        font-size: 4vw;
+    }
+
+    .form_vector {
+        position: absolute;
+        width: 75%;
+        max-width: 400px;
+        top: 75%;       
+        left: auto;
+        bottom: 150px;
+        transform: translateX(-50%);
+    }
+
+    .form_pqrs{
+        display: none;
+    }
+
+/*registro*/  
+.form-registro{
+    bottom: 150px;
+    }
+
+    .form-log p{   
+        font-size: 3vw;        
+      }
+
+}
+
+

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { MiniImage } from "../Cards.style";
+
 
 const SmallImage = ({ photos }) => {
   const [loadedPhotos, setLoadedPhotos] = useState([]);
@@ -23,7 +23,7 @@ const SmallImage = ({ photos }) => {
   }, [photos]);
 
   return (
-    <MiniImage>
+    <div className="MiniImage">
       {loadedPhotos[0] && (
         <img
           src={loadedPhotos[0]}
@@ -64,7 +64,7 @@ const SmallImage = ({ photos }) => {
           alt="imgPeque"
         />
       )}
-    </MiniImage>
+    </div>
   );
 };
 

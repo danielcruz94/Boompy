@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { ContainerBar, ContainerNavBar, Image, SubHeading, SubmitButton, Bottom } from '../../views/Landing.style';
+
 import { connect } from "react-redux";
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import StudentCalendar from '../Components/Calendar/Student_Calendar';
@@ -83,67 +83,77 @@ const NavBar = ({ textBotton, onClick, auth }) => {
   };
 
   return (
-    <ContainerBar>
-      <Image>
-        <img src={Torii} style={{ width: '50px' }} alt="logo" />
-      </Image>
+    <div className="ContainerBar">
+
+           <Link to="/home">
+             <img src="/landing/logo.png" alt="TORII" className="Logo_NavBar" />
+            </Link>
+     
+        
+      
       <div style={{ display: 'flex' }}>
         {isCallsActive ? (
-          <SubHeading style={{ color: 'grey', fontWeight: 'bold' }}>Home</SubHeading>
+          <p className="SubHeading" style={{ color: 'grey', fontWeight: 'bold' }}>Home</p>
         ) : (
-          <>
-            <Link to="/home">
-              {role !== 'Tutor' && <SubHeading style={{ color: 'black', fontWeight: 'bold' }}>Home</SubHeading>}
-            </Link>
+          <>            
             <Link to="/Ranking">
-              {role !== 'Tutor' && <SubHeading style={{ display: 'none', color: 'black', fontWeight: 'bold' }}>Ranking</SubHeading>}
+              {role !== 'Tutor' && <p className="SubHeading" style={{ display: 'none', color: 'black', fontWeight: 'bold' }}>Ranking</p >}
             </Link>
           </>
         )}
-        <SubHeading
+
+        {/*
+
+        <p className="SubHeading"
           onClick={toggleCalendar}
           style={{ cursor: 'pointer', fontWeight: 'bold' }}
         >
           Calendar
-        </SubHeading>
+        </p >
+
+      */}
+
       </div>
 
 
-      <ContainerNavBar>
+
+      <div className="ContainerNavBar">
         <img src={Vector} alt="vector" />
         <p style={{ marginLeft: '6px' }}>Categories</p>
-        <SubmitButton
+        <input className="SubmitButton"
           placeholder="Search for tutors."
           value={searchText}
-          onChange={handleSearchChange} // Actualizar el estado cuando cambia el texto
+          onChange={handleSearchChange} 
         />
         <img src={Button} style={{ width: '10px' }} alt="button" />
-      </ContainerNavBar>
+      </div>
 
      
 
-      <div style={{ display: 'flex', gap: '5px' }}>    
+      <div className="Conten_iconos">    
 
-      <Points/>
+      {/*<Points/>*/}
        
         <Notification
           numMessages={1}
-          messageIcon={<i className="fa fa-envelope IconNavbar" />}
+          messageIcon={<i className="fa-regular fa-envelope IconNavbar"></i>}
           userData={userData}
         />            
           
-        <AttendanceModal
+        {/*
+          <AttendanceModal
           userId={IdUSer}
           price={extraerNumero(Price)}
         />
+        */}
 
         {role === 'Tutor' && <Settings />}
 
-        {!shouldHideButton && <Bottom onClick={onClick}>{textBotton}</Bottom>}
+        {!shouldHideButton && <botton className="Bottom" onClick={onClick}>{textBotton}</botton>}
       </div>
 
       {isCalendarOpen && <CalendarComponent isOpen={isCalendarOpen} onRequestClose={closeCalendar} onClose={closeCalendar} />}
-    </ContainerBar>
+    </div>
   );
 };
 

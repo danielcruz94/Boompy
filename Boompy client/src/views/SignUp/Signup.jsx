@@ -1,51 +1,39 @@
 
-import React from "react"
-import {Container,
-  Headings,
-  ContainerTitle} from '../Landing.style'
-
-import Footer from '../../shared/Components/Footer/Footer'
 import FormSignUp from "../../shared/Components/FormLogin/FormSignUp/FormSignUp"
-
-import Section from '../../assets/Section.svg'
-
-const  Signup=() => {
-
-  React.useEffect(() => {
-    window.scrollTo({ top: 0 });
+import { Link } from 'react-router-dom';
 
 
 
-  }, []);
-
+const Login=() => {
     return (
-        <Container>
-        <Headings>
-        </Headings>
-        
-        <ContainerTitle>
-            <img src={Section} style={{width:'100%',height:'100%',objectFit:'cover'}}  alt="section" />
-          
-        </ContainerTitle>
-          
-        
-        
-        
-       <FormSignUp></FormSignUp>
-        <br />
-        <br />
-        <br />
-      <Footer/>
+   
+      <div className="container-login">
+        <img src="/login/logo.png" alt="TORII" className="form_logo" />
+        <img src="/login/pqrs.png" alt="TORII" className="form_pqrs" />    
+         
+        <FormSignUp></FormSignUp>
+
+   
+      <a href="/login" >
+      <img src="/login/Vector 2.png" alt="TORII" className="form_vector" />
+      </a>
+    
+
+     <p className='Tex_condiciones'>© 2024 Torii. All rights reserved | <Link to="/service">Terminos y Condiciones</Link> | <Link to="/privacy">Politica de privacidad de datos</Link></p>    
+      </div>
+    
+
+   
+   
+
     
  
-        
-     
+
+
+
     
     
-    
-        </Container>
-        
     )
 }
 
-export default Signup;
+export default Login;

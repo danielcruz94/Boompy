@@ -1,16 +1,8 @@
 
 import  {useEffect,React,useState}from "react"
-import {Container,
-  Headings,
-  ContainerTitle,
-  BackgrounModal,
-  H3
-  } from './Landing.style'
-import {ContainerProfile} from '../shared/Components/Cards/Cards.style'
 import NavBar from '../shared/NavBar/NavBar'
+import StudentCalendar from '../shared/Components/Calendar/Student_Calendar';
 
-import Form from '../shared/Components/FormLogin/Form'
-import Footer from '../shared/Components/Footer/Footer'
 import CardProfile from "../shared/Components/Cards/CardProfile"
 import { useSelector,useDispatch,connect } from "react-redux"
 import axios from 'axios'
@@ -18,7 +10,7 @@ import {fetchUsers} from '../Redux/usersSlice'
 import Modal from "../shared/Components/Modals/Modal"
 import { useNavigate} from 'react-router-dom';
 import {login,completeInfo} from '../Redux/authSlice'
-import Section from '../assets/Section.svg';
+
       
       
 
@@ -30,11 +22,14 @@ const Home = ({auth}) => {
   
   const [location, setLocation] = useState('');
   const [isInLatam, setIsLatam] = useState(false);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   const dispatch = useDispatch();
   const navegate = useNavigate();
 
   //locals Variable
+
+  const CalendarComponent = StudentCalendar;  
 
   const [isLoading, setIsLoading] = useState(true); // Estado de carga inicial
 
@@ -174,34 +169,33 @@ const Home = ({auth}) => {
   let number = priceStr.match(/[\d.]+/);
   return number ? parseFloat(number[0]) : null;
 }
- 
+
+const toggleCalendar = () => {
+  setIsCalendarOpen(!isCalendarOpen);
+};
+
+const closeCalendar = () => {
+  setIsCalendarOpen(false);
+};
 
   return (
-    <Container>
-      <Headings></Headings>
+    <div className="conten-home">
+     
+     
 
       <NavBar
-        textBotton={"Logout"}
+        textBotton={"Cerrar Torii"}
         onClick={handleLogout}
         userInfo={localUser}
       ></NavBar> 
-
-      <ContainerTitle>
-        <img
-        
-          src={Section}
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          alt="section"
-        />
-      </ContainerTitle>
-      <H3>Choose your trip</H3>
-
-      <ContainerProfile>
+    
+      
+      <div className="ContainerProfile">
         {/* {isLoading && <Spinner />} */}
         {!auth.infoComplete && !isLoading && (
-          <BackgrounModal>
+          <div>
             <Modal title={"Complete Your Information"} url={serverURL}></Modal>
-          </BackgrounModal>
+          </div>
         )}
 
       
@@ -231,12 +225,21 @@ const Home = ({auth}) => {
               );
             })}
 
-      </ContainerProfile>
+      </div>
 
       <br />
 
-      <Footer></Footer>
-    </Container>
+      {isCalendarOpen && <CalendarComponent isOpen={isCalendarOpen} onRequestClose={closeCalendar} onClose={closeCalendar} />}
+
+      <p className="CalendarHome"
+          onClick={toggleCalendar}
+          style={{ cursor: 'pointer', fontWeight: 'bold' }}
+        >
+          Calendario
+        </p >
+
+     
+    </div>
   );
 };
 
