@@ -82,8 +82,8 @@ const WompiButton = ({ amount, TRM, Factura }) => {
             <form className="Form-Wompi">
            
            </form>
-        <img src='/src/assets/wompi.PNG' className="pngwompi"></img>
-      </div>
+{    /*    <img src='/src/assets/wompi.PNG' className="pngwompi"></img>  */}      
+        </div>
         
     );
 };

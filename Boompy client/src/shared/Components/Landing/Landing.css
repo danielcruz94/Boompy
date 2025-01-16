@@ -540,6 +540,7 @@ body{
 
   .menu.open {
     display: flex;
+    z-index: 999999;
   } 
     
   .cont_texto {

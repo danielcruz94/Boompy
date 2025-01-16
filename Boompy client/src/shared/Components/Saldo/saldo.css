@@ -1,77 +1,27 @@
-.TeachSaldo .saldocontainer {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background-color: rgb(17, 15, 80);
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    margin: 0 auto;  
-    height: 100px;
-    width: 100% !important;
+.TeachSaldo {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    width: 240px;
+    height: 120px;
+    top: 140px;
+    right: 4%;
+    background: #E62B3FB2;
+    border-radius: 30px;
 }
 
-.TeachSaldo .status {
-    font-size: 14px;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 4px; 
-}
 
-.TeachSaldo .loading {
-    color: #007bff; 
-    background-color: #e7f1ff; 
-    border: 1px solid #b3d7ff;
-}
-
-.TeachSaldo .error {
-    color: #dc3545; 
-    background-color: #f8d7da; 
-    border: 1px solid #f5c6cb; 
-}
-
-.TeachSaldo .balance-amount,
-.TeachSaldo .balance-label {
-    font-weight: bolder;
-    margin-bottom: 5px;
-    color: #fff;
-}
-
-.pay .saldocontainer {
-    margin: 10px;
+.saldocontainer {   
+    width: 100%;
     color: white;
-    text-align: center; 
-    display: flex; 
+    display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; 
-    height: 100%;
+    align-items: flex-start;
+    margin-left: 20px;
+    font-size: clamp(23px, 1.4vw, 15px  );
+    font-weight: 700;
 }
-
-.pay .balance-amount,
-.pay .balance-label {
-    background-color: rgb(17, 15, 80);
-    border: 1px solid rgb(17, 15, 80);
-    width: 40%;
-}
-
-
 @media screen and (max-width: 800px) {
-    .TeachSaldo .saldocontainer {
-        width: 40% !important;
-        margin-bottom: 20px;
-        height: auto;
-    }
-
-    .TeachSaldo .balance-amount, .TeachSaldo .balance-label {
-        font-size: 12px;        
-        margin-bottom: 0px;
-        color: #fff;
-    }
-
-    .pay .balance-amount,
-    .pay .balance-label {
-        background-color: rgb(17, 15, 80);
-        border: 1px solid rgb(17, 15, 80);
-        width: 100%;
-    }
+   
 }

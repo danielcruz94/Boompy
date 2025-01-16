@@ -219,15 +219,17 @@ const Settings = () => {
 
   return (
     <div>
-      <div className="settings-icon" ref={iconRef} onClick={toggleMenu}>
-        <i className="fa fa-wallet IconNavbar" />
-      </div>
-      {showMenu && (
-        <div className="menu" ref={menuRef}>
-          <button className="menu-item" onClick={() => openModal('account')}>Add Bank Account</button>
-          <button className="menu-item" onClick={() => openModal('withdrawal')}>Withdraw</button>
-        </div>
-      )}
+    
+     
+    <div className="menu-Settings" ref={menuRef}>
+  <button className="menu-item mas " onClick={() => openModal('account')}>
+  <img src="/pagos/mas.png" alt="TORII" />
+  </button>
+  <button className="menu-item pagoimg" onClick={() => openModal('withdrawal')}>
+  <img src="/pagos/Capa_1.png" alt="TORII"  />
+  </button>
+</div>
+      
       {showModal && (
         <div className="modal" ref={modalRef}>
           <div className="modal-content">
@@ -235,13 +237,13 @@ const Settings = () => {
             {modalContent === 'account' && (
               <div className="tab-content">
                 <form>
-                  <label htmlFor="accountName">Add savings account for payment.</label>
+                  <label className='TexPay' htmlFor="accountName">Agregue una cuenta de ahorros para el pago..</label>
                   <div className='Continputpay'>
                     <input
                       className='inputpay'
                       type="text"
                       id="BankName"
-                      placeholder="Bank"
+                      placeholder="Banco"
                       value={bankName}
                       onChange={(e) => setBankName(e.target.value)}
                     />
@@ -249,13 +251,13 @@ const Settings = () => {
                       className='inputpay accountnumber'
                       type="number"
                       id="accountName"
-                      placeholder="Account Number"
+                      placeholder="Número de cuenta"
                       value={accountName}
                       onChange={(e) => setAccountName(e.target.value)}
                     />
                   </div>
                   <button className='buttonplay' type="button" onClick={handleAddAccount}>
-                    Add and update
+                   Solicitar Pago
                   </button>
                 </form>
               </div>
@@ -263,7 +265,7 @@ const Settings = () => {
             {modalContent === 'withdrawal' && (
               <div className="tab-content">
                 <form>
-                  <label htmlFor="withdrawalAmount">Withdrawal amount:</label>
+                  <label className='TexPay' htmlFor="withdrawalAmount">Monto del retiro::</label>
                   <div className='pay'>
                     <Saldo />
                   </div>
@@ -272,13 +274,13 @@ const Settings = () => {
                       className='inputpay'
                       type="number"
                       id="withdrawalAmount"
-                      placeholder="Amount to withdraw"
+                      placeholder="Monto a retirar"
                       value={withdrawalAmount}
                       onChange={(e) => setWithdrawalAmount(e.target.value)}
                     />
                   </div>
                   <button className='buttonplay' type="button" onClick={handleWithdraw}>
-                    Withdraw
+                  Retirar
                   </button>
                 </form>
               </div>

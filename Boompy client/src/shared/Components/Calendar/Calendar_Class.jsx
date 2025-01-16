@@ -254,7 +254,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
           } else {
             Swal.fire({
               icon: 'info',
-              title: 'Class Not Available at the Moment...',
+              title: 'Clase no disponible en este momento......',
               text: '.',              
             }).then(() => {
               //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
@@ -290,10 +290,20 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
 
   return (
     <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
+
+<div className="close-button-container" style={{ marginTop: 10 }}>
+         <h3>
+         Calendario
+         </h3>
+
+         <button className="closeButton" id="closeButton" onClick={closeModal}>x</button>  
+      </div>
       <Calendar
         onChange={handleDateChange}
         value={selectedDate}
-        locale="en-US"
+        locale="es-ES"
+        //locale="en-US"
+        showNeighboringMonth={false}
         tileClassName={({ date }) => {
           const classes = [];
           if (customClasses[date.toLocaleDateString()]) {
@@ -305,39 +315,13 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
           return classes.join(' ');
         }}
       />
-      
-      <div>
-        <p>Available Hours for {selectedDate.toLocaleDateString()}</p>
-        <ul>
-          
-        {availableHoursForDate.map(({ _id, startTime, endTime, reserved }, index) => (
-          
-          <li key={index} className={`time-slot ${reserved ? 'reserved' : ''}`}>
-          <span className="time-range">
-            {formatTime(startTime)}
-            </span>
-            -
-            <span className="time-range">  
-            {formatTime(endTime)}
-          </span>
-          {reserved && (
-            <button className="view-class-button" onClick={() => viewReservedClassDetails(startTime, endTime, _id)}>
-              Forward
-            </button>
-          )}
-        </li>
+           
 
-          ))}
-
-
-        </ul>
-      </div>
-
-      <div>
+      <div className='Conten-Horas'>
         <div>
-          <label>Start Time:</label>
+          <label>Hora de inicio:</label>
           <select className="start-time-select" value={selectedStartTime} onChange={(e) => setSelectedStartTime(e.target.value)}>
-            <option value="">Select time</option>
+            <option value="">Seleccionar:</option>
             {hoursOptions.map((time, index) => (
               <option key={index} value={time}>{time}</option>
             ))}
@@ -345,9 +329,9 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
         </div>
 
         <div>
-          <label>End Time:</label>
+          <label>Hora final:</label>
           <select className="end-time-select" value={selectedEndTime} onChange={(e) => setSelectedEndTime(e.target.value)} disabled={!selectedStartTime}>
-            <option value="">Select time</option>
+            <option value="">Seleccionar:</option>
             {hoursOptions.map((time, index) => {
               const startIndex = hoursOptions.findIndex(option => option === selectedStartTime);
               const disabled = index <= startIndex;
@@ -357,10 +341,35 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
         </div>
 
         <div style={{ marginTop: 10 }}>
-          <button className="assign-class-button" onClick={assignClass} disabled={!selectedStartTime || !selectedEndTime}>Assign Class</button>
-          <button className="closeButton" id="closeButton" onClick={closeModal}>Close</button>         
+          <button className="assign-class-button" onClick={assignClass} disabled={!selectedStartTime || !selectedEndTime}>Asignar clases</button>
+                 
         </div>
       </div>
+
+      <div className='Conten-Clases'>
+  { /*<p>Available Hours for {selectedDate.toLocaleDateString()}</p>*/ }
+  
+  <div className="time-slots-container">
+    {availableHoursForDate.map(({ _id, startTime, endTime, reserved }, index) => (
+      <div key={index} className={`time-slot ${reserved ? 'reserved' : ''}`}>
+        
+        <div className="time-range">
+          <span>{formatTime(startTime)}</span> - <span>{formatTime(endTime)}</span>
+        </div>
+        
+        {reserved && (
+          <div className="reserved-info">
+            <button className="view-class-button" onClick={() => viewReservedClassDetails(startTime, endTime, _id)}>
+           
+            </button>
+          </div>
+        )}
+        
+      </div>
+    ))}
+  </div>
+</div>
+
     </Modal>
   );
 }

@@ -595,10 +595,16 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   className="payment-modal-content"
   overlayClassName="payment-modal-overlay"
 >
-  <div className="payment-modal-header">
-    <h5>Select Payment Method</h5>
 
-    <span className='TotalPagar'>Total to Pay </span>
+<div className="payment-modal-close-btn">
+       <button onClick={closepay} >X</button>
+    </div>
+  <div className="payment-modal-header">
+   
+  
+    <h5>Seleccione método de pago</h5>
+
+    <span className='TotalPagar'>Total a pagar: </span>
     <span className='ValorPagar'>${RealPrice} USD</span>
 
   </div>
@@ -625,7 +631,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
      <i className="fab fa-paypal ico_paypal"></i>
       PayPal
     </button>
-    <button onClick={closepay} className="payment-modal-close-btn">Close 1</button>
+   
   </div>
 
  
@@ -646,7 +652,9 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
         <Calendar
           onChange={handleDateChange}
           value={selectedDate}
-          locale="en-US"
+          locale="es-ES"
+          //locale="en-US"
+          showNeighboringMonth={false}
           tileClassName={({ date }) => {
             const dateString = date.toLocaleDateString();
             const classes = [];
@@ -660,15 +668,47 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
           }}
         />
 
-        <select className='Tutor_Select_Clase' value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
-          <option value="">Hora y disponibilidad:</option>
-          {getAvailableTimesForDate(selectedDate).map((time, index) => (
-            <option key={index} value={time}>{time}</option>
-          ))}
-        </select>
-        <div style={{ marginTop: 10 }}>
-          <button onClick={PayChange} disabled={!selectedTime} className="assign-class-btn">Assign Class</button>
-        </div>
+<div className='Conten_Select_Clase'>
+  {/* El select original está oculto pero sigue funcionando */}
+  <select
+    className='Tutor_Select_Clase'
+    value={selectedTime}
+    onChange={(e) => setSelectedTime(e.target.value)}
+    style={{ display: 'none' }} // El select original está oculto
+  >
+    <option value="">Hora y disponibilidad:</option>
+    {getAvailableTimesForDate(selectedDate).map((time, index) => (
+      <option key={index} value={time}>{time}</option>
+    ))}
+  </select>
+  
+  {/* Opciones personalizadas para que el usuario las seleccione */}
+  <p className='titlehoras'> Selecciona una hora:</p>
+  <div className="custom-options-container">
+    {getAvailableTimesForDate(selectedDate).map((time, index) => (
+      <div
+        key={index}
+        className={`custom-option ${selectedTime === time ? 'selected' : ''}`} // Agregar la clase 'selected' solo a la opción seleccionada
+        onClick={() => {
+          setSelectedTime(time); // Actualiza el valor del select original
+        }}       
+      >
+        {time}
+      </div>
+    ))}
+  </div>
+
+  {/* Botón para asignar la clase, se habilita solo si hay una selección */}
+  <div className='botton_Select_Clase'>
+    <button onClick={PayChange} disabled={!selectedTime} className="assign-class-btn">
+      Assign Class
+    </button>
+  </div>
+</div>
+
+
+
+        
       </Modal>
     </>
   );

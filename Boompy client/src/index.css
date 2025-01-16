@@ -31,3 +31,6 @@ body {
   overflow-x: hidden ;    
 }
 
+.Bottom{
+  cursor: pointer !important;
+}

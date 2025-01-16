@@ -111,64 +111,439 @@
 	background: rgba(128, 128, 128, 0.382);
 }
 
+abbr[data-original-title], abbr[title] {    
+    -webkit-text-decoration: none;
+    text-decoration: none;   
+}
+
 .react-calendar__month-view__days button abbr {
 	display: flex;
 	justify-content: center;
 	width: 100%;
 	font-weight: 600;
+	font-size: 2vw;	
 }
 
-.Tutor_Select_Clase{
+.react-calendar__month-view__days button:hover {
+    background: rgb(67, 243, 67) !important;
+	border: 1px solid green;
+	z-index: 10;
+}
+
+/* Aplica el estilo cuando el botón está siendo presionado */
+.react-calendar__month-view__days button:active {
+	background: rgb(67, 243, 67) !important;
+	border: 1px solid green;
+	z-index: 10;
+  }
+  
+  /* También puedes usar :focus para cuando un botón recibe el enfoque */
+  .react-calendar__month-view__days button:focus {
+	background: rgb(67, 243, 67) !important;
+	border: 1px solid green;
+	z-index: 10;
+  }
+  
+
+.available {
+	background: #E62B3F !important;
+}
+
+/*seleccion hora clase estudiante*/
+.titlehoras {
+    color: #E62B3F;
+    font-size: 1.3vw;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.Conten_Select_Clase {   
+    display: flex;
+    flex-direction: column;	
+}
+
+.custom-options-container {
+    margin: 20px 0px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15%, 1fr)); 
+    gap: 10px; 
+}
+
+  .custom-option {
+	display: flex;
+	padding: 10px;
+	cursor: pointer;
+	border: 1px solid rgba(0, 0, 0, 0.194);
+	border-radius: 20px;
+	margin-bottom: 5px;	
+	width: 100%;
+	font-weight: 600;
+  }
+  
+  .custom-option:hover {
+	background-color: #E62B3F;
+	color: white;
+  }
+  
+  .custom-option.selected {
+	background-color: #E62B3F;
+	color: white;
+  }
+  
+
+.botton_Select_Clase{	
+	display: flex;
+	justify-content:flex-end;
+	width: 100%;		
+}
+
+.assign-class-button,
+.botton_Select_Clase button {
+    background: #E62B3F;
+    color: white;
+    font-size: 1.2vw;
+    width: 150px;
+    border-radius: 30px;
+    border: none;
+    padding: 5px;
+    font-weight: 500;
+
+}
+
+.botton_Select_Clase button:disabled {
+	background-color: #ccc; /* Fondo gris */
+	color: #999; /* Texto gris */
+	border: 2px solid #ddd; /* Borde gris claro */
+	cursor: not-allowed; /* Cursor de "no permitido" */
+	opacity: 0.6; /* Opacidad reducida */
+  }
+
+
+  /*forma de pago*/
+  .ReactModal__Overlay {
+    position: absolute;    
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.427);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;  
+    align-items: center;      
+}
+
+.payment-modal-content {
+    background: #d9d9d9fa;
+    border: solid 1px rgba(0, 0, 0, 0.192);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 0px 20px 0px!important;
+    width: 30%;
+}
+
+.payment-modal-close-btn{
+	display: flex;
+	flex-direction:column;
+	justify-content: flex-end;
+	align-items:end !important;	
+	width: 100%
+	
+}
+
+.payment-modal-close-btn button{
+	background: none;
+	border: none;
+	color: red;
+	font-weight: 600;
+	font-size: 1.3vw;
+	margin: 20px 20px 0px 20px;
+}
+
+.payment-modal-header{
+	margin-bottom: 20px;
+}
+
+.payment-modal-header h5{  
   color: #D90D2B;
-  font-weight: 600;
-  border: none;
-  width: min-content;
 }
 
-.Tutor_Select_Clase option:first-child {
-  color: #D90D2B;
-  font-weight: 600;
+.payment-modal-confirm-btn{
+  color: white;
+  width: 150px;
+  margin: 10px 5px ;
+  padding: 5px;
+  background: rgb(41, 41, 170);
+  border-radius: 5px;
   border: none;
-  width: min-content;
 }
 
-.Tutor_Select_Clase option:not(:first-child) {
-  color: black; 
-  font-weight: normal; 
-  border: none;
-  width: auto;
+.TotalPagar,
+.ValorPagar {
+	font-size: 1.2vw;
+	font-weight: 500;
+	display: block;	
+	width: 100%;
+	text-align: center;
+}
+
+.ValorPagar{
+	font-size: 1.5vw;
 }
 
 
+::-webkit-scrollbar {
+  width: 8px; 
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: none;
+  border-radius: 100%;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color:#D90D2B;
+  border-radius: 10px;
+  border: none; 
+}
+
+.Conten-Horas {
+    display: flex;
+	justify-content: space-evenly;   
+    align-items: baseline;
+}
+
+.Conten-Horas select {
+    width: 200px;
+    margin: 0px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.461);
+	border-radius: 5px;
+}
+
+.time-slots-container{
+	margin: 20px 0px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15%, 1fr)); 
+    gap: 10px; 
+
+}
 
 
+.black{
+	color: black;
+}
+
+.time-slot {
+	position: relative;
+	display: flex;
+	justify-content: center;  
+	align-items: center;       
+	border: 1px solid rgba(0, 0, 0, 0.215);
+	border-radius: 30px;
+	font-weight: 500;
+	height: 35px;
+	cursor: no-drop;
+  }
+  
+
+.time-slot:hover{
+	background: #D90D2B;
+	color: white;
+}
+
+/* Aplica el estilo cuando el botón está siendo presionado */
+.time-slot:active {
+	background: #D90D2B;
+	color: white;
+  }
+  
+  /* También puedes usar :focus para cuando un botón recibe el enfoque */
+  .time-slot:focus {
+	background: #D90D2B;
+	color: white;
+  }
+  
+
+.view-class-button {
+    animation-name: none;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    background: none;
+    border: 3px solid rgba(0, 128, 0, 0.653);
+}
+
+.Conten-Time-Class{
+	margin: 20px 0px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15%, 1fr)); 
+    gap: 10px;
+}
+
+.class-info {
+    display: flex;   
+    width: 100%;
+}
 
 
+.cancelButton{
+	display: none;
+}
+
+.viewButton{
+	border: none;
+}
+
+	
 
 
+@media screen and (max-width: 850px) {
 
 
+	.conten-home {
+		height: 100vh;		
+		background-position: 50%  0%;
+		background-size: cover;		
+	}
 
+	.ContainerProfile {
+		display: grid;
+		grid-template-columns: none;
+		overflow-y: auto;
+		overflow-x: auto;
+		top: 100px;
+		border-radius: 10px;
+		width: 90%;
+	}
+	
+	.ConteinerText h3{
+		font-size: 6vw;
+	}
+	
+	.ConteinerText p {
+		font-size: 3.5vw;		
+	}
 
+	.ConteinerText span {
+		font-size: 3.5vw;		
+	}
 
+	.CalendarHome {		
+		left: 0px;		
+		font-size: 5vw;		
+		width: 100%;
+	}
 
+	.ReactModal__Content {
+		width: 100%;
+		height: 100%;
+		padding: 0px !important;	
+		inset: auto !important;	
+		border-radius: 0px !important;
+	}
 
+	.react-calendar__month-view{
+		margin: 5%;	
+	}
+	
+	.close-button-container h3 {
+		font-size: 5vw;		
+	}
 
+	.close-button-container button{
+		margin-right: 10px;
+		font-size: 6vw;
+	}
 
+	.react-calendar {		
+		flex-direction: column;
+		border-radius: 0px;	
+	}
 
+	.react-calendar__navigation{
+		max-width: none;
+		width: 100%;
+	}
 
+	.react-calendar__navigation__label__labelText{
+		font-size: 10vw;
+	}
 
+	.react-calendar__navigation__arrow {
+		font-size: 7vw;
+	}
 
+	.react-calendar__month-view__weekdays__weekday {
+		font-size: 4vw;
+	}
 
+	.react-calendar__month-view__days button abbr {
+		font-size: 4vw;
+	}
 
+	.titlehoras {
+		font-size: 5vw;
+		text-align: center;
+	}
 
+	.custom-options-container {
+		margin: 20px 0px;
+		display: flex;
+		flex-direction: column;	
+		align-items: center;
+		justify-content: center;	
+	}
 
+	.custom-option{
+		display: flex;
+		justify-content: center;
+		width: 80%;
+	}
 
+	.botton_Select_Clase{
+		justify-content: center;
+		padding-bottom: 20px;
+	}
 
+	.botton_Select_Clase button {
+       font-size: 4vw;
+	}
 
+	.Conten-Horas {
+		flex-direction: column;		
+	}
 
+	.Conten-Horas div {
+		margin: 5px;
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		justify-content: space-evenly;
+	}
 
-/*coloca el dia que hay clase activa */
-.available {}
+	.assign-class-button{
+        font-size: 15px;
+	}
 
-body>div.ReactModalPortal>div>div>div.react-calendar>div.react-calendar__viewContainer>div>div>div>div.react-calendar__month-view__days>.available {}
+	.time-slots-container {		
+		grid-template-columns: auto; 		
+	}
+
+	.time-slot{
+		width: 90%;
+		margin: auto;		
+	}
+
+	.Footer img{
+		z-index: 0;
+	}
+
+	.Conten-Time-Class{
+		grid-template-columns: auto;
+	}
+}

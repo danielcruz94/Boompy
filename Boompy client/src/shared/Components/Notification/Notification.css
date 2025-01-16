@@ -105,7 +105,20 @@
   .iframeVideo { 
     height: 50%;
   }
+
+  .notification-icon {
+    width: 100%;
+    height: 30px;
+    border-radius: 30px;
+    font-size: 5vw;
+    margin: 10px 0px;
+}
   
+.Bottom {
+  background: #ffffff59;
+  width: 100%;
+  max-width: none;
+}
   
 }
 

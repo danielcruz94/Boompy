@@ -130,6 +130,7 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
     
     if(callsActive === false){
           if (currentTime >= classStartTime && currentTime <= classEndTime) {
+           // if (true) {
             const host = window.location.hostname;
             const port = window.location.port;
             let url = null;
@@ -147,7 +148,7 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
           } else {
             Swal.fire({
               icon: 'info',
-              title: 'Class not available at the moment....',
+              title: 'Clase no disponible por el momento....',
               text: '.',
 
             }).then(() => {
@@ -155,13 +156,14 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
             });
           }
     }else{
-          Swal.fire({
-            icon: 'info',
-            title: 'You are already in a class ....',
-            text: 'Try again later.....',            
-          }).then(() => {
-            //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
-          });     
+      Swal.fire({
+        icon: 'info',
+        title: 'Ya estás en una clase...',
+        text: 'Intenta nuevamente más tarde...',
+      }).then(() => {
+        //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+      });
+       
     }
   
     
@@ -229,22 +231,28 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
         tileClassName={tileClassName}
         //locale="en-US"
         locale="es-ES"
+        showNeighboringMonth={false}
       />
 
-     
+     <div className='Conten-Time-Class'> 
 
-      {selectedClasses.length > 0 && (
+     {selectedClasses.length > 0 && (
         selectedClasses.map((classInfo, index) => (
-          <div key={index} className="class-info">
-            <p>{new Date(classInfo.date).toLocaleDateString()}</p>
-
-            <p>Time: {classInfo.startTime} - {classInfo.endTime}</p>
+       <div key={index} className="class-info time-slot">
+      
+         <p>{classInfo.startTime} - {classInfo.endTime}</p>
             <button className="cancelButton"  onClick={() => cancelClass(classInfo._id)}>Cancell</button>
+            <button className="viewButton view-class-button" onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}></button>
+        </div>
+       
 
-            <button className="viewButton" onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}>Forward</button>
-          </div>
+
         ))
       )}
+
+     </div>
+
+      
     </Modal>
   );
 }

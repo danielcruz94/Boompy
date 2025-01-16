@@ -1,514 +1,199 @@
-
-
-p {       
-     margin-bottom: 0px;  
-}
-
-.contenTeach{
- background: white;
- width: 100vw;
-}
-
-.NavTeach {
-    padding: 30px 10% 30px 10%;
-    font-weight: 600;
-    background-image: url("../../shared/Components/Landing/Fondo1.jpg");
-    background-size: cover;
-}
-
-.NavTeach > p {   
-    width: 330px;
+.contenTeach {
+    position: relative;
+    height: 122vh;
+    background: 
+        linear-gradient(to bottom, transparent, white 40%), /* Degradado sobre la imagen */
+        url('/public/home/fondo 1.jpeg'); /* Imagen de fondo */
+    background-position: 0% 46%;
+    background-size: 100%;
 }
 
 .InfTeach {
-    display: flex;       
-    padding: 20px 0px;  
-
-   
+    position: absolute;
+    background: linear-gradient(to bottom, transparent 0%, white 60%, #CD3148 100%);
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 80%;
 }
-
-.InfTeach > div:nth-child(1) {
+.profile-container-name {
     display: flex;
-    flex-direction: column;
-    width: 70%;
-    align-items: flex-end;
-    margin: 0px 20px 0px 0px;
-}
+    justify-content: center; 
+    align-items: center;    
+    flex-direction: row;    
+    width: min-content;     
+    margin: auto;
+  }
+  
+  .profile-container-name h2 {
+    display: flex;
+    justify-content: center; 
+    align-items: center;     
+    text-align: center;
+    margin: 0px 5%;
+    font-size: 4vw;
+  }
 
-.InfTeach > div:nth-child(2) {   
-     width: 30%;
-}
+  .profile-container-name h3{
+    display: none;
+  }
 
-.TeachSaldo {
+.profile-picture{
+    margin: auto;
+    width: min-content;
     height: min-content;
-    width: 13% !important;
+    border-radius: 100%;    
 }
 
-/*PERFIL*/
-.profile-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    align-items: center;
-    width: 83%;
-    background-color: rgb(17, 15, 80);
+.rounded-circle{
+    width: 180px;
+    height: 180px;
+}
+
+.Div-li2{
+    margin: 20px 0px;
+}
+
+.bandera {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    border-radius: 100%;
+}
+.profile-info{
+    position: absolute;
+}
+
+.gallery{
+    display: none;
+    width: 100px;
+}
+
+.Biografia {
+    width: 50%;
+    margin: auto;
+    height: 250px;
+}
+
+.Biografia textarea {
+    width: 100%;
+    height:inherit;
+    background: none;
+    border: none;    
+    text-align: -webkit-center;
+}
+
+
+.contenCalendar {
+    position: absolute;
+    width: 240px;
+    border-radius: 30px;
+    top: 280px;
+    right: 4%;
+    background: #E62B3FB2;
     color: white;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.profile-picture {
-    float: left;
-}
-
-.profile-picture img {
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-}
-
-.profile-info {
-    margin-left: 20px;
-}
-
-.profile-info > p,
-.profile-info > h2 {
-    text-align: left; 
-
-
-
-    margin-bottom: 15px;
-}
-
-.contact-info {
-    display: inline;
-    margin-right: 28px;
-    font-weight: 100;
-}
-
-.Start{
-  color: #ffd428;
+    font-size: clamp(50px, 1.4vw, 68px  );
+    padding: 8px;
 }
 
 .social-icons {
-    margin-top: 20px;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.iconos{
-    width: 25px;
-    height: 25px;
-}
-.social-icon-wrapper {
-    background: rgb(255, 255, 255);
-    margin: 5px;
-    width: 35px;
-    height: 35px;
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-    border-radius: 100%;
-}
-
-.social-icons a {
-    font-size: 20px;
-    color: rgb(17, 15, 80);
-    padding: 10px;    
-}
-
-.social-icons a:hover {
-    color: rgb(17, 15, 80);
-}
-
-
-/*Biography*/
-
-.Biography {
-    border: 1px solid #0000002b;
-    width: 83%;    
-    margin: 20px 0px;
-    padding: 20px;
-    border-radius: 10px;
- 
-}
-
-
-.Biography > p{
-  text-align: left; 
-}
-
-.Biography > h4{
-    color: black;
-    text-align: left; 
-}
-
-
-/* HABILIDADES */
-
-.Skills {
-    display: flex;
-    flex-direction: column;
-    width: 83%;
-    border: 1px solid #0000002b;
-    border-radius: 10px;
-    padding: 20px; 
-    margin-bottom: 20px;
-}
-
-#root > div > div.contenTeach > div.InfTeach > div:nth-child(1) > div.Skills > div.InfoSkills > h4{
-    color: black;
-    text-align: left; 
-}
-
-.skillCon{
-    display: flex;
-}
-
-.skills-container {          
-    width: 100%;    
-    margin-top: 20px;
-}
-
-.left-skills, .right-skills {
-    width: 50%;
-    float: left;
-}
-
-.skill {
-    margin: 10px;
-    display: flex;
-    flex-direction: column; 
-}
-
-.skill-name {
-    display: flex;
-    font-weight: bold;
-    text-align: left;
-    width: 50%;
-    font-size: 15px;
-}
-
-.progress-bar {
-    height: 10px;
-    background-color: #ffd428;
-    border-radius: 5px;
-    margin-bottom: 25px;
-}
-
-.progress-percent {
-    font-weight: 600;
-    width: 50%;
-    font-size: 15px;
-}
-
-.InfoSkills > p{
-    text-align: left; 
-}
-
-
-/*PAGOS*/
-
-.payment{
-    width: auto;
-}
-
-
-
-.course-offer {   
-    background-color: #f5f5f5;    
-    border: 1px solid #ddd;
-    padding: 20px;
-    margin: 0 auto;
-    text-align: center;
-    border-radius: 10px;
-    max-width: 300px;
-}
-
-.course-includes{    
-    margin-top: 10px;
-}
-
-.course-offer > div:first-child {
-    background: rgb(57, 80, 225);
-    color: white;
-    font-weight: 600;
-    padding: 5px 0px;
-    border-radius: 10px;
-    width: 170px;
-    margin: auto;
-}
-
-
-ul.course-includes {
-    list-style: none; 
-    padding: 0px;   
-}
-
-ul.course-includes li {
-    display: flex;
-    align-items: center;
-    justify-content:last baseline;
-    font-size: 80%;
-    border-bottom: 1px solid #0000003b;  
-    padding: 5px 0px;
-}
-
-ul.course-includes li i {
-    margin-right: 10px;
-    font-size: 18px;
-    color: black; 
-}
-
-ul.course-includes li strong {
-    font-weight: bold;
-    font-size: 14px;
-    color: #333; 
-}
-
-li > .Div-li {
-    display: flex;
-    align-items: flex-start;
-    width: 83%;
-    background: none;
-}
-
-li > .Div-li2 {
-    display: flex;
-    justify-content: flex-end;
-    width: 20%;
-    background: none;
-    color: black;
-    font-size: 12px;
-}
-
-.Me_Pagos {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    background: none;
-    border-bottom: 1px solid #0000003b;  
-}
-
-.img-Pagos {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0px;
-}
-
-.img-Pagos img {
-    width: 15%; 
-    max-width: 100%; 
-}
-
-.btnPagos {
-    border: none;
-    background: rgb(248, 187, 3);
-    padding: 8px 20px;
-    margin: 20px;
-    border-radius: 30px;
-    font-weight: 600;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
-}
-
-/*GALERY actualizar el responsive*/
-
-.contGalery{
-    display: flex;
-    justify-content: start; 
-    align-items: center; 
-    flex-direction: column;
-    width: 80%;
-    /* background-color: blueviolet; */
-    height: 350px;
-   /* border: 1px solid #0000002b;*/
-  
-}
-
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); 
-    gap: 10px; 
-    width: 70%;
-    height: 100%; 
-}
-
-.galleryItem{
-    height: 240px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;   
-}
-
-.gallery img {
-    width: 100%;
-    height: 100%;
-    min-height: 240px;
-    border-radius: 3%;
-    object-fit: cover;
-    border: solid 1px gray;
-}
-
-#root > div > div.contenTeach > div.contGalery > div:nth-child(1) > h4{
-    color: black;
-}
-
-
-.instagram{
+    position: absolute;
+    top: 290px;
+    left: 4%;
     display: none;
-    padding: 4px;
+    flex-direction: column;
+    background: #2C2E43E8;
+    color: white;   
+    justify-content: left;
+    align-items: baseline;
+    border-radius: 20px;
 }
 
-
-@media screen and (max-width: 600px) {
-    .gallery {
-        grid-template-columns: repeat(auto-fit, minmax(70px, 100px));
-        width: 100%;
-        justify-content:center;
-        align-items:center;
-        margin-top: 0px;
-        height: 65%;
-
-
-    }
-
-    .galleryItem{
-        height: 100px;      
-    }
-
-    .gallery img {
-        min-height: 100px;
-    }
-    
+.social-icon-wrapper{
+    display: flex;
+    align-content: flex-start;
+    justify-content: left;
+    align-items: baseline;
+    width: 150px;
+    padding: 10px 20px;
 }
 
+.FooterTeach{
+top: 630px;
+background: linear-gradient(to bottom, rgba(205, 49, 72, 0) 0%, #CD3148 60%);
 
-@media screen and (max-width: 800px) {
+}
+
+@media screen and (max-width: 850px) {
+
     .InfTeach {
-        flex-direction: column;
         
     }
 
-    .course{
-        display: block;
-    }
-    .gallery {
-        /*grid-template-columns: repeat(auto-fit, minmax(70px, 180px));*/
-        width: 100%;
-        justify-content:center;
-        align-items:center;
-        margin-top: 0px;
-        height: auto;
 
-
-    }
-
-    .InfTeach > div:nth-child(2) {   
-        width: 100%;
-   }
-
-   .course-offer {
-    max-width: 300px;
-   }
-
-   #root > div > div.InfTeach > div:nth-child(1) {
-    width: 100%;
-    align-items: center;
-   }
-
-
-   .TeachSaldo {
-    height: min-content;
-    width: 100% !important;
-   }
-}
-
-@media screen and (max-width: 1110px) {
-    .contGalery{
-        
-        width: 100%;
-        /* background-color: blueviolet; */
     
+
+    .profile-container-name {
+        flex-direction: column;        
+        width: 100%;
+    }
+
+    .profile-container-name h2{
+        display: none;
+      }
       
-      
-    }
-}
-@media screen and (max-width: 400px) {
-    .profile-info > h2{
-        text-align: center;
-    }
-    
-    
-}
-
-
-
-
-@media screen and (max-width: 600px) {
-   
-
-    .InfTeach > div:nth-child(1) {
-        display: block;
-        flex-direction: column;
-        width: 100%;
-        align-items: center;
-        justify-content: center;
-        margin: 0px 20px 0px 0px;
-    }
-    .profile-info > p{
-        text-align: center;
-    }
-    .profile-container{
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .contact-info {
-        display: block;
-        margin-bottom: 20px;
-    }
-
-    .social-icons {
-        margin-top: 20px;
+      .profile-container-name h3 {
+        position: absolute;        
+        left: 50%;
+        transform: translate(-50%, -50%);
         display: flex;
-        justify-content: center;
+        font-size: clamp(20px, 1.4vw, 40px);
+        background: white;
+        padding: 10px;
     }
 
-    .Biography {
+      .responsive-name{
         width: 100%;
-    }
+        display: flex;
+        flex-direction: row;
+      }
 
-    .Skills {
-       width: 100%;
-       margin-bottom: 20px;
-    }
 
-    /*Pgos*/
-    .InfTeach > div:nth-child(2) {
+      .responsive-name div{
         width: 100%;
+       height: 10px;
+       background:#CD3148;
+      }
+      
+      .Div-li2{
+        font-size: 13px;
+        margin: 10px;
+      }
+
+      .Div-li2 img{
+        width: 20px;
+        height: 20px;
+      }
+
+      .black{
+        display: none;
+      }
+
+      .Biografia{
+        width: 95%;
+      }
+  
+      .FooterTeach {
+        top: 95%;
+        background: linear-gradient(to bottom, rgba(205, 49, 72, 0) 0%, #CD3148 30%);
     }
 
-    .course-offer {
-        width: 100%;
+      .contenCalendar {
+        position: static;
+        width: 80%;
+        margin: auto;
+        margin-bottom: 10px;
     }
 
-    .contGalery {
-        width: 100%;
-       
-
-        
-    }
-
-   
-
-    #root > div > div.contenTeach > div.contGalery > div.gallery > div{
-        width: 20%;
-    }
-
-   
-   
-    }
-
-
-   
+     
+}

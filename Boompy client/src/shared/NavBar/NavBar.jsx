@@ -9,7 +9,7 @@ import Button from '../../assets/Button.svg';
 import Vector from '../../assets/Vector.svg'; 
 import Torii from '../../assets/rii (2).svg';
 import Notification from '../Components/Notification/Notification';
-import Settings from '../Components/Settings/Settings';
+
 import AttendanceModal from '../Components/History/History';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from '../../Redux/usersSlice';
@@ -25,6 +25,7 @@ const NavBar = ({ textBotton, onClick, auth }) => {
   const [role, setRole] = useState(userData?.role);   
   const currentUrl = window.location.href;    
   const shouldHideButton = currentUrl.includes('calls');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
@@ -50,6 +51,10 @@ const NavBar = ({ textBotton, onClick, auth }) => {
 
   const closeCalendar = () => {
     setIsCalendarOpen(false);
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   const CalendarComponent = role === 'Tutor' ? CalendarClass : StudentCalendar;  
@@ -101,17 +106,8 @@ const NavBar = ({ textBotton, onClick, auth }) => {
             </Link>
           </>
         )}
-
-        {/*
-
-        <p className="SubHeading"
-          onClick={toggleCalendar}
-          style={{ cursor: 'pointer', fontWeight: 'bold' }}
-        >
-          Calendar
-        </p >
-
-      */}
+             
+      
 
       </div>
 
@@ -147,10 +143,34 @@ const NavBar = ({ textBotton, onClick, auth }) => {
         />
         */}
 
-        {role === 'Tutor' && <Settings />}
+      
 
         {!shouldHideButton && <botton className="Bottom" onClick={onClick}>{textBotton}</botton>}
       </div>
+
+      <div className="menu-container">
+  <div className="hamburger-menu" onClick={toggleMenu}>
+    <i className="fa fa-bars hamburguesa"></i> {/* Icono de la hamburguesa */}
+  </div>
+
+  <div className={`menu-items ${isMenuOpen ? 'open' : ''}`}>
+    {/* Icono de notificación */}
+    <Notification
+      numMessages={1}
+      messageIcon={<i className="fa-regular fa-envelope IconNavbar"></i>}
+      userData={userData}
+    /> 
+    
+
+    {/* Botón condicional */}
+    {!shouldHideButton && (
+      <button className="Bottom" onClick={onClick}>
+        {textBotton}
+      </button>
+    )}
+  </div>
+</div>
+
 
       {isCalendarOpen && <CalendarComponent isOpen={isCalendarOpen} onRequestClose={closeCalendar} onClose={closeCalendar} />}
     </div>

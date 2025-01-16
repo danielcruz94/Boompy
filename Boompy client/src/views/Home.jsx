@@ -235,7 +235,7 @@ const closeCalendar = () => {
           onClick={toggleCalendar}
           style={{ cursor: 'pointer', fontWeight: 'bold' }}
         >
-          Calendario
+          Calendario de Clases
         </p >
 
      

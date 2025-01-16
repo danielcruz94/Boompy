@@ -170,3 +170,54 @@
     font-family: system-ui;
     letter-spacing: 1px;
 }
+
+
+@media screen and (max-width: 850px) {
+
+    .Logo_NavBar{
+        width: 30%;
+    }
+
+    .Conten_iconos{
+        display: none;
+    }
+
+
+    .hamburguesa{
+       color: white;
+    }
+
+    .menu-container {
+        position: relative;
+      }
+      
+      .hamburger-menu {
+        font-size: 30px;
+        cursor: pointer;
+        display: block;
+        color: #000;
+      }
+      
+      .menu-items {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        background-color: #ffffffd3;
+        top: 50px;
+        right: 0;
+        width: 200px;
+        padding: 10px;
+        border-radius: 10px;
+      }
+      
+      .menu-items.open {
+        display: flex;
+        z-index: 99999999;
+      }
+      
+      
+      
+   
+      
+
+}
