@@ -586,7 +586,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
           setModalIsOpen(true);
           setScrollEnabled(false);
           setRealPrice(amount); 
-        }} style={{ marginTop: '15px', background: '#10104d', color: 'white' }}>Book a Ticket</button>
+        }} className='Reservar'>Reservar Torii</button>
       )}
 
 <Modal 

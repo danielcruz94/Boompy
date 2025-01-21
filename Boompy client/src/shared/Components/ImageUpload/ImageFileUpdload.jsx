@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
+import axios from 'axios'; // Importa axios
 import LoaderIcon from '../../../assets/ajax-loader.gif';
 
 const ImageFileUpload = ({ id, text, onChange, description, url, accept, ...props }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState(url || ''); 
- 
-  const fileInputRef = React.createRef();
+  const [imageUrl, setImageUrl] = useState(url || '');
 
- 
+  const fileInputRef = React.createRef();
 
   const uploadImage = async (e) => {
     try {
       const files = e.target.files;
       if (!files.length) return;
+
+      // Crear vista previa local de la imagen seleccionada
+      const fileUrl = URL.createObjectURL(files[0]);
+      setImageUrl(fileUrl);
 
       const data = new FormData();
       data.append('file', files[0]);
@@ -20,31 +23,26 @@ const ImageFileUpload = ({ id, text, onChange, description, url, accept, ...prop
 
       setIsLoading(true);
 
-      const res = await fetch(
+      const res = await axios.post(
         'https://api.cloudinary.com/v1_1/danielcruz/image/upload',
-        {
-          method: 'POST',
-          body: data,
-        }
+        data
       );
-      
-      if (!res.ok) {
+
+      if (res.status !== 200) {
         throw new Error('Failed to upload image');
       }
 
-      const file = await res.json();
-      const fileUrl = file.secure_url;
+      const cloudinaryFileUrl = res.data.secure_url;
 
-      setImageUrl(fileUrl);
-      onChange(fileUrl); 
+      setImageUrl(cloudinaryFileUrl); // Actualizar la URL de la imagen con la de Cloudinary
+      onChange(cloudinaryFileUrl); // Llamar a onChange con la nueva URL
 
       setIsLoading(false);
     } catch (err) {
       console.error(err);
-      setIsLoading(false); 
+      setIsLoading(false);
     }
   };
-
 
   const handleImageClick = () => {
     fileInputRef.current.click();
@@ -53,28 +51,30 @@ const ImageFileUpload = ({ id, text, onChange, description, url, accept, ...prop
   return (
     <div>
       <div className="profile-container">
-        <div className="profile-picture" onClick={handleImageClick}>         
+        <div className="profile-picture" onClick={handleImageClick}>
           {imageUrl ? (
             <img
               src={imageUrl}
               alt="Foto de perfil"
               className="rounded-circle"
-              style={{ marginBottom: '10px', cursor: 'pointer' }} 
+              style={{ marginBottom: '10px', cursor: 'pointer' }}
             />
           ) : (
-            <p>No image selected</p> 
+            <div className="profile-image">
+              <img src="/Capa_1.png" alt="Imagen de perfil" />
+            </div>
           )}
         </div>
 
-        <div className="inner-container">         
+        <div className="inner-container">
           <input
             type="file"
             id={id}
             ref={fileInputRef}
             accept={accept}
             {...props}
-            onChange={uploadImage} 
-            style={{ display: 'none' }} 
+            onChange={uploadImage}
+            style={{ display: 'none' }}
           />
           <label>
             {!isLoading && text}
@@ -87,7 +87,7 @@ const ImageFileUpload = ({ id, text, onChange, description, url, accept, ...prop
           )}
         </div>
 
-        {/*description && <p>{description}</p>*/} 
+        {/*description && <p>{description}</p>*/}
       </div>
     </div>
   );

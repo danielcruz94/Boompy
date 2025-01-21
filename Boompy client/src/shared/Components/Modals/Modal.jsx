@@ -1,11 +1,4 @@
-import {Container,
-    MainText,
-    UploadPicture,
-    ContainerIn,
-    Span,
-    Img,
-    Button
-} from './Modal.style'
+
 import React,{useState} from 'react';
 import axios from 'axios';
 
@@ -97,102 +90,104 @@ const handleChange = (event) => {
 
 
     return (
-        <Container>
-            <MainText>{title}</MainText>
-            <ContainerIn>
-                <Span>Upload Your Picture</Span>
-               
-                  <ImageFileUpload
-                   id="profile_image"
-                   text="Profile Photo"
-                   accept="image/png,image/jpeg"
-                   name="profile_image"
-                   
-                   onChange={(fileUrl) =>
-                    setsettingInformation({ ...settingInformation, picture: fileUrl })
-                   }
-                   />
-               
-           
+    <div className='ContainerModal'>
+            <h2 className='MainText'>{title}</h2>
+
+
+        <div className='conteng-date'>
+                <div className='ContainerIn-foto'>
                 
-            </ContainerIn>
-            <ContainerIn>
-            <Span >Country</Span>
-            <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={handleChange} name={"country"}>
-            <option value="" >Select an option</option>
-                <option value="Colombia">Colombia</option>
-                <option value="United State">United State</option>
-                <option value="Argentina">Argentina</option>
-                <option value="Ecuador">Ecuador</option>
-                <option value="Canada">Canada</option>
-                <option value="Brasil">Brasil</option>
-
-            </select>
-            </ContainerIn>
-            
-            <ContainerIn>
-               <Span >Native Language</Span>
-            <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={handleChange} name={"language"}>
-            <option value="" >Select an option</option>
-                <option value="English">English</option>
-                <option value="Spanish">Spanish</option>
-            </select>
-
-
-            </ContainerIn>
-
-            <ContainerIn>
-                <Span>Role</Span>
-                <select  style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={handleChange} name={"role"}>
-                <option value="" >Select an option</option>
-                    <option  style={{color:'green'}}value="Student">Student</option>
-                    <option value="Tutor">Tutor</option>
-                </select>
-              
-            </ContainerIn>
-            {settingInformation.role!=="Tutor" &&<ContainerIn>
-            <Span >Goal</Span> 
-            <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={handleChange} name={"goal"} >
-            <option value="" >Select an option</option>
-                <option value="English">🇺🇸</option>
-                <option value="Spanish">🇪🇸</option>
-            </select>
-            </ContainerIn>}
-
-            {settingInformation.role==="Tutor" &&<ContainerIn>
-            <Span >Rate/hour</Span> 
-            <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'} } onChange={handleChange} name={"price"}>
-            <option value="" >Select an option</option>
-                <option value="3 USD">3 USD</option>
-                <option value="4 USD">4 USD</option>
-                <option value="5 USD">5 USD</option>
                 
-            </select>
+                    <ImageFileUpload
+                    id="profile_image"
+                    text="Sube tu foto de perfil"
+                    accept="image/png,image/jpeg"
+                    name="profile_image"
+                    
+                    onChange={(fileUrl) =>
+                        setsettingInformation({ ...settingInformation, picture: fileUrl })
+                    }
+                    />
+                
             
+                    
+                </div>
+
+                <div className='conten-select'>       
+                        <div className='ContainerIn'>                        
+                        <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={handleChange} name={"country"}>
+                        <option value="" >Pais</option>
+                            <option value="Colombia">Colombia</option>
+                            <option value="United State">United State</option>
+                            <option value="Argentina">Argentina</option>
+                            <option value="Ecuador">Ecuador</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Brasil">Brasil</option>
+
+                        </select>
+                        </div>
+                        
+                        <div className='ContainerIn'>                        
+                        <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={handleChange} name={"language"}>
+                        <option value="" >Lenguaje Nativo</option>
+                            <option value="English">Ingles</option>
+                            <option value="Spanish">Español</option>
+                        </select>
+
+
+                        </div>
+
+                        <div className='ContainerIn'>                            
+                            <select  style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={handleChange} name={"role"}>
+                            <option value="" >Role</option>
+                                <option  style={{color:'green'}}value="Student">Estudiante</option>
+                                <option value="Tutor">Tutor</option>
+                            </select>
+                        
+                        </div>
+                        {settingInformation.role!=="Tutor" &&<div className='ContainerIn'>                       
+                        <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'}} onChange={handleChange} name={"goal"} >
+                        <option value="" >Idioma a Aprender</option>
+                            <option value="English">Ingles</option>
+                            <option value="Spanish">Español</option>
+                        </select>
+                        </div>}
+
+                        {settingInformation.role==="Tutor" &&<div className='ContainerIn'>                       
+                        <select style={{border:'1px solid #390099',backgroundColor:'white',textAlign:'center',color:'#390099',padding:'3px',borderRadius:'5px'} } onChange={handleChange} name={"price"}>
+                        <option value="" >Tarifa/hora</option>
+                            <option value="3 USD">3 USD</option>
+                            <option value="4 USD">4 USD</option>
+                            <option value="5 USD">5 USD</option>
+                            
+                        </select>
+                        
+                        
+                        </div>}
+                        
+                        {/* {settingRole==="Tutor" &&<div>
+                        <span >Sign Up with Your</span> 
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png"  style={{width:'20px',height:'20px'}}alt="instagram" />
+
+
+                            </div>} */}
+
             
-            </ContainerIn>}
-            
-            {/* {settingRole==="Tutor" &&<ContainerIn>
-            <span >Sign Up with Your</span> 
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png"  style={{width:'20px',height:'20px'}}alt="instagram" />
+                    
+                    
+                    
+                    
+                        
+                </div>       
+        </div>
+
+        {settingInformation.role==="Tutor"? <button className="btn-modal" onClick={handleSummit} style={{height:'35px',display:'flex',alignItems:'center'}}>Finalizar</button>
+            : <button className="btn-modal" onClick={handleSummit} style={{}}>Finalizar</button>}
+                        
 
 
-                </ContainerIn>} */}
 
-{settingInformation.role==="Tutor"? <Button onClick={handleSummit} style={{height:'35px',display:'flex',alignItems:'center'}}>Finish</Button>
- : <Button onClick={handleSummit} style={{}}>Finish</Button>}
-            
-
-
-
-           
-           
-           
-         
-            
-           
-
-    </Container>
+    </div>
 
     )
     

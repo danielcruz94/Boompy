@@ -96,7 +96,7 @@
     top: 20px;
     height: min-content;
     display: flex;
-    width: 100%;     
+    width: 100%;         
 }
 
 .Logo_NavBar{
@@ -171,6 +171,103 @@
     letter-spacing: 1px;
 }
 
+/*MODAL INICIO*/
+.conten-home-modal{
+    position: absolute;
+    display: flex;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background: #ffffff46;
+}
+
+.ContainerModal {
+    margin: auto;
+    background: #D9D9D9E5;
+    width: 50%;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.MainText{
+	color: #E62B3F;
+    margin: 20px;
+    font-size: 2vw;
+}
+
+.conteng-date{
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-image{
+    display: flex;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.445);
+    border-radius: 100%;
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+}
+
+.profile-image img{
+    width: 70%;
+    margin: auto;
+}
+
+.ContainerIn-foto{
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0px; 
+    width: 50%;
+}.ContainerIn-foto {
+    display: flex;  
+    margin: 20px 0px;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+.ContainerIn{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;    
+}
+
+.ContainerIn select{
+    width: 70%;
+}
+
+.conten-select {
+    width: 60%;
+    display: flex;
+    flex-direction: column;   
+}
+
+
+
+.btn-modal {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    background: #E62B3F;
+    color: white;
+    font-size: 1.2vw;
+    width: 150px;
+    border-radius: 30px;
+    border: none;
+    padding: 5px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.inner-container label{
+  font-size: 1vw;
+}
+	
 
 @media screen and (max-width: 850px) {
 
@@ -214,10 +311,61 @@
         display: flex;
         z-index: 99999999;
       }
+
+      /*modal*/
+
+      .ContainerIn-foto{
+        font-size: 6vw;
+      }
+
+      .ContainerIn-foto .rounded-circle{
+        width: 100px;
+        height: 100px;
+      }
+
+      .MainText{
+        font-size: 6vw;
+        margin: 10px;
+      }
+
+      .profile-image{
+        width: 100px;
+        height: 100px;
+      }
+
+      .ContainerModal{
+        width: 90%;
+      } 
       
       
-      
+      .conteng-date {
+        flex-direction: column;
+      }
+
+      .ContainerIn-foto{
+          width: 100%;
+      }
    
+      .conten-select {
+        width: 100%;        
+    }
+
+    .ContainerIn{
+        margin: 5px;
+    }
+    
+    .ContainerIn select{
+        margin: auto;
+    }
       
+    .btn-modal{
+        font-size: 4vw;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .inner-container label{
+        font-size: 3vw;
+      }
 
 }

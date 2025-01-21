@@ -75,6 +75,12 @@
     height: 250px;
 }
 
+.Biography p{
+  width: 40%;
+  margin: auto;
+  overflow-wrap: break-word;
+}
+
 .Biografia textarea {
     width: 100%;
     height:inherit;
@@ -118,11 +124,73 @@
     padding: 10px 20px;
 }
 
-.FooterTeach{
-top: 630px;
-background: linear-gradient(to bottom, rgba(205, 49, 72, 0) 0%, #CD3148 60%);
-
+.FooterTeach {
+  top: 800px;
+  background: linear-gradient(to bottom, rgba(205, 49, 72, 0) 0%, #CD3148 8%);
 }
+
+
+.payment{
+  width: min-content;  
+}
+
+.course-offer{
+  position: absolute;
+  padding: 10px;
+  background: #2C2E43E8;
+  left: 2%;
+  top: 45%;
+  border-radius: 30px;
+}
+
+.course-includes {     
+  color: white;
+  font-weight: 400;
+  
+}
+
+.Div-li{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+ 
+}
+
+.Div-li i{
+ margin: 2px 10px 2px 2px;
+}
+
+.Div-li strong{
+  margin: 2px 10px 2px 2px;
+ }
+
+ .Div-li p{
+  margin: 2px 10px 2px 2px;
+ }
+
+
+ .Me_Pagos {
+  position: absolute;
+  top: 30%;
+  right: 2%;
+  background: #E62B3FB2;
+  padding: 10px;
+  border-radius: 30px;
+  color: white;
+}
+
+.img-Pagos{
+  margin: 10px 0px;
+}
+
+.img-Pagos img{
+  width: 50px;
+  margin: 3px;
+}
+
+
+
+
 
 @media screen and (max-width: 850px) {
 
@@ -182,10 +250,14 @@ background: linear-gradient(to bottom, rgba(205, 49, 72, 0) 0%, #CD3148 60%);
       .Biografia{
         width: 95%;
       }
+
+      .Biography p{
+        width: 90%;
+      }
   
       .FooterTeach {
         top: 95%;
-        background: linear-gradient(to bottom, rgba(205, 49, 72, 0) 0%, #CD3148 30%);
+        background: linear-gradient(to bottom, rgba(205, 49, 72, 0) 0%, #CD3148 10%);
     }
 
       .contenCalendar {
@@ -193,6 +265,24 @@ background: linear-gradient(to bottom, rgba(205, 49, 72, 0) 0%, #CD3148 60%);
         width: 80%;
         margin: auto;
         margin-bottom: 10px;
+    }
+
+    .Me_Pagos {
+      position: static;
+      width: 80%;
+      margin: auto;
+      margin-bottom: 20px;      
+    }
+
+    .payment{
+       display: flex;
+       width: 100%;
+       margin: 20px 0px;
+    }
+
+    .course-offer {
+      position: static;
+      margin: auto;
     }
 
      

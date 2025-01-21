@@ -178,69 +178,75 @@ const closeCalendar = () => {
   setIsCalendarOpen(false);
 };
 
-  return (
-    <div className="conten-home">
-     
-     
+return (
+  <div className="conten-home">
 
+      {/* Barra de navegación */}
       <NavBar
-        textBotton={"Cerrar Torii"}
-        onClick={handleLogout}
-        userInfo={localUser}
-      ></NavBar> 
-    
-      
-      <div className="ContainerProfile">
-        {/* {isLoading && <Spinner />} */}
-        {!auth.infoComplete && !isLoading && (
-          <div>
-            <Modal title={"Complete Your Information"} url={serverURL}></Modal>
-          </div>
+          textBotton={"Cerrar Torii"}
+          onClick={handleLogout}
+          userInfo={localUser}
+        ></NavBar>
+
+    {!auth.infoComplete && !isLoading ? (
+      <div className="conten-home-modal">
+        <Modal title={"Completa tu información"} url={serverURL}></Modal>
+      </div>
+    ) : (
+      <>       
+
+        {/* Contenedor de perfiles */}
+        <div className="ContainerProfile">
+          {/* {isLoading && <Spinner />} */}
+          {users.map((user) => {
+            let numericPrice = extractNumber(user.price);
+
+            if (isInLatam === true) {
+              numericPrice = numericPrice + 1;
+            } else if (isInLatam === false) {
+              numericPrice = numericPrice + 3;
+            }
+
+            return (
+              <CardProfile
+                key={user.id}
+                name={user.name}
+                picture={user.picture}
+                price={numericPrice}
+                language={user.language}
+                id={user.id}
+                photos={user.photos}
+                onMouseEnter={() => handleMouseEnter(user.id)}
+                onMouseLeave={handleMouseLeave}
+                showTinyImg={showTinyImg === user.id}
+              />
+            );
+          })}
+        </div>
+
+        <br />
+
+        {/* Calendario */}
+        {isCalendarOpen && (
+          <CalendarComponent
+            isOpen={isCalendarOpen}
+            onRequestClose={closeCalendar}
+            onClose={closeCalendar}
+          />
         )}
 
-      
-
-            {users.map((user) => {
-              let numericPrice = extractNumber(user.price);
-
-              if (isInLatam === true) {
-                numericPrice = numericPrice + 1;
-              } else if (isInLatam === false) {
-                numericPrice = numericPrice + 3;
-              }
-
-              return (
-                <CardProfile
-                  key={user.id}
-                  name={user.name}
-                  picture={user.picture}
-                  price={numericPrice} 
-                  language={user.language}
-                  id={user.id}
-                  photos={user.photos}
-                  onMouseEnter={() => handleMouseEnter(user.id)} // Pasar ID de la tarjeta al entrar
-                  onMouseLeave={handleMouseLeave}
-                  showTinyImg={showTinyImg === user.id}
-                />
-              );
-            })}
-
-      </div>
-
-      <br />
-
-      {isCalendarOpen && <CalendarComponent isOpen={isCalendarOpen} onRequestClose={closeCalendar} onClose={closeCalendar} />}
-
-      <p className="CalendarHome"
+        <p
+          className="CalendarHome"
           onClick={toggleCalendar}
-          style={{ cursor: 'pointer', fontWeight: 'bold' }}
+          style={{ cursor: "pointer", fontWeight: "bold" }}
         >
           Calendario de Clases
-        </p >
+        </p>
+      </>
+    )}
+  </div>
+);
 
-     
-    </div>
-  );
 };
 
 const mapStateToProps = (state) => ({

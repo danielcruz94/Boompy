@@ -150,8 +150,8 @@ body{
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 1px;
-  bottom: 200px;
-  right: 30px;
+  bottom: 25%;
+  right: 2%;
   z-index: 9999999;
 }
 

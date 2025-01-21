@@ -265,29 +265,33 @@ const Teach = ({ auth }) => {
               </div>
             )}
  
-      {auth.user?.role === "Tutor" && (
-          <div className="TeachSaldo">
-            <Saldo />
-            <Settings />
-          </div>
-        )}
+ {auth.user?.role === "Tutor" && (
+  <>
+    <div className="TeachSaldo">
+      <Saldo />
+      <Settings />
+    </div>
 
-<div className="contenCalendar">
-          <p
-            className="SubHeading"
-            onClick={toggleCalendar}
-            style={{ cursor: "pointer", fontWeight: "bold" }}
-          >
-            Agendar día
-          </p>
-          {isCalendarOpen && (
-            <CalendarClass
-              isOpen={isCalendarOpen}
-              onRequestClose={closeCalendar}
-              onClose={closeCalendar}
-            />
-          )}
-        </div>
+    <div className="contenCalendar">
+      <p
+        className="SubHeading"
+        onClick={toggleCalendar}
+        style={{ cursor: "pointer", fontWeight: "bold" }}
+      >
+        Agendar día
+      </p>
+      {isCalendarOpen && (
+        <CalendarClass
+          isOpen={isCalendarOpen}
+          onRequestClose={closeCalendar}
+          onClose={closeCalendar}
+        />
+      )}
+    </div>
+  </>
+)}
+
+
 
             
               <div className="social-icons">
@@ -341,6 +345,38 @@ const Teach = ({ auth }) => {
             </div>
           ) : (
             <div className="Biography">
+
+              <div className="Me_Pagos">
+            <div>              
+                <p className="price">Contribución:  {"$" + userProfile.price + " USD"}</p>
+              </div>
+                <strong>Paga Seguro:</strong>
+                <div className="img-Pagos">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj_s2H-TyiBEMWjQwN5_RAU0xDevhxg6wSIjXxvR_evw&s"
+                    alt="paypal"
+                  />
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Old_Visa_Logo.svg"
+                    alt="Visa"
+                  />
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/1200px-MasterCard_Logo.svg.png"
+                    alt="MasterCard"
+                  />
+                  <img
+                    src="https://w7.pngwing.com/pngs/382/146/png-transparent-american-express-logo-icons-logos-emojis-iconic-brands.png"
+                    alt="american express "
+                  />
+                </div>
+
+                <TutorCalendar
+                pagina="Tutor"
+                ID="Null"
+                amount={userProfile.price}
+              />
+              </div>
+
               <h4>Biografia</h4>
 
               <p>{userProfile.biography}</p>
@@ -369,77 +405,51 @@ const Teach = ({ auth }) => {
         {auth.user?.role !== "Tutor" ? (
           <div className="payment">
             <div className="course-offer">
-              <div>
-                <p>Contribution</p>
-                <p className="price">{"$" + userProfile.price + " USD"}</p>
-              </div>
+              
               <ul className="course-includes">
+                
                 <li>
-                  <strong>Important Details</strong>
+                  <div className="Div-li">
+                    <i className="fas fa-chart-bar"></i> <strong>Nivel:</strong> <p>Basico</p>
+                  </div>
+                  
                 </li>
                 <li>
                   <div className="Div-li">
-                    <i className="fas fa-chart-bar"></i> <strong>Level:</strong>
+                    <i className="fas fa-clock"></i> <strong>Duracion:</strong><p>1 hr</p>
                   </div>
-                  <div className="Div-li2">Basic</div>
+                 
                 </li>
-                <li>
-                  <div className="Div-li">
-                    <i className="fas fa-clock"></i> <strong>Duration:</strong>
-                  </div>
-                  <div className="Div-li2">1h</div>
-                </li>
-                {/* <li>
+                { /*<li>
                     <div className="Div-li">
                       <i className="fas fa-book-open"></i> <strong>Age:</strong>
                     </div>
                     <div className="Div-li2">22</div>
-                  </li> */}
+                  </li> 
                 <li>
                   <div className="Div-li">
                     <i className="fas fa-question-circle"></i>{" "}
                     <strong>Location:</strong>
                   </div>
                 </li>
+                */}
                 <li>
                   <div className="Div-li">
                     <i className="fas fa-certificate"></i>{" "}
-                    <strong>Certifications:</strong>
+                    <strong>Certificado:</strong> <p>Si</p>
                   </div>
-                  <div className="Div-li2">Yes</div>
+                  
                 </li>
               </ul>
 
-              <div className="Me_Pagos">
-                <strong>Secure Payment:</strong>
-                <div className="img-Pagos">
-                  <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj_s2H-TyiBEMWjQwN5_RAU0xDevhxg6wSIjXxvR_evw&s"
-                    alt="paypal"
-                  />
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Old_Visa_Logo.svg"
-                    alt="Visa"
-                  />
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/1200px-MasterCard_Logo.svg.png"
-                    alt="MasterCard"
-                  />
-                  <img
-                    src="https://w7.pngwing.com/pngs/382/146/png-transparent-american-express-logo-icons-logos-emojis-iconic-brands.png"
-                    alt="american express "
-                  />
-                </div>
-              </div>
+              
 
-              <TutorCalendar
-                pagina="Tutor"
-                ID="Null"
-                amount={userProfile.price}
-              />
+              
 
               {/* userProfile.country?extractNumber(userProfile.country):'6.00' */}
             </div>
+
+           
           </div>
         ) : (
           <div>{/* <h1>Suggeries</h1> */}</div>
