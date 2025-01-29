@@ -116,6 +116,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
 
         const response = await axios.post(`${serverURL}/calendar`, classData);
 
+       console.log(response)
        
       
         if (response.status === 201) {
@@ -156,13 +157,11 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
           
             // Envío de correo electrónico
             const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
-            console.log(sentEmail);
-
+           
              Swal.fire({
-
                 icon: 'success',
-                title: '¡Schedule updated successfully!',
-                text: 'Great news! Your available Schedule time is now booked.',
+                title: '¡Horario actualizado exitosamente!',
+                text: '¡Buenas noticias! Su horario ya esta disponible para ser reservado.',
 
             }).then(() => {
               //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
@@ -170,6 +169,16 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
              
           
         } else {
+
+          Swal.fire({
+            icon: 'error',
+           // title: '¡Horario actualizado exitosamente!',
+            text: response.data.message,
+
+        }).then(() => {
+          //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+        });
+           
             throw new Error("Error al enviar los datos al servidor. Por favor, intente nuevamente.");
         }
       
@@ -301,6 +310,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
       <Calendar
         onChange={handleDateChange}
         value={selectedDate}
+        view="month"
         locale="es-ES"
         //locale="en-US"
         showNeighboringMonth={false}

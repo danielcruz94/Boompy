@@ -107,8 +107,8 @@ const Settings = () => {
     if (withdrawalAmount > balanceAmount) {
       Swal.fire({
         icon: 'warning',
-        title: 'Insufficient Balance',
-        text: 'The amount entered exceeds your available balance.'
+        title: 'Saldo insuficiente',
+        text: 'El monto ingresado excede su saldo disponible.'
       });
       return;
     }
@@ -216,7 +216,7 @@ const Settings = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
+console.log(userData)
   return (
     <div>
     
@@ -225,6 +225,7 @@ const Settings = () => {
   <button className="menu-item mas " onClick={() => openModal('account')}>
   <img src="/pagos/mas.png" alt="TORII" />
   </button>
+
   <button className="menu-item pagoimg" onClick={() => openModal('withdrawal')}>
   <img src="/pagos/Capa_1.png" alt="TORII"  />
   </button>

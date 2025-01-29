@@ -41,7 +41,7 @@ body{
     height: 71px;
     top: 40px;                
     left: 3%;               
-    z-index: 10000;            
+    z-index: 0;            
 } 
 
 .Button_Headings {

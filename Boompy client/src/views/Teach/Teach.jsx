@@ -12,6 +12,7 @@ import TutorCalendar from "../../shared/Components/Calendar/Tutor_Calendar";
 import { useState } from "react";
 import Saldo from "../../shared/Components/Saldo/saldo";
 import Settings from "../../shared/Components/Settings/Settings";
+import { Link } from 'react-router-dom';
 
 import { convertirMonedaANumero } from "../../shared/utils/funtions";
 
@@ -209,45 +210,61 @@ const Teach = ({ auth }) => {
         <div>
           <div className="profile-container">
             <div className="profile-container-name">
+             
               <h2>{userProfile.name}</h2>
 
               <div className="profile-picture">
-                {auth.user?.role === "Tutor" && userProfile.picture && (
-                  <ImageFileUpload
-                    id="profile_image"
-                    text=""
-                    accept="image/png,image/jpeg"
-                    name="profile_image"
-                    description="* File format: png or jpeg."
-                    className="SubirIMG"
-                    url={userProfile.picture}
-                    onChange={(fileUrl) => {
-                      // Actualiza el perfil del usuario con la nueva imagen
-                      setUserProfile({ ...userProfile, picture: fileUrl });
+              {userProfile.picture && (
+  auth.user?.role === "Tutor" ? (
+    <ImageFileUpload
+      id="profile_image"
+      text=""
+      accept="image/png,image/jpeg"
+      name="profile_image"
+      description="* File format: png or jpeg."
+      className="SubirIMG"
+      url={userProfile.picture}
+      onChange={(fileUrl) => {
+        // Actualiza el perfil del usuario con la nueva imagen
+        setUserProfile({ ...userProfile, picture: fileUrl });
 
-                      // Envía la información al servidor
-                      fetch(`${serverURL}/userinformation`, {
-                        method: "POST",
-                        headers: {
-                          "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                          ...userProfile,
-                          picture: fileUrl,
-                        }),
-                      })
-                        .then((response) => response.json())
-                        .then((data) => {
-                          console.log("Profile updated successfully:", data);
-                        })
-                        .catch((error) => {
-                          console.error("Error updating profile:", error);
-                        });
-                    }}
-                  />
-                )}
+        // Envía la información al servidor
+        fetch(`${serverURL}/userinformation`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...userProfile,
+            picture: fileUrl,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Profile updated successfully:", data);
+          })
+          .catch((error) => {
+            console.error("Error updating profile:", error);
+          });
+      }}
+    />
+  ) : (
+    <div className="profile-picture">
+      <img
+        src={userProfile.picture}
+        alt="Foto de perfil"
+        className="rounded-circle"
+        style={{ marginBottom: "10px", cursor: "pointer" }}
+      />
+    </div>
+  )
+)}
+
               </div>
-
+             
+                
+                  
+               
               <h2>{userProfile.lastName}</h2>
               <div className="responsive-name" >
                   <div></div>
@@ -737,9 +754,9 @@ const Teach = ({ auth }) => {
             </a>
            </div>
 
-            <p>
-            © 2024 Torii. All rights reserved | Terminos y Condiciones | Politica de privacidad de datos
-            </p>
+          
+            <p className='Tex_condiciones'>© 2024 Torii. All rights reserved | <Link to="/service">Terminos y Condiciones</Link> | <Link to="/privacy">Politica de privacidad de datos</Link></p>    
+          
           </div>
 
 

@@ -7,7 +7,7 @@ const ImageFileUpload = ({ id, text, onChange, description, url, accept, ...prop
   const [imageUrl, setImageUrl] = useState(url || '');
 
   const fileInputRef = React.createRef();
-
+  console.log(url)
   const uploadImage = async (e) => {
     try {
       const files = e.target.files;
@@ -34,7 +34,7 @@ const ImageFileUpload = ({ id, text, onChange, description, url, accept, ...prop
 
       const cloudinaryFileUrl = res.data.secure_url;
 
-      console.log(res.data)
+
 
       setImageUrl(cloudinaryFileUrl); // Actualizar la URL de la imagen con la de Cloudinary
       onChange(cloudinaryFileUrl); // Llamar a onChange con la nueva URL

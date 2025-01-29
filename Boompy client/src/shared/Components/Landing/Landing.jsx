@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import './Landing.css';
 
 function Landing() {
@@ -222,9 +223,8 @@ function Landing() {
             </a>
            </div>
 
-            <p>
-            © 2024 Torii. All rights reserved | Terminos y Condiciones | Politica de privacidad de datos
-            </p>
+         <p className='Tex_condiciones'>© 2024 Torii. All rights reserved | <Link to="/service">Terminos y Condiciones</Link> | <Link to="/privacy">Politica de privacidad de datos</Link></p>    
+           
           </div>
 
 

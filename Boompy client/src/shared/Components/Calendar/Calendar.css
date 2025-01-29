@@ -390,9 +390,16 @@ abbr[data-original-title], abbr[title] {
     width: 100%;
 }
 
+.InfoClass{
+	position: relative;
+}
 
-.cancelButton{
-	display: none;
+.cancelButton {    
+    border: none;
+	border-radius: 100%;
+    background: white;
+    color: red;
+    font-weight: 600;  
 }
 
 .viewButton{
@@ -409,6 +416,11 @@ abbr[data-original-title], abbr[title] {
     border: none;
     font-weight: 700;
 }
+
+.today{
+	background: rgba(0, 0, 0, 0.313) !important;
+}
+
 
 
 

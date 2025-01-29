@@ -406,8 +406,8 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
 
         Swal.fire({
           icon: 'success',
-          title: '¡Great news! Your class is booked!',
-          text: 'Your class has been booked successfully',
+          title: '¡Buenas noticias! ¡Tu clase está reservada!',
+          text: 'Tu clase ha sido reservada exitosamente',
         }).then(() => {
           closeModal(); 
         });
@@ -649,24 +649,35 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
          <button onClick={closeModal} className="close-btn">X</button>
          </div>
 
-        <Calendar
+         <Calendar
           onChange={handleDateChange}
           value={selectedDate}
+          view="month"
           locale="es-ES"
           //locale="en-US"
           showNeighboringMonth={false}
           tileClassName={({ date }) => {
             const dateString = date.toLocaleDateString();
             const classes = [];
+
+            // Verifica si la fecha es hoy
+            const isToday = dateString === new Date().toLocaleDateString();
+
+            if (isToday) {
+              classes.push('today'); 
+            }
+
             if (customClasses[dateString]) {
               classes.push(customClasses[dateString]);
             }
             if (isClassPassed(dateString)) {
               classes.push('past-class');
             }
+            
             return classes.join(' ');
           }}
         />
+
 
 <div className='Conten_Select_Clase'>
   {/* El select original está oculto pero sigue funcionando */}
@@ -701,7 +712,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   {/* Botón para asignar la clase, se habilita solo si hay una selección */}
   <div className='botton_Select_Clase'>
     <button onClick={PayChange} disabled={!selectedTime} className="assign-class-btn">
-      Assign Class
+    Asignar clase
     </button>
   </div>
 </div>
