@@ -18,7 +18,7 @@ import { convertirMonedaANumero } from "../../shared/utils/funtions";
 
 const Teach = ({ auth }) => {
 
- console.log(auth)
+
 
   const [location, setLocation] = useState(null);
   const [isLatam, setIsLatam] = useState(false);
@@ -252,8 +252,8 @@ const Teach = ({ auth }) => {
     <div className="profile-picture">
       <img
         src={userProfile.picture}
-        alt="Foto de perfil"
-        className="rounded-circle"
+        alt=""
+        className="rounded-circle cursor"
         style={{ marginBottom: "10px", cursor: "pointer" }}
       />
     </div>
@@ -648,22 +648,22 @@ const Teach = ({ auth }) => {
                         let reference = 2;
                         let photo = fileUrl;
                         fetch(`${serverURL}/user/update/photo`, {
-                          method: "POST", // Set the request method to POST
+                          method: "POST", 
                           headers: {
-                            "Content-Type": "application/json", // Set the content type to JSON
+                            "Content-Type": "application/json", 
                           },
                           body: JSON.stringify({
                             ...userProfile,
                             photo,
                             reference,
-                          }), // Convert the user data to JSON string
+                          }),
                         })
-                          .then((response) => response.json()) // Parse the response as JSON
+                          .then((response) => response.json()) 
                           .then((data) => {
-                            console.log("Success:", data); // Handle the response data
+                            console.log("Success:", data); 
                           })
                           .catch((error) => {
-                            console.error("Error:", error); // Handle any errors
+                            console.error("Error:", error);
                           });
                       }}
                     />

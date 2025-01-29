@@ -28,6 +28,12 @@ const Settings = () => {
     return coincidencias ? parseInt(coincidencias.join(''), 10) : null;
   };
 
+  const balanceElement = document.querySelector('.balance-amount');
+    const balanceText = balanceElement ? balanceElement.textContent : '$0 USD';
+    const balanceAmount = parseFloat(balanceText.replace(/[^0-9.]/g, ''));
+
+    console.log(balanceAmount)
+
   const toggleMenu = () => {
     setShowMenu(prev => !prev);
   };
@@ -82,9 +88,9 @@ const Settings = () => {
   };
 
   const handleWithdraw = async () => {
-    const balanceElement = document.querySelector('.balance-amount');
-    const balanceText = balanceElement ? balanceElement.textContent : '$0 USD';
-    const balanceAmount = parseFloat(balanceText.replace(/[^0-9.]/g, ''));
+    
+
+ 
 
     if (!withdrawalAmount) {
       Swal.fire({
@@ -98,8 +104,8 @@ const Settings = () => {
     if (withdrawalAmount < 20) {
       Swal.fire({
         icon: 'warning',
-        title: 'Insufficient Amount',
-        text: 'The withdrawal amount must be at least $20.'
+        title:'Retiro insuficiente',
+        text: 'El monto del retiro debe ser de al menos $20.'
       });
       return;
     }
@@ -216,19 +222,21 @@ const Settings = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-console.log(userData)
+
   return (
     <div>
     
      
-    <div className="menu-Settings" ref={menuRef}>
-  <button className="menu-item mas " onClick={() => openModal('account')}>
-  <img src="/pagos/mas.png" alt="TORII" />
-  </button>
+  <div className="menu-Settings" ref={menuRef}>
+    <button className="menu-item mas " onClick={() => openModal('account')}>
+       <img src="/pagos/mas.png" alt="TORII" />
+    </button>
 
-  <button className="menu-item pagoimg" onClick={() => openModal('withdrawal')}>
-  <img src="/pagos/Capa_1.png" alt="TORII"  />
-  </button>
+    {balanceAmount > 20 && (
+        <button className="menu-item pagoimg" onClick={() => openModal('withdrawal')}>
+          <img src="/pagos/Capa_1.png" alt="TORII" />
+        </button>
+    )}
 </div>
       
       {showModal && (

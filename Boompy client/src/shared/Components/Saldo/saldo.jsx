@@ -53,6 +53,7 @@ const AttendanceCount = () => {
         fetchAttendanceCount();
     }, [isAuthorized, userId, multiplier]);   
 
+    
  
         return (
             <>

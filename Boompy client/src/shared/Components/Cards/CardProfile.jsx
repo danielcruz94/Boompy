@@ -28,7 +28,7 @@ const CardProfile=({name,id,picture,price,language,onMouseEnter,onMouseLeave,sho
             <div className="MainPhoto">
                 <Link to={`/tutor/${id}`} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
               
-                <img src={picture} alt="mainPhoto"/>
+                <img src={picture} />
                 </Link>
             
             </div>

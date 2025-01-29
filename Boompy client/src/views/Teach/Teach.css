@@ -50,6 +50,10 @@
     height: 180px;
 }
 
+.cursor{
+  cursor: auto !important;
+}
+
 .Div-li2{
     margin: 20px 0px;
 }

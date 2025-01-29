@@ -7,7 +7,6 @@ const ImageFileUpload = ({ id, text, onChange, description, url, accept, ...prop
   const [imageUrl, setImageUrl] = useState(url || '');
 
   const fileInputRef = React.createRef();
-  console.log(url)
   const uploadImage = async (e) => {
     try {
       const files = e.target.files;
@@ -57,7 +56,7 @@ const ImageFileUpload = ({ id, text, onChange, description, url, accept, ...prop
           {imageUrl ? (
             <img
               src={imageUrl}
-              alt="Foto de perfil"
+              alt=""
               className="rounded-circle"
               style={{ marginBottom: '10px', cursor: 'pointer' }}
             />

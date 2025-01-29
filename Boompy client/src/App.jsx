@@ -1,14 +1,9 @@
-// components
-
 import './App.css'
 
-//libraries
-
-import { Routes, Route,useNavigate,useLocation} from 'react-router-dom';
-// components
-
+// Libraries
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Login from "./views/Login";
-import Home from "./views/Home"
+import Home from "./views/Home";
 import Landing from "./shared/Components/Landing/Landing";
 import Instagram from "./shared/Components/Instagram/instagram";
 import PrivacyPolicy from "./shared/Components/politicas/PrivacyPolicy";
@@ -18,64 +13,60 @@ import Error from "./views/Error/Error";
 import Teach from './views/Teach/Teach';
 import Calls from './views/Calls/Calls';
 import Signup from "./views/SignUp/Signup";
-import {  useDispatch } from 'react-redux';
-import  {useEffect,React}from "react"
-import  {loadUser} from "./Redux/authSlice"
-
-
-
+import { useDispatch } from 'react-redux';
+import { useEffect, React, useState } from "react";
+import { loadUser } from "./Redux/authSlice";
 
 function App() {
-  const navegate = useNavigate();
-  const dispatch=useDispatch();
+  const [isLoading, setIsLoading] = useState(true); // Estado para controlar la verificación
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
 
-useEffect(() =>{
- 
-const storedString = localStorage.getItem('userData');
-if (storedString !== null) {
-  // El valor existe, procede a la conversión
-const userObject = JSON.parse(storedString);
-dispatch(loadUser(userObject))
-// Verificar si la ruta actual contiene 'instagram' o empieza con '/calls/'
-const isInstagramPath = location.pathname.includes('instagram');
-const isprivacyPath = location.pathname.includes('privacy');
-const isservicePath = location.pathname.includes('service');
-const isdeletePath = location.pathname.includes('delete');
-const isCallsPath = /\/calls\/.*/.test(location.pathname);
+  useEffect(() => {
+    const storedString = localStorage.getItem('userData');
+    const isUserLoggedIn = storedString !== null;
 
-if (!isInstagramPath && !isCallsPath && !isprivacyPath && !isservicePath && !isdeletePath) {
-  navegate("/home");
-}
+    if (isUserLoggedIn) {
+      const userObject = JSON.parse(storedString);
+      dispatch(loadUser(userObject));
 
+      // Si el usuario está autenticado, redirigir a /home si intenta acceder a /login o /signup
+      if (location.pathname === '/login' || location.pathname === '/signup') {
+        navigate('/home');
+      }
+    } else {
+      // Si no hay datos de usuario, redirigir a la página Landing si intenta acceder a cualquier otra página
+      if (location.pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/signup') {
+        navigate('/');
+      }
+    }
 
+    // Una vez verificado todo, se establece el estado isLoading a false
+    setIsLoading(false);
+  }, [location, dispatch, navigate]);
 
-
-  
-}
-
-},[])
-
-
+  if (isLoading) {
+    // Mientras se verifica, puedes mostrar un componente de carga o nada
+    return <div>Loading...</div>;
+  }
 
   return (
-    <Routes>      
+    <Routes>
       <Route path='/' element={<Landing />} />
       <Route path='/login' element={<Login />} />
-      <Route path='/home' element={<Home />} />
       <Route path='/signup' element={<Signup />} />
+      <Route path='/home' element={<Home />} />
       <Route path='/instagram' element={<Instagram />} />
       <Route path='/instagram/:code' element={<Instagram />} />
       <Route path='/privacy' element={<PrivacyPolicy />} />
       <Route path='/service' element={<TermsService />} />
-      <Route path='/delete' element={<Deleteimg/>} />
+      <Route path='/delete' element={<Deleteimg />} />
       <Route path='/tutor/:id' element={<Teach />} />
       <Route path='/calls/:id' element={<Calls />} />
       <Route path='*' element={<Error />} />
-      {/* <PrivateRoute path="/home" component={<Home></Home>}  /> */}
-
     </Routes>
-  )
+  );
 }
 
-export default App
+export default App;
