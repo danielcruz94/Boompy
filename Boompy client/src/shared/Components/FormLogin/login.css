@@ -4,7 +4,7 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-image: url('login/fondo.png');   
+    background-image: url('login/fondo.png') !important;   
     background-position: 0cap  -390px;
     background-size: 140%;    
 }
@@ -110,6 +110,9 @@
     font-size: 1vw;
 }
 
+.Tex_condiciones a {
+    color: white;
+  }
 
 /*registro*/
 

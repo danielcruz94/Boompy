@@ -28,7 +28,7 @@ body{
     position: relative;    
     flex-direction: column;
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 1) 88%), 
-      url('landing/portada.JPG');
+      url('landing/portada.JPG') !important;
     background-size: cover;
     background-position: center;    
     width: 100%;
@@ -308,7 +308,7 @@ body{
   width: 100%;
   top: 410px; 
   height: 400px; 
-  background-image: url('landing/80d2f35bd074ce23ae91d6a681c19572.JPG');
+  background: url('landing/80d2f35bd074ce23ae91d6a681c19572.JPG') !important;
   background-size: cover; 
   background-position: center; 
   background-repeat: no-repeat; 
@@ -348,7 +348,7 @@ body{
 }
 
 .hero3-one {
-  background-image: url('landing/5cfb766005af9f5577e51125fc8d2b94.jpeg');
+  background: url('landing/5cfb766005af9f5577e51125fc8d2b94.jpeg') !important;
   background-size: cover; 
   background-position: center; 
   width: 400px;
@@ -451,8 +451,8 @@ body{
   @media screen and (max-width: 850px) {
     .hero_one {
       height: 390px;
-      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 1) 88%), 
-         url('landing/portada2.JPG');
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 1) 88%), 
+         url('landing/portada2.JPG') !important;
       background-position: 101%  100%;
       background-size: cover;
   }
@@ -613,7 +613,7 @@ body{
     
     .div_icon {
       position: static;
-      background-image: url('landing/img_section2.jpeg');    
+      background: url('landing/img_section2.jpeg') !important;    
       width: 80%;
       border-radius: 30px;
       margin-bottom: 66px;

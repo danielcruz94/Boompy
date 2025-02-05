@@ -1,6 +1,6 @@
 .conten-home {
     height: 100vh;
-    background-image: url('home/fondo 1.jpeg');
+    background-image: url('home/fondo 1.jpeg') !important;
     background-position: 0%  46%;
     background-size: 100%;
 }
@@ -31,7 +31,7 @@
     justify-content: center;
     align-items: center;
     width: 100%; 
-    height: 180px;
+    height: 130px;
     border-radius: 10px; 
    
 }
@@ -80,6 +80,10 @@
 .ConteinerText span{
     font-size: 1vw;
     font-weight: 700;
+}
+
+.ConteinerText a  {
+    text-decoration: none;
 }
 
 .ConteinerText a span {

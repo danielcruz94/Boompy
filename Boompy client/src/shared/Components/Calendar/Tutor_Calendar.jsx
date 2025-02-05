@@ -28,7 +28,6 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   const [RealPrice, setRealPrice] = useState(0);
   const [RealPoint, setRealPoint] = useState(0);
 
-  
 
   //payment
  // const [status, setStatus] = useState('CREATED');
@@ -111,6 +110,23 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     
     fetchData();
   }, []); 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userDataString = localStorage.getItem('userData');
+        const userData = JSON.parse(userDataString);
+        const studentId = userData.id;
+  
+        const response = await axios.get(`${serverURL}/users/${studentId}/points`);
+        setRealPoint(response.data.points);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+  
+    fetchData();
+  }, []);
 
 
   useEffect(() => {
@@ -204,9 +220,15 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
 
     const spanPoints = document.querySelector('.points');
     spanPoints.textContent = `Points: ${RealPoint}`
+    
   };
  
-
+  function formatearConPuntos(numero) {    
+    let numString = numero.toString();    
+    let formateado = numString.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    
+    return formateado;
+}
 
        
   const PayPal= () => {
@@ -216,7 +238,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   const updateUserPointsRequest = async (userId, points) => {
     try {
       const response = await axios.patch(`${serverURL}/users/${userId}/updatePoints`, { points });
-      
+      console.log(response)
       // Verifica la respuesta
       return response.data.updated || false;
     } catch (error) {
@@ -607,22 +629,19 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     <span className='TotalPagar'>Total a pagar: </span>
     <span className='ValorPagar'>${RealPrice} USD</span>
 
-  </div>
-  <div className="payment-modal-select-container">
-    {/* Aquí podrías agregar un menú para seleccionar el método de pago */}
-  </div>
-  
-  <div className="payment-modal-options ">
-    <Wompi amount={RealPrice} TRM={TRM} Factura={Factura}/>      
+    <span className='TotalPagar'>Total Puntos: </span>
+    <span className='ValorPagar'>{formatearConPuntos(RealPoint)}</span>
+
   </div>
   <div className="payment-modal-actions">
     <button 
         onClick={PayPoint}           
         className="payment-modal-confirm-btn"
       >      
-        Points
+        Puntos
       </button>
-  </div>
+  </div>  
+  
   <div className="payment-modal-actions">
     <button 
       onClick={PayPal}           
@@ -631,6 +650,10 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
      <i className="fab fa-paypal ico_paypal"></i>
       PayPal
     </button>
+
+    <div className="payment-modal-options ">
+    <Wompi amount={RealPrice} TRM={TRM} Factura={Factura}/>  
+   </div>
    
   </div>
 

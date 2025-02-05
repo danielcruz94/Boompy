@@ -568,4 +568,9 @@ abbr[data-original-title], abbr[title] {
 	.Conten-Time-Class{
 		grid-template-columns: auto;
 	}
+
+	.TotalPagar,
+    .ValorPagar {
+		font-size: 4.5vw;
+	}
 }
