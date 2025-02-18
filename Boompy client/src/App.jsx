@@ -14,40 +14,44 @@ import Teach from './views/Teach/Teach';
 import Calls from './views/Calls/Calls';
 import Signup from "./views/SignUp/Signup";
 import { useDispatch } from 'react-redux';
-import { useEffect, React, useState } from "react";
+import { useEffect, useState } from "react";
 import { loadUser } from "./Redux/authSlice";
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true); // Estado para controlar la verificación
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
 
   useEffect(() => {
     const storedString = localStorage.getItem('userData');
-    const isUserLoggedIn = storedString !== null;
-
+    const isUserLoggedIn = storedString !== null;  
+    
     if (isUserLoggedIn) {
       const userObject = JSON.parse(storedString);
       dispatch(loadUser(userObject));
-
-      // Si el usuario está autenticado, redirigir a /home si intenta acceder a /login o /signup
+  
       if (location.pathname === '/login' || location.pathname === '/signup') {
         navigate('/home');
       }
     } else {
-      // Si no hay datos de usuario, redirigir a la página Landing si intenta acceder a cualquier otra página
-      if (location.pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/signup') {
+    
+      if (
+        location.pathname !== '/' && 
+        location.pathname !== '/login' && 
+        location.pathname !== '/signup' &&
+        location.pathname !== '/privacy' && 
+        location.pathname !== '/service'
+      ) {
         navigate('/');
       }
     }
-
-    // Una vez verificado todo, se establece el estado isLoading a false
+  
     setIsLoading(false);
   }, [location, dispatch, navigate]);
+  
 
-  if (isLoading) {
-    // Mientras se verifica, puedes mostrar un componente de carga o nada
+  if (isLoading) {    
     return <div>Loading...</div>;
   }
 

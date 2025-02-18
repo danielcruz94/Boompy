@@ -111,21 +111,21 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     fetchData();
   }, []); 
 
+  const fetchUserData = async (serverURL, setRealPoint) => {
+    try {
+      const userDataString = localStorage.getItem('userData');
+      const userData = JSON.parse(userDataString);
+      const studentId = userData.id;
+  
+      const response = await axios.get(`${serverURL}/users/${studentId}/points`);
+      setRealPoint(response.data.points);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userDataString = localStorage.getItem('userData');
-        const userData = JSON.parse(userDataString);
-        const studentId = userData.id;
-  
-        const response = await axios.get(`${serverURL}/users/${studentId}/points`);
-        setRealPoint(response.data.points);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-  
-    fetchData();
+    fetchUserData(serverURL, setRealPoint);
   }, []);
 
 
@@ -138,15 +138,11 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
 }, [RealPrice]);
 
   //Numero Factura
-
     function generarFactura(longitud = 6) {
-      // Conjunto de caracteres que incluye letras (mayúsculas y minúsculas) y números
-      const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      
-      // Variable para almacenar la combinación generada
-      let combinacion = '';
-      
-      // Genera la combinación aleatoria
+   
+      const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';  
+      let combinacion = '';      
+     
       for (let i = 0; i < longitud; i++) {
           const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
           combinacion += caracteres[indiceAleatorio];
@@ -160,7 +156,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     }, []); 
 
   const fetchTutorAvailability = async () => {
-    try {
+    try {      
       const response = await axios.get(`${serverURL}/calendar/${id}`);
       const availabilityData = response.data.filter(avail => avail.reserved === "");
 
@@ -191,12 +187,14 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   };
 
   const handleDateChange = (date) => {
+    fetchUserData(serverURL, setRealPoint);
     setSelectedDate(date);
     setModalIsOpen(true);
-    setScrollEnabled(false);
+    setScrollEnabled(false);   
   };
 
   const closeModal = () => {
+    fetchUserData(serverURL, setRealPoint);
     setModalIsOpen(false);   
     setScrollEnabled(true);
   };
@@ -595,6 +593,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     <>
       {pagina === 'Home' && (
   <a href="#" onClick={() => {
+    fetchUserData(serverURL, setRealPoint);
     setModalIsOpen(true);
     setScrollEnabled(false);
     setRealPrice(amount); 
