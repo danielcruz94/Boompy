@@ -11,24 +11,7 @@ export const Container = styled.div`
 
   
 `;
-export const ContainerBar = styled.div`
-  width: 100vw;
-  height: 100%;
-  display: flex;
-  margin: 10px 0px;
-  justify-content:space-around;
-  align-items:center;
 
-@media (max-width: 600px) {
-  flex-direction: column;
-  padding: 10px 0px;
-}
-
-
-  
-
-  
-`;
 
 
 export const ContainerPicture = styled.div`
@@ -47,12 +30,7 @@ export const Headings = styled.div`
 
 export const Bottom = styled.button`
 
-  background:${color.buttons};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-Radius:50px;
-  color:black;
+  
 `;
 
 
@@ -100,42 +78,6 @@ align-items:center;
 
 `;
 
-export const SubmitButton = styled.input`
-  display: inline-block;
-  height:26px;
-  margin-left:10px;
-  margin-right:10px;
-  text-align: center;
-  cursor: pointer;
-  border:none;
-  color: ${color.primary};
-  width: 200px;
-  background: white;
-  color:black;
-  top: 0;
-
-  @media (max-width: 600px) {
-    width: 50%;
-  }
-
-  &:active {
-    position: relative;
-    outline: none;
-    top: 5px;
-    box-shadow: none;
-    
-  }
-`;
-
-
-export const Image = styled.div`
-  height: 70%;
-  background-color: transparent;
-  background-size: cover;
-  // background-position: center;
-  background-repeat: no-repeat;
-`;
-
 
 
 
@@ -152,16 +94,7 @@ export const MainHeading = styled.p`
   }
 `;
 
-export const SubHeading = styled.p`
-  font-size: 18px;
 
- margin-left:15px;
-  
-
-  @media (min-width: 1100px) {
-    
-  }
-`;
 
 export const BackgrounModal = styled.div`
 background-color: rgba(0, 0, 0, 0.5); /* Gris semitransparente */

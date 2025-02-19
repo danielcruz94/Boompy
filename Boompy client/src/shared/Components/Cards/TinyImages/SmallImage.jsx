@@ -1,14 +1,32 @@
+import { useState, useEffect } from 'react';
 
-import {MiniImage} from "../Cards.style"
 
 const SmallImage = ({ photos }) => {
+  const [loadedPhotos, setLoadedPhotos] = useState([]);
+
+  useEffect(() => {
+    const loadImages = async () => {
+      const promises = photos.map(photo =>
+        new Promise(resolve => {
+          const img = new Image();
+          img.src = photo;
+          img.onload = () => resolve(photo);
+          img.onerror = () => resolve(null); // En caso de error, sigue cargando las demás
+        })
+      );
+
+      const results = await Promise.all(promises);
+      setLoadedPhotos(results.filter(photo => photo !== null));
+    };
+
+    loadImages();
+  }, [photos]);
+
   return (
-    <MiniImage>
-      {!photos[0] ? (
-        ""
-      ) : (
+    <div className="MiniImage">
+      {loadedPhotos[0] && (
         <img
-          src={photos[0]}
+          src={loadedPhotos[0]}
           style={{
             width: "100%",
             height: "100%",
@@ -20,11 +38,9 @@ const SmallImage = ({ photos }) => {
           alt="imgPeque"
         />
       )}
-      {!photos[1] ? (
-        ""
-      ) : (
+      {loadedPhotos[1] && (
         <img
-          src={photos[1]}
+          src={loadedPhotos[1]}
           style={{
             width: "100%",
             height: "100%",
@@ -35,11 +51,9 @@ const SmallImage = ({ photos }) => {
           alt="imgPeque"
         />
       )}
-      {!photos[2] ? (
-        ""
-      ) : (
+      {loadedPhotos[2] && (
         <img
-          src={photos[2]}
+          src={loadedPhotos[2]}
           style={{
             width: "100%",
             height: "100%",
@@ -50,7 +64,7 @@ const SmallImage = ({ photos }) => {
           alt="imgPeque"
         />
       )}
-    </MiniImage>
+    </div>
   );
 };
 

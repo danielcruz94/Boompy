@@ -1,11 +1,9 @@
-import { FormLog, GoogleButton, Container, Span, Input, TextLogin, ContenedorRemember } from "./Form.style";
 import { useState } from "react";
 import axios from "axios";
-import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { login } from '../../../Redux/authSlice';
-import GoogleIcon from '../../../assets/google.svg.svg';
+import './login.css';
 
 const Form = () => {
   const auth = useSelector((state) => state.auth);
@@ -39,9 +37,7 @@ const Form = () => {
 
     try {
       const userLogin = await axios.post(
-
         `${serverURL}/login`,
-
         userCredentials
       );
 
@@ -53,60 +49,64 @@ const Form = () => {
       navigate("/home");
     } catch (error) {
       console.log(error);
-      setErrorMessage("Email o password Wrong!");
+      setErrorMessage("¡Ups! Los datos ingresados no coinciden con nuestros registros.");
     }
   };
 
   return (
-    <FormLog>
-      <Container>
+    <form className="form-log">
+      <div className="container_login">
         <br />
-        <h2 style={{ textAlign: 'initial' }}>Welcome back!</h2>
-        <Span>
-          Hey there! Ready to log in? Just enter your username and password below
-          and you'll be back in action in no time.
-        </Span>
+        <h2>¡Bienvenido de nuevo!</h2>
+        <span className="span">
+        ¡Hola! <strong>¿Listo para iniciar sesión? </strong>
+        Simplemente <strong>ingrese su nombre de usuario y contraseña </strong> a 
+        continuación y volverá a la acción en poco tiempo.
+        </span>
+       
 
-        <GoogleButton>
-          <img src={GoogleIcon} style={{ width: '20px', margin: '10px' }} alt="imgGoogle" /><span>Continue with google</span>
-        </GoogleButton>
-
-        <TextLogin>Email</TextLogin>
-        <Input
-          type="email"
-          placeholder="Email"
+        <p className="text-login">Correo electronico</p>
+        <input
+          className="input"
+          type="email"         
           name="email"
           value={email}
           onChange={handleChange}
-          onKeyDown={handleKeyDown} // Add onKeyDown handler
-          style={{ marginBottom: '20px', paddingLeft: '20px' }}
+          onKeyDown={handleKeyDown}
         />
-        <TextLogin>Password</TextLogin>
-        <Input
-          type="password"
-          placeholder="Password"
+        <p className="text-login">Contraseña</p>
+        <input
+          className="input"
+          type="password"          
           name="password"
           value={password}
           onChange={handleChange}
-          onKeyDown={handleKeyDown} // Add onKeyDown handler
-          style={{ marginBottom: '20px', paddingLeft: '20px' }}
+          onKeyDown={handleKeyDown}
         />
-        <ContenedorRemember>
-          <div>
-            <input className="checkboxRemember" type="checkbox" />
-            <Span>Remember me</Span>
-          </div>
-          <a href="">Forgot Password</a>
-        </ContenedorRemember>
-        <GoogleButton onClick={handleLogin} style={{ background: '#FFC224', border: '2px solid black', boxShadow: '2px 2px 2px', height: '35px', borderRadius: '20px' }}>
-          Sign In
-        </GoogleButton>
+        <div className="conten_password">
+         
+          <a href="#">Olvide mi contraseña</a>
+        </div>
+
+        <div className="conten_login_button">
+            <button
+              className="login-button"
+              onClick={handleLogin}         
+            >
+              Iniciar mi Torii
+            </button>
+
+            <button className="login-button">
+            <span>Iniciar con  <i className="material-icons">G</i></span>
+            </button>
+        </div>
+
         <div>
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-          <Span>Do not have an account?</Span><a href="/signup" style={{ margin: '4px' }}>Sign Up</a>
+          {/*<span>Do not have an account?</span><a href="/signup" style={{ margin: '4px' }}>Sign Up</a>*/}
         </div>
-      </Container>
-    </FormLog>
+      </div>
+    </form>
   );
 };
 

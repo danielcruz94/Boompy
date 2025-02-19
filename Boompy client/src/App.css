@@ -1,99 +1,386 @@
-#root {
- /* max-width: 1280px;*/
-  width: 100vw;
-  margin: 0;
-  padding: 0;
-  text-align: center;
+.conten-home {
+    height: 100vh;
+    background-image: url('home/fondo 1.jpeg') !important;
+    background-position: 0%  46%;
+    background-size: 100%;
 }
 
-
-
-
-/*NUEVA CSS*/
-.exRRDa {
-  padding: 15px; 
+.ContainerProfile {
+    position: relative;
+    background: #D9D9D9E5;
+    width: 80%;
+    height: 70%;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* grid-template-rows: repeat(3, 1fr); */
+    gap: 20px;
+    padding: 20px;
+    align-items: center; 
+    overflow-y: auto;
+	overflow-x: auto;   
 }
 
-
-
-.hOedpm { 
-  text-align: center;
-  font-weight: 700;
-}
-
-a{
-  color: #007bff !important;
-}
-
-.iconSocial{
-  color: white;
-}
-
-.checkboxRemember{
-  color: white !important;
-  background: white !important;
-  margin-right: 5px;
-}
-
-
-
-#root > div > form > div > div.sc-dLMFU.cqiehL > div > input[type=checkbox]{
-  background: none !important;
-}
-
-#root > div > div.sc-gEvEer.ewRJqX > div:nth-child(1) > button{
-  background: #007bff;
-}
-
-.legal-links{
-  width: 100% !important;
-}
-
-
-.legal-links p { 
-  display: inline;
-  font-size: 12px;
-  margin: 0px 10px;
-}
-
-
-@media screen and (max-width: 600px) {
-  .fGRSKu > div{
-    margin: 3px 0px;
-  }
-
-  
-  .cxQmuk {
-    margin: 50px 20px;
-    flex-direction: column;   
-  }
-
-  .geBATz {
-    width: 100%;
-  }
-
-  .eaGAUE {   
-    flex-direction: column;
-  }
-
-  .eSbmml > div{
-    display: block;
-  }
-
-  .gLdBYr{
+.ContenedorCard {
+    position: relative;     
+    display: flex;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
+    width: 100%; 
+    height: 130px;
+    border-radius: 10px; 
+   
+}
+
+
+.MainPhoto {
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center;     /* Centrado vertical */
+    width: min-content;
+    height: min-content;   
+    align-items: center;   
+    width: 130px; 
+    height: 130px; 
+    width: 130px; 
+    height: 130px; 
+    border-radius: 50%; 
+    
+}
+
+.MainPhoto img {
+    width: 130px; 
+    height: 130px; 
+    border-radius: 50%;
+    
+}
+
+
+.ConteinerText {   
+    display: flex;
+    flex-Direction: column;
+    align-Items: start;
+    margin-Left: 20px;  
+}
+
+.ConteinerText h3{
+    color: #E62B3F;
+    margin: 0px;
+    font-weight: 700;
+}
+
+.ConteinerText p{
+    font-size: 1vw;
+}
+
+.ConteinerText span{
+    font-size: 1vw;
+    font-weight: 700;
+}
+
+.ConteinerText a  {
+    text-decoration: none;
+}
+
+.ConteinerText a span {
+    background: #E62B3F;
+    color: white;
+    font-weight: 400;
+    padding: 2px 10px;
+    border-radius: 30px;
+    letter-spacing: inherit;
+}
+
+.MiniImage{
+    width:50px;
+    height:50px;
+    position:absolute;
+    border-radius:50%;
+    top: 0px;
+    left: 0px;
+}
+
+
+.ContainerBar{
+    position: absolute;
+    width: 100vw;
+    top: 20px;
+    height: min-content;
+    display: flex;
+    width: 100%;         
+}
+
+.Logo_NavBar{
+    position: absolute;
+    top: 0px;
+    width: 10%;
+    left: 5%;
+}
+
+.ContainerNavBar{
+    display: none;
+}
+
+.SubHeading{
+    font-size: 18px;
+    margin-left:15px;
+}
+
+.SubmitButton{
+    display: inline-block;
+    height:26px;
+    margin-left:10px;
+    margin-right:10px;
+    text-align: center;
+    cursor: pointer;
+    border:none;
+    color: black;
+    width: 200px;
+    background: white;
+    color:black;
+    top: 0;
+}
+
+.SubmitButton:active {
+    position: relative;
+    outline: none;
+    top: 5px;
+    box-shadow: none;
+    
   }
 
-  .icon-wrapper {
-    height: 100%;
+  .Conten_iconos{
+    position: absolute;
+    right: 5%;
+    display: flex;
+    gap: 30px;
+  }
+
+
+  .Bottom {
+    background: #FFFFFFB2;
+    top: 0px;
+    right: 0%;
+    color: #2C2E43;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-Radius: 50px;
+    width: 200px;
+    max-width: 120px;
+    font-weight: 600;   
+}
+
+
+.CalendarHome {
+    position: absolute;
+    color: white;
+    left: 15%;
+    bottom: 50px;
+    font-size: 1.5vw;
+    font-family: system-ui;
+    letter-spacing: 1px;
+}
+
+/*MODAL INICIO*/
+.conten-home-modal{
+    position: absolute;
+    display: flex;
+    top: 0px;
+    left: 0px;
     width: 100%;
-    padding: 7px;
-    margin: 5px;
+    height: 100%;
+    z-index: 999;
+    background: #ffffff46;
+}
+
+.ContainerModal {
+    margin: auto;
+    background: #D9D9D9E5;
+    width: 50%;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.MainText{
+	color: #E62B3F;
+    margin: 20px;
+    font-size: 2vw;
+}
+
+.conteng-date{
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-image{
+    display: flex;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.445);
+    border-radius: 100%;
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+}
+
+.profile-image img{
+    width: 70%;
+    margin: auto;
+}
+
+.ContainerIn-foto{
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0px; 
+    width: 50%;
+}.ContainerIn-foto {
+    display: flex;  
+    margin: 20px 0px;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+.ContainerIn{
+    display: flex;
+    flex-direction: row;
+    margin: 10px;    
+}
+
+.ContainerIn select{
+    width: 70%;
+}
+
+.conten-select {
+    width: 60%;
+    display: flex;
+    flex-direction: column;   
 }
 
 
-.icon-wrapper > i{
-   font-size: 10px;
+
+.btn-modal {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    background: #E62B3F;
+    color: white;
+    font-size: 1.2vw;
+    width: 150px;
+    border-radius: 30px;
+    border: none;
+    padding: 5px;
+    font-weight: 500;
+    margin-bottom: 20px;
 }
+
+.inner-container label{
+  font-size: 1vw;
+}
+	
+
+@media screen and (max-width: 850px) {
+
+    .Logo_NavBar{
+        width: 30%;
+    }
+
+    .Conten_iconos{
+        display: none;
+    }
+
+
+    .hamburguesa{
+       color: white;
+    }
+
+    .menu-container {
+        position: relative;
+      }
+      
+      .hamburger-menu {
+        font-size: 30px;
+        cursor: pointer;
+        display: block;
+        color: #000;
+      }
+      
+      .menu-items {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        background-color: #ffffffd3;
+        top: 50px;
+        right: 0;
+        width: 200px;
+        padding: 10px;
+        border-radius: 10px;
+      }
+      
+      .menu-items.open {
+        display: flex;
+        z-index: 99999999;
+      }
+
+      /*modal*/
+
+      .ContainerIn-foto{
+        font-size: 6vw;
+      }
+
+      .ContainerIn-foto .rounded-circle{
+        width: 100px;
+        height: 100px;
+      }
+
+      .MainText{
+        font-size: 6vw;
+        margin: 10px;
+      }
+
+      .profile-image{
+        width: 100px;
+        height: 100px;
+      }
+
+      .ContainerModal{
+        width: 90%;
+      } 
+      
+      
+      .conteng-date {
+        flex-direction: column;
+      }
+
+      .ContainerIn-foto{
+          width: 100%;
+      }
+   
+      .conten-select {
+        width: 100%;        
+    }
+
+    .ContainerIn{
+        margin: 5px;
+    }
+    
+    .ContainerIn select{
+        margin: auto;
+    }
+      
+    .btn-modal{
+        font-size: 4vw;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .inner-container label{
+        font-size: 3vw;
+      }
 
 }

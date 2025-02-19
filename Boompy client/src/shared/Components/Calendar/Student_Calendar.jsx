@@ -81,10 +81,27 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
     setScrollEnabled(true);
   };
 
-  const cancelClass = () => {
-    alert('Clase cancelada');
-    closeModal();
-  };
+  const cancelClass = async (classID) => {
+    const utcDate = new Date().toISOString(); // Obtén la fecha y hora UTC actual
+
+    try {
+        const response = await axios.delete(`${serverURL}/calendar/Cancelclass/${classID}`, {
+            params: { utcDate: utcDate } // Envía la fecha UTC como parámetro
+        });
+
+        //console.log(response.data.message); // Muestra el mensaje devuelto por el servidor
+        Swal.fire({
+          icon: 'info',
+          title: 'Clase cancelada....',
+          text: '.',
+
+        }).then(() => {
+          closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+        });
+    } catch (error) {
+        console.error('Error al cancelar la clase:', error.response?.data || error.message);
+    }
+};
 
   const viewClass = (startTime, endTime, classId) => {
     const currentTime = new Date();
@@ -113,6 +130,7 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
     
     if(callsActive === false){
           if (currentTime >= classStartTime && currentTime <= classEndTime) {
+           // if (true) {
             const host = window.location.hostname;
             const port = window.location.port;
             let url = null;
@@ -130,7 +148,7 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
           } else {
             Swal.fire({
               icon: 'info',
-              title: 'Class not available at the moment....',
+              title: 'Clase no disponible por el momento....',
               text: '.',
 
             }).then(() => {
@@ -138,13 +156,14 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
             });
           }
     }else{
-          Swal.fire({
-            icon: 'info',
-            title: 'You are already in a class ....',
-            text: 'Try again later.....',            
-          }).then(() => {
-            //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
-          });     
+      Swal.fire({
+        icon: 'info',
+        title: 'Ya estás en una clase...',
+        text: 'Intenta nuevamente más tarde...',
+      }).then(() => {
+        //closeModal(); // Cierra el modal después de que el usuario confirme la alerta
+      });
+       
     }
   
     
@@ -197,29 +216,48 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
 
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
+      
+       <div className="close-button-container" style={{ marginTop: 10 }}>
+         <h3>
+         Calendario
+         </h3>
+
+        <button onClick={closeModal}>X</button>
+      </div>
+
       <Calendar 
         onChange={handleDateChange}
         value={selectedDate}
         tileClassName={tileClassName}
-        locale="en-US"
+        view="month"
+        //locale="en-US"
+        locale="es-ES"
+        showNeighboringMonth={false}
       />
 
-      <div className="close-button-container" style={{ marginTop: 10 }}>
-        <button onClick={closeModal}>Close</button>
-      </div>
+     <div className='Conten-Time-Class'> 
 
-      {selectedClasses.length > 0 && (
+     {selectedClasses.length > 0 && (
         selectedClasses.map((classInfo, index) => (
-          <div key={index} className="class-info">
-            <p>{new Date(classInfo.date).toLocaleDateString()}</p>
-
-            <p>Time: {classInfo.startTime} - {classInfo.endTime}</p>
-            <button className="cancelButton" style={{ display: 'none' }} onClick={() => cancelClass()}>Cancell</button>
-
-            <button className="viewButton" onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}>Forward</button>
+       <div key={index} className="class-info time-slot div-Class">
+           <div  className='InfoClass'>
+              <p>{classInfo.startTime} - {classInfo.endTime}</p>           
+              <button className="viewButton view-class-button" onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}></button>
           </div>
+           <div className='Canceldiv'>
+               <button className="cancelButton"  onClick={() => cancelClass(classInfo._id)}>X</button>
+           </div>
+      
+        </div>
+       
+
+
         ))
       )}
+
+     </div>
+
+      
     </Modal>
   );
 }

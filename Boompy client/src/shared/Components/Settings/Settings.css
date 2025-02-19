@@ -1,136 +1,151 @@
-/* Estilos para el menú desplegable */
-.settings-icon {
-  cursor: pointer;
-  position: relative;
-  font-size: 26px;
-  border-radius: 100%;
-  padding: 1px;
-  border: solid 1px #abb7c194;
-  width: 43px;
+.menu-Settings {
+  width: 100%; 
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0px 20px;
 }
 
-.menu {
-  position: absolute; 
-  right: 10px; 
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000; 
-  background: none;
-  border: none;
+.menu-item{
+  width: min-content;
+  height: min-content;
 }
 
 .menu-item {
-  display: block;
-  padding: 7px;
-  border-bottom: 1px solid #ddd;
-  background-color: rgb(17, 15, 80); 
-  text-align: center;
-  cursor: pointer;
-  font-size: 80%;
-  width: 100%;
-  min-width: 131px;
-  max-width: 192px;
-  margin-bottom: 5px;
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background: #E62B3FCC;
+  border: none;
   color: white;
 }
 
-.menu-item:last-child {
-  border-bottom: none;
+.mas{
+  background: rgba(255, 255, 255, 0.628);
 }
 
-.menu-item:hover {
-  background-color: #ddd;
+.pagoimg img{
+   width: 80%;
 }
 
-
-.modal {
-  position: fixed; 
-  top: 0;
-  left: 0;
+.modal{
+  display: flex;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); 
+  background: rgba(255, 255, 255, 0.163);
+}
+
+
+.modal-content{
+  margin: auto;
+  width: 50%; 
   display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000; 
-}
-
-/* Modal Styling */
-.modal-content {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 80%;
-  max-height: 80%;
-  overflow: auto;
-}
-
-.inputpay {
-  color: black;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  background: white;
-  width: 500px;
-  display: block;
-}
-
-.buttonplay {
-  padding: 0.7rem 1rem;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  width: 200px;
-}
-
-/* Hide arrows in number input */
-.accountnumber::-webkit-inner-spin-button,
-.accountnumber::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.accountnumber {
-  -moz-appearance: textfield;
-}
-
-/* Para navegadores basados en WebKit (Chrome, Safari) */
-.inputpay::-webkit-inner-spin-button,
-.inputpay::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Para navegadores basados en Gecko (Firefox) */
-.inputpay[type=number] {
-  -moz-appearance: textfield;
-}
-
-/* Para navegadores basados en Microsoft Edge */
-.inputpay[type=number] {
-  -ms-appearance: none;
-}
-
-.Continputpay {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  height: auto;
+  border-radius: 30px;
 }
 
-@media screen and (max-width: 600px) {
-  .inputpay {
+.Continputpay{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 50%;
+}
+
+.TexPay{
+  margin: 20px 0px 0px 10px;
+}
+
+.inputpay{
+  margin: 10px;
+  padding: 5px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.344);
+}
+
+.buttonplay{
+  background: #E62B3F;
+    color: white;
+    font-size: 1.2vw;
+    width: 150px;
+    border-radius: 30px;
+    border: none;
+    padding: 5px;
+    font-weight: 500;
+    margin: 30px;
+}
+
+
+@media screen and (max-width: 850px) {
+
+  .TeachSaldo {
+    position: static;
+    flex-direction: row;
     width: 100%;
-    min-width: 200px;
-  }
+    height: auto;
+    align-items: center;
+    background: none;
+    margin-bottom: 20px;
+}
+
+.saldocontainer {
+  flex-direction: row;
+  width: 50%;
+  justify-content: flex-end;
+}
+
+.saldocontainer p {
+  color: rgba(0, 0, 0, 0.709);
+  margin: 2%;
+  font-size: clamp(20px, 1.4vw, 40px);
+}
+
+.menu-Settings {
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+}
+
+.menu-item {
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+}
+
+
+.mas {
+ border: 1px solid rgba(0, 0, 0, 0.272);
+}
+
+.mas img {
+  width: 90%;
+  border-radius: 100%;
+}
+
+.modal{
+  background: rgba(255, 255, 255, 0.676);
+}
+
+.modal-content{
+  width: 95% ;
+ 
+ 
+}
+
+.Continputpay{
+  width: 90%;
+}
+
+.buttonplay{
+  font-size: 15px;
+}
+
+.TexPay{
+   width: 60%;
+}
+
+.close{
+  color: red;
+}
+
 }

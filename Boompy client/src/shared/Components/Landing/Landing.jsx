@@ -1,390 +1,235 @@
-
-import React, { useState, useEffect } from 'react';
-import './Landing.css'; 
-import {Bottom} from '../../../views/Landing.style'
-
-import bannerImage from './Home/banner_img.png';
-import imaheImage from './Home/Imahe.png';
-import dacoImage from './Home/Daco.png';
-import questionImage from './Home/question.png'; 
-import NavBar from '../../NavBar/NavBar';
-import {Headings} from '../../../views/Landing.style'
-import Footer from '../Footer/Footer';
-import { Link, useNavigate} from 'react-router-dom';
-import { useSelector,useDispatch } from "react-redux"
-import axios from 'axios';
-
-
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import './Landing.css';
 
 function Landing() {
+  // Obtén el estado de Redux para autenticar al usuario y la URL del servidor
   const auth = useSelector((state) => state.auth);
-  const [carouselData1, setCarouselData1] = useState([]);
-  const [carouselData2, setCarouselData2] = useState([]);
-  const serverURL = useSelector(state => state.serverURL.url);
+  const serverURL = useSelector((state) => state.serverURL.url);
 
-  const navegate =useNavigate()
+  // Inicializa el hook useNavigate para navegar entre rutas
+  const navigate = useNavigate();
 
+  const [isOpen, setIsOpen] = useState(false);
 
-  
-
-  useEffect(() => {
-    // Función para cargar el primer JSON
-    const fetchCarouselData1 = async () => {
-      try {
-        const response = await fetch('src/assets/Datos/carouselData1.json');
-        if (!response.ok) {
-          throw new Error(`Failed to fetch carouselData1: ${response.status} ${response.statusText}`);
-        }
-        const data = await response.json();
-        setCarouselData1(data);
-       
-      } catch (error) {
-        console.error('Error fetching carouselData1:', error);
-      }
-    };
-
-    const shuffleArray = (array) => {
-      let shuffledArray = [...array];
-    
-      for (let i = shuffledArray.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
-      }
-    
-      return shuffledArray;
-    };
-   
-  
-    
-    const fetchCarouselData2 = async () => {
-      try {
-   
-        const url = `${serverURL}/users/picture`;         
-        const response = await axios.get(url);     
-
-        setCarouselData2(shuffleArray(response.data));
-        
-      } catch (error) {       
-        if (error.response) {          
-          console.error('Error response:', error.response.data);
-          console.error('Status code:', error.response.status);
-          console.error('Headers:', error.response.headers);
-        } else if (error.request) {          
-          console.error('Error request:', error.request);
-        } else {
-          console.error('Error message:', error.message);
-        }
-      }
-    };
-     
-    fetchCarouselData1();
-    fetchCarouselData2();
-  }, []); 
-  
-const go=() => {
-  // console.log("hihas")
-   navegate('/login')
-}
-const signUpLink=() => {
-  navegate('/signup')
-   
-}
-
-useEffect(() => {
- 
-  const ajustarCuadrado = () => {
-     
-      const elementos = document.querySelectorAll('.Tutorimg');
-      const elementos2 = document.querySelectorAll('.H_img > div:first-child');
-     
-     // console.log('Elementos Tutorimg:', elementos);
-      //console.log('Elementos H_img > div:first-child:', elementos2);      
-     
-      elementos.forEach(elemento => {
-          const ancho = elemento.offsetWidth;        
-          elemento.style.height = `${ancho}px`;
-      });
-
-      elementos2.forEach(elemento2 => {
-          const ancho = elemento2.offsetWidth;        
-          elemento2.style.height = `${ancho}px`;
-      });
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
   };
 
-  
-  const timeoutId = setTimeout(() => {
-      ajustarCuadrado();
-  }, 400); 
-
- 
-  window.addEventListener('resize', ajustarCuadrado);
-
-  return () => {
-      clearTimeout(timeoutId);
-      window.removeEventListener('resize', ajustarCuadrado);
+  // Función para redirigir al login
+  const login = () => {
+    navigate('/login');
   };
-}, []); 
+
+  // Función para redirigir al signup
+  const signup = () => {
+    navigate('/signup');
+  };
 
   return (
     <div className="containerHome">
-      <Headings >
-        
-      <Bottom onClick={go} style={{height:'30px',marginTop:'10px',marginLeft:'5px'}}>Login</Bottom>
-      </Headings>
-      {/* <NavBar textBotton={"Login"} onClick={go}/> */}
-    
       {/* Sección 1 */}
       <section className="hero">
-        <div>
-          <div className="left-div">
-            <div>
-              <h2>
-                Never Stop Learning <br />
-                Life <b>Never Stop</b> Teaching
-              </h2>
-              <p>
-                Every teaching and learning journey is unique Following<br />
-                Well help guide your way
-              </p>
+        <div className="hero_one">
+          <img src="/landing/logo.png" alt="TORII" className="Logo_TORII" />
+          <button className="Button_Headings Estudiante" onClick={login}>Estudiante</button>
+          <button className="Button_Headings Profesor" onClick={login}>Profesor</button>
 
-              <button style={{marginTop:'10px'}} onClick={signUpLink}> Star Free Trial</button>
-            </div>
-          </div>
-          <div className="right-div">
-            <img src={bannerImage} alt="Boompy" />
-          </div>
-        </div>
-      </section>
+          <div className="menu-container">
+      {/* Ícono del menú hamburguesa */}
+      <div className={`hamburger ${isOpen ? 'open' : ''}`} onClick={toggleMenu}>
+        <div className="bar"></div>
+        <div className="bar"></div>
+        <div className="bar"></div>
+      </div>
 
-      {/* Sección de 2 */}
-      {/* <section className="categories-section">
-        <h5>Trending Categories</h5>
-        <h3>Top Category We Have</h3>
-        <p>when known printer took a galley of type scrambl edmake</p>
-        <div className="category">
-          <div className="carousel-container">
-            <button className="prev"> &lt; </button>
-            <div className="carousel">
-              {carouselData1.map((item, index) => (
-                <div key={index} className="slide">
-                  <img src={item.image} alt={item.alt} />
-                  <p>{item.text}</p>
-                </div>
-              ))}
-            </div>
-            <button className="next"> &gt; </button>
-          </div>
-        </div>
-      </section> */}
-
-      {/* Sección de 3 */}
-      <section className="hero Hero2">
-        <div>
-          <div className="right-div">
-            <img className="IMG_Hero2" src={imaheImage} alt="Boompy" />
-          </div>
-
-          <div className="left-div left-div2">
-            <div>
-              <h2 className="H2_Landing">
-              Do you want to improve your language skills? Would you like to earn extra money?<br /><b>Now In One Place</b> 
-              </h2>
-              <p>
-              The best way to learn a language is to practice it with native speakers.
-              Our platform connects you with people who want to learn your native language.
-              </p>
-
-              <ul style={{paddingLeft:'0'}}>
-                <li className="campo">Earn money from the comfort of your own home.</li>
-                <li className="campo">Access Your Class anywhere.</li>
-                <li className="campo">Offer private lessons.</li>
-              </ul>
-
-              <button onClick={signUpLink}>Star Free Trial</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Sección de 2 */}
-      <section className="categories-section categories-section2 ocultar">
-        <h5>Top Class Courses</h5>
-        <h3>Explore Our World's Best Courses</h3>
-        <p>When known printer took a galley of type scrambl edmake</p>
-        <div className="category category2">
-          <div className="carousel-container">
-            <button className="prev2"> &lt; </button>
-            <div className="carousel">
-              {carouselData2.map((item, index) => (
-                <div key={index} className="slide slide2">
-                  <img src={item.image} alt={item.alt} />
-                  <div>
-                    {item.rating}
-                    <i className="fas fa-star"></i>
-                  </div>
-                  <p>{item.text}</p>
-                  <button className="Enrol"> Enroll Now &gt;</button>
-                </div>
-              ))}
-            </div>
-            <button className="next2"> &gt; </button>
-          </div>
-        </div>
-      </section>
-
-      {/* <section className="categories-section categories-section2">
-  <h5>Top Class Courses</h5>
-  <h3>Explore Our Worlds Best Courses</h3>
-  <p>When known printer took a galley of type scrambledmake</p>
-  <div className="category category2">
-    <div className="course-images">
-      {carouselData2.slice(0, 5).map((item, index) => (
-        <div key={index} className="course-image">
-          <img src={item.image} alt={item.alt} />
-          <div className="text-container">
-            <div className="image-details">
-              <div className="rating">{item.rating}<i className="fas fa-star"></i></div>
-              <p>{item.text}</p>
-              <button className="Enrol">Enroll Now &gt;</button>
-            </div>
-          </div>
-        </div>
-      ))}
+      {/* Menú desplegable */}
+      <div className={`menu ${isOpen ? 'open' : ''}`}>
+        <button className="Button_Headings Estudiante2" onClick={login}>
+          Estudiante
+        </button>
+        <button className="Button_Headings Profesor2" onClick={login}>
+          Profesor
+        </button>
+      </div>
     </div>
-  </div>
-</section> */}
 
-
-      <div className="subscribe">
-        <div>
-          <img src={dacoImage} alt="Boompy" />
-        </div>
-
-        <div>
-          <h2>
-          The best way to learn a language is <br /> Speaking.
-          </h2>
-          <div className="InputSus">
-            {/* <input type="text" placeholder="Type Your E-Mail" />
-            <button>Suscribe Now</button> */}
+          <div className="cont_texto">
+            <span> Nunca dejes de </span>
+            <span> aprender </span>
+            <p>
+              Cada viaje de <strong className="bold">enseñanza y</strong>
+            </p>
+            <p> <strong className="bold">aprendizaje</strong> es único.</p>
+            <button className="Button_Registrate" onClick={signup}>
+              Registrate
+            </button>
+            <p><strong className="bold">Y comienza a aprender</strong></p>
+          </div>
+          <div className="PQRS">
+            <p>PQRS</p>
+            <div>
+              <img src="/landing/Icono.png" alt="TORII" className="Icon_TORII" />
+            </div>
           </div>
         </div>
-      </div>
-
-{/*IMAGENES DEL SEGUNDO JSON */}
-<section className="hero4">
-  <div>
-    <h5>Skilled Introduce</h5>
-    <h3>
-      Our Top Class &  Instructors In One Place
-    </h3>
-    <p>
-    Share your experiences and cultures with people from all over the world who are looking to practice languages and meet new people.
-    </p>
-    <button className="H_button" style={{marginTop:'10px'}} onClick={signUpLink}>See All Instructors</button>
-  </div>
-
-  <div>
-    {carouselData2.slice(0, 2).map((item, index) => (
-       <div key={index} className="H_img">
-       <div>
-         <img src={item.picture} alt="Boompy" className="Tutorimg" />
-       </div>
-       <div>
-         <h5>{item.name}</h5>
-         <div>
-           {item.rating + " "}
-           <i className="fas fa-star"></i>
-         </div>         
-         <p>{item.language}</p>
-         <div>
-           <i className="fab fa-facebook-square mr-3"></i>
-           <i className="fab fa-twitter-square mr-3"></i>
-           <i className="fab fa-instagram-square mr-3"></i>
-         </div>
-       </div>
-     </div>
-    ))}
-  </div>
-
-  <div>
-    {carouselData2.slice(2, 4).map((item, index) => (
-      <div key={index} className="H_img">
-        <div>
-          <img src={item.picture} alt="Boompy" className="Tutorimg"/>
-        </div>
-        <div>
-          <h5>{item.name}</h5>
-          <div>
-            {item.rating + " "}
-            <i className="fas fa-star"></i>
-          </div>         
-          <p>{item.language}</p>
-          <div>
-            <i className="fab fa-facebook-square mr-3"></i>
-            <i className="fab fa-twitter-square mr-3"></i>
-            <i className="fab fa-instagram-square mr-3"></i>
-          </div>
-        </div>
-      </div>
-    ))}
-  </div>
-  
-</section>
-
-
-      <section className="questions">
-        <div>
-          <img src={questionImage} alt="Boompy" />
-        </div>
-
-        <div>
-        <h1>Start Learning From Worlds Instructors</h1>
-        <p>Pay-as-you-go language lessons with the best prices around.</p>
-        <p>Book classes with your preferred tutor and enjoy a free trial lesson.</p>
-        <p>Sign up today and start learning your new language.</p>
-        
-        </div>
-      </section>
-
-      <section className="Learning">
-        <div className="top-div">
-          <h5 onClick={signUpLink}>How We Start Journey</h5>
-          <h3>Start Your Learning Journey Today!</h3>
-          
-        </div>
-
-        <div className="low-div">
+        <div className="Learning">
           <div>
             <i className="fas fa-users custom-icon"></i>
-            <strong>Learn with people</strong>
-            <span>People around the world willing to help you</span>
-            <span>content to reach your</span>
+            <strong>Aprende con las personas</strong>
+            <p>
+              Personas de todo el mundo dispuestas a ayudarte para llegar a tu nivel requerido.
+            </p>
           </div>
-
           <div>
-            <i className="fas fa-laptop custom-icon"></i>
-            <strong>Best Price</strong>
-            <span>Competitive prices to learn and keep practicing</span>
-            <span>Pay easily</span>
+            <i className="fa-solid fa-desktop custom-icon"></i>
+            <strong>Mejor Precio</strong>
+            <p>
+              Precios competitivos para aprender y seguir practicando. Paga fácilmente.
+            </p>
           </div>
-
-          {/* <div>
-            <i className="fas fa-award custom-icon"></i>
-            <strong>Get Online Certificate</strong>
-            <span>Curate anding area share Pluralsight</span>
-            <span>content to reach your</span>
-          </div> */}
-
           <div>
-            <i className="fas fa-envelope custom-icon"></i>
+            <i className="fa-regular fa-envelope custom-icon"></i>
             <strong>E-mail Marketing</strong>
-            <span>Contact us if you have any questions</span>
-        
+            <p>
+              Respuesta en menos de 24 Horas.
+            </p>
           </div>
         </div>
       </section>
-      <Footer/>
+
+      {/* Sección 2 */}
+      <section className="hero2">
+        <div className="hero2-one">
+          <div className="hero2-line-two">
+            <div className="hero2-line-three">
+              <h2>
+                Mejorar tus habilidades <br />lingüísticas
+              </h2>
+              <p>
+                La mejor manera de aprender un idioma es <strong>practicarlo con hablantes nativos.</strong>
+                Nuestra plataforma lo conecta con personas que desean aprender su idioma nativo.
+              </p>
+              <div className="div_icon">
+                <img src="/landing/Icon2.png" alt="TORII" className="Icon2" />
+              </div>
+            </div>
+          </div>
+          <div className="div_img">
+            <h1>Acceda a su Clase en cualquier lugar.</h1>
+            <div>
+              <button className="Button_Registrate" onClick={signup}>
+                Registrarse
+              </button>
+            </div>
+          </div>
+
+          <div className="hero3">
+          <h1 className='h1-respon'>
+                Gana dinero extra.
+              </h1>
+
+            <div className="hero3-one">
+            </div>
+
+            <div className="hero3-two">
+              <h1>
+                Gana dinero extra.
+              </h1>
+              <p>
+                Gane dinero desde la comodidad de su propia casa.
+              </p>
+              <p>
+                Se un profesor y da charlas en vivo.
+              </p>
+              <button className="Button_Quiero" onClick={signup}>
+                Quiero ser profesor
+              </button>
+            </div>
+
+            <div className="hero3-three">
+              <h1>
+                ¡Comienza Tu Viaje de <strong>Aprendizaje Hoy!</strong>
+              </h1>
+            </div>
+
+          </div>
+
+          <div className="Footer">
+          <img src="/landing/logo.png" alt="TORII" className="Logo_TORII" />
+
+           <div className='Footer-icon'>
+           <a href="/">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                className="bi bi-facebook iconSocial"
+                viewBox="0 0 16 16"
+              >
+                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951" />
+              </svg>
+            </a>
+            <a href="/">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                className="bi bi-twitter-x iconSocial"
+                viewBox="0 0 16 16"
+              >
+                <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+              </svg>
+            </a>
+            <a href="/">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                className="bi bi-whatsapp iconSocial"
+                viewBox="0 0 16 16"
+              >
+                <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232" />
+              </svg>
+            </a>
+            <a href="/">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                className="bi bi-instagram iconSocial"
+                viewBox="0 0 16 16"
+              >
+                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334" />
+              </svg>
+            </a>
+            <a href="/">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                className="bi bi-youtube iconSocial"
+                viewBox="0 0 16 16"
+              >
+                <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z" />
+              </svg>
+            </a>
+           </div>
+
+         <p className='Tex_condiciones'>© 2024 Torii. All rights reserved | <Link to="/service">Terminos y Condiciones</Link> | <Link to="/privacy">Politica de privacidad de datos</Link></p>    
+           
+          </div>
+
+
+        </div>
+      </section>
     </div>
   );
 }

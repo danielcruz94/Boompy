@@ -1,16 +1,8 @@
 
 import  {useEffect,React,useState}from "react"
-import {Container,
-  Headings,
-  ContainerTitle,
-  BackgrounModal,
-  H3
-  } from './Landing.style'
-import {ContainerProfile} from '../shared/Components/Cards/Cards.style'
 import NavBar from '../shared/NavBar/NavBar'
+import StudentCalendar from '../shared/Components/Calendar/Student_Calendar';
 
-import Form from '../shared/Components/FormLogin/Form'
-import Footer from '../shared/Components/Footer/Footer'
 import CardProfile from "../shared/Components/Cards/CardProfile"
 import { useSelector,useDispatch,connect } from "react-redux"
 import axios from 'axios'
@@ -18,7 +10,7 @@ import {fetchUsers} from '../Redux/usersSlice'
 import Modal from "../shared/Components/Modals/Modal"
 import { useNavigate} from 'react-router-dom';
 import {login,completeInfo} from '../Redux/authSlice'
-import Section from '../assets/Section.svg';
+
       
       
 
@@ -30,11 +22,14 @@ const Home = ({auth}) => {
   
   const [location, setLocation] = useState('');
   const [isInLatam, setIsLatam] = useState(false);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   const dispatch = useDispatch();
   const navegate = useNavigate();
 
   //locals Variable
+
+  const CalendarComponent = StudentCalendar;  
 
   const [isLoading, setIsLoading] = useState(true); // Estado de carga inicial
 
@@ -63,6 +58,13 @@ const Home = ({auth}) => {
      // Reinicia al salir del mouse
   };
 
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
 
   
 
@@ -82,6 +84,8 @@ const Home = ({auth}) => {
       
       }
     };
+
+ 
 
     
     fetchLocationData();
@@ -122,8 +126,8 @@ const Home = ({auth}) => {
         if (localUser.email) {
           const prueba = await axios.get(
             `${serverURL}/userdata?email=${localUser.email}`
-          );
-               
+          );                      
+                    
           let filteredData;
             if (prueba.data.goal) {             
               filteredData = res.data.filter(item => item.language === prueba.data.goal);
@@ -131,7 +135,8 @@ const Home = ({auth}) => {
               filteredData = res.data;
             }
            
-            dispatch(fetchUsers(filteredData));
+           
+            dispatch(fetchUsers((shuffleArray(filteredData))));
 
 
           if (prueba.data.completeInfo === true) {
@@ -164,70 +169,84 @@ const Home = ({auth}) => {
   let number = priceStr.match(/[\d.]+/);
   return number ? parseFloat(number[0]) : null;
 }
- 
 
-  return (
-    <Container>
-      <Headings></Headings>
+const toggleCalendar = () => {
+  setIsCalendarOpen(!isCalendarOpen);
+};
 
+const closeCalendar = () => {
+  setIsCalendarOpen(false);
+};
+
+return (
+  <div className="conten-home">
+
+      {/* Barra de navegación */}
       <NavBar
-        textBotton={"Logout"}
-        onClick={handleLogout}
-        userInfo={localUser}
-      ></NavBar> 
+          textBotton={"Cerrar Torii"}
+          onClick={handleLogout}
+          userInfo={localUser}
+        ></NavBar>
 
-      <ContainerTitle>
-        <img
-        
-          src={Section}
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          alt="section"
-        />
-      </ContainerTitle>
-      <H3>Choose your trip</H3>
+    {!auth.infoComplete && !isLoading ? (
+      <div className="conten-home-modal">
+        <Modal title={"Completa tu información"} url={serverURL}></Modal>
+      </div>
+    ) : (
+      <>       
 
-      <ContainerProfile>
-        {/* {isLoading && <Spinner />} */}
-        {!auth.infoComplete && !isLoading && (
-          <BackgrounModal>
-            <Modal title={"Complete Your Information"} url={serverURL}></Modal>
-          </BackgrounModal>
+        {/* Contenedor de perfiles */}
+        <div className="ContainerProfile">
+          {/* {isLoading && <Spinner />} */}
+          {users.map((user) => {
+            let numericPrice = extractNumber(user.price);
+
+            if (isInLatam === true) {
+              numericPrice = numericPrice + 1;
+            } else if (isInLatam === false) {
+              numericPrice = numericPrice + 3;
+            }
+
+            return (
+              <CardProfile
+                key={user.id}
+                name={user.name}
+                picture={user.picture}
+                price={numericPrice}
+                language={user.language}
+                id={user.id}
+                photos={user.photos}
+                onMouseEnter={() => handleMouseEnter(user.id)}
+                onMouseLeave={handleMouseLeave}
+                showTinyImg={showTinyImg === user.id}
+              />
+            );
+          })}
+        </div>
+
+        <br />
+
+        {/* Calendario */}
+        {isCalendarOpen && (
+          <CalendarComponent
+            isOpen={isCalendarOpen}
+            onRequestClose={closeCalendar}
+            onClose={closeCalendar}
+          />
         )}
 
-      
+        <p
+          className="CalendarHome"
+          onClick={toggleCalendar}
+          style={{ cursor: "pointer", fontWeight: "bold" }}
+        >
+          Calendario de Clases
+        </p>
+      </>
+    )}
+  </div>
+);
 
-            {users.map((user) => {
-              let numericPrice = extractNumber(user.price);
-
-              if (isInLatam === true) {
-                numericPrice = numericPrice + 1;
-              } else if (isInLatam === false) {
-                numericPrice = numericPrice + 3;
-              }
-
-              return (
-                <CardProfile
-                  key={user.id}
-                  name={user.name}
-                  picture={user.picture}
-                  price={numericPrice} 
-                  language={user.language}
-                  id={user.id}
-                  photos={user.photos}
-                  onMouseEnter={() => handleMouseEnter(user.id)} // Pasar ID de la tarjeta al entrar
-                  onMouseLeave={handleMouseLeave}
-                  showTinyImg={showTinyImg === user.id}
-                />
-              );
-            })}
-
-      </ContainerProfile>
-
-      <br />
-
-      <Footer></Footer>
-    </Container>
-  );
 };
 
 const mapStateToProps = (state) => ({

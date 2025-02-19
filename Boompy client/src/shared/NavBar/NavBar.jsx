@@ -1,41 +1,45 @@
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types'; // Importar PropTypes para la validación de props
-import { ContainerBar, ContainerNavBar, Image, SubHeading, SubmitButton, Bottom } from '../../views/Landing.style';
+import PropTypes from 'prop-types';
+
 import { connect } from "react-redux";
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import StudentCalendar from '../Components/Calendar/Student_Calendar';
 import CalendarClass from '../Components/Calendar/Calendar_Class';
 import Button from '../../assets/Button.svg';
 import Vector from '../../assets/Vector.svg'; 
-import Torii from '../../assets/rii (2).svg'
+import Torii from '../../assets/rii (2).svg';
 import Notification from '../Components/Notification/Notification';
-import Settings from '../Components/Settings/Settings';
-import AttendanceModal from '../Components/History/History';
 
-// Asegurarse de que el nombre del componente esté presente en la exportación
-const NavBar = ({ textBotton, onClick, userInfo, auth }) => {
-  
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
-  const [IdUSer, setIduser] = useState("0"); 
-  const [Price, setPrice] = useState(0);  
+import AttendanceModal from '../Components/History/History';
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUsers } from '../../Redux/usersSlice';
+import Points  from '../Components/points/points';
+
+const NavBar = ({ textBotton, onClick, auth }) => {
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [IdUSer, setIduser] = useState("0");
+  const [Price, setPrice] = useState(0);
+  const [searchText, setSearchText] = useState(''); // Estado para el texto de búsqueda
 
   const userData = auth;
-
   const [role, setRole] = useState(userData?.role);   
   const currentUrl = window.location.href;    
   const shouldHideButton = currentUrl.includes('calls');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.users);
+  
   const navigate = useNavigate();
   const location = useLocation();
   
-
   useEffect(() => {
     if (userData.user) {
       if(userData.user.role !== undefined){
         setRole(userData.user.role);
         setIduser(userData.user.id);
         if(userData.user.price !== ""){
-           setPrice(userData.user.price)
+           setPrice(userData.user.price);
         }
       }      
     }
@@ -49,8 +53,12 @@ const NavBar = ({ textBotton, onClick, userInfo, auth }) => {
     setIsCalendarOpen(false);
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   const CalendarComponent = role === 'Tutor' ? CalendarClass : StudentCalendar;  
- 
+
   const isCallsActive = location.pathname.startsWith('/calls/');
 
   function extraerNumero(cadena) {   
@@ -66,58 +74,106 @@ const NavBar = ({ textBotton, onClick, userInfo, auth }) => {
   }
 
   if (!userData || !userData.user) {
-    // O puedes devolver null o un componente de carga
     return <div>Loading...</div>;
   }
 
+  // Filtrar usuarios basado en el texto de búsqueda
+  const filteredUsers = users.filter(user =>
+    user.name.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  // Manejar el cambio en el campo de búsqueda
+  const handleSearchChange = (event) => {
+    setSearchText(event.target.value);
+  };
+
   return (
-    <ContainerBar>
-      <Image>
-        <img src={Torii} style={{ width: '50px' }} alt="logo" />
-      </Image>
+    <div className="ContainerBar">
+
+           <Link to="/home">
+             <img src="/landing/logo.png" alt="TORII" className="Logo_NavBar" />
+            </Link>
+     
+        
+      
       <div style={{ display: 'flex' }}>
         {isCallsActive ? (
-          <SubHeading style={{ color: 'grey', fontWeight: 'bold' }}>Home</SubHeading>
+          <p className="SubHeading" style={{ color: 'grey', fontWeight: 'bold' }}>Home</p>
         ) : (
-          <Link to={"/home"}>
-            {role === 'Tutor' ? "" : <SubHeading style={{ color: 'black', fontWeight: 'bold' }}>Home</SubHeading>}
-          </Link>
+          <>            
+            <Link to="/Ranking">
+              {role !== 'Tutor' && <p className="SubHeading" style={{ display: 'none', color: 'black', fontWeight: 'bold' }}>Ranking</p >}
+            </Link>
+          </>
         )}
-        <SubHeading
-          onClick={toggleCalendar}
-          style={{ cursor: 'pointer', fontWeight: 'bold' }}
-        >
-          Calendar
-        </SubHeading>
+             
+      
+
       </div>
 
-      <ContainerNavBar>
+
+
+      <div className="ContainerNavBar">
         <img src={Vector} alt="vector" />
         <p style={{ marginLeft: '6px' }}>Categories</p>
-        <SubmitButton placeholder="Search your partner"></SubmitButton>
+        <input className="SubmitButton"
+          placeholder="Search for tutors."
+          value={searchText}
+          onChange={handleSearchChange} 
+        />
         <img src={Button} style={{ width: '10px' }} alt="button" />
-      </ContainerNavBar>
+      </div>
 
-      <div style={{ display: 'flex', gap: '5px' }}>    
+     
+
+      <div className="Conten_iconos">    
+
+      {/*<Points/>*/}
        
-          <Notification
-            numMessages={1}
-            messageIcon={<i className="fa fa-envelope IconNavbar" />}
-            userData={userData}
-          />            
+        <Notification
+          numMessages={1}
+          messageIcon={<i className="fa-regular fa-envelope IconNavbar"></i>}
+          userData={userData}
+        />            
           
+        {/*
           <AttendanceModal
-            userId={IdUSer}
-            price={extraerNumero(Price)}
-          />
+          userId={IdUSer}
+          price={extraerNumero(Price)}
+        />
+        */}
 
-          {role === 'Tutor' && <Settings />}
+      
 
-          {!shouldHideButton && <Bottom onClick={onClick}>{textBotton}</Bottom>}
-       </div>
+        {!shouldHideButton && <botton className="Bottom" onClick={onClick}>{textBotton}</botton>}
+      </div>
+
+      <div className="menu-container">
+  <div className="hamburger-menu" onClick={toggleMenu}>
+    <i className="fa fa-bars hamburguesa"></i> {/* Icono de la hamburguesa */}
+  </div>
+
+  <div className={`menu-items ${isMenuOpen ? 'open' : ''}`}>
+    {/* Icono de notificación */}
+    <Notification
+      numMessages={1}
+      messageIcon={<i className="fa-regular fa-envelope IconNavbar"></i>}
+      userData={userData}
+    /> 
+    
+
+    {/* Botón condicional */}
+    {!shouldHideButton && (
+      <button className="Bottom" onClick={onClick}>
+        {textBotton}
+      </button>
+    )}
+  </div>
+</div>
+
 
       {isCalendarOpen && <CalendarComponent isOpen={isCalendarOpen} onRequestClose={closeCalendar} onClose={closeCalendar} />}
-    </ContainerBar>
+    </div>
   );
 };
 
@@ -125,7 +181,6 @@ const NavBar = ({ textBotton, onClick, userInfo, auth }) => {
 NavBar.propTypes = {
   textBotton: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
-  userInfo: PropTypes.object,
   auth: PropTypes.object.isRequired
 };
 

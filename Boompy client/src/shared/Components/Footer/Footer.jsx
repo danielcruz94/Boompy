@@ -38,11 +38,12 @@ const Footer = () => {
             {""}
             <LinkFooter>Data Privacy Policies</LinkFooter>
           </a>
+          {/*
           <a href="/delete">
             {""}
             <LinkFooter>Delete image from instagram
             </LinkFooter>
-          </a>
+          </a>*/}
         </Columns>
         <div>
           <ContenedorImg>

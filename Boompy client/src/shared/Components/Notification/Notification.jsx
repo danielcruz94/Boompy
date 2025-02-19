@@ -65,10 +65,14 @@ const Notification = ({ numMessages, messageIcon, userData }) => {
   return (
     <div>
       <div className="notification-icon" onClick={openModal}>
+        <div>
         {messageIcon}
-        {!tutorial && (
-          <span className="badge">{numMessages}</span>
-        )}
+
+            {!tutorial && (
+              <span className="badge">{numMessages}</span>
+            )}
+        </div>        
+        
       </div>
       {showModal && (
         <div className="modal-Notification">

@@ -24,6 +24,10 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   const [PayIsOpen, setPayIsOpen] = useState(false);  
   const [TRM, setTrm] = useState(false);
   const [Factura, setFactur] = useState("0");
+  const [hasExecuted, sethasExecuted] = useState(false);
+  const [RealPrice, setRealPrice] = useState(0);
+  const [RealPoint, setRealPoint] = useState(0);
+
 
   //payment
  // const [status, setStatus] = useState('CREATED');
@@ -41,7 +45,8 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     id = ID;
   }
 
-  useEffect(() => {
+
+  useEffect(() => {    
 
     if (modalIsOpen) {
 
@@ -61,7 +66,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     };
 
     fetchUser();
-
+ 
   }
 
   }, [modalIsOpen]);
@@ -90,6 +95,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
 
   //TRM
   useEffect(() => {    
+    
     const fetchData = async () => {
         try {
             const response = await fetch('https://www.datos.gov.co/resource/32sa-8pi3.json');
@@ -105,16 +111,38 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     fetchData();
   }, []); 
 
-  //Numero Factura
+  const fetchUserData = async (serverURL, setRealPoint) => {
+    try {
+      const userDataString = localStorage.getItem('userData');
+      const userData = JSON.parse(userDataString);
+      const studentId = userData.id;
+  
+      const response = await axios.get(`${serverURL}/users/${studentId}/points`);
+      setRealPoint(response.data.points);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
 
+  useEffect(() => {
+    fetchUserData(serverURL, setRealPoint);
+  }, []);
+
+
+  useEffect(() => {
+    const spanValor = document.querySelector('.ValorPagar');
+
+    if (spanValor) {
+        spanValor.textContent = `$${RealPrice} USD`;
+    }
+}, [RealPrice]);
+
+  //Numero Factura
     function generarFactura(longitud = 6) {
-      // Conjunto de caracteres que incluye letras (mayúsculas y minúsculas) y números
-      const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      
-      // Variable para almacenar la combinación generada
-      let combinacion = '';
-      
-      // Genera la combinación aleatoria
+   
+      const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';  
+      let combinacion = '';      
+     
       for (let i = 0; i < longitud; i++) {
           const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
           combinacion += caracteres[indiceAleatorio];
@@ -128,7 +156,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     }, []); 
 
   const fetchTutorAvailability = async () => {
-    try {
+    try {      
       const response = await axios.get(`${serverURL}/calendar/${id}`);
       const availabilityData = response.data.filter(avail => avail.reserved === "");
 
@@ -159,17 +187,18 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   };
 
   const handleDateChange = (date) => {
+    fetchUserData(serverURL, setRealPoint);
     setSelectedDate(date);
     setModalIsOpen(true);
-    setScrollEnabled(false);
+    setScrollEnabled(false);   
   };
 
   const closeModal = () => {
+    fetchUserData(serverURL, setRealPoint);
     setModalIsOpen(false);   
     setScrollEnabled(true);
   };
 
- 
   //---------------ORGANIZAR PAGOS-------------------------------------------------------------------------
 
   const PayChange = () => {
@@ -177,17 +206,102 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     setPayIsOpen(true)
     setScrollEnabled(true);
     setTimeout(consultapago, 7000);
-
+   
   };
 
   const closepay = () => {    
     setPayIsOpen(false)
     setScrollEnabled(true);
-  };
 
+    sethasExecuted(false);
+    setRealPrice(amount); 
+
+    const spanPoints = document.querySelector('.points');
+    spanPoints.textContent = `Points: ${RealPoint}`
+    
+  };
+ 
+  function formatearConPuntos(numero) {    
+    let numString = numero.toString();    
+    let formateado = numString.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    
+    return formateado;
+}
+
+       
   const PayPal= () => {
     assignClass(null)
   }
+
+  const updateUserPointsRequest = async (userId, points) => {
+    try {
+      const response = await axios.patch(`${serverURL}/users/${userId}/updatePoints`, { points });
+      console.log(response)
+      // Verifica la respuesta
+      return response.data.updated || false;
+    } catch (error) {
+      console.error('Error al actualizar los puntos:', error);
+      return false;
+    }
+  };
+  
+
+  const PayPoint = async () => {
+    let points
+
+    if (hasExecuted) {
+      //console.log("La función ya se ha ejecutado una vez.");
+      return; // Sale si ya se ejecutó
+    }
+  
+    
+  
+    try {
+      const userDataString = localStorage.getItem('userData');
+      const userData = JSON.parse(userDataString);
+      const studentId = userData.id;
+  
+      const response = await axios.get(`${serverURL}/users/${studentId}/points`);
+      points = response.data.points
+
+      if(points != 0){
+  
+        setRealPoint(points)
+        sethasExecuted(true);
+
+          if (points / 100 >= amount) {
+                  points = points - (amount * 100);
+                  const result = await updateUserPointsRequest(studentId, points);
+
+                  if(result){ assignClass("APPROVED"); }                 
+                  
+              } else {
+                  console.log("Se descuentan puntos");
+                  let total = amount - (points / 100)
+                  setRealPrice(total); 
+                  points = 0;
+                  console.log(RealPrice);
+                  console.log(points);
+                  
+          }
+
+          
+
+            const spanPoints = document.querySelector('.points');
+            spanPoints.textContent = `Points: ${points}`
+            
+    }else{
+      alert("no tienes suficientes puntos.")
+    }
+
+
+
+    } catch (error) {
+      console.error("Error fetching points:", error);
+    }
+  };
+  
+
 
   //consulta pago 
   async function consultapago() {
@@ -292,12 +406,15 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
           try {
             
               // Enviar correo al estudiante
-              const responseEstudiante = await axios.post(`${serverURL}/email/enviar-email`, emailDataEstudiante);
-              console.log('Respuesta del correo enviado al estudiante:', responseEstudiante.data);
+             // const responseEstudiante = await axios.post(`${serverURL}/email/enviar-email`, emailDataEstudiante);
+            //  console.log('Respuesta del correo enviado al estudiante:', responseEstudiante.data);
 
               // Enviar correo al profesor
-             const responseProfesor = await axios.post(`${serverURL}/email/enviar-email`, emailDataProfesor);
-            console.log('Respuesta del correo enviado al profesor:', responseProfesor.data);
+            // const responseProfesor = await axios.post(`${serverURL}/email/enviar-email`, emailDataProfesor);
+           //console.log('Respuesta del correo enviado al profesor:', responseProfesor.data);
+
+           sethasExecuted(false);
+           setRealPrice(amount); 
             
           } catch (error) {
             console.error('Error al enviar correos electrónicos:', error);
@@ -309,8 +426,8 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
 
         Swal.fire({
           icon: 'success',
-          title: '¡Great news! Your class is booked!',
-          text: 'Your class has been booked successfully',
+          title: '¡Buenas noticias! ¡Tu clase está reservada!',
+          text: 'Tu clase ha sido reservada exitosamente',
         }).then(() => {
           closeModal(); 
         });
@@ -320,7 +437,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
       }
 
       const responseData = await response.json();
-      console.log('Asistencias creadas exitosamente:', responseData);
+      //console.log('Asistencias creadas exitosamente:', responseData);
       return responseData;
 
     } catch (error) {
@@ -352,7 +469,8 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
         case 'COMPLETED': {
             try {
                 const response = await axios.put(`${serverURL}/calendar/reserve/${selectedClass._id}`, {
-                    reserved: reservedValue
+                    reserved: reservedValue,
+                    price: RealPrice
                 });
                 
                 if (!response || !response.data) {
@@ -404,14 +522,16 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
             endTime: selectedClass.endTime,
             userId: selectedClass.userId,
             classId: selectedClass._id,
-            reserved: reservedValue
-        };
+            reserved: reservedValue,
+            price: RealPrice
+        };        
 
         try {         
-          console.log(isPaid)
+        
+          
       
           if(isPaid != "APPROVED"){
-                const payment = await axios.post(`${serverURL}/createdorder`, { amount: amount });
+                const payment = await axios.post(`${serverURL}/createdorder`, { amount: RealPrice });
                   
                 const IdPayment = payment.data.id;
                 const paymentUrl = payment.data.links[1]?.href;               
@@ -472,17 +592,22 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   return (
     <>
       {pagina === 'Home' && (
-        <a href="#" onClick={() => {
-          setModalIsOpen(true);
-          setScrollEnabled(false);
-        }} style={{color:'white',textDecoration:'none' }}><span style={{fontSize:'12px',background:'#10104d',paddingLeft:'7px',paddingRight:'7px',paddingTop:'3px',paddingBottom:'3px',borderRadius:'10px',color:'white'}}> Book a ticket</span></a>
-      )}
+  <a href="#" onClick={() => {
+    fetchUserData(serverURL, setRealPoint);
+    setModalIsOpen(true);
+    setScrollEnabled(false);
+    setRealPrice(amount); 
+  }}>
+    <span>Reservar Torii</span>
+  </a>
+)}
 
       {pagina === 'Tutor' && (
         <button onClick={() => {
           setModalIsOpen(true);
           setScrollEnabled(false);
-        }} style={{ marginTop: '15px', background: '#10104d', color: 'white' }}>Book a Ticket</button>
+          setRealPrice(amount); 
+        }} className='Reservar'>Reservar Torii</button>
       )}
 
 <Modal 
@@ -491,15 +616,31 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   className="payment-modal-content"
   overlayClassName="payment-modal-overlay"
 >
+
+<div className="payment-modal-close-btn">
+       <button onClick={closepay} >X</button>
+    </div>
   <div className="payment-modal-header">
-    <h5>Select Payment Method</h5>
+   
+  
+    <h5>Seleccione método de pago</h5>
+
+    <span className='TotalPagar'>Total a pagar: </span>
+    <span className='ValorPagar'>${RealPrice} USD</span>
+
+    <span className='TotalPagar'>Total Puntos: </span>
+    <span className='ValorPagar'>{formatearConPuntos(RealPoint)}</span>
+
   </div>
-  <div className="payment-modal-select-container">
-    {/* Aquí podrías agregar un menú para seleccionar el método de pago */}
-  </div>
-  <div className="payment-modal-options">
-    <Wompi amount={amount} TRM={TRM} Factura={Factura}/>
-  </div>
+  <div className="payment-modal-actions">
+    <button 
+        onClick={PayPoint}           
+        className="payment-modal-confirm-btn"
+      >      
+        Puntos
+      </button>
+  </div>  
+  
   <div className="payment-modal-actions">
     <button 
       onClick={PayPal}           
@@ -508,39 +649,99 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
      <i className="fab fa-paypal ico_paypal"></i>
       PayPal
     </button>
-    <button onClick={closepay} className="payment-modal-close-btn">Close</button>
+
+    <div className="payment-modal-options ">
+    <Wompi amount={RealPrice} TRM={TRM} Factura={Factura}/>  
+   </div>
+   
   </div>
+
+ 
+
 </Modal>
 
 
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
-        <Calendar
+
+      <div className="close-button-container" style={{ marginTop: 10 }}>
+         <h3>
+         Calendario
+         </h3>
+
+         <button onClick={closeModal} className="close-btn">X</button>
+         </div>
+
+         <Calendar
           onChange={handleDateChange}
           value={selectedDate}
-          locale="en-US"
+          view="month"
+          locale="es-ES"
+          //locale="en-US"
+          showNeighboringMonth={false}
           tileClassName={({ date }) => {
             const dateString = date.toLocaleDateString();
             const classes = [];
+
+            // Verifica si la fecha es hoy
+            const isToday = dateString === new Date().toLocaleDateString();
+
+            if (isToday) {
+              classes.push('today'); 
+            }
+
             if (customClasses[dateString]) {
               classes.push(customClasses[dateString]);
             }
             if (isClassPassed(dateString)) {
               classes.push('past-class');
             }
+            
             return classes.join(' ');
           }}
         />
 
-        <select value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
-          <option value="">Select time</option>
-          {getAvailableTimesForDate(selectedDate).map((time, index) => (
-            <option key={index} value={time}>{time}</option>
-          ))}
-        </select>
-        <div style={{ marginTop: 10 }}>
-          <button onClick={PayChange} disabled={!selectedTime} className="assign-class-btn">Assign Class</button>
-          <button onClick={closeModal} className="close-btn">Close</button>
-        </div>
+
+<div className='Conten_Select_Clase'>
+  {/* El select original está oculto pero sigue funcionando */}
+  <select
+    className='Tutor_Select_Clase'
+    value={selectedTime}
+    onChange={(e) => setSelectedTime(e.target.value)}
+    style={{ display: 'none' }} // El select original está oculto
+  >
+    <option value="">Hora y disponibilidad:</option>
+    {getAvailableTimesForDate(selectedDate).map((time, index) => (
+      <option key={index} value={time}>{time}</option>
+    ))}
+  </select>
+  
+  {/* Opciones personalizadas para que el usuario las seleccione */}
+  <p className='titlehoras'> Selecciona una hora:</p>
+  <div className="custom-options-container">
+    {getAvailableTimesForDate(selectedDate).map((time, index) => (
+      <div
+        key={index}
+        className={`custom-option ${selectedTime === time ? 'selected' : ''}`} // Agregar la clase 'selected' solo a la opción seleccionada
+        onClick={() => {
+          setSelectedTime(time); // Actualiza el valor del select original
+        }}       
+      >
+        {time}
+      </div>
+    ))}
+  </div>
+
+  {/* Botón para asignar la clase, se habilita solo si hay una selección */}
+  <div className='botton_Select_Clase'>
+    <button onClick={PayChange} disabled={!selectedTime} className="assign-class-btn">
+    Asignar clase
+    </button>
+  </div>
+</div>
+
+
+
+        
       </Modal>
     </>
   );

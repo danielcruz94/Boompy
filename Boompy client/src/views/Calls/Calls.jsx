@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector,useDispatch } from "react-redux"
 import "./Calls.css";
 import { setUserId, initializePeer } from "../../../src/shared/Components/Calls/WebRTCManager";
-import { Headings } from "../Landing.style";
-import NavBar from "../../shared/NavBar/NavBar";
-import Footer from "../../shared/Components/Footer/Footer";
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import CallTimer from './CallsTime';
@@ -118,28 +115,29 @@ const Calls = () => {
              
                 
                 if (!response.data.exists) {
-                    // Usuario no está online
-                    if (userData.role === 'Tutor') {
-                        
-                         Swal.fire({
-                          icon: 'info',
-                          title: '¡Waiting for Student!',
-                          text: 'wait here, it will connect in a few moments',
-                      }).then(() => {
-                       
-                      });
-                        
-                    }
-                    if (userData.role === 'Student') {                       
-                         Swal.fire({
-                          icon: 'info',
-                          title: '¡Waiting for Tutor!',
-                          text: 'wait here, it will connect in a few moments',
-                      }).then(() => {
-                        
-                      });
-                    }
-                }
+                  // Usuario no está en línea
+                  if (userData.role === 'Tutor') {
+                      
+                       Swal.fire({
+                        icon: 'info',
+                        title: '¡Esperando al Estudiante!',
+                        text: 'espera aquí, se conectará en unos momentos',
+                    }).then(() => {
+                      
+                    });
+                      
+                  }
+                  if (userData.role === 'Student') {                       
+                       Swal.fire({
+                        icon: 'info',
+                        title: '¡Esperando al Tutor!',
+                        text: 'espera aquí, se conectará en unos momentos',
+                    }).then(() => {
+                      
+                    });
+                  }
+              }
+              
 
 
                 const HoraUTC = async () => {
@@ -495,12 +493,47 @@ const Calls = () => {
 
   return (
     <div className="ContenCall">
+
+      <div className="Calls-logo">
+      <img src="/landing/logo.png" alt="TORII" className="Logo_Calls" />
+
+      </div>
       {/* Condicional para renderizar el contenido o el mensaje de carga */}
       {Cargando ? (
         <>
-          <Headings />
-          <NavBar />          
+             
           
+             <div className="Control-container">
+                <div className="video-call-icons">
+                  <div className={`icon-wrapper ${isVolumeOn ? "on" : "off"}`} onClick={toggleVolume}>
+                    <i className={`fas ${isVolumeOn ? "fa-volume-up" : "fa-volume-mute"}`}></i>
+                  </div>
+                  <div className={`icon-wrapper ${!audioMute ? "off" : "on"}`} onClick={toggleAudioMute}>
+                    <i className={`fas ${!audioMute ? "fa-microphone-slash" : "fa-microphone"}`}></i>
+                  </div>
+                  {!callInProgress && userData.role !== 'Tutor' && userData.role !== 'Student' && (
+                    <div className="icon-wrapper on" onClick={startOutgoingCall}>
+                      <i className="fas fa-phone on"></i>
+                    </div>
+                  )}
+                  {callInProgress && (
+                    <div className="icon-wrapper off" onClick={endCall}>
+                      <i className="fas fa-phone-slash off"></i>
+                    </div>
+                  )}
+                  <div className={`icon-wrapper ${!videoMute ? "off" : "on"}`} onClick={toggleVideoMute}>
+                    <i className={`fas ${!videoMute ? "fa-video-slash" : "fa-video"}`}></i>
+                  </div>
+                  <div className={`icon-wrapper ${isFullScreen ? "on" : "off"}`} onClick={handleFullScreen}>
+                    {isFullScreen ? (
+                      <i className="fas fa-compress"></i>
+                    ) : (
+                      <i className="fas fa-expand"></i>
+                    )}
+                  </div>
+                </div>
+              </div>
+
             <div className="contenPantalla">
             <div className="full_screen">
               {/* Contenido de la llamada */}
@@ -553,42 +586,13 @@ const Calls = () => {
                   )}
                 </div>
                 {callInProgress && <CallTimer variable={callInProgress} endCall={endCall} />}
-                <div className="Control-container">
-                <div className="video-call-icons">
-                  <div className={`icon-wrapper ${isVolumeOn ? "on" : "off"}`} onClick={toggleVolume}>
-                    <i className={`fas ${isVolumeOn ? "fa-volume-up" : "fa-volume-mute"}`}></i>
-                  </div>
-                  <div className={`icon-wrapper ${!audioMute ? "off" : "on"}`} onClick={toggleAudioMute}>
-                    <i className={`fas ${!audioMute ? "fa-microphone-slash" : "fa-microphone"}`}></i>
-                  </div>
-                  {!callInProgress && userData.role !== 'Tutor' && userData.role !== 'Student' && (
-                    <div className="icon-wrapper on" onClick={startOutgoingCall}>
-                      <i className="fas fa-phone on"></i>
-                    </div>
-                  )}
-                  {callInProgress && (
-                    <div className="icon-wrapper off" onClick={endCall}>
-                      <i className="fas fa-phone-slash off"></i>
-                    </div>
-                  )}
-                  <div className={`icon-wrapper ${!videoMute ? "off" : "on"}`} onClick={toggleVideoMute}>
-                    <i className={`fas ${!videoMute ? "fa-video-slash" : "fa-video"}`}></i>
-                  </div>
-                  <div className={`icon-wrapper ${isFullScreen ? "on" : "off"}`} onClick={handleFullScreen}>
-                    {isFullScreen ? (
-                      <i className="fas fa-compress"></i>
-                    ) : (
-                      <i className="fas fa-expand"></i>
-                    )}
-                  </div>
-                </div>
-              </div>
+                
 
               </div>
             </div>
           </div>
           {error && <div className="Error">{error}</div>}
-          <Footer />
+         
           <DeleteOnline  userId={userId} callInProgress={callInProgress} peer={peer} />
         </>
       ) : (

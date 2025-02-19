@@ -53,6 +53,7 @@ const AttendanceCount = () => {
         fetchAttendanceCount();
     }, [isAuthorized, userId, multiplier]);   
 
+    
  
         return (
             <>
@@ -62,12 +63,15 @@ const AttendanceCount = () => {
                         {error && <p className="balance-label">$0 USD</p>}
                         {attendanceCount !== null && !loading && !error && (
                             <>
-                                <p className="balance-label">Balance cash:</p>
+                                <p className="balance-label">Cuenta:</p>
                                 <p className="balance-amount">${attendanceCount.toFixed(0) + " USD"}</p>
                             </>
                         )}
+
+
                     </div>
                 )}
+               
             </>
         );
    
