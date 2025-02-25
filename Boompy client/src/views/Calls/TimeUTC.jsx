@@ -6,7 +6,7 @@ export async function TimeUTC() {
         const response = await axios.get('https://worldtimeapi.org/api/ip');
         if (response.status !== 200) {
             throw new Error('Error al obtener la hora UTC desde el servidor');
-        }
+        }        
         const horaUTC = response.data.utc_datetime;
         return horaUTC;
     } catch (error) {
