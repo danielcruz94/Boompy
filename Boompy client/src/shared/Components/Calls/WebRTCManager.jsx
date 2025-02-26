@@ -1,7 +1,7 @@
 // WebRTCManager.jsx
 import Peer from 'peerjs';
 
-let userId; // Variable global para almacenar el ID del usuario
+let userId; 
 
 const setUserId = (userIdParam) => {
     userId = userIdParam;
