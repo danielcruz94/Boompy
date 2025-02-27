@@ -1,6 +1,6 @@
 .conten-home {
     height: 100vh;
-    background-image: url('./home/fondo 1.jpeg') !important;
+    background-image: url('/home/fondo 1.jpeg') !important;
     background-position: 0%  46%;
     background-size: 100%;
 }
