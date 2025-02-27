@@ -118,33 +118,33 @@ const Calls = () => {
               
 
 
-                const HoraUTC = async () => {
-                  try {
-                      // Llamar a la función asincrónica para obtener la hora UTC
-                      const horaUTC = await TimeUTC(); 
-                      let FechaUTC = new Date(horaUTC);     
-                      
-                      let FechaInicio = new Date(HoraInicio);                   
-
-                      let intervalId;
-                      if (response.data.exists === true) {
-                        
-                              intervalId = setInterval(() => {  
-                                FechaUTC.setSeconds(FechaUTC.getSeconds() + 1);
-                                                   
-                                    if (FechaUTC.getTime() >= FechaInicio.getTime()){                                    
-                                        startOutgoingCall();
-                                        clearInterval(intervalId);
-                                    }  
-    
-                              }, 1000);
-                        
-                      }                      
-                 
-                  } catch (error) {                  
-                      console.error('Error al obtener la hora UTC:', error);
-                  }
-              }
+              const HoraUTC = async () => {
+                try {
+                    
+                    const horaUTC = await TimeUTC(); 
+                    const FechaInicio = new Date(HoraInicio);  
+            
+                    if (response.data.exists === true) {
+                       
+                        const intervalId = setInterval(() => {
+                           
+                            const FechaActualUTC = new Date(horaUTC); 
+            
+                            FechaActualUTC.setSeconds(FechaActualUTC.getSeconds() + 1);            
+                          
+                            if (FechaActualUTC.getTime() >= FechaInicio.getTime()) {
+                                startOutgoingCall();
+                                clearInterval(intervalId); 
+                            }
+            
+                        }, 1000); 
+                    }
+                } catch (error) {
+                  
+                    console.error(' line 146 Calls Error al obtener la hora UTC:', error);
+                }
+            };
+            
               
               HoraUTC();
 
