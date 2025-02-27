@@ -120,28 +120,44 @@ const Calls = () => {
 
               const HoraUTC = async () => {
                 try {
+                    console.log("Iniciando la función HoraUTC...");
                     
-                    const horaUTC = await TimeUTC(); 
-                    const FechaInicio = new Date(HoraInicio);  
+                    const horaUTC = await TimeUTC();
+                    console.log("Hora UTC obtenida:", horaUTC);
+                    
+                    const FechaInicio = new Date(HoraInicio);
+                    console.log("Fecha de inicio (HoraInicio):", FechaInicio);
             
                     if (response.data.exists === true) {
-                       
-                        const intervalId = setInterval(() => {
-                           
-                            const FechaActualUTC = new Date(horaUTC); 
+                        console.log("response.data.exists es verdadero, iniciando intervalo...");
             
-                            FechaActualUTC.setSeconds(FechaActualUTC.getSeconds() + 1);            
-                          
-                            if (FechaActualUTC.getTime() >= FechaInicio.getTime()) {
+                        const intervalId = setInterval(() => {
+                            const FechaActualUTC = new Date(horaUTC);
+                            console.log("FechaActualUTC (inicio de intervalo):", FechaActualUTC);
+            
+                            FechaActualUTC.setSeconds(FechaActualUTC.getSeconds() + 1);
+                            console.log("FechaActualUTC después de incrementar 1 segundo:", FechaActualUTC);
+            
+                            const FechaActualUTCTime = FechaActualUTC.getTime();
+                            const FechaInicioTime = FechaInicio.getTime();
+            
+                            console.log("Comparando tiempos:");
+                            console.log("FechaActualUTC.getTime():", FechaActualUTCTime);
+                            console.log("FechaInicio.getTime():", FechaInicioTime);
+            
+                            if (FechaActualUTCTime >= FechaInicioTime) {
+                                console.log("La fecha UTC actual es igual o mayor que la fecha de inicio, llamando a startOutgoingCall...");
                                 startOutgoingCall();
-                                clearInterval(intervalId); 
+                                clearInterval(intervalId);
+                                console.log("Intervalo detenido.");
                             }
             
-                        }, 1000); 
+                        }, 1000);
+                    } else {
+                        console.log("response.data.exists es falso, no se inicia el intervalo.");
                     }
                 } catch (error) {
-                  
-                    console.error(' line 146 Calls Error al obtener la hora UTC:', error);
+                    console.error("Error en la función HoraUTC:", error);
                 }
             };
             
