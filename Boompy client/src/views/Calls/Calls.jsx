@@ -118,49 +118,33 @@ const Calls = () => {
               
 
 
-              const HoraUTC = async () => {
-                try {
-                    console.log("Iniciando la función HoraUTC...");
-                    
-                    const horaUTC = await TimeUTC();
-                    console.log("Hora UTC obtenida:", horaUTC);
-                    
-                    const FechaInicio = new Date(HoraInicio);
-                    console.log("Fecha de inicio (HoraInicio):", FechaInicio);
-            
-                    if (response.data.exists === true) {
-                        console.log("response.data.exists es verdadero, iniciando intervalo...");
-            
-                        const intervalId = setInterval(() => {
-                            const FechaActualUTC = new Date(horaUTC);
-                            console.log("FechaActualUTC (inicio de intervalo):", FechaActualUTC);
-            
-                            FechaActualUTC.setSeconds(FechaActualUTC.getSeconds() + 1);
-                            console.log("FechaActualUTC después de incrementar 1 segundo:", FechaActualUTC);
-            
-                            const FechaActualUTCTime = FechaActualUTC.getTime();
-                            const FechaInicioTime = FechaInicio.getTime();
-            
-                            console.log("Comparando tiempos:");
-                            console.log("FechaActualUTC.getTime():", FechaActualUTCTime);
-                            console.log("FechaInicio.getTime():", FechaInicioTime);
-            
-                            if (FechaActualUTCTime >= FechaInicioTime) {
-                                console.log("La fecha UTC actual es igual o mayor que la fecha de inicio, llamando a startOutgoingCall...");
-                                startOutgoingCall();
-                                clearInterval(intervalId);
-                                console.log("Intervalo detenido.");
-                            }
-            
-                        }, 1000);
-                    } else {
-                        console.log("response.data.exists es falso, no se inicia el intervalo.");
-                    }
-                } catch (error) {
-                    console.error("Error en la función HoraUTC:", error);
-                }
-            };
-            
+                const HoraUTC = async () => {
+                  try {
+                      // Llamar a la función asincrónica para obtener la hora UTC
+                      const horaUTC = await TimeUTC(); 
+                      let FechaUTC = new Date(horaUTC);     
+                      
+                      let FechaInicio = new Date(HoraInicio);                   
+
+                      let intervalId;
+                      if (response.data.exists === true) {
+                        
+                              intervalId = setInterval(() => {  
+                                FechaUTC.setSeconds(FechaUTC.getSeconds() + 1);
+                                                   
+                                    if (FechaUTC.getTime() >= FechaInicio.getTime()){                                    
+                                        startOutgoingCall();
+                                        clearInterval(intervalId);
+                                    }  
+    
+                              }, 1000);
+                        
+                      }                      
+                 
+                  } catch (error) {                  
+                      console.error('Error al obtener la hora UTC:', error);
+                  }
+              }
               
               HoraUTC();
 
