@@ -28,7 +28,7 @@ body{
     position: relative;    
     flex-direction: column;
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 1) 88%), 
-      url('./landing/portada.JPG');
+      url('/landing/portada.JPG');
     background-size: cover;
     background-position: center;    
     width: 100%;
@@ -286,7 +286,7 @@ body{
   top: 70px;
   width: 30%;
   height: 70%;
-  background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 60%), url('./landing/img_section2.jpeg');
+  background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 60%), url('/landing/img_section2.jpeg');
   background-size: cover;
   background-position: center;
   border-radius: 0px 30px 30px 0px;
@@ -308,7 +308,7 @@ body{
   width: 100%;
   top: 410px; 
   height: 400px; 
-  background: url('./landing/80d2f35bd074ce23ae91d6a681c19572.JPG');
+  background: url('/landing/80d2f35bd074ce23ae91d6a681c19572.JPG');
   background-size: cover; 
   background-position: center; 
   background-repeat: no-repeat; 
@@ -348,7 +348,7 @@ body{
 }
 
 .hero3-one {
-  background: url('./landing/5cfb766005af9f5577e51125fc8d2b94.jpeg');
+  background: url('/landing/5cfb766005af9f5577e51125fc8d2b94.jpeg');
   background-size: cover; 
   background-position: center; 
   width: 400px;
@@ -452,7 +452,7 @@ body{
     .hero_one {
       height: 390px;
       background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 75%, rgba(255, 255, 255, 1) 88%), 
-         url('./landing/portada2.JPG');
+         url('/landing/portada2.JPG');
       background-position: 101%  100%;
       background-size: cover;
   }
