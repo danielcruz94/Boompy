@@ -19,28 +19,17 @@ const userData = JSON.parse(userDataString);
 let userId = null;
 if (userData !== null && typeof userData === 'object' && 'id' in userData) {
     userId = userData.id;
-} else {
-   // console.error("No se encontró 'id' en los datos del usuario");
 }
 
 setUserId(userId);
 const peer = initializePeer();
-
-if (peer) {
-    // Ahora puedes usar `peer` para la comunicación PeerJS
-    //console.log(userId)
-   
-} else {
-   // console.error('No se pudo inicializar PeerJS debido a un error.');
-}
 
 
 const Calls = () => {
   const [localStream, setLocalStream] = useState(null);
   const [remoteStream, setRemoteStream] = useState(null);
   const [callInProgress, setCallInProgress] = useState(false);
-  const [error, setError] = useState(null);
-
+ 
   const [videoMute, setVideoMute] = useState(false);
   const [audioMute, setAudioMute] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -77,47 +66,36 @@ const Calls = () => {
       }
     };
     
-
-
-
-        updateAttendanceByUserId(idClase, userId)
-          
-
-
-
-      useEffect(() => {
+    updateAttendanceByUserId(idClase, userId)
+   
+    useEffect(() => {
         const userAgent = navigator.userAgent;
         const isiPhoneDevice = /iPhone/.test(userAgent);
         setIsiPhone(isiPhoneDevice);
-      }, []);
+    }, []);
 
       //agregar online consultar online
       useEffect(() => {
            
           async function enviarId(id) {
             try {
-
-                const url = `${serverURL}/addId/${id}`;                
-
-                const response = await axios.post(url); 
-               // console.log(response.data.message)          
+                const url = `${serverURL}/addId/${id}`;  
+                const response = await axios.post(url);                      
             } catch (error) {
                 console.error('Error al enviar el id:', error);
             }
           }
+
           enviarId(userId);
           
           async function isUserOnline(userId) {
             try {
                 const url = `${serverURL}/GetUserOnline/${ID}`;
-                const response = await axios.get(url);             
-              
-             
+                const response = await axios.get(url);    
                 
                 if (!response.data.exists) {
                   // Usuario no está en línea
-                  if (userData.role === 'Tutor') {
-                      
+                  if (userData.role === 'Tutor') {                      
                        Swal.fire({
                         icon: 'info',
                         title: '¡Esperando al Estudiante!',
@@ -241,58 +219,58 @@ const Calls = () => {
         }, 200);
       };
 
-  const toggleVolume = () => {
-    if (callInProgress) {
-      setIsVolumeOn(!isVolumeOn);
-    }
-  };
+      const toggleVolume = () => {
+        if (callInProgress) {
+          setIsVolumeOn(!isVolumeOn);
+        }
+      };
 
-  const toggleVideoMute = () => {
-    if (callInProgress) {
-      setVideoMute((prevState) => {
-        if (localStream) {
-          localStream.getVideoTracks().forEach((track) => {
-            track.enabled = !prevState;
+      const toggleVideoMute = () => {
+        if (callInProgress) {
+          setVideoMute((prevState) => {
+            if (localStream) {
+              localStream.getVideoTracks().forEach((track) => {
+                track.enabled = !prevState;
+              });
+            }
+      
+            return !prevState;
           });
         }
-   
-        return !prevState;
-      });
-    }
-  };
+      };
 
-  const toggleAudioMute = () => {
-    if (callInProgress) {
-      setAudioMute((prevState) => {
-        if (localStream) {
-          localStream.getAudioTracks().forEach((track) => {
-            track.enabled = !prevState;
+      const toggleAudioMute = () => {
+        if (callInProgress) {
+          setAudioMute((prevState) => {
+            if (localStream) {
+              localStream.getAudioTracks().forEach((track) => {
+                track.enabled = !prevState;
+              });
+            }
+            
+            return !prevState;
           });
         }
-        
-        return !prevState;
-      });
-    }
-  };
+      };
 
-  //mensaje de texto 
-  const enviarInformacion = (mensaje) => {
-    if (callInProgress) {
-      const connection = peer.connect(ID); // Conéctate con el otro par
-      connection.on("open", () => {
-        connection.send(mensaje); // Envía el mensaje cuando la conexión está abierta
-      });
-    }
-  };
+      //mensaje de texto 
+      const enviarInformacion = (mensaje) => {
+        if (callInProgress) {
+          const connection = peer.connect(ID); // Conéctate con el otro par
+          connection.on("open", () => {
+            connection.send(mensaje); // Envía el mensaje cuando la conexión está abierta
+          });
+        }
+      };
 
-  const recibirInformacion = (data) => {
-    if (typeof data === "object" && data !== null && !Array.isArray(data)) {
-   console.log("colocar ping en linea")
-    } else {
-      console.log("No se recibió un objeto:", data);
-      // Aquí puedes realizar las acciones que necesites si no se recibe un objeto
-    }
-  };
+      const recibirInformacion = (data) => {
+        if (typeof data === "object" && data !== null && !Array.isArray(data)) {
+      console.log("colocar ping en linea")
+        } else {
+          console.log("No se recibió un objeto:", data);
+          // Aquí puedes realizar las acciones que necesites si no se recibe un objeto
+        }
+      };
 
   let conexionEstablecida = false;
 
@@ -356,15 +334,14 @@ const Calls = () => {
               setIsFullScreen(false);
           }
       }
-  }
+    }
 
-
-  function alternarAudioVideo(audio, video) {
-    return navigator.mediaDevices.getUserMedia({ audio: audio, video: video });
-  }
+    function alternarAudioVideo(audio, video) {
+      return navigator.mediaDevices.getUserMedia({ audio: audio, video: video });
+    }
 
   useEffect(() => {
-    let callCounter = 0; // Inicializamos el contador de llamadas
+    let callCounter = 0; 
 
     const handleCall = (call) => {
         console.log("Llamada entrante recibida");
@@ -384,10 +361,7 @@ const Calls = () => {
                             setVideoMute(true);
                             setIsVolumeOn(true);
                             setLocalStream(stream);
-                            handleCallAnswer(call, stream);       
-                            
-                            
-
+                            handleCallAnswer(call, stream);  
                         })
                         .catch((error) => {
                             console.error("Error al obtener el stream local:", error);
@@ -401,8 +375,7 @@ const Calls = () => {
             }
         } else {
             // El usuario rechazó la llamada
-            console.log("Llamada entrante rechazada");
-            // Puedes realizar acciones adicionales aquí si es necesario
+            console.log("Llamada entrante rechazada");            
         }
     };
 
@@ -423,6 +396,7 @@ const Calls = () => {
     setCallInProgress(true);
     dispatch(setActive(true));
   };
+  
 
   const startOutgoingCall = async () => {
   try {
@@ -432,7 +406,7 @@ const Calls = () => {
       "Stream local obtenido exitosamente para la llamada saliente."
     );
     setLocalStream(stream);
-    const idDelOtroUsuario = ID; // ID del otro usuario
+    const idDelOtroUsuario = ID; 
     const call = peer.call(idDelOtroUsuario, stream);
     console.log("Llamada saliente creada:", call);
     call.on("stream", (remoteStream) => {
@@ -453,11 +427,10 @@ const Calls = () => {
 
   } catch (error) {
     console.error("Error al iniciar la llamada saliente:", error);
-    setError(
+    alert(
        "Ya existe una conexión activa en otro dispositivo. Por favor, cierra la aplicación en ese dispositivo antes de continuar."    );
   }
-  };
-  
+  };  
 
   const notificacionLlamada = () => {
     if (callInProgress) {
@@ -473,8 +446,7 @@ const Calls = () => {
         return prevDuration + 1;
       });
     }
-  };
-  
+  };  
 
   const finalizarLlamada = () => {
     console.log("Función finalizar Llamada");
@@ -486,10 +458,6 @@ const Calls = () => {
 
     return () => clearInterval(timer);
   }, []);
-
-
-
-  
 
   return (
     <div className="ContenCall">
@@ -591,7 +559,7 @@ const Calls = () => {
               </div>
             </div>
           </div>
-          {error && <div className="Error">{error}</div>}
+        
          
           <DeleteOnline  userId={userId} callInProgress={callInProgress} peer={peer} />
         </>
