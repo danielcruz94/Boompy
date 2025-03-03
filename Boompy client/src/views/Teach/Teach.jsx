@@ -13,6 +13,7 @@ import { useState } from "react";
 import Saldo from "../../shared/Components/Saldo/saldo";
 import Settings from "../../shared/Components/Settings/Settings";
 import { Link } from 'react-router-dom';
+import {TextArea} from './Teach.style.js'
 
 import { convertirMonedaANumero } from "../../shared/utils/funtions";
 
@@ -201,7 +202,7 @@ const Teach = ({ auth }) => {
         </div>
       </div>
 
-      {<NavBar textBotton={"Cerrar Torii"} onClick={handleLogout}></NavBar>}
+      {<NavBar textBotton={"Cerrar App"} onClick={handleLogout}></NavBar>}
 
       <div className="NavTeach"></div>
       {isLoading && <Spinner />}
@@ -354,11 +355,13 @@ const Teach = ({ auth }) => {
               <b>
                 <p>Biografia</p>
               </b>
-              <textarea
-                name="biography"
+              <TextArea name="biography"
                 value={userProfile.biography}
-                onChange={handleChange}               
-              ></textarea>
+                onChange={handleChange}
+                maxLength="201">
+
+                </TextArea>
+          
             </div>
           ) : (
             <div className="Biography">
