@@ -42,8 +42,7 @@
 }
 
 
-.InfoCall {
-    position: absolute;
+.InfoCall {  
     display: block;
     width: 100vw;
     padding: 0px;      
@@ -258,6 +257,10 @@
 }
 
 @media screen and (max-width: 600px) {
+
+    .Control-container {
+        position: fixed;
+    }
     
     .full_screen {
         width: 100%;

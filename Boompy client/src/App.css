@@ -186,6 +186,7 @@
     letter-spacing: 1px;
 }
 
+
 /*MODAL INICIO*/
 .conten-home-modal{
     position: absolute;
@@ -282,7 +283,8 @@
 .inner-container label{
   font-size: 1vw;
 }
-	
+
+
 
 @media screen and (max-width: 850px) {
 
@@ -382,5 +384,12 @@
     .inner-container label{
         font-size: 3vw;
       }
+      
 
+      .calendarioclases {
+        position: absolute;    
+        bottom: 3%;
+        width: 100vw;
+    }
+    
 }

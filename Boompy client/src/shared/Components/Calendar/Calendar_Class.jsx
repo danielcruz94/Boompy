@@ -81,11 +81,11 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
         let endHour = parseInt(endTimeParts[0].split(':')[0], 10);
       
         // Verifica si es PM y ajusta la hora en consecuencia
-        if (startTimeParts[1].toLowerCase() === 'pm' && startHour !== 12) {
+        if (startTimeParts[1].toLowerCase() === 'PM' && startHour !== 12) {
             startHour += 12;
         }
       
-        if (endTimeParts[1].toLowerCase() === 'pm' && endHour !== 12) {
+        if (endTimeParts[1].toLowerCase() === 'PM' && endHour !== 12) {
             endHour += 12;
         }
       
@@ -245,7 +245,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
     if(callsActive === false){
           // Comprobar si la hora actual está dentro del intervalo de la clase
         
-          if (currentTimeLocal >= startTimeLocal && currentTimeLocal <= endTimeLocal) {
+          if (currentTimeLocal >= startTimeLocal && currentTimeLocal <= endTimeLocal) {              
             const host = window.location.hostname;
             const port = window.location.port;
             let url = null;
@@ -288,7 +288,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
   function formatTime(date) { 
     const options = { hour: '2-digit', minute: '2-digit', hour12: true };   
     let timeString = new Date(date).toLocaleTimeString([], options);     
-    timeString = timeString.replace(/\s(a|p)\.?\s*m/, (match, p1) => ` ${p1.toUpperCase()}m`);  
+    timeString = timeString.replace(/\s(a|p)\.?\s*m/, (match, p1) => ` ${p1.toUpperCase()}M`);  
     return timeString;
   }
   
