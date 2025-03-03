@@ -336,9 +336,23 @@ const Calls = () => {
       }
     }
 
+    /*
     function alternarAudioVideo(audio, video) {
       return navigator.mediaDevices.getUserMedia({ audio: audio, video: video });
-    }
+    }*/
+
+      function alternarAudioVideo(audio, video) {
+        return navigator.mediaDevices.getUserMedia({ audio: audio, video: video })
+          .then(stream => {
+            console.log("🎤 Audio capturado:", stream.getAudioTracks().length > 0 ? "✅ Sí" : "❌ No");
+            console.log("📷 Video capturado:", stream.getVideoTracks().length > 0 ? "✅ Sí" : "❌ No");
+            return stream;
+          })
+          .catch(err => {
+            console.error("❌ Error obteniendo audio/video:", err);
+          });
+      }
+      
 
   useEffect(() => {
     let callCounter = 0; 
@@ -346,11 +360,8 @@ const Calls = () => {
     const handleCall = (call) => {
         console.log("Llamada entrante recibida");
         callCounter++; // Incrementamos el contador de llamadas
-        console.log("Número total de llamadas recibidas:", callCounter);
-
-        // Mostrar un mensaje al usuario para aceptar o rechazar la llamada
-       // const aceptarLlamada = window.confirm("¿Deseas aceptar la llamada entrante?");
-        if (true) {
+        console.log("Número total de llamadas recibidas:", callCounter);       
+      
             try {
                 if (!localStream) {
                     alternarAudioVideo(true, true)
@@ -373,10 +384,7 @@ const Calls = () => {
             } catch (error) {
                 alert("Error al responder a la llamada entrante. Por favor, inténtalo de nuevo más tarde.");
             }
-        } else {
-            // El usuario rechazó la llamada
-            console.log("Llamada entrante rechazada");            
-        }
+      
     };
 
     peer.on("call", handleCall);
@@ -471,36 +479,7 @@ const Calls = () => {
         <>
              
           
-             <div className="Control-container">
-                <div className="video-call-icons">
-                  <div className={`icon-wrapper ${isVolumeOn ? "on" : "off"}`} onClick={toggleVolume}>
-                    <i className={`fas ${isVolumeOn ? "fa-volume-up" : "fa-volume-mute"}`}></i>
-                  </div>
-                  <div className={`icon-wrapper ${!audioMute ? "off" : "on"}`} onClick={toggleAudioMute}>
-                    <i className={`fas ${!audioMute ? "fa-microphone-slash" : "fa-microphone"}`}></i>
-                  </div>
-                  {!callInProgress && userData.role !== 'Tutor' && userData.role !== 'Student' && (
-                    <div className="icon-wrapper on" onClick={startOutgoingCall}>
-                      <i className="fas fa-phone on"></i>
-                    </div>
-                  )}
-                  {callInProgress && (
-                    <div className="icon-wrapper off" onClick={endCall}>
-                      <i className="fas fa-phone-slash off"></i>
-                    </div>
-                  )}
-                  <div className={`icon-wrapper ${!videoMute ? "off" : "on"}`} onClick={toggleVideoMute}>
-                    <i className={`fas ${!videoMute ? "fa-video-slash" : "fa-video"}`}></i>
-                  </div>
-                  <div className={`icon-wrapper ${isFullScreen ? "on" : "off"}`} onClick={handleFullScreen}>
-                    {isFullScreen ? (
-                      <i className="fas fa-compress"></i>
-                    ) : (
-                      <i className="fas fa-expand"></i>
-                    )}
-                  </div>
-                </div>
-              </div>
+             
 
             <div className="contenPantalla">
             <div className="full_screen">
@@ -534,6 +513,39 @@ const Calls = () => {
                     
                   </div>
                 )}
+
+
+              <div className="Control-container">
+                <div className="video-call-icons">
+                  <div className={`icon-wrapper ${isVolumeOn ? "on" : "off"}`} onClick={toggleVolume}>
+                    <i className={`fas ${isVolumeOn ? "fa-volume-up" : "fa-volume-mute"}`}></i>
+                  </div>
+                  <div className={`icon-wrapper ${!audioMute ? "off" : "on"}`} onClick={toggleAudioMute}>
+                    <i className={`fas ${!audioMute ? "fa-microphone-slash" : "fa-microphone"}`}></i>
+                  </div>
+                  {!callInProgress && userData.role !== 'Tutor' && userData.role !== 'Student' && (
+                    <div className="icon-wrapper on" onClick={startOutgoingCall}>
+                      <i className="fas fa-phone on"></i>
+                    </div>
+                  )}
+                  {callInProgress && (
+                    <div className="icon-wrapper off" onClick={endCall}>
+                      <i className="fas fa-phone-slash off"></i>
+                    </div>
+                  )}
+                  <div className={`icon-wrapper ${!videoMute ? "off" : "on"}`} onClick={toggleVideoMute}>
+                    <i className={`fas ${!videoMute ? "fa-video-slash" : "fa-video"}`}></i>
+                  </div>
+                  <div className={`icon-wrapper ${isFullScreen ? "on" : "off"}`} onClick={handleFullScreen}>
+                    {isFullScreen ? (
+                      <i className="fas fa-compress"></i>
+                    ) : (
+                      <i className="fas fa-expand"></i>
+                    )}
+                  </div>
+                </div>
+              </div>
+
               </div>
   
               <div className="InfoCall">

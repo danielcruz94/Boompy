@@ -118,11 +118,12 @@
   
   
 
-.call-timer{
-    font-weight: 700;
-    background: #06042E;
-    width: 100vw;
-    color: white;
+  .call-timer {
+    font-weight: 700;   
+    color: #fff;
+    text-align: end;
+    margin: 10px;
+    z-index: 99999999999;
 }
 
 .red{
@@ -130,6 +131,7 @@
 }
 
 .Control-container {
+    position: relative;
     display: flex;
     position: absolute;    
     flex-direction: row;
