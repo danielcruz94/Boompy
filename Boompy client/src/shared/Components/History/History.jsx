@@ -141,9 +141,15 @@ const AttendanceModal = ({ userId, price }) => {
 
     return (
         <div>
-            <div className="settings-icon" onClick={openModal}>
+            <div className="settings-icon"  id="History" onClick={openModal}>  
+                
+                <div>
                 <i className="fa fa-clock IconNavbar" />
+              
+                </div>
             </div>
+
+
             {showModal && (
                 <Modal
                     isOpen={showModal}
@@ -152,7 +158,7 @@ const AttendanceModal = ({ userId, price }) => {
                     onScroll={handleScroll}
                     className="modalHistory"
                 >
-                    <h2>Support Details</h2>
+                    <h2>Hitorial de Clases</h2>
                     <button onClick={closeModal} className="close">X</button>
 
                     {loading && <p>loading...</p>}
@@ -161,14 +167,14 @@ const AttendanceModal = ({ userId, price }) => {
                     {attendances.length > 0 && (
                         <>
                             {role === 'Tutor' && (
-                                <p>Total balance: ${total.toFixed(2) + " USD"}</p>
+                                <p>Total Ingresos: ${total.toFixed(2) + " USD"}</p>
                             )}
                             <ul>
                                 {paginatedAttendances().map((attendance, index) => (
                                     <li className='date_class' key={index}>
-                                        <p>Class Date: {attendance.calendarClass.date ? formatUTCDateToLocal(attendance.calendarClass.date) : 'No disponible'}</p>
-                                        <p>Start Time: {attendance.calendarClass.startTime ? convertStartTime(attendance.calendarClass.startTime) : 'No disponible'}</p>
-                                        <p>Connection: {convertUTCToLocal(attendance.timestamp)}</p>        
+                                        <p>Fecha De Clase: {attendance.calendarClass.date ? formatUTCDateToLocal(attendance.calendarClass.date) : 'No disponible'}</p>
+                                        <p>Hora Inicio: {attendance.calendarClass.startTime ? convertStartTime(attendance.calendarClass.startTime) : 'No disponible'}</p>
+                                        <p>Conexion: {convertUTCToLocal(attendance.timestamp)}</p>        
                                         <p>
                                             {roleuser && roleuser.name && roleuser.lastName
                                                 ? `${roleuser.role}: ${roleuser.name} ${roleuser.lastName}`

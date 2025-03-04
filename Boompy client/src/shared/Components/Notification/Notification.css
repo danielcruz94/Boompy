@@ -1,4 +1,6 @@
-.notification-icon {
+.notification-icon,
+.settings-icon
+{
   cursor: pointer;
   position: relative;
   font-size: 2.5vw; 
@@ -7,6 +9,7 @@
   background: #e62b3ee3;
 }
 
+.settings-icon,
 .notification-icon {
   width: 100px;
   border-radius: 30px;
@@ -43,7 +46,7 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 99999;
+  z-index: 10;
 }
 
 .content-Notification {
@@ -106,11 +109,12 @@
     height: 50%;
   }
 
+  .settings-icon,
   .notification-icon {
     width: 100%;
     height: 30px;
     border-radius: 30px;
-    font-size: 5vw;
+    font-size: 20px;
     margin: 10px 0px;
 }
   

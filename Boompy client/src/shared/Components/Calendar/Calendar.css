@@ -127,21 +127,21 @@ abbr[data-original-title], abbr[title] {
 .react-calendar__month-view__days button:hover {
     background: rgb(67, 243, 67) !important;
 	border: 1px solid green;
-	z-index: 10;
+	z-index: 100;
 }
 
 /* Aplica el estilo cuando el botón está siendo presionado */
 .react-calendar__month-view__days button:active {
 	background: rgb(67, 243, 67) !important;
 	border: 1px solid green;
-	z-index: 10;
+	z-index: 100;
   }
   
   /* También puedes usar :focus para cuando un botón recibe el enfoque */
   .react-calendar__month-view__days button:focus {
 	background: rgb(67, 243, 67) !important;
 	border: 1px solid green;
-	z-index: 10;
+	z-index: 100;
   }
   
 
@@ -272,11 +272,12 @@ abbr[data-original-title], abbr[title] {
 .payment-modal-confirm-btn{
   color: white;
   width: 150px;
-  margin: 10px 5px ;
+  margin: 0px 5px ;
   padding: 5px;
   background: rgb(41, 41, 170);
   border-radius: 5px;
   border: none;
+  margin-bottom: 10px;
 }
 
 .TotalPagar,
@@ -442,11 +443,14 @@ abbr[data-original-title], abbr[title] {
 
 
 	.conten-home {
-		height: 100vh;		
+		position: absolute;
+		height: 100vh;
 		background-position: 50%  0%;
-		background-size: cover;		
+		background-size: cover;
+		width: 100%;
+		z-index: 0;
 	}
-
+	
 	.ContainerProfile {
 		display: grid;
 		grid-template-columns: none;

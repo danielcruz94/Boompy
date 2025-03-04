@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from "react-redux";
@@ -26,6 +26,7 @@ const NavBar = ({ textBotton, onClick, auth }) => {
   const currentUrl = window.location.href;    
   const shouldHideButton = currentUrl.includes('calls');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
 
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
@@ -53,9 +54,28 @@ const NavBar = ({ textBotton, onClick, auth }) => {
     setIsCalendarOpen(false);
   };
 
-  const toggleMenu = () => {
+ 
+  const toggleMenu = (event) => {
+    event.stopPropagation(); 
     setIsMenuOpen(!isMenuOpen);
   };
+
+
+const handleClickOutside = (event) => {  
+  if (menuRef.current && !menuRef.current.contains(event.target)) {
+    setIsMenuOpen(false);
+  }  
+};
+
+useEffect(() => {  
+  document.addEventListener('click', handleClickOutside); 
+  return () => {
+    document.removeEventListener('click', handleClickOutside);
+  };
+}, []);
+   
+   
+  
 
   const CalendarComponent = role === 'Tutor' ? CalendarClass : StudentCalendar;  
 
@@ -136,12 +156,12 @@ const NavBar = ({ textBotton, onClick, auth }) => {
           userData={userData}
         />            
           
-        {/*
+        
           <AttendanceModal
           userId={IdUSer}
           price={extraerNumero(Price)}
         />
-        */}
+        
 
       
 
@@ -150,16 +170,21 @@ const NavBar = ({ textBotton, onClick, auth }) => {
 
       <div className="menu-container">
   <div className="hamburger-menu" onClick={toggleMenu}>
-    <i className="fa fa-bars hamburguesa"></i> {/* Icono de la hamburguesa */}
+    <i className="fa fa-bars hamburguesa"></i> 
   </div>
 
-  <div className={`menu-items ${isMenuOpen ? 'open' : ''}`}>
+  <div ref={menuRef} className={`menu-items ${isMenuOpen ? 'open' : ''}`}>
     {/* Icono de notificación */}
     <Notification
       numMessages={1}
       messageIcon={<i className="fa-regular fa-envelope IconNavbar"></i>}
       userData={userData}
     /> 
+
+         <AttendanceModal
+          userId={IdUSer}
+          price={extraerNumero(Price)}
+        />
     
 
     {/* Botón condicional */}
