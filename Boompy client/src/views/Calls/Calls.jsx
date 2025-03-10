@@ -478,7 +478,7 @@ const Calls = () => {
       {Cargando ? (
         <>
              
-          
+             
              
 
             <div className="contenPantalla">
@@ -515,7 +515,33 @@ const Calls = () => {
                 )}
 
 
-              <div className="Control-container">
+              
+
+              </div>
+  
+              <div className="InfoCall">
+                <div className="Video_saliente">
+                  {videoMute ? (
+                    localStream && (
+                      <video
+                        className="VideoCall"
+                        autoPlay                      
+                        muted={true}
+                        ref={(video) => {
+                          if (video) video.srcObject = localStream;
+                        }}
+                      />
+                    )
+                  ) : (
+                    <i className="fas fa-video-slash custom-icon no-video-icon"></i>
+                  )}
+                </div>
+                {callInProgress && <CallTimer variable={callInProgress} endCall={endCall} />}
+                
+
+              </div>
+            </div>
+            <div className="Control-container">
                 <div className="video-call-icons">
                   <div className={`icon-wrapper ${isVolumeOn ? "on" : "off"}`} onClick={toggleVolume}>
                     <i className={`fas ${isVolumeOn ? "fa-volume-up" : "fa-volume-mute"}`}></i>
@@ -546,30 +572,6 @@ const Calls = () => {
                 </div>
               </div>
 
-              </div>
-  
-              <div className="InfoCall">
-                <div className="Video_saliente">
-                  {videoMute ? (
-                    localStream && (
-                      <video
-                        className="VideoCall"
-                        autoPlay                      
-                        muted={true}
-                        ref={(video) => {
-                          if (video) video.srcObject = localStream;
-                        }}
-                      />
-                    )
-                  ) : (
-                    <i className="fas fa-video-slash custom-icon no-video-icon"></i>
-                  )}
-                </div>
-                {callInProgress && <CallTimer variable={callInProgress} endCall={endCall} />}
-                
-
-              </div>
-            </div>
           </div>
         
          

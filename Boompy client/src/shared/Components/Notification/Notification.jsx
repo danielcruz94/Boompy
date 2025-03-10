@@ -87,7 +87,7 @@ const Notification = ({ numMessages, messageIcon, userData }) => {
                 title="Notification Video"
               ></iframe>
             ) : (
-              <p>No video available for the selected language.</p>
+              <p>No hay ningún vídeo disponible para el idioma seleccionado.</p>
             )}
           </div>
         </div>

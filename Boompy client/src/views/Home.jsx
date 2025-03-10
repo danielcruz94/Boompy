@@ -178,6 +178,7 @@ const closeCalendar = () => {
   setIsCalendarOpen(false);
 };
 
+
 return (
   <div className="conten-home">
 
@@ -235,6 +236,7 @@ return (
           />
         )}
 
+<div className="calendarioclases">
         <p
           className="CalendarHome"
           onClick={toggleCalendar}
@@ -242,6 +244,8 @@ return (
         >
           Calendario de Clases
         </p>
+
+</div>
       </>
     )}
   </div>

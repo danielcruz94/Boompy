@@ -6,6 +6,7 @@
         url('/public/home/fondo 1.jpeg'); /* Imagen de fondo */
     background-position: 0% 46%;
     background-size: 100%;
+    z-index: 0;
 }
 
 .InfTeach {
@@ -62,7 +63,7 @@
     width: 30px;
     height: 30px;
     margin-left: 10px;
-    border-radius: 100%;
+    border-radius: 100%;   
 }
 .profile-info{
     position: absolute;
@@ -239,7 +240,7 @@
       
       .Div-li2{
         font-size: 13px;
-        margin: 10px;
+        margin: 20px 10px;
       }
 
       .Div-li2 img{

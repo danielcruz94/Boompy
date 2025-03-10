@@ -127,21 +127,21 @@ abbr[data-original-title], abbr[title] {
 .react-calendar__month-view__days button:hover {
     background: rgb(67, 243, 67) !important;
 	border: 1px solid green;
-	z-index: 10;
+	z-index: 100;
 }
 
 /* Aplica el estilo cuando el botón está siendo presionado */
 .react-calendar__month-view__days button:active {
 	background: rgb(67, 243, 67) !important;
 	border: 1px solid green;
-	z-index: 10;
+	z-index: 100;
   }
   
   /* También puedes usar :focus para cuando un botón recibe el enfoque */
   .react-calendar__month-view__days button:focus {
 	background: rgb(67, 243, 67) !important;
 	border: 1px solid green;
-	z-index: 10;
+	z-index: 100;
   }
   
 
@@ -272,11 +272,12 @@ abbr[data-original-title], abbr[title] {
 .payment-modal-confirm-btn{
   color: white;
   width: 150px;
-  margin: 10px 5px ;
+  margin: 0px 5px ;
   padding: 5px;
   background: rgb(41, 41, 170);
   border-radius: 5px;
   border: none;
+  margin-bottom: 10px;
 }
 
 .TotalPagar,
@@ -394,13 +395,27 @@ abbr[data-original-title], abbr[title] {
 	position: relative;
 }
 
-.cancelButton {    
+.Canceldiv {
+    padding: 2px;
+	display: flex;              
+    justify-content: center;     
+    align-items: center;  
+}
+
+.cancelButton {
+    display: flex;              
+    justify-content: center;     
+    align-items: center;        
     border: none;
-	border-radius: 100%;
+    border-radius: 100%;
     background: white;
     color: red;
-    font-weight: 600;  
+    font-weight: 600;
+    width: 20px;
+    height: 20px;
+	font-size: 12px;
 }
+
 
 .viewButton{
 	border: none;
@@ -428,11 +443,14 @@ abbr[data-original-title], abbr[title] {
 
 
 	.conten-home {
-		height: 100vh;		
+		position: absolute;
+		height: 100vh;
 		background-position: 50%  0%;
-		background-size: cover;		
+		background-size: cover;
+		width: 100%;
+		z-index: 0;
 	}
-
+	
 	.ContainerProfile {
 		display: grid;
 		grid-template-columns: none;
@@ -455,12 +473,14 @@ abbr[data-original-title], abbr[title] {
 		font-size: 3.5vw;		
 	}
 
-	.CalendarHome {		
+	.CalendarHome {	
+		position: static;	
 		left: 0px;		
-		font-size: 5vw;		
+		font-size: clamp(1px, 5vw, 12px);
 		width: 100%;
 	}
 
+	
 	.ReactModal__Content {
 		width: 100%;
 		height: 100%;

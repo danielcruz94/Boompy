@@ -47,7 +47,7 @@ body{
 .Button_Headings {
   position: absolute;
   top: 40px;
-  z-index: 10000;
+  z-index: 10;
   width: 10%;
   min-width: 120px;
   max-width: 180px;
@@ -152,7 +152,7 @@ body{
   letter-spacing: 1px;
   bottom: 25%;
   right: 2%;
-  z-index: 9999999;
+  z-index: 10;
 }
 
 .PQRS div {
@@ -190,7 +190,7 @@ body{
   background: #CC2F47B2;
   padding: 20px;
   top: -200px;
-  z-index: 99999999;
+  z-index: 10;
 }
 
 
@@ -540,7 +540,7 @@ body{
 
   .menu.open {
     display: flex;
-    z-index: 999999;
+    z-index: 10;
   } 
     
   .cont_texto {
