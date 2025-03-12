@@ -103,6 +103,10 @@
     font-size: 20px;
 }
 
+.blue{
+    color: rgba(50, 50, 240, 0.889) !important;
+}
+
 .Tex_condiciones{
     position: absolute;
     bottom: 10px;
@@ -112,6 +116,10 @@
 
 .Tex_condiciones a {
     color: white;
+  }
+
+  .color a{
+    color: #2C2E43 !important;
   }
 
 /*registro*/

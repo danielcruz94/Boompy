@@ -269,15 +269,38 @@ abbr[data-original-title], abbr[title] {
   color: #D90D2B;
 }
 
+.Form-Wompi {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.payment-modal-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%;
+    padding: 5px 0px;
+}
+
 .payment-modal-confirm-btn{
-  color: white;
-  width: 150px;
-  margin: 0px 5px ;
-  padding: 5px;
-  background: rgb(41, 41, 170);
-  border-radius: 5px;
-  border: none;
-  margin-bottom: 10px;
+	display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    background-color: rgb(26, 69, 148);
+    border: 0px;
+    border-radius: 4px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: 400;
+    font-size: 14px;
+    padding: 0px 16px;
+    color: white;
+    cursor: pointer;
+    -webkit-font-smoothing: subpixel-antialiased;
+
+	width: 100%;
 }
 
 .TotalPagar,
@@ -429,7 +452,12 @@ abbr[data-original-title], abbr[title] {
     border-radius: 30px;
     letter-spacing: inherit;
     border: none;
-    font-weight: 700;
+    font-weight: 700;	
+}
+
+.Reservar:focus {
+	border:none ;
+	outline: none !important;
 }
 
 .today{

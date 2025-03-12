@@ -287,6 +287,11 @@
 }
 
 
+.aswit-alet {
+    position: absolute; 
+    z-index: 99999; 
+  }
+
 
 @media screen and (max-width: 850px) {
 

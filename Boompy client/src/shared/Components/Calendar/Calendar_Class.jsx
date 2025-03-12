@@ -71,7 +71,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
   
   const assignClass = async () => {
     try {
-        const currentDate = new Date();
+        
       
         // Parsea las horas seleccionadas en el formato de 12 horas a un objeto Date
         const startTimeParts = selectedStartTime.split(' ');
@@ -79,31 +79,41 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
       
         let startHour = parseInt(startTimeParts[0].split(':')[0], 10);
         let endHour = parseInt(endTimeParts[0].split(':')[0], 10);
+
+        console.log(startTimeParts[1].toLowerCase())
+        console.log(endTimeParts[1].toLowerCase())
       
         // Verifica si es PM y ajusta la hora en consecuencia
-        if (startTimeParts[1].toLowerCase() === 'PM' && startHour !== 12) {
+        if (startTimeParts[1].toLowerCase() === 'pm' && startHour !== 12) {
             startHour += 12;
         }
       
-        if (endTimeParts[1].toLowerCase() === 'PM' && endHour !== 12) {
+        if (endTimeParts[1].toLowerCase() === 'pm' && endHour !== 12) {
             endHour += 12;
         }
+
+    
       
         selectedDate.setHours(startHour);
         selectedDate.setMinutes(0);             
-      
-        if (selectedDate.getTime() <= currentDate.getTime()) {
-            throw new Error("Fecha no válida. Por favor, seleccione una fecha posterior a hoy.");
-        }
+    
       
         const startDate = new Date(selectedDate);
         startDate.setHours(startHour);
-        const endDate = new Date(selectedDate);
-        endDate.setHours(endHour);
-      
-        // Convierte las horas a UTC
         const startTimeUTC = startDate.toISOString();
-        const endTimeUTC = endDate.toISOString();
+
+        let endTimeUTC;
+        if (endTimeParts[1].toLowerCase() === 'am' && endHour === 12) {
+          const endDate = new Date(selectedDate);
+          endDate.setDate(endDate.getDate() + 1); 
+          endDate.setHours(0, 0, 0, 0); 
+          endTimeUTC = endDate.toISOString();
+      } else {
+          const endDate = new Date(selectedDate);
+          endDate.setHours(endHour);
+          endTimeUTC = endDate.toISOString();
+      }
+        
       
         const classData = {
             userId: userData.id,
@@ -119,7 +129,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
        console.log(response)
        
       
-        if (response.status === 201) {
+        if (response.status === 201 || response.status === 200) {
             // Esperar 20 segundos antes de ejecutar fetchDataAndSetAvailability
             setTimeout(fetchDataAndSetAvailability, 20000);
           
@@ -156,7 +166,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
             };
           
             // Envío de correo electrónico
-            const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
+          //  const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
            
              Swal.fire({
                 icon: 'success',
@@ -217,14 +227,30 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
   });
 
   const hoursOptions = [];
-  for (let i = 0; i < 24; i++) {
+const currentTime = new Date();
+const isTodaySelected = selectedDate.getDate() === currentTime.getDate() &&
+                        selectedDate.getMonth() === currentTime.getMonth() &&
+                        selectedDate.getFullYear() === currentTime.getFullYear();
+
+for (let i = 0; i < 24; i++) {
     let hour = (i % 12 || 12).toString();
     if (hour.length === 1) {
-      hour = '0' + hour; 
+        hour = '0' + hour; 
     }
     hour += ':00 ' + (i < 12 ? 'AM' : 'PM');
+
+    // Si es el día de hoy, comenzamos desde la siguiente hora
+    if (isTodaySelected) {
+        if (i <= currentTime.getHours()) {
+            continue; // Omitir horas pasadas
+        }
+    }
+
     hoursOptions.push(hour);
-  }
+}
+
+hoursOptions.push('12:00 AM');
+
   
   const viewReservedClassDetails = (startTime, endTime, classId) => {   
     
@@ -332,7 +358,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
           <label>Hora de inicio:</label>
           <select className="start-time-select" value={selectedStartTime} onChange={(e) => setSelectedStartTime(e.target.value)}>
             <option value="">Seleccionar:</option>
-            {hoursOptions.map((time, index) => (
+            {hoursOptions.slice(0, -1).map((time, index) => (
               <option key={index} value={time}>{time}</option>
             ))}
           </select>
@@ -342,9 +368,9 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
           <label>Hora final:</label>
           <select className="end-time-select" value={selectedEndTime} onChange={(e) => setSelectedEndTime(e.target.value)} disabled={!selectedStartTime}>
             <option value="">Seleccionar:</option>
-            {hoursOptions.map((time, index) => {
+            {hoursOptions.slice(1).map((time, index) => {
               const startIndex = hoursOptions.findIndex(option => option === selectedStartTime);
-              const disabled = index <= startIndex;
+              const disabled = index + 1 <= startIndex; 
               return <option key={index} value={time} disabled={disabled}>{time}</option>;
             })}
           </select>

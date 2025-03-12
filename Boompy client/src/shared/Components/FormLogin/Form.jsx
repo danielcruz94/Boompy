@@ -85,7 +85,7 @@ const Form = () => {
         />
         <div className="conten_password">
          
-          <a href="#">Olvide mi contraseña</a>
+          <a href="#" className="blue">Olvide mi contraseña</a>
         </div>
 
         <div className="conten_login_button">
