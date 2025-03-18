@@ -28,7 +28,7 @@ const Teach = ({ auth }) => {
 
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navegate = useNavigate();
 
   const [isLoaded1, setIsLoaded1] = useState(false);
@@ -39,6 +39,23 @@ const Teach = ({ auth }) => {
   const userData = JSON.parse(userDataString);
 
   const [userProfile, setUserProfile] = useState({});
+  React.useEffect(() => {
+    if (userProfile.picture) {
+      setIsLoading(true); // 🔹 Activa el estado de carga
+  
+      const img = new Image();
+      img.src = userProfile.picture;
+  
+      img.onload = () => {
+        setIsLoading(false); // 🔹 Desactiva el estado de carga cuando la imagen se cargue
+      };
+  
+      img.onerror = () => {
+        setIsLoading(false); // 🔹 También maneja errores de carga
+        console.error("Error loading image:", userProfile.picture);
+      };
+    }
+  }, [userProfile.picture]);
 
   React.useEffect(() => {
     // No hacer nada si no hay un país ingresado
@@ -46,6 +63,7 @@ const Teach = ({ auth }) => {
       return;
     }
 
+ 
     // Función para obtener la bandera
     const fetchFlag = async () => {
       try {
@@ -146,7 +164,8 @@ const Teach = ({ auth }) => {
       } catch (error) {
         alert("Not Network");
       } finally {
-        setIsLoading(false);
+         setIsLoading(false);
+       
       }
     };
 
@@ -194,11 +213,11 @@ const Teach = ({ auth }) => {
   };
 
   return (
-    <div className="contenTeach">
+    <div className="contenTeach" >
       <div className="PQRS black">
         <p className="black">PQRS</p>
         <div>
-          <img src="/landing/Icono.png" alt="TORII" className="Icon_TORII"  onLoad={() => setIsLoading(true)} />
+          <img src="/landing/Icono.png" alt="TORII" className="Icon_TORII"  />
         </div>
       </div>
 
@@ -206,13 +225,14 @@ const Teach = ({ auth }) => {
 
       <div className="NavTeach"></div>
       {isLoading && <Spinner />}
-
+    {console.log(isLoading)}
       <div className="InfTeach">
         <div>
           <div className="profile-container">
             <div className="profile-container-name">
              
               <h2>{userProfile.name}</h2>
+              
 
               <div className="profile-picture">
               {userProfile.picture && (
@@ -225,6 +245,7 @@ const Teach = ({ auth }) => {
       description="* File format: png or jpeg."
       className="SubirIMG"
       url={userProfile.picture}
+      
       onChange={(fileUrl) => {
         // Actualiza el perfil del usuario con la nueva imagen
         setUserProfile({ ...userProfile, picture: fileUrl });
@@ -242,21 +263,26 @@ const Teach = ({ auth }) => {
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log("Profile updated successfully:", data);
+            console.log("Profile updated successfully:", data)
+            setIsLoading(false)
+            
           })
           .catch((error) => {
             console.error("Error updating profile:", error);
           });
       }}
     />
-  ) : (
+    
+  ): (
     <div className="profile-picture">
       <img
         src={userProfile.picture}
         alt=""
         className="rounded-circle cursor"
         style={{ marginBottom: "10px", cursor: "pointer" }}
-        onLoad={() => setIsLoading(true)} 
+        onLoad={() => setIsLoading(false)}
+ 
+     
       />
     </div>
   )
