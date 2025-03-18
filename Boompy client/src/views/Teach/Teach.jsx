@@ -28,7 +28,7 @@ const Teach = ({ auth }) => {
 
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const navegate = useNavigate();
 
   const [isLoaded1, setIsLoaded1] = useState(false);
@@ -198,7 +198,7 @@ const Teach = ({ auth }) => {
       <div className="PQRS black">
         <p className="black">PQRS</p>
         <div>
-          <img src="/landing/Icono.png" alt="TORII" className="Icon_TORII" />
+          <img src="/landing/Icono.png" alt="TORII" className="Icon_TORII"  onLoad={() => setIsLoading(true)} />
         </div>
       </div>
 
@@ -256,6 +256,7 @@ const Teach = ({ auth }) => {
         alt=""
         className="rounded-circle cursor"
         style={{ marginBottom: "10px", cursor: "pointer" }}
+        onLoad={() => setIsLoading(true)} 
       />
     </div>
   )
