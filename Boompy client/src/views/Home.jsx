@@ -10,24 +10,32 @@ import {fetchUsers} from '../Redux/usersSlice'
 import Modal from "../shared/Components/Modals/Modal"
 import { useNavigate} from 'react-router-dom';
 import {login,completeInfo} from '../Redux/authSlice'
-
+import Spinner from "../../src/shared/Components/Modals/Spinners/Spinner";
       
       
 
 
 const Home = ({auth}) => {
+
+  
   const users = useSelector((state) => state.users);
   // const auth = useSelector((state) => state.auth);
   const serverURL = useSelector(state => state.serverURL.url);
   
   const [location, setLocation] = useState('');
   const [isInLatam, setIsLatam] = useState(false);
+  
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   const dispatch = useDispatch();
   const navegate = useNavigate();
 
   //locals Variable
+  useEffect(() => {
+    const img = new Image();
+    img.src = "/home/fondo 1.jpeg";
+    img.onload = () => setIsLoading(false);
+  }, []);
 
   const CalendarComponent = StudentCalendar;  
 
@@ -142,7 +150,7 @@ const Home = ({auth}) => {
           if (prueba.data.completeInfo === true) {
             dispatch(completeInfo(prueba.data.role));
           }
-          setIsLoading(false);
+          // setIsLoading(false);
         }
       } catch (error) {
         console.log(error);
@@ -180,6 +188,8 @@ const closeCalendar = () => {
 
 
 return (
+
+  isLoading?<Spinner />:
   <div className="conten-home">
 
       {/* Barra de navegación */}
@@ -188,6 +198,8 @@ return (
           onClick={handleLogout}
           userInfo={localUser}
         ></NavBar>
+      
+      
 
     {!auth.infoComplete && !isLoading ? (
       <div className="conten-home-modal">
@@ -224,6 +236,7 @@ return (
             );
           })}
         </div>
+    
 
         <br />
 
