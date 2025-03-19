@@ -40,7 +40,7 @@ const Home = ({auth}) => {
   const CalendarComponent = StudentCalendar;  
 
   const [isLoading, setIsLoading] = useState(true); // Estado de carga inicial
-
+  const [isLoading1, setIsLoading1] = useState(true)
   const [localUser, setLocalUser] = useState({
     email: auth.user?.email,
     token: auth.user?.token,
@@ -145,12 +145,13 @@ const Home = ({auth}) => {
            
            
             dispatch(fetchUsers((shuffleArray(filteredData))));
-
+           
 
           if (prueba.data.completeInfo === true) {
             dispatch(completeInfo(prueba.data.role));
+           
           }
-          // setIsLoading(false);
+          setIsLoading1(false)
         }
       } catch (error) {
         console.log(error);
@@ -167,7 +168,7 @@ const Home = ({auth}) => {
     navegate("/");
   };
 
- //console.log(auth)
+
 
  
  function extractNumber(priceStr) {  
@@ -201,7 +202,7 @@ return (
       
       
 
-    {!auth.infoComplete && !isLoading ? (
+    {!auth.infoComplete && !isLoading1 ? (
       <div className="conten-home-modal">
         <Modal title={"Completa tu información"} url={serverURL}></Modal>
       </div>
