@@ -10,29 +10,37 @@ import {fetchUsers} from '../Redux/usersSlice'
 import Modal from "../shared/Components/Modals/Modal"
 import { useNavigate} from 'react-router-dom';
 import {login,completeInfo} from '../Redux/authSlice'
-
+import Spinner from "../../src/shared/Components/Modals/Spinners/Spinner";
       
       
 
 
 const Home = ({auth}) => {
+
+  
   const users = useSelector((state) => state.users);
   // const auth = useSelector((state) => state.auth);
   const serverURL = useSelector(state => state.serverURL.url);
   
   const [location, setLocation] = useState('');
   const [isInLatam, setIsLatam] = useState(false);
+  
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   const dispatch = useDispatch();
   const navegate = useNavigate();
 
   //locals Variable
+  useEffect(() => {
+    const img = new Image();
+    img.src = "/home/fondo 1.jpeg";
+    img.onload = () => setIsLoading(false);
+  }, []);
 
   const CalendarComponent = StudentCalendar;  
 
   const [isLoading, setIsLoading] = useState(true); // Estado de carga inicial
-
+  const [isLoading1, setIsLoading1] = useState(true)
   const [localUser, setLocalUser] = useState({
     email: auth.user?.email,
     token: auth.user?.token,
@@ -137,12 +145,13 @@ const Home = ({auth}) => {
            
            
             dispatch(fetchUsers((shuffleArray(filteredData))));
-
+           
 
           if (prueba.data.completeInfo === true) {
             dispatch(completeInfo(prueba.data.role));
+           
           }
-          setIsLoading(false);
+          setIsLoading1(false)
         }
       } catch (error) {
         console.log(error);
@@ -159,7 +168,7 @@ const Home = ({auth}) => {
     navegate("/");
   };
 
- //console.log(auth)
+
 
  
  function extractNumber(priceStr) {  
@@ -180,16 +189,20 @@ const closeCalendar = () => {
 
 
 return (
+
+  isLoading?<Spinner />:
   <div className="conten-home">
 
       {/* Barra de navegación */}
       <NavBar
-          textBotton={"Cerrar Torii"}
+          textBotton={"Cerrar"}
           onClick={handleLogout}
           userInfo={localUser}
         ></NavBar>
+      
+      
 
-    {!auth.infoComplete && !isLoading ? (
+    {!auth.infoComplete && !isLoading1 ? (
       <div className="conten-home-modal">
         <Modal title={"Completa tu información"} url={serverURL}></Modal>
       </div>
@@ -219,11 +232,12 @@ return (
                 photos={user.photos}
                 onMouseEnter={() => handleMouseEnter(user.id)}
                 onMouseLeave={handleMouseLeave}
-                showTinyImg={showTinyImg === user.id}
+                // showTinyImg={showTinyImg === user.id}
               />
             );
           })}
         </div>
+    
 
         <br />
 
@@ -242,7 +256,7 @@ return (
           onClick={toggleCalendar}
           style={{ cursor: "pointer", fontWeight: "bold" }}
         >
-          Calendario de Clases
+          Calendario
         </p>
 
 </div>
