@@ -67,7 +67,7 @@ const AttendanceModal = ({ userId, price }) => {
                     setLoading(false);
                 } catch (err) {
                     console.error('Error fetching attendance data:', err);
-                    setError('Error fetching attendance data');
+                    setError('');
 
                     setLoading(false);
                 }
