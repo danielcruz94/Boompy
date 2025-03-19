@@ -195,7 +195,7 @@ return (
 
       {/* Barra de navegación */}
       <NavBar
-          textBotton={"Cerrar Torii"}
+          textBotton={"Cerrar"}
           onClick={handleLogout}
           userInfo={localUser}
         ></NavBar>
@@ -232,7 +232,7 @@ return (
                 photos={user.photos}
                 onMouseEnter={() => handleMouseEnter(user.id)}
                 onMouseLeave={handleMouseLeave}
-                showTinyImg={showTinyImg === user.id}
+                // showTinyImg={showTinyImg === user.id}
               />
             );
           })}
@@ -256,7 +256,7 @@ return (
           onClick={toggleCalendar}
           style={{ cursor: "pointer", fontWeight: "bold" }}
         >
-          Calendario de Clases
+          Calendario
         </p>
 
 </div>
