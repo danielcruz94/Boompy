@@ -76,9 +76,11 @@ const handleChange = (event) => {
 
             Swal.fire({
                 icon: 'success',
-                title: '¡Your account information has been updated.',
-                text: 'Now you can use the app to practice.',
-            }).then()
+                title: '¡Tu información ha sido actualizada correctamente.',
+                text: 'Ahora puedes usar la App.',
+            }).then(() => {
+                window.location.href = 'https://torii.com.co/home';
+            });
         dispatch(completeInfo(settingInformation.role))
      
         
