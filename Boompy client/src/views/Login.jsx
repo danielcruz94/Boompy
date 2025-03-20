@@ -1,21 +1,27 @@
-
 import Form from '../shared/Components/FormLogin/Form'
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import Spinner from "../../src/shared/Components/Modals/Spinners/Spinner";
 
+const Login = () => {
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    const img = new Image();
+    img.src = "/login/fondo.png";
+    img.onload = () => setIsLoading(false);
+  }, []);
 
-const Login=() => {
-    return (
-   
-      <div className="container-login">
-        <img src="/login/logo.png" alt="TORII" className="form_logo" />
-        <img src="/login/pqrs.png" alt="TORII" className="form_pqrs" />    
-         
-    <Form></Form>
-
-   
-      <a href="/signup" >
-      <img src="/login/Vector 1.png" alt="TORII" className="form_vector" />
+  return isLoading ? (
+    <Spinner />
+  ) : (
+    <div className="container-login">
+      <img src="/login/fondo.png" alt="fondo" className="hidden" />
+      <img src="/login/logo.png" alt="TORII" className="form_logo" />
+      <img src="/login/pqrs.png" alt="TORII" className="form_pqrs" />    
+      <Form />
+      <a href="/signup">
+        <img src="/login/Vector 1.png" alt="TORII" className="form_vector" />
       </a>
     
 
@@ -34,6 +40,8 @@ const Login=() => {
     
     
     )
+
 }
 
 export default Login;
+

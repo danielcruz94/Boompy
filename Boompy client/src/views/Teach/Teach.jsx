@@ -13,6 +13,7 @@ import { useState } from "react";
 import Saldo from "../../shared/Components/Saldo/saldo";
 import Settings from "../../shared/Components/Settings/Settings";
 import { Link } from 'react-router-dom';
+import {TextArea} from './Teach.style.js'
 
 import { convertirMonedaANumero } from "../../shared/utils/funtions";
 
@@ -38,6 +39,23 @@ const Teach = ({ auth }) => {
   const userData = JSON.parse(userDataString);
 
   const [userProfile, setUserProfile] = useState({});
+  React.useEffect(() => {
+    if (userProfile.picture) {
+      setIsLoading(true); // 🔹 Activa el estado de carga
+  
+      const img = new Image();
+      img.src = userProfile.picture;
+  
+      img.onload = () => {
+        setIsLoading(false); // 🔹 Desactiva el estado de carga cuando la imagen se cargue
+      };
+  
+      img.onerror = () => {
+        setIsLoading(false); // 🔹 También maneja errores de carga
+        console.error("Error loading image:", userProfile.picture);
+      };
+    }
+  }, [userProfile.picture]);
 
   React.useEffect(() => {
     // No hacer nada si no hay un país ingresado
@@ -45,6 +63,7 @@ const Teach = ({ auth }) => {
       return;
     }
 
+ 
     // Función para obtener la bandera
     const fetchFlag = async () => {
       try {
@@ -145,7 +164,8 @@ const Teach = ({ auth }) => {
       } catch (error) {
         alert("Not Network");
       } finally {
-        setIsLoading(false);
+         setIsLoading(false);
+       
       }
     };
 
@@ -193,25 +213,26 @@ const Teach = ({ auth }) => {
   };
 
   return (
-    <div className="contenTeach">
+    <div className="contenTeach" >
       <div className="PQRS black">
         <p className="black">PQRS</p>
         <div>
-          <img src="/landing/Icono.png" alt="TORII" className="Icon_TORII" />
+          <img src="/landing/Icono.png" alt="TORII" className="Icon_TORII"  />
         </div>
       </div>
 
-      {<NavBar textBotton={"Cerrar Torii"} onClick={handleLogout}></NavBar>}
+      {<NavBar textBotton={"Cerrar App"} onClick={handleLogout}></NavBar>}
 
       <div className="NavTeach"></div>
       {isLoading && <Spinner />}
-
+    {console.log(isLoading)}
       <div className="InfTeach">
         <div>
           <div className="profile-container">
             <div className="profile-container-name">
              
               <h2>{userProfile.name}</h2>
+              
 
               <div className="profile-picture">
               {userProfile.picture && (
@@ -224,6 +245,7 @@ const Teach = ({ auth }) => {
       description="* File format: png or jpeg."
       className="SubirIMG"
       url={userProfile.picture}
+      
       onChange={(fileUrl) => {
         // Actualiza el perfil del usuario con la nueva imagen
         setUserProfile({ ...userProfile, picture: fileUrl });
@@ -241,20 +263,26 @@ const Teach = ({ auth }) => {
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log("Profile updated successfully:", data);
+            console.log("Profile updated successfully:", data)
+            setIsLoading(false)
+            
           })
           .catch((error) => {
             console.error("Error updating profile:", error);
           });
       }}
     />
-  ) : (
+    
+  ): (
     <div className="profile-picture">
       <img
         src={userProfile.picture}
         alt=""
         className="rounded-circle cursor"
         style={{ marginBottom: "10px", cursor: "pointer" }}
+        onLoad={() => setIsLoading(false)}
+ 
+     
       />
     </div>
   )
@@ -354,11 +382,13 @@ const Teach = ({ auth }) => {
               <b>
                 <p>Biografia</p>
               </b>
-              <textarea
-                name="biography"
+              <TextArea name="biography"
                 value={userProfile.biography}
-                onChange={handleChange}               
-              ></textarea>
+                onChange={handleChange}
+                maxLength="201">
+
+                </TextArea>
+          
             </div>
           ) : (
             <div className="Biography">
