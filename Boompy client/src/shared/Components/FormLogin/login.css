@@ -104,7 +104,7 @@
 }
 
 .blue{
-    color: rgba(50, 50, 240, 0.889) !important;
+    color: rgb(31, 31, 40) !important;
 }
 
 .Tex_condiciones{
@@ -118,7 +118,9 @@
     color: white;
   }
 
-  
+  .color a{
+    color: #2C2E43;
+  }
 
 /*registro*/
 

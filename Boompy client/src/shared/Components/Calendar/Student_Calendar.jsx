@@ -239,7 +239,7 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
 
      {selectedClasses.length > 0 && (
         selectedClasses.map((classInfo, index) => (
-       <div key={index} className="class-info time-slot div-Class">
+       <div key={index} className={`class-info time-slot div-Class ${classInfo.cancel ? 'cancel' : ''}`}>
            <div  className='InfoClass'>
               <p>{classInfo.startTime} - {classInfo.endTime}</p>           
               <button className="viewButton view-class-button" onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}></button>

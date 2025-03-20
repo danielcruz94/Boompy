@@ -464,7 +464,9 @@ abbr[data-original-title], abbr[title] {
 	background: rgba(0, 0, 0, 0.313) !important;
 }
 
-
+.cancel{
+	background: red;
+}
 
 
 @media screen and (max-width: 850px) {
