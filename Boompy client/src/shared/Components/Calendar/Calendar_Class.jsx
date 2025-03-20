@@ -318,8 +318,27 @@ hoursOptions.push('12:00 AM');
     return timeString;
   }
   
-  
-  
+  const cancelClass = async (classID, startTime) => {
+    console.log(classID, startTime); // Verificar que los valores sean correctos
+
+    try {
+        const response = await axios.delete(`${serverURL}/calendar/TutorCancelclass/${classID}`, {
+            params: { startTime } 
+        });
+
+        Swal.fire({
+            icon: 'info',
+            title: 'Clase cancelada',
+            text: response.data.message,
+        }).then(() => {
+            closeModal();
+        });
+
+    } catch (error) {
+        console.error('Error al cancelar la clase:', error?.response?.data || error.message);
+    }
+};
+
   
 
 
@@ -386,8 +405,8 @@ hoursOptions.push('12:00 AM');
   { /*<p>Available Hours for {selectedDate.toLocaleDateString()}</p>*/ }
   
   <div className="time-slots-container">
-    {availableHoursForDate.map(({ _id, startTime, endTime, reserved }, index) => (
-      <div key={index} className={`time-slot ${reserved ? 'reserved' : ''}`}>
+    {availableHoursForDate.map(({ _id, startTime, endTime, reserved, cancel }, index) => (
+      <div key={index} className={`time-slot ${reserved ? 'reserved' : ''} ${cancel ? 'cancel' : ''}`}>
         
         <div className="time-range">
           <span>{formatTime(startTime)}</span> - <span>{formatTime(endTime)}</span>
@@ -400,6 +419,10 @@ hoursOptions.push('12:00 AM');
             </button>
           </div>
         )}
+
+           <div className='Canceldiv'>
+               <button className="cancelButton"  onClick={() => cancelClass(_id,startTime)}>X</button>
+           </div>
         
       </div>
     ))}

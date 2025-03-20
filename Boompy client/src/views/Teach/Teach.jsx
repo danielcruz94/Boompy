@@ -42,13 +42,23 @@ const Teach = ({ auth }) => {
   React.useEffect(() => {
     if (userProfile.picture) {
       setIsLoading(true); // 🔹 Activa el estado de carga
+
   
       const img = new Image();
+      const img1 = new Image();
+      img1.src = "/home/fondo 1.jpeg";
+     img1.onload = () => setIsLoading(false);
+      
+
+
+
+
+
       img.src = userProfile.picture;
   
-      img.onload = () => {
-        setIsLoading(false); // 🔹 Desactiva el estado de carga cuando la imagen se cargue
-      };
+      // img.onload = () => {
+      //   setIsLoading(false); // 🔹 Desactiva el estado de carga cuando la imagen se cargue
+      // };
   
       img.onerror = () => {
         setIsLoading(false); // 🔹 También maneja errores de carga
