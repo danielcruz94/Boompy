@@ -423,6 +423,7 @@ abbr[data-original-title], abbr[title] {
 	display: flex;              
     justify-content: center;     
     align-items: center;  
+	z-index: 999;
 }
 
 .cancelButton {

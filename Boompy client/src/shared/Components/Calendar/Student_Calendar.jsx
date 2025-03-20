@@ -239,16 +239,20 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
 
      {selectedClasses.length > 0 && (
         selectedClasses.map((classInfo, index) => (
-       <div key={index} className={`class-info time-slot div-Class ${classInfo.cancel ? 'cancel' : ''}`}>
-           <div  className='InfoClass'>
-              <p>{classInfo.startTime} - {classInfo.endTime}</p>           
+          <div key={index} className={`class-info time-slot div-Class ${classInfo.cancel ? 'cancel' : ''}`}>
+          <div className='InfoClass'>
+            <p>{classInfo.startTime} - {classInfo.endTime}</p>
+            {!classInfo.cancel && (
               <button className="viewButton view-class-button" onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}></button>
+            )}
           </div>
-           <div className='Canceldiv'>
-               <button className="cancelButton"  onClick={() => cancelClass(classInfo._id)}>X</button>
-           </div>
-      
+          {!classInfo.cancel && (
+            <div className='Canceldiv'>
+              <button className="cancelButton" onClick={() => cancelClass(classInfo._id)}>X</button>
+            </div>
+          )}
         </div>
+        
        
 
 

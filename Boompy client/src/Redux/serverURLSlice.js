@@ -7,7 +7,7 @@ const currentHost = window.location.hostname;
 
 const initialURL = currentHost.includes("torii.com.co")
 ? "https://torii-tau.vercel.app/api"
-: "https://torii-tau.vercel.app/api";
+: "http://localhost:3001/api";
 
 // http://localhost:3001/api
    

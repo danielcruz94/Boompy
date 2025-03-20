@@ -189,7 +189,7 @@ const AttendanceModal = ({ userId, price }) => {
                         </>
                     )}
 
-                    {attendances.length === 0 && !loading && <p>No assists found.</p>}
+                    {attendances.length === 0 && !loading && <p>No se encontraron asistencias.</p>}
                 </Modal>
             )}
         </div>

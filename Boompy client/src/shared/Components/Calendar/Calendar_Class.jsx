@@ -323,7 +323,7 @@ hoursOptions.push('12:00 AM');
 
     try {
         const response = await axios.delete(`${serverURL}/calendar/TutorCancelclass/${classID}`, {
-            params: { startTime } // Solo enviar startTime como parámetro en la URL
+            params: { startTime } 
         });
 
         Swal.fire({
