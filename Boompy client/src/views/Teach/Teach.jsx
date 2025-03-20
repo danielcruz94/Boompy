@@ -42,35 +42,20 @@ const Teach = ({ auth }) => {
   React.useEffect(() => {
     if (userProfile.picture) {
       setIsLoading(true); // 🔹 Activa el estado de carga
-
-    
-
+  
       const loadImage = (src) => {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
           const img = new Image();
           img.src = src;
-          img.onload = resolve;
-          img.onerror = reject; // Captura errores de carga
+          img.onload = () => resolve(true);
+          img.onerror = () => resolve(false); // No rechaza, solo marca error
         });
       };
-      
-      Promise.all([
+  
+      Promise.allSettled([
         loadImage("/home/fondo 1.jpeg"),
         loadImage(userProfile.picture),
-      ])
-        .then(() => setIsLoading(false)) // 🔹 Se desactiva cuando ambas imágenes cargan
-        .catch((error) => console.error("Error cargando imágenes", error)); // 🔥 Manejo de errores
-      
-      
-      
-
-
-
-
-
-  
-  
-      
+      ]).then(() => setIsLoading(false)); // 🔹 Solo se desactiva cuando ambas imágenes terminan de intentarse cargar
     }
   }, [userProfile.picture]);
 
