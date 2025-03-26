@@ -236,10 +236,11 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
       />
 
      <div className='Conten-Time-Class'> 
+      <p className='tituloCalendar'>Clases Programadas</p>
 
      {selectedClasses.length > 0 && (
         selectedClasses.map((classInfo, index) => (
-          <div key={index} className={`class-info time-slot div-Class ${classInfo.cancel ? 'cancel' : ''}`}>
+          <div key={index}  style={{backgroundColor:'yellow'}}>
           <div className='InfoClass'>
             <p>{classInfo.startTime} - {classInfo.endTime}</p>
             {!classInfo.cancel && (

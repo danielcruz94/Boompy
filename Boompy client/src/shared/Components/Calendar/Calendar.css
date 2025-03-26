@@ -5,6 +5,19 @@
 	margin-bottom: 10px;
 }
 
+.tituloCalendar {
+	
+		font-family: 'Roboto', sans-serif;
+		font-weight: 600;
+		font-style: italic;
+		font-size: 20px;
+		line-height: 70px;
+		letter-spacing: 0%;
+		text-align: right;
+		color: #E62B3F;
+  }
+
+
 .close-button-container h3 {
 	font-size: 2vw;
 	color: #D90D2B;
