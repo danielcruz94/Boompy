@@ -11,12 +11,41 @@
 		font-weight: 600;
 		font-style: italic;
 		font-size: 20px;
-		line-height: 70px;
+		line-height: 36px;
 		letter-spacing: 0%;
 		text-align: right;
 		color: #E62B3F;
+		
   }
 
+
+
+.tituloCalendar2{
+	font-family: sans-serif;
+    font-weight: 400;
+    background-color: #E62B3F;
+    font-size: 20px;
+    line-height: 35px;
+    letter-spacing: 0%;
+    width: 226px;
+    padding-left: 17px;
+    padding-right: 0px;
+    color: #FFFFFF;
+    border-radius: 50px;
+    height: 33px;
+	display: block;
+	
+}
+.formatoHoras{
+	font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 35px;
+	font-style: normal;
+
+   
+
+}
 
 .close-button-container h3 {
 	font-size: 2vw;
@@ -362,6 +391,7 @@ abbr[data-original-title], abbr[title] {
 .time-slots-container{
 	margin: 20px 0px;
     display: grid;
+	
     grid-template-columns: repeat(auto-fill, minmax(15%, 1fr)); 
     gap: 10px; 
 
@@ -377,28 +407,30 @@ abbr[data-original-title], abbr[title] {
 	display: flex;
 	justify-content: center;  
 	align-items: center;       
-	border: 1px solid rgba(0, 0, 0, 0.215);
+	border: 2px solid black;
 	border-radius: 30px;
 	font-weight: 500;
 	height: 35px;
 	cursor: no-drop;
+	
+	
   }
   
 
 .time-slot:hover{
-	background: #D90D2B;
+	background: #E62B3F;
 	color: white;
 }
 
 /* Aplica el estilo cuando el botón está siendo presionado */
 .time-slot:active {
-	background: #D90D2B;
+	background: #E62B3F;
 	color: white;
   }
   
   /* También puedes usar :focus para cuando un botón recibe el enfoque */
   .time-slot:focus {
-	background: #D90D2B;
+	background: #E62B3F;
 	color: white;
   }
   
@@ -417,14 +449,20 @@ abbr[data-original-title], abbr[title] {
 
 .Conten-Time-Class{
 	margin: 20px 0px;
-    display: grid;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	justify-content: center;
+    /* display: grid;
     grid-template-columns: repeat(auto-fill, minmax(15%, 1fr)); 
-    gap: 10px;
+    gap: 10px; */
 }
 
 .class-info {
     display: flex;   
-    width: 100%;
+    width: 120px;
+	padding-left: 7px;
+	margin-top: 10px;
 }
 
 .InfoClass{
@@ -630,7 +668,7 @@ abbr[data-original-title], abbr[title] {
 	}
 
 	.Conten-Time-Class{
-		grid-template-columns: auto;
+		align-items: center;
 	}
 
 	.TotalPagar,

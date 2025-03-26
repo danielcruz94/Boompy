@@ -6,6 +6,7 @@ import axios from 'axios';
 import './Calendar.css';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.css';
+import {formatDateToSpanish}from '../../utils/funtions'
 
 function StudentCalendar({ isOpen, onRequestClose, onClose }) {
   const [tutorAvailability, setTutorAvailability] = useState([]);
@@ -213,6 +214,7 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
 
     return classes.join(' ');
   };
+  const fechaFormateada = selectedClasses.length > 0  ? formatDateToSpanish(selectedClasses[0].date) : null
 
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
@@ -236,22 +238,26 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
       />
 
      <div className='Conten-Time-Class'> 
-      <p className='tituloCalendar'>Clases Programadas</p>
-
+      <p className='tituloCalendar'>Clases Programadas:</p>
+      {fechaFormateada&&<p className='tituloCalendar2'> {fechaFormateada}</p> }
+      <div className=''> 
      {selectedClasses.length > 0 && (
+      
         selectedClasses.map((classInfo, index) => (
-          <div key={index}  style={{backgroundColor:'yellow'}}>
-          <div className='InfoClass'>
-            <p>{classInfo.startTime} - {classInfo.endTime}</p>
+          <div key={index}  className={`class-info time-slot div-Class ${classInfo.cancel ? 'cancel' : ''}`}>
+          <div className='InfoClass' >
+            {/* <p>{classInfo.startTime} - {classInfo.endTime}</p> */} 
+            <p className='formatoHoras'>{classInfo.startTime}</p>
             {!classInfo.cancel && (
               <button className="viewButton view-class-button" onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}></button>
             )}
           </div>
-          {!classInfo.cancel && (
+          {/* {!classInfo.cancel && (
             <div className='Canceldiv'>
               <button className="cancelButton" onClick={() => cancelClass(classInfo._id)}>X</button>
             </div>
-          )}
+          )} */}
+          
         </div>
         
        
@@ -259,6 +265,7 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
 
         ))
       )}
+      </div>
 
      </div>
 

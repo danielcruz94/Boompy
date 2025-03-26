@@ -11,3 +11,16 @@ export function convertirMonedaANumero(cadenaMoneda) {
     return numeroDecimal;
   }
   
+
+
+  export  function formatDateToSpanish(isoDate) {
+    const date = new Date(isoDate);
+    const options = { 
+      day: 'numeric', 
+      month: 'long', 
+      year: 'numeric' 
+    };
+    return date.toLocaleDateString('es-ES', options);
+  }
+
+  
