@@ -238,26 +238,28 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
       />
 
      <div className='Conten-Time-Class'> 
-      <p className='tituloCalendar'>Clases Programadas:</p>
+    { selectedClasses.length > 0&&<p className='tituloCalendar'>Clases Programadas:</p>}
       {fechaFormateada&&<p className='tituloCalendar2'> {fechaFormateada}</p> }
-      <div className=''> 
+      <div className='cuadroHoras'> 
      {selectedClasses.length > 0 && (
       
         selectedClasses.map((classInfo, index) => (
           <div key={index}  className={`class-info time-slot div-Class ${classInfo.cancel ? 'cancel' : ''}`}>
-          <div className='InfoClass' >
-            {/* <p>{classInfo.startTime} - {classInfo.endTime}</p> */} 
-            <p className='formatoHoras'>{classInfo.startTime}</p>
-            {!classInfo.cancel && (
-              <button className="viewButton view-class-button" onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}></button>
-            )}
-          </div>
-          {/* {!classInfo.cancel && (
-            <div className='Canceldiv'>
-              <button className="cancelButton" onClick={() => cancelClass(classInfo._id)}>X</button>
+            <div className='InfoClass' >
+              {/* <p>{classInfo.startTime} - {classInfo.endTime}</p> */} 
+              <p className='formatoHoras' onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}>{classInfo.startTime}</p>
+              {/* {!classInfo.cancel && (
+                <button className="viewButton view-class-button" onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}></button>
+                
+              )} */}
             </div>
-          )} */}
-          
+{/*             
+            {!classInfo.cancel && (
+              <div className='Canceldiv'>
+                <button className="cancelButton" onClick={() => cancelClass(classInfo._id)}>X</button>
+              </div>
+            )} */}
+            
         </div>
         
        

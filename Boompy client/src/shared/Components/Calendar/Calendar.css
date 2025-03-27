@@ -6,7 +6,7 @@
 }
 
 .tituloCalendar {
-	
+
 		font-family: 'Roboto', sans-serif;
 		font-weight: 600;
 		font-style: italic;
@@ -15,7 +15,7 @@
 		letter-spacing: 0%;
 		text-align: right;
 		color: #E62B3F;
-		
+
   }
 
 
@@ -34,16 +34,26 @@
     border-radius: 50px;
     height: 33px;
 	display: block;
-	
+
 }
 .formatoHoras{
-	font-family: 'Roboto', sans-serif;
-    font-weight: 900;
+	font-family: sans-serif;
+    font-weight: bold;
     font-size: 20px;
-    line-height: 35px;
+    line-height: 40px;
 	font-style: normal;
 
-   
+
+
+}
+.cuadroHoras{
+
+	/* background-color: yellow; */
+	display: flex;
+	height: 150px;
+	flex-direction: column;
+	flex-wrap: wrap;
+	margin-top: 5px;
 
 }
 
@@ -146,16 +156,17 @@
 
 .react-calendar__month-view__days button:focus {
 	background: rgba(128, 128, 128, 0.382);
-	border: 1px solid black
+	/* border: 1px solid black */
+	border: none;
 }
 
 .react-calendar__month-view__days button:hover {
 	background: rgba(128, 128, 128, 0.382);
 }
 
-abbr[data-original-title], abbr[title] {    
+abbr[data-original-title], abbr[title] {
     -webkit-text-decoration: none;
-    text-decoration: none;   
+    text-decoration: none;
 }
 
 .react-calendar__month-view__days button abbr {
@@ -163,32 +174,36 @@ abbr[data-original-title], abbr[title] {
 	justify-content: center;
 	width: 100%;
 	font-weight: 600;
-	font-size: 2vw;	
+	font-size: 2vw;
 }
 
 .react-calendar__month-view__days button:hover {
-    background: rgb(67, 243, 67) !important;
-	border: 1px solid green;
+    /* background: rgb(67, 243, 67) !important;
+	border: 1px solid green; */
 	z-index: 100;
 }
 
 /* Aplica el estilo cuando el botón está siendo presionado */
 .react-calendar__month-view__days button:active {
-	background: rgb(67, 243, 67) !important;
-	border: 1px solid green;
+	/* background: rgb(67, 243, 67) !important;
+	border: 1px solid green; */
 	z-index: 100;
   }
-  
+
   /* También puedes usar :focus para cuando un botón recibe el enfoque */
   .react-calendar__month-view__days button:focus {
-	background: rgb(67, 243, 67) !important;
-	border: 1px solid green;
+	/* background: rgb(67, 243, 67) !important; */
+	border: none;
+	/* border: 1px solid red; */
 	z-index: 100;
   }
-  
+
 
 .available {
 	background: #E62B3F !important;
+	color: #FFFFFF;
+	font-weight: bold;
+
 }
 
 /*seleccion hora clase estudiante*/
@@ -199,16 +214,16 @@ abbr[data-original-title], abbr[title] {
     font-weight: 500;
 }
 
-.Conten_Select_Clase {   
+.Conten_Select_Clase {
     display: flex;
-    flex-direction: column;	
+    flex-direction: column;
 }
 
 .custom-options-container {
     margin: 20px 0px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15%, 1fr)); 
-    gap: 10px; 
+    grid-template-columns: repeat(auto-fill, minmax(15%, 1fr));
+    gap: 10px;
 }
 
   .custom-option {
@@ -217,26 +232,26 @@ abbr[data-original-title], abbr[title] {
 	cursor: pointer;
 	border: 1px solid rgba(0, 0, 0, 0.194);
 	border-radius: 20px;
-	margin-bottom: 5px;	
+	margin-bottom: 5px;
 	width: 100%;
 	font-weight: 600;
   }
-  
+
   .custom-option:hover {
 	background-color: #E62B3F;
 	color: white;
   }
-  
+
   .custom-option.selected {
 	background-color: #E62B3F;
 	color: white;
   }
-  
 
-.botton_Select_Clase{	
+
+.botton_Select_Clase{
 	display: flex;
 	justify-content:flex-end;
-	width: 100%;		
+	width: 100%;
 }
 
 .assign-class-button,
@@ -263,15 +278,15 @@ abbr[data-original-title], abbr[title] {
 
   /*forma de pago*/
   .ReactModal__Overlay {
-    position: absolute;    
+    position: absolute;
     top: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.427);
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: center;  
-    align-items: center;      
+    justify-content: center;
+    align-items: center;
 }
 
 .payment-modal-content {
@@ -289,9 +304,9 @@ abbr[data-original-title], abbr[title] {
 	display: flex;
 	flex-direction:column;
 	justify-content: flex-end;
-	align-items:end !important;	
+	align-items:end !important;
 	width: 100%
-	
+
 }
 
 .payment-modal-close-btn button{
@@ -307,7 +322,7 @@ abbr[data-original-title], abbr[title] {
 	margin-bottom: 20px;
 }
 
-.payment-modal-header h5{  
+.payment-modal-header h5{
   color: #D90D2B;
 }
 
@@ -349,7 +364,7 @@ abbr[data-original-title], abbr[title] {
 .ValorPagar {
 	font-size: 1.2vw;
 	font-weight: 500;
-	display: block;	
+	display: block;
 	width: 100%;
 	text-align: center;
 }
@@ -360,7 +375,7 @@ abbr[data-original-title], abbr[title] {
 
 
 ::-webkit-scrollbar {
-  width: 8px; 
+  width: 8px;
   height: 8px;
 }
 
@@ -372,12 +387,12 @@ abbr[data-original-title], abbr[title] {
 ::-webkit-scrollbar-thumb {
   background-color:#D90D2B;
   border-radius: 10px;
-  border: none; 
+  border: none;
 }
 
 .Conten-Horas {
     display: flex;
-	justify-content: space-evenly;   
+	justify-content: space-evenly;
     align-items: baseline;
 }
 
@@ -391,9 +406,9 @@ abbr[data-original-title], abbr[title] {
 .time-slots-container{
 	margin: 20px 0px;
     display: grid;
-	
-    grid-template-columns: repeat(auto-fill, minmax(15%, 1fr)); 
-    gap: 10px; 
+
+    grid-template-columns: repeat(auto-fill, minmax(15%, 1fr));
+    gap: 10px;
 
 }
 
@@ -405,35 +420,37 @@ abbr[data-original-title], abbr[title] {
 .time-slot {
 	position: relative;
 	display: flex;
-	justify-content: center;  
-	align-items: center;       
-	border: 2px solid black;
+	justify-content: center;
+	align-items: center;
+	box-sizing: border-box;
 	border-radius: 30px;
 	font-weight: 500;
-	height: 35px;
+	height: 30px;
 	cursor: no-drop;
-	
-	
+
+
   }
-  
+
 
 .time-slot:hover{
-	background: #E62B3F;
-	color: white;
+	/* background: #E62B3F; */
+
+	border: 2px solid black;
 }
 
 /* Aplica el estilo cuando el botón está siendo presionado */
-.time-slot:active {
+/* .time-slot:active {
 	background: #E62B3F;
 	color: white;
-  }
-  
+
+  } */
+
   /* También puedes usar :focus para cuando un botón recibe el enfoque */
-  .time-slot:focus {
+  /* .time-slot:focus {
 	background: #E62B3F;
 	color: white;
-  }
-  
+  } */
+
 
 .view-class-button {
     animation-name: none;
@@ -454,12 +471,12 @@ abbr[data-original-title], abbr[title] {
 	align-items: start;
 	justify-content: center;
     /* display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15%, 1fr)); 
+    grid-template-columns: repeat(auto-fill, minmax(15%, 1fr));
     gap: 10px; */
 }
 
 .class-info {
-    display: flex;   
+    display: flex;
     width: 120px;
 	padding-left: 7px;
 	margin-top: 10px;
@@ -471,16 +488,16 @@ abbr[data-original-title], abbr[title] {
 
 .Canceldiv {
     padding: 2px;
-	display: flex;              
-    justify-content: center;     
-    align-items: center;  
+	display: flex;
+    justify-content: center;
+    align-items: center;
 	z-index: 999;
 }
 
 .cancelButton {
-    display: flex;              
-    justify-content: center;     
-    align-items: center;        
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     border-radius: 100%;
     background: white;
@@ -499,12 +516,12 @@ abbr[data-original-title], abbr[title] {
 
 .Reservar {
     background: white;
-    color: #E62B3F;    
+    color: #E62B3F;
     padding: 2px 10px;
     border-radius: 30px;
     letter-spacing: inherit;
     border: none;
-    font-weight: 700;	
+    font-weight: 700;
 }
 
 .Reservar:focus {
@@ -518,6 +535,7 @@ abbr[data-original-title], abbr[title] {
 
 .cancel{
 	background: red;
+	display: none;
 }
 
 
@@ -532,7 +550,7 @@ abbr[data-original-title], abbr[title] {
 		width: 100%;
 		z-index: 0;
 	}
-	
+
 	.ContainerProfile {
 		display: grid;
 		grid-template-columns: none;
@@ -542,41 +560,41 @@ abbr[data-original-title], abbr[title] {
 		border-radius: 10px;
 		width: 90%;
 	}
-	
+
 	.ConteinerText h3{
 		font-size: 6vw;
 	}
-	
+
 	.ConteinerText p {
-		font-size: 3.5vw;		
+		font-size: 3.5vw;
 	}
 
 	.ConteinerText span {
-		font-size: 3.5vw;		
+		font-size: 3.5vw;
 	}
 
-	.CalendarHome {	
-		position: static;	
-		left: 0px;		
+	.CalendarHome {
+		position: static;
+		left: 0px;
 		font-size: clamp(1px, 5vw, 12px);
 		width: 100%;
 	}
 
-	
+
 	.ReactModal__Content {
 		width: 100%;
 		height: 100%;
-		padding: 0px !important;	
-		inset: auto !important;	
+		padding: 0px !important;
+		inset: auto !important;
 		border-radius: 0px !important;
 	}
 
 	.react-calendar__month-view{
-		margin: 5%;	
+		margin: 5%;
 	}
-	
+
 	.close-button-container h3 {
-		font-size: 5vw;		
+		font-size: 5vw;
 	}
 
 	.close-button-container button{
@@ -584,9 +602,9 @@ abbr[data-original-title], abbr[title] {
 		font-size: 6vw;
 	}
 
-	.react-calendar {		
+	.react-calendar {
 		flex-direction: column;
-		border-radius: 0px;	
+		border-radius: 0px;
 	}
 
 	.react-calendar__navigation{
@@ -618,9 +636,9 @@ abbr[data-original-title], abbr[title] {
 	.custom-options-container {
 		margin: 20px 0px;
 		display: flex;
-		flex-direction: column;	
+		flex-direction: column;
 		align-items: center;
-		justify-content: center;	
+		justify-content: center;
 	}
 
 	.custom-option{
@@ -639,7 +657,7 @@ abbr[data-original-title], abbr[title] {
 	}
 
 	.Conten-Horas {
-		flex-direction: column;		
+		flex-direction: column;
 	}
 
 	.Conten-Horas div {
@@ -654,13 +672,14 @@ abbr[data-original-title], abbr[title] {
         font-size: 15px;
 	}
 
-	.time-slots-container {		
-		grid-template-columns: auto; 		
+	.time-slots-container {
+		grid-template-columns: auto;
 	}
 
 	.time-slot{
-		width: 90%;
-		margin: auto;		
+		width: 120px;
+		/* margin: auto; */
+		margin-right: 50px;
 	}
 
 	.Footer img{
@@ -674,5 +693,34 @@ abbr[data-original-title], abbr[title] {
 	.TotalPagar,
     .ValorPagar {
 		font-size: 4.5vw;
+	}
+
+
+
+	.cuadroHoras{
+
+		/* background-color: yellow; */
+
+		height: 150px;
+		justify-content: start;
+		/* align-items: flex-start; */
+		width:300px;
+
+		
+		margin-top: 5px;
+
+	}
+
+	.formatoHoras{
+		
+	
+		font-size: 20px;
+		line-height: 35px;
+		width:100px;
+		font-style: normal;
+		
+
+
+
 	}
 }
