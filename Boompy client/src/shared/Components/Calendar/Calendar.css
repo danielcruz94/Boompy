@@ -54,6 +54,8 @@
 	flex-direction: column;
 	flex-wrap: wrap;
 	margin-top: 5px;
+	
+	
 
 }
 
@@ -427,6 +429,7 @@ abbr[data-original-title], abbr[title] {
 	font-weight: 500;
 	height: 30px;
 	cursor: no-drop;
+	
 
 
   }
@@ -679,9 +682,14 @@ abbr[data-original-title], abbr[title] {
 
 	.time-slot{
 		width: 105px;
-		margin-right: 100px;
+		margin-right: 17px;
+		font-size: 5%;
+
+
 		
 	}
+
+	
 
 	.Footer img{
 		z-index: 0;
@@ -689,6 +697,7 @@ abbr[data-original-title], abbr[title] {
 
 	.Conten-Time-Class{
 		align-items: center;
+		margin: 20px auto;
 	}
 
 	.TotalPagar,
@@ -697,21 +706,22 @@ abbr[data-original-title], abbr[title] {
 	}
 
 
-
-	.cuadroHoras{
-
-		/* background-color: yellow; */
-
-		height: 150px;
-		justify-content: start;
-	
-		width:300px;
-
-		
-		
+	.cuadroHoras {
+		width: 100%;
+		padding-left: 20px;
+		height: auto;
+		max-height: 200px;
 		margin-top: 5px;
-
-	}
+		overflow: hidden;
+		transition: all 0.3s;
+	  }
+	  
+	  /* Esto solo funciona en navegadores modernos */
+	  .cuadroHoras:has(> p:nth-child(6)) {
+		padding-left: 5px;
+		margin: 10px;
+		max-height: 400px; /* No height directo */
+	  }
 
 	.formatoHoras{
 		
