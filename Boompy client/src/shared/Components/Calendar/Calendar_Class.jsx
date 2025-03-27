@@ -422,9 +422,9 @@ hoursOptions.push('12:00 AM');
           </div>
         )}
 
-           {/* <div className='Canceldiv'>
-               <p className=""  onClick={() => cancelClass(_id,startTime)} style={{width:'0.5px',height:'0.5px'}}>X</p>
-           </div> */}
+           <div className='Canceldiv'>
+               <p className="cancelButton"  onClick={() => cancelClass(_id,startTime)} >x</p>
+           </div>
         
       </div>
     ))}

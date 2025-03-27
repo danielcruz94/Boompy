@@ -223,6 +223,8 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
          <h3>
          Calendario
          </h3>
+       
+
 
         <button onClick={closeModal}>X</button>
       </div>
@@ -253,12 +255,12 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
                 
               )} */}
             </div>
-{/*             
+            
             {!classInfo.cancel && (
               <div className='Canceldiv'>
-                <button className="cancelButton" onClick={() => cancelClass(classInfo._id)}>X</button>
+                <button className="cancelButton" onClick={() => cancelClass(classInfo._id)}>x</button>
               </div>
-            )} */}
+            )}
             
         </div>
         
