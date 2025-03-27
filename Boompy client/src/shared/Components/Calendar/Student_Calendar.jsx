@@ -6,6 +6,7 @@ import axios from 'axios';
 import './Calendar.css';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.css';
+import {formatDateToSpanish}from '../../utils/funtions'
 
 function StudentCalendar({ isOpen, onRequestClose, onClose }) {
   const [tutorAvailability, setTutorAvailability] = useState([]);
@@ -213,6 +214,7 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
 
     return classes.join(' ');
   };
+  const fechaFormateada = selectedClasses.length > 0  ? formatDateToSpanish(selectedClasses[0].date) : null
 
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
@@ -221,6 +223,8 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
          <h3>
          Calendario
          </h3>
+       
+
 
         <button onClick={closeModal}>X</button>
       </div>
@@ -236,21 +240,28 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
       />
 
      <div className='Conten-Time-Class'> 
-
+    { selectedClasses.length > 0&&<p className='tituloCalendar'>Clases Programadas:</p>}
+      {fechaFormateada&&<p className='tituloCalendar2'> {fechaFormateada}</p> }
+      <div className='cuadroHoras'> 
      {selectedClasses.length > 0 && (
+      
         selectedClasses.map((classInfo, index) => (
-          <div key={index} className={`class-info time-slot div-Class ${classInfo.cancel ? 'cancel' : ''}`}>
-          <div className='InfoClass'>
-            <p>{classInfo.startTime} - {classInfo.endTime}</p>
-            {!classInfo.cancel && (
-              <button className="viewButton view-class-button" onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}></button>
-            )}
-          </div>
-          {!classInfo.cancel && (
-            <div className='Canceldiv'>
-              <button className="cancelButton" onClick={() => cancelClass(classInfo._id)}>X</button>
+          <div key={index}  className={`class-info time-slot div-Class ${classInfo.cancel ? 'cancel' : ''}`}>
+            <div className='InfoClass' >
+              {/* <p>{classInfo.startTime} - {classInfo.endTime}</p> */} 
+              <p className='formatoHoras' onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}>{classInfo.startTime}</p>
+              {/* {!classInfo.cancel && (
+                <button className="viewButton view-class-button" onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}></button>
+                
+              )} */}
             </div>
-          )}
+            
+            {!classInfo.cancel && (
+              <div className='Canceldiv'>
+                <button className="cancelButton" onClick={() => cancelClass(classInfo._id)}>x</button>
+              </div>
+            )}
+            
         </div>
         
        
@@ -258,6 +269,7 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
 
         ))
       )}
+      </div>
 
      </div>
 
