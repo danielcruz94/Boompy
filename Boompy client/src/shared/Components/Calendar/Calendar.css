@@ -1,208 +1,754 @@
-/* ===== RESET Y ESTILOS BASE ===== */
-* {
-	box-sizing: border-box;
-	-webkit-text-size-adjust: 100%;
-	-webkit-tap-highlight-color: transparent;
-  }
-  
-  :root {
-	--primary-red: #E62B3F;
-	--dark-red: #D90D2B;
-	--white: #FFFFFF;
-	--black: #000000;
-  }
-  
-  /* ===== COMPONENTES PRINCIPALES ===== */
-  
-  /* Contenedor del botón de cerrar */
-  .close-button-container {
+.close-button-container {
 	width: 100%;
 	display: flex;
-	justify-content: flex-end;
+	justify-content: end;
 	margin-bottom: 10px;
+}
+
+.tituloCalendar {
+
+		font-family: 'Roboto', sans-serif;
+		font-weight: 600;
+		font-style: italic;
+		font-size: 20px;
+		line-height: 36px;
+		letter-spacing: 0%;
+		text-align: right;
+		color: #E62B3F;
+
   }
-  
-  /* Títulos */
-  .tituloCalendar {
-	font-family: 'Roboto', sans-serif;
-	font-weight: 600;
-	font-style: italic;
-	font-size: 20px;
-	line-height: 36px;
-	text-align: right;
-	color: var(--primary-red);
-  }
-  
-  .tituloCalendar2 {
+
+
+
+
+
+.tituloCalendar2{
 	font-family: sans-serif;
-	font-weight: 400;
-	background-color: var(--primary-red);
-	font-size: 20px;
-	line-height: 35px;
-	width: auto;
-	padding: 0 17px;
-	color: var(--white);
-	border-radius: 50px;
-	height: 33px;
+    font-weight: 400;
+    background-color: #E62B3F;
+    font-size: 20px;
+    line-height: 35px;
+    letter-spacing: 0%;
+    width: auto;
+    padding-left: 17px;
+    padding-right: 17px;
+    color: #FFFFFF;
+    border-radius: 50px;
+    height: 33px;
 	display: block;
-  }
-  
-  /* Formato de horas */
-  .formatoHoras {
+
+}
+.formatoHoras{
 	font-family: sans-serif;
-	font-weight: 700; /* Cambiado a 700 para mejor compatibilidad */
-	font-size: 20px;
-	line-height: 40px;
-  }
-  
-  /* Cuadro de horas - Versión mejorada */
-  .cuadroHoras {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 40px;
+	font-style: normal;
+
+
+
+}
+.cuadroHoras{
+
+
 	display: flex;
+	height: 150px;
 	flex-direction: column;
 	flex-wrap: wrap;
 	margin-top: 5px;
-	padding-left: 20px;
-	height: auto;
-	max-height: 200px;
-	overflow: hidden;
-	transition: all 0.3s ease;
-  }
-  
-  /* ===== CALENDARIO ===== */
-  .react-calendar {
+	
+	
+
+}
+
+.close-button-container h3 {
+	font-size: 2vw;
+	color: #D90D2B;
+	font-weight: 700;
+	margin-bottom: 20px;
+	margin: auto;
+}
+
+.close-button-container button {
+	background: none;
+	border: none;
+	color: red;
+	font-size: 1.5vw;
+	padding: 0;
+	width: 20px;
+	height: min-content;
+}
+
+
+.react-calendar {
 	display: flex;
-	flex-direction: column; /* Cambiado a columna para móviles */
-	padding: 5px 0;
-	border: 1px solid rgba(0, 0, 0, 0.1);
+	flex-direction: row;
+	padding: 5px 0px;
+	padding-bottom: 20px;
+	border: 1px solid rgba(0, 0, 0, 0.107);
 	border-radius: 30px;
-  }
-  
-  /* Navegación del calendario */
-  .react-calendar__navigation {
+}
+
+.ReactModal__Content {
+	border-radius: 30px !important;
+	padding: 20px 60px 10px 60px !important;
+	display: flex;
+	flex-direction: column;
+}
+
+/*NAVEGADOR CALENDARIO*/
+.react-calendar__navigation {
+	max-width: 590px;
+	width: 50%;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
-	padding: 0 10px;
-  }
-  
-  .react-calendar__navigation__label__labelText {
-	font-size: 1.2rem;
-	color: var(--dark-red);
+}
+
+.react-calendar__navigation__label {
+	width: 80%;
+	background: none;
+	border: none;
+}
+
+.react-calendar__navigation__label__labelText {
+	font-size: 5vw;
+	color: #D90D2B;
 	font-weight: 700;
 	text-transform: uppercase;
-  }
-  
-  /* Días del calendario */
-  .react-calendar__month-view__days button {
-	width: 40px !important;
-	height: 40px !important;
-	border-radius: 50%;
+
+}
+
+.react-calendar__navigation__arrow {
+	background: none;
+	border: none;
+	color: #D90D2B;
+	font-weight: 700;
+	font-size: 2vw;
+}
+
+
+/*DIAS CALENDARIO*/
+.react-calendar__viewContainer {
+	max-width: 350px;
+	margin: auto;
+}
+
+.react-calendar__month-view__days {
+	width: 100%;
+
+}
+
+.react-calendar__month-view__weekdays__weekday {
 	display: flex;
-	align-items: center;
 	justify-content: center;
+	color: #D90D2B;
+	font-weight: 500;
+	font-size: 1vw;
+	border-radius: 100%;
+	text-decoration: none;
+}
+
+.react-calendar__month-view__days button {
+	background: none;
+	border: solid 1px white;
+	overflow: hidden;
+	border-radius: 100%;
+	width: 1px;
+	height: 47px;
+}
+
+
+.react-calendar__month-view__days button:focus {
+	background: rgba(128, 128, 128, 0.382);
+	/* border: 1px solid black */
+	border: none;
+}
+
+.react-calendar__month-view__days button:hover {
+	background: rgba(128, 128, 128, 0.382);
+}
+
+abbr[data-original-title], abbr[title] {
+    -webkit-text-decoration: none;
+    text-decoration: none;
+}
+
+.react-calendar__month-view__days button abbr {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	font-weight: 600;
+	font-size: 2vw;
+}
+
+.react-calendar__month-view__days button:hover {
+    /* background: rgb(67, 243, 67) !important;
+	border: 1px solid green; */
+	z-index: 100;
+}
+
+/* Aplica el estilo cuando el botón está siendo presionado */
+.react-calendar__month-view__days button:active {
+	/* background: rgb(67, 243, 67) !important;
+	border: 1px solid green; */
+	z-index: 100;
   }
-  
-  .react-calendar__month-view__days button abbr {
-	font-size: 1rem;
+
+  /* También puedes usar :focus para cuando un botón recibe el enfoque */
+  .react-calendar__month-view__days button:focus {
+	/* background: rgb(67, 243, 67) !important; */
+	border: none;
+	/* border: 1px solid red; */
+	z-index: 100;
+  }
+
+
+.available {
+	background: #E62B3F !important;
+	color: #FFFFFF;
+	font-weight: bold;
+
+}
+
+/*seleccion hora clase estudiante*/
+.titlehoras {
+    color: #E62B3F;
+    font-size: 1.3vw;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.Conten_Select_Clase {
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-options-container {
+    margin: 20px 0px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15%, 1fr));
+    gap: 10px;
+}
+
+  .custom-option {
+	display: flex;
+	padding: 10px;
+	cursor: pointer;
+	border: 1px solid rgba(0, 0, 0, 0.194);
+	border-radius: 20px;
+	margin-bottom: 5px;
+	width: 100%;
 	font-weight: 600;
   }
-  
-  /* ===== TIME SLOTS ===== */
-  .time-slots-container {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-	gap: 10px;
-	margin: 20px 0;
+
+  .custom-option:hover {
+	background-color: #E62B3F;
+	color: white;
   }
-  
-  .time-slot {
+
+  .custom-option.selected {
+	background-color: #E62B3F;
+	color: white;
+  }
+
+
+.botton_Select_Clase{
+	display: flex;
+	justify-content:flex-end;
+	width: 100%;
+}
+
+.assign-class-button,
+.botton_Select_Clase button {
+    background: #E62B3F;
+    color: white;
+    font-size: 1.2vw;
+    width: 150px;
+    border-radius: 30px;
+    border: none;
+    padding: 5px;
+    font-weight: 500;
+
+}
+
+.botton_Select_Clase button:disabled {
+	background-color: #ccc; /* Fondo gris */
+	color: #999; /* Texto gris */
+	border: 2px solid #ddd; /* Borde gris claro */
+	cursor: not-allowed; /* Cursor de "no permitido" */
+	opacity: 0.6; /* Opacidad reducida */
+  }
+
+
+  /*forma de pago*/
+  .ReactModal__Overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.427);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.payment-modal-content {
+    background: #d9d9d9fa;
+    border: solid 1px rgba(0, 0, 0, 0.192);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 0px 20px 0px!important;
+    width: 30%;
+}
+
+.payment-modal-close-btn{
+	display: flex;
+	flex-direction:column;
+	justify-content: flex-end;
+	align-items:end !important;
+	width: 100%
+
+}
+
+.payment-modal-close-btn button{
+	background: none;
+	border: none;
+	color: red;
+	font-weight: 600;
+	font-size: 1.3vw;
+	margin: 20px 20px 0px 20px;
+}
+
+.payment-modal-header{
+	margin-bottom: 20px;
+}
+
+.payment-modal-header h5{
+  color: #D90D2B;
+}
+
+.Form-Wompi {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.payment-modal-actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%;
+    padding: 5px 0px;
+}
+
+.payment-modal-confirm-btn{
+	display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    background-color: rgb(26, 69, 148);
+    border: 0px;
+    border-radius: 4px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: 400;
+    font-size: 14px;
+    padding: 0px 16px;
+    color: white;
+    cursor: pointer;
+    -webkit-font-smoothing: subpixel-antialiased;
+
+	width: 100%;
+}
+
+.TotalPagar,
+.ValorPagar {
+	font-size: 1.2vw;
+	font-weight: 500;
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+
+.ValorPagar{
+	font-size: 1.5vw;
+}
+
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: none;
+  border-radius: 100%;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color:#D90D2B;
+  border-radius: 10px;
+  border: none;
+}
+
+.Conten-Horas {
+    display: flex;
+	justify-content: space-evenly;
+    align-items: baseline;
+}
+
+.Conten-Horas select {
+    width: 200px;
+    margin: 0px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.461);
+	border-radius: 5px;
+}
+
+.time-slots-container{
+	margin: 20px 0px;
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill, minmax(15%, 1fr));
+    gap: 10px;
+
+}
+
+
+.black{
+	color: black;
+}
+
+.time-slot {
 	position: relative;
 	display: flex;
+	justify-content: start;
 	align-items: center;
+	box-sizing: border-box;
 	border-radius: 30px;
 	font-weight: 500;
-	height: 40px;
-	padding: 0 15px;
-	border: 1px solid rgba(0, 0, 0, 0.2);
-	background: none;
+	height: 30px;
+	cursor: no-drop;
+	
+
 
   }
-  
-  /* ===== MODALES ===== */
-  .ReactModal__Content {
-	border-radius: 30px !important;
-	padding: 20px !important;
-	width: 90% !important;
-	max-width: 600px;
-  }
-  
-  .ReactModal__Overlay {
-	background: rgba(0, 0, 0, 0.5) !important;
+
+
+.time-slot:hover{
+	/* background: #E62B3F; */
+
+	border: 2px solid black;
+}
+
+/* Aplica el estilo cuando el botón está siendo presionado */
+/* .time-slot:active {
+	background: #E62B3F;
+	color: white;
+
+  } */
+
+  /* También puedes usar :focus para cuando un botón recibe el enfoque */
+  /* .time-slot:focus {
+	background: #E62B3F;
+	color: white;
+  } */
+
+
+.view-class-button {
+    animation-name: none;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    background: none;
+    border: 1px solid black;
+	box-shadow: 0 2px 3px greenyellow;
+	
+}
+
+.Conten-Time-Class{
+	margin: 20px 0px;
 	display: flex;
+	flex-direction: column;
+	align-items: start;
 	justify-content: center;
-	align-items: center;
-  }
-  
-  /* ===== MEDIA QUERIES PARA IPHONE ===== */
-  @media screen and (max-width: 850px) {
-	/* Ajustes generales */
-	body {
-	  -webkit-overflow-scrolling: touch;
+    /* display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15%, 1fr));
+    gap: 10px; */
+}
+
+.class-info {
+    display: flex;
+    width: 127px;
+	padding-left: 7px;
+	margin-top: 10px;
+	
+}
+
+.InfoClass{
+	position: relative;
+}
+
+.Canceldiv {
+   
+	
+	
+	
+   
+	z-index: 999;
+}
+
+.cancelButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 100%;
+    background: white;
+    color: red;
+    font-weight: 600;
+    width: 20px;
+    height: 20px;
+	font-size: 12px;
+	box-sizing: border-box;
+	
+}
+
+
+.viewButton{
+	border: none;
+}
+
+
+.Reservar {
+    background: white;
+    color: #E62B3F;
+    padding: 2px 10px;
+    border-radius: 30px;
+    letter-spacing: inherit;
+    border: none;
+    font-weight: 700;
+}
+
+.Reservar:focus {
+	border:none ;
+	outline: none !important;
+}
+
+.today{
+	background: rgba(0, 0, 0, 0.313) !important;
+}
+
+.cancel{
+	background: red;
+	display: none;
+}
+
+
+@media screen and (max-width: 850px) {
+
+
+	.conten-home {
+		position: absolute;
+		height: 100vh;
+		background-position: 50%  0%;
+		background-size: cover;
+		width: 100%;
+		z-index: 0;
 	}
-  
-	/* Contenedores */
+
 	.ContainerProfile {
-	  grid-template-columns: 1fr;
-	  padding: 10px;
+		display: grid;
+		grid-template-columns: none;
+		overflow-y: auto;
+		overflow-x: auto;
+		top: 100px;
+		border-radius: 10px;
+		width: 90%;
 	}
-  
-	/* Textos */
-	.ConteinerText h3,
-	.ConteinerText p,
+
+	.ConteinerText h3{
+		font-size: 6vw;
+	}
+
+	.ConteinerText p {
+		font-size: 3.5vw;
+	}
+
 	.ConteinerText span {
-	  font-size: 1rem;
+		font-size: 3.5vw;
 	}
-  
-	/* Calendario */
+
+	.CalendarHome {
+		position: static;
+		left: 0px;
+		font-size: clamp(1px, 5vw, 12px);
+		width: 100%;
+	}
+
+	.Canceldiv {
+   
+	
+	position: relative;
+		left: -10px;
+	}
+
+
+	.ReactModal__Content {
+		width: 100%;
+		height: 100%;
+		padding: 0px !important;
+		inset: auto !important;
+		border-radius: 0px !important;
+	}
+
+	.react-calendar__month-view{
+		margin: 5%;
+	}
+
+	.close-button-container h3 {
+		font-size: 5vw;
+	}
+
+	.close-button-container button{
+		margin-right: 10px;
+		font-size: 6vw;
+	}
+
+	
+
 	.react-calendar {
-	  border-radius: 0;
-	  width: 100%;
+		flex-direction: column;
+		border-radius: 0px;
 	}
-  
-	.react-calendar__navigation__label__labelText {
-	  font-size: 1.1rem;
+
+	.react-calendar__navigation{
+		max-width: none;
+		width: 100%;
 	}
-  
-	/* Time slots */
-	.time-slots-container {
-	  grid-template-columns: repeat(2, 1fr);
+
+	.react-calendar__navigation__label__labelText{
+		font-size: 10vw;
 	}
-  
-	/* Botones */
+
+	.react-calendar__navigation__arrow {
+		font-size: 7vw;
+	}
+
+	.react-calendar__month-view__weekdays__weekday {
+		font-size: 4vw;
+	}
+
+	.react-calendar__month-view__days button abbr {
+		font-size: 4vw;
+	}
+
+	.titlehoras {
+		font-size: 5vw;
+		text-align: center;
+	}
+
+	.custom-options-container {
+		margin: 20px 0px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.custom-option{
+		display: flex;
+		justify-content: center;
+		width: 80%;
+	}
+
+	.botton_Select_Clase{
+		justify-content: center;
+		padding-bottom: 20px;
+	}
+
 	.botton_Select_Clase button {
-	  width: 100%;
-	  font-size: 16px;
+       font-size: 4vw;
 	}
-  
-	/* Ajustes específicos para iOS */
-	@supports (-webkit-touch-callout: none) {
-	  .cuadroHoras {
-		max-height: none;
-		padding-left: 10px;
+
+	.Conten-Horas {
+		flex-direction: column;
+	}
+
+	.Conten-Horas div {
+		margin: 5px;
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+		justify-content: space-evenly;
+	}
+
+	.assign-class-button{
+        font-size: 15px;
+	}
+
+	.time-slots-container {
+		grid-template-columns: auto;
+	}
+
+	.time-slot{
+		
+		margin-right: 17px;
+		font-size: 5%;
+
+
+		
+	}
+
+	
+
+	.Footer img{
+		z-index: 0;
+	}
+
+	.Conten-Time-Class{
+		align-items: center;
+		margin: 20px auto;
+	}
+
+	.TotalPagar,
+    .ValorPagar {
+		font-size: 4.5vw;
+	}
+
+
+	.cuadroHoras {
+		width: 100%;
+		padding-left: 20px;
+		height: auto;
+		max-height: 350px;
+		margin-top: 5px;
+		overflow: hidden;
+		transition: all 0.3s;
 	  }
 	  
-	  .time-slot {
-		height: 45px;
+	  /* Esto solo funciona en navegadores modernos */
+	  .cuadroHoras:has(> p:nth-child(6)) {
+		padding-left: 5px;
+		margin: 10px;
+		max-height: 400px; /* No height directo */
 	  }
+
+	.formatoHoras{
+		
+	
+		font-size: 20px;
+		line-height: 35px;
+		width:100px;
+		font-style: normal;
+		
+
+
+
 	}
-  }
-  
-  /* ===== SCROLLBAR (Safari) ===== */
-  ::-webkit-scrollbar {
-	width: 5px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-	background-color: var(--dark-red);
-	border-radius: 10px;
-  }
+}
