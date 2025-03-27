@@ -43,17 +43,19 @@ const Teach = ({ auth }) => {
     if (userProfile.picture) {
       setIsLoading(true); // 🔹 Activa el estado de carga
   
-      const img = new Image();
-      img.src = userProfile.picture;
-  
-      img.onload = () => {
-        setIsLoading(false); // 🔹 Desactiva el estado de carga cuando la imagen se cargue
+      const loadImage = (src) => {
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.src = src;
+          img.onload = () => resolve(true);
+          img.onerror = () => resolve(false); // No rechaza, solo marca error
+        });
       };
   
-      img.onerror = () => {
-        setIsLoading(false); // 🔹 También maneja errores de carga
-        console.error("Error loading image:", userProfile.picture);
-      };
+      Promise.allSettled([
+        loadImage("/home/fondo 1.jpeg"),
+        loadImage(userProfile.picture),
+      ]).then(() => setIsLoading(false)); // 🔹 Solo se desactiva cuando ambas imágenes terminan de intentarse cargar
     }
   }, [userProfile.picture]);
 
@@ -164,7 +166,7 @@ const Teach = ({ auth }) => {
       } catch (error) {
         alert("Not Network");
       } finally {
-         setIsLoading(false);
+        //  setIsLoading(false);
        
       }
     };
@@ -212,7 +214,9 @@ const Teach = ({ auth }) => {
     }
   };
 
-  return (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <div className="contenTeach" >
       <div className="PQRS black">
         <p className="black">PQRS</p>
@@ -224,8 +228,8 @@ const Teach = ({ auth }) => {
       {<NavBar textBotton={"Cerrar App"} onClick={handleLogout}></NavBar>}
 
       <div className="NavTeach"></div>
-      {isLoading && <Spinner />}
-    {console.log(isLoading)}
+   
+    
       <div className="InfTeach">
         <div>
           <div className="profile-container">
@@ -280,7 +284,7 @@ const Teach = ({ auth }) => {
         alt=""
         className="rounded-circle cursor"
         style={{ marginBottom: "10px", cursor: "pointer" }}
-        onLoad={() => setIsLoading(false)}
+        // onLoad={() => setIsLoading(false)}
  
      
       />

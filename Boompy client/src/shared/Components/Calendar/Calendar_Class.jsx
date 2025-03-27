@@ -401,15 +401,17 @@ hoursOptions.push('12:00 AM');
         </div>
       </div>
 
-      <div className='Conten-Clases'>
+      <div className='Conten-Time-Class'>
   { /*<p>Available Hours for {selectedDate.toLocaleDateString()}</p>*/ }
+  {availableHoursForDate.length>0&&<p className='tituloCalendar'>Horas disponibles:</p>}
   
-  <div className="time-slots-container">
+  <div className="cuadroHoras">
     {availableHoursForDate.map(({ _id, startTime, endTime, reserved, cancel }, index) => (
-      <div key={index} className={`time-slot ${reserved ? 'reserved' : ''} ${cancel ? 'cancel' : ''}`}>
+      <div key={index} className={`class-info time-slot div-Class ${reserved ? 'reserved' : ''} ${cancel ? 'cancel' : ''}`}>
         
-        <div className="time-range">
-          <span>{formatTime(startTime)}</span> - <span>{formatTime(endTime)}</span>
+        <div className="InfoClass">
+          {/* <span>{formatTime(startTime)}</span> - <span>{formatTime(endTime)}</span> */}
+          <p className='formatoHoras'>{formatTime(startTime)}</p>
         </div>
         
         {reserved && (
@@ -421,7 +423,7 @@ hoursOptions.push('12:00 AM');
         )}
 
            <div className='Canceldiv'>
-               <button className="cancelButton"  onClick={() => cancelClass(_id,startTime)}>X</button>
+               <p className="cancelButton"  onClick={() => cancelClass(_id,startTime)} >x</p>
            </div>
         
       </div>

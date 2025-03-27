@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.css';
+import {formatDateToSpanish}from '../../utils/funtions'
 
 import Wompi from './Wompi';
 
@@ -589,6 +590,9 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     return new Date(classDateTime) < new Date();
   };
 
+  const fechaFormateada = selectedDate.length > 0  ? formatDateToSpanish(selectedDate) : null
+
+
   return (
     <>
       {pagina === 'Home' && (
@@ -714,6 +718,8 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
       <option key={index} value={time}>{time}</option>
     ))}
   </select>
+
+ 
   
   {/* Opciones personalizadas para que el usuario las seleccione */}
   <p className='titlehoras'> Selecciona una hora:</p>
