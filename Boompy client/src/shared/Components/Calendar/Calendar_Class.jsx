@@ -409,7 +409,7 @@ hoursOptions.push('12:00 AM');
     {availableHoursForDate.map(({ _id, startTime, endTime, reserved, cancel }, index) => (
       <div key={index} className={`class-info time-slot div-Class ${reserved ? 'reserved' : ''} ${cancel ? 'cancel' : ''}`}>
         
-        <div className="InfoClass">
+        <div className="hhhhh">
           {/* <span>{formatTime(startTime)}</span> - <span>{formatTime(endTime)}</span> */}
           <p className='formatoHoras'>{formatTime(startTime)}</p>
         </div>
