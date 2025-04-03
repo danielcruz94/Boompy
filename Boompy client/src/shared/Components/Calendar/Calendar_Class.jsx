@@ -41,7 +41,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
 
   const fetchDataAndSetAvailability = async () => {
     try {
-      const response = await axios.get(`${serverURL}/calendar`, { params: { userId: userData.id } });
+      const response = await axios.get(`${serverURL}/calendar`, { params: { userId: userData.id } });   
       setTutorAvailability(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);
