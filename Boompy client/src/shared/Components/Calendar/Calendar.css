@@ -1,3 +1,6 @@
+
+
+
 .close-button-container {
 	width: 100%;
 	display: flex;
@@ -87,7 +90,17 @@
 	padding-bottom: 20px;
 	border: 1px solid rgba(0, 0, 0, 0.107);
 	border-radius: 30px;
+
 }
+
+/* ---------------codigo especial para iphone */
+/* Fix definitivo para Safari */
+
+
+
+  
+
+
 
 .ReactModal__Content {
 	border-radius: 30px !important;
@@ -108,6 +121,7 @@
 	width: 80%;
 	background: none;
 	border: none;
+ 
 }
 
 .react-calendar__navigation__label__labelText {
