@@ -422,9 +422,9 @@ hoursOptions.push('12:00 AM');
           </div>
         )}
 
-           <div className='Canceldiv'>
+           {/* <div className='Canceldiv'>
                <p className="cancelButton"  onClick={() => cancelClass(_id,startTime)} >x</p>
-           </div>
+           </div> */}
         
       </div>
     ))}
