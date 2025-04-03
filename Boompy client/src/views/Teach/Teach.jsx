@@ -164,6 +164,7 @@ const Teach = ({ auth }) => {
           window.alert("¡Something Wrong!");
         }
       } catch (error) {
+        console.log(error)
         alert("Not Network");
       } finally {
         //  setIsLoading(false);
