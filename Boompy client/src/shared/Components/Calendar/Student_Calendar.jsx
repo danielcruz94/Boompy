@@ -256,11 +256,11 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
               )} */}
             </div>
             
-            {!classInfo.cancel && (
+            {/* {!classInfo.cancel && (
               <div className='Canceldiv'>
                 <button className="cancelButton" onClick={() => cancelClass(classInfo._id)}>x</button>
               </div>
-            )}
+            )} */}
             
         </div>
         

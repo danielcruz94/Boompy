@@ -1,9 +1,18 @@
 
 /* Fix definitivo para Safari */
-.react-calendar * {
+/* .react-calendar * {
 	color: black;
 
+  } */
+
+  .react-calendar__tile--now {
+    background: transparent; /* Opcional: Quita el fondo de la fecha actual */
+    color: black; /* Color del texto de la fecha actual */
   }
+  .react-calendar__tile {
+    color: black; /* Color del texto de las fechas */
+  }
+  
 
 .close-button-container {
 	width: 100%;
@@ -12,6 +21,12 @@
 	margin-bottom: 10px;
   
   
+}
+
+.calendarDate{
+  width:fit-content;
+  margin-top: 10px;
+
 }
 
 .tituloCalendar {
@@ -97,6 +112,7 @@
 	padding-bottom: 20px;
 	border: 1px solid rgba(0, 0, 0, 0.107);
 	border-radius: 30px;
+  
  
 
 
@@ -229,8 +245,9 @@ abbr[data-original-title], abbr[title] {
 
 .available {
 	background: #E62B3F !important;
-	color: #FFFFFF;
+	color: #FFFFFF!important;
 	font-weight: bold;
+  
 
 }
 
@@ -245,6 +262,7 @@ abbr[data-original-title], abbr[title] {
 .Conten_Select_Clase {
     display: flex;
     flex-direction: column;
+
 }
 
 .custom-options-container {
@@ -280,6 +298,7 @@ abbr[data-original-title], abbr[title] {
 	display: flex;
 	justify-content:flex-end;
 	width: 100%;
+
 }
 
 .assign-class-button,
@@ -292,6 +311,8 @@ abbr[data-original-title], abbr[title] {
     border: none;
     padding: 5px;
     font-weight: 500;
+    
+
 
 }
 
@@ -430,6 +451,8 @@ abbr[data-original-title], abbr[title] {
     margin: 0px 10px;
     border: 1px solid rgba(0, 0, 0, 0.461);
 	border-radius: 5px;
+  text-align: center;
+
 }
 
 .time-slots-container{
@@ -557,6 +580,7 @@ abbr[data-original-title], abbr[title] {
     letter-spacing: inherit;
     border: none;
     font-weight: 700;
+   
 }
 
 .Reservar:focus {
@@ -621,6 +645,12 @@ abbr[data-original-title], abbr[title] {
 	position: relative;
 		left: -10px;
 	}
+
+  .calendarDate{
+    margin: auto;
+    margin-top: 15px;
+    
+  }
 
 
 	.ReactModal__Content {
@@ -698,6 +728,7 @@ abbr[data-original-title], abbr[title] {
 	.botton_Select_Clase{
 		justify-content: center;
 		padding-bottom: 20px;
+   
 	}
 
 	.botton_Select_Clase button {

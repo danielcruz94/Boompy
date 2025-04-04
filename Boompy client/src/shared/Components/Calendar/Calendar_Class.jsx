@@ -6,6 +6,7 @@ import './Calendar.css';
 import axios from 'axios'; 
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.css';
+import {formatDateToSpanish}from '../../utils/funtions'
 
 function CalendarClass({ isOpen, onRequestClose, onClose }) {
 
@@ -80,8 +81,8 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
         let startHour = parseInt(startTimeParts[0].split(':')[0], 10);
         let endHour = parseInt(endTimeParts[0].split(':')[0], 10);
 
-        console.log(startTimeParts[1].toLowerCase())
-        console.log(endTimeParts[1].toLowerCase())
+        // console.log(startTimeParts[1].toLowerCase())
+        // console.log(endTimeParts[1].toLowerCase())
       
         // Verifica si es PM y ajusta la hora en consecuencia
         if (startTimeParts[1].toLowerCase() === 'pm' && startHour !== 12) {
@@ -126,7 +127,7 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
 
         const response = await axios.post(`${serverURL}/calendar`, classData);
 
-       console.log(response)
+     
        
       
         if (response.status === 201 || response.status === 200) {
@@ -309,6 +310,9 @@ hoursOptions.push('12:00 AM');
     
    
   };
+
+  const dateFormat=selectedDate&&formatDateToSpanish(selectedDate)
+  
   
   
   function formatTime(date) { 
@@ -402,7 +406,9 @@ hoursOptions.push('12:00 AM');
       </div>
 
       <div className='Conten-Time-Class'>
-  { /*<p>Available Hours for {selectedDate.toLocaleDateString()}</p>*/ }
+      
+     
+  <p className='tituloCalendar2'>{dateFormat}</p>
   {availableHoursForDate.length>0&&<p className='tituloCalendar'>Horas disponibles:</p>}
   
   <div className="cuadroHoras">

@@ -32,7 +32,6 @@ const Settings = () => {
     const balanceText = balanceElement ? balanceElement.textContent : '$0 USD';
     const balanceAmount = parseFloat(balanceText.replace(/[^0-9.]/g, ''));
 
-    console.log(balanceAmount)
 
   const toggleMenu = () => {
     setShowMenu(prev => !prev);
