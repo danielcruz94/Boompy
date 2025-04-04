@@ -32,7 +32,7 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
 
   const fetchStudentCalendarClasses = async () => {
     try {
-      const response = await axios.get(`${serverURL}/calendar/classes/${studentId}`);
+      const response = await axios.get(`${serverURL}/calendar/classes/${studentId}`);     
       setTutorAvailability(response.data.map(item => ({
         ...item,
         startTime: new Date(item.startTime).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
@@ -256,11 +256,11 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
               )} */}
             </div>
             
-            {!classInfo.cancel && (
+            {/* {!classInfo.cancel && (
               <div className='Canceldiv'>
                 <button className="cancelButton" onClick={() => cancelClass(classInfo._id)}>x</button>
               </div>
-            )}
+            )} */}
             
         </div>
         
