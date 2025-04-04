@@ -590,7 +590,7 @@ abbr[data-original-title], abbr[title] {
 		display: grid;
 		grid-template-columns: none;
 		overflow-y: auto;
-	
+	  overflow-x: none;
 		top: 100px;
 		border-radius: 10px;
 		width: 90%;
@@ -629,6 +629,7 @@ abbr[data-original-title], abbr[title] {
 		padding: 0px !important;
 		inset: auto !important;
 		border-radius: 0px !important;
+    overflow-x: hidden !important;
 	}
 
 	.react-calendar__month-view{
@@ -741,6 +742,7 @@ abbr[data-original-title], abbr[title] {
 	.Conten-Time-Class{
 		align-items: center;
 		margin: auto auto;
+    padding-bottom: 30px;
 	}
 
 	.TotalPagar,
@@ -781,4 +783,6 @@ abbr[data-original-title], abbr[title] {
 
 
 	}
+
+
 }
