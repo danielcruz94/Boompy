@@ -489,6 +489,8 @@ abbr[data-original-title], abbr[title] {
 	/* background: #E62B3F; */
 
 	border: 2px solid black;
+	
+
 }
 
 /* Aplica el estilo cuando el botón está siendo presionado */
@@ -531,7 +533,7 @@ abbr[data-original-title], abbr[title] {
 
 .class-info {
     display: flex;
-    width: 107px;
+    width: 130px;
 	padding-left: 7px;
 	margin-top: 10px;
 	

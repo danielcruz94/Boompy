@@ -250,17 +250,18 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
             <div className='InfoClass' >
               {/* <p>{classInfo.startTime} - {classInfo.endTime}</p> */} 
               <p className='formatoHoras' onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}>{classInfo.startTime}</p>
+             {console.log(classInfo.startTime)} 
               {/* {!classInfo.cancel && (
                 <button className="viewButton view-class-button" onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}></button>
                 
               )} */}
             </div>
             
-            {/* {!classInfo.cancel && (
+            {!classInfo.cancel && (
               <div className='Canceldiv'>
                 <button className="cancelButton" onClick={() => cancelClass(classInfo._id)}>x</button>
               </div>
-            )} */}
+            )}
             
         </div>
         
