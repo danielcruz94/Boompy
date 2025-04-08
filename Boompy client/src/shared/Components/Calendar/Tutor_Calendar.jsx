@@ -573,6 +573,8 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
       return [];
     }
   };
+  console.log(tutorAvailability)
+
 
   const customClasses = {};
   tutorAvailability.forEach(({ date }) => {
@@ -590,8 +592,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     return new Date(classDateTime) < new Date();
   };
 
-  const fechaFormateada = selectedDate.length > 0  ? formatDateToSpanish(selectedDate) : null
-
+  const fechaFormateada = selectedDate &&  formatDateToSpanish(selectedDate) 
 
   return (
     <>
@@ -706,6 +707,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
 
 
 <div className='Conten_Select_Clase'>
+  
   {/* El select original está oculto pero sigue funcionando */}
   <select
     className='Tutor_Select_Clase'
@@ -713,6 +715,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     onChange={(e) => setSelectedTime(e.target.value)}
     style={{ display: 'none' }} // El select original está oculto
   >
+    
     <option value="">Hora y disponibilidad:</option>
     {getAvailableTimesForDate(selectedDate).map((time, index) => (
       <option key={index} value={time}>{time}</option>
@@ -722,6 +725,9 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
  
   
   {/* Opciones personalizadas para que el usuario las seleccione */}
+
+  <p className='tituloCalendar2 calendarDate'>{fechaFormateada}</p>
+ 
   <p className='titlehoras'> Selecciona una hora:</p>
   <div className="custom-options-container">
     {getAvailableTimesForDate(selectedDate).map((time, index) => (
@@ -736,6 +742,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
       </div>
     ))}
   </div>
+
 
   {/* Botón para asignar la clase, se habilita solo si hay una selección */}
   <div className='botton_Select_Clase'>
