@@ -730,18 +730,19 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
  
   <p className='titlehoras'> Selecciona una hora:</p>
   <div className="custom-options-container">
-    {getAvailableTimesForDate(selectedDate).map((time, index) => (
-      <div
-        key={index}
-        className={`custom-option ${selectedTime === time ? 'selected' : ''}`} // Agregar la clase 'selected' solo a la opción seleccionada
-        onClick={() => {
-          setSelectedTime(time); // Actualiza el valor del select original
-        }}       
-      >
-        {time}
-      </div>
-    ))}
-  </div>
+  {getAvailableTimesForDate(selectedDate).map((time, index) => (
+    <div
+      key={index}
+      className={`custom-option ${selectedTime === time ? 'selected' : ''}`}
+      onClick={() => {
+        setSelectedTime(time); // Actualiza el valor del select original
+      }}       
+    >
+      {time.replace('AM', 'A.M.').replace('PM', 'P.M.')}
+    </div>
+  ))}
+</div>
+
 
 
   {/* Botón para asignar la clase, se habilita solo si hay una selección */}

@@ -216,6 +216,13 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
   };
   const fechaFormateada = selectedClasses.length > 0  ? formatDateToSpanish(selectedClasses[0].date) : null
 
+  function formatAMPM(timeString) {  
+    timeString = timeString.replace(/([APM])/g, function(match) {
+      return match + '.';
+    });
+  
+    return timeString;
+  }
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
       
@@ -249,8 +256,8 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
           <div key={index}  className={`class-info time-slot div-Class ${classInfo.cancel ? 'cancel' : ''}`}>
             <div className='InfoClass' >
               {/* <p>{classInfo.startTime} - {classInfo.endTime}</p> */} 
-              <p className='formatoHoras' onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}>{classInfo.startTime}</p>
-             {console.log(classInfo.startTime)} 
+              <p className='formatoHoras' onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}>{formatAMPM(classInfo.startTime)}</p>
+             {console.log(formatAMPM(classInfo.startTime))} 
               {/* {!classInfo.cancel && (
                 <button className="viewButton view-class-button" onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}></button>
                 
