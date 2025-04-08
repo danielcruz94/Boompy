@@ -314,7 +314,7 @@ hoursOptions.push('12:00 AM');
   function formatTime(date) { 
     const options = { hour: '2-digit', minute: '2-digit', hour12: true };   
     let timeString = new Date(date).toLocaleTimeString([], options);     
-    timeString = timeString.replace(/\s(a|p)\.?\s*m/, (match, p1) => ` ${p1.toUpperCase()}M`);  
+    timeString = timeString.replace(/\s(a|p)\.?\s*m/, (match, p1) => ` ${p1.toUpperCase()}.M`);  
     return timeString;
   }
   
