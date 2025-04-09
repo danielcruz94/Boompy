@@ -411,7 +411,7 @@ hoursOptions.push('12:00 AM');
   <p className='tituloCalendar2'>{dateFormat}</p>
   {availableHoursForDate.length>0&&<p className='tituloCalendar'>Horas disponibles:</p>}
   
-  <div className="cuadroHoras">
+  <div className="cuadroHoras calendar">
     {availableHoursForDate.map(({ _id, startTime, endTime, reserved, cancel }, index) => (
       <div key={index} className={`class-info time-slot div-Class ${reserved ? 'reserved' : ''} ${cancel ? 'cancel' : ''}`}>
         

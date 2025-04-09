@@ -66,16 +66,30 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
 
   const handleDateChange = (date) => {
     const today = new Date();
+  
     const availability = tutorAvailability.filter(
-      ({ date: availabilityDate }) =>
-        new Date(availabilityDate).getTime() >= date.getTime() &&
-        new Date(availabilityDate).toDateString() === date.toDateString()
+      ({ date: availabilityDate, endTime, cancel }) => {        
+        const endDate = new Date(availabilityDate);        
+        const [endHour, endMinute] = endTime.split(' ')[0].split(':');
+        const isPM = endTime.includes('PM');
+        endDate.setHours(parseInt(endHour) + (isPM && parseInt(endHour) !== 12 ? 12 : 0), parseInt(endMinute), 0, 0);  
+        const hasPassed = endDate.getTime() < today.getTime(); 
+        const isCancelled = cancel === true;   
+        
+        return (
+          !hasPassed &&
+          !isCancelled &&
+          new Date(availabilityDate).toDateString() === date.toDateString() &&
+          new Date(availabilityDate).getTime() >= date.getTime()
+        );
+      }
     );
+  
     setSelectedClasses(availability);
     setSelectedDate(date);
     setScrollEnabled(false);
   };
-
+  
   const closeModal = () => {
     onClose();
     onRequestClose();
