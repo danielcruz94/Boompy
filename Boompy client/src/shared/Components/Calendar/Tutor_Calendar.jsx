@@ -573,7 +573,6 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
       return [];
     }
   };
-  console.log(tutorAvailability)
 
 
   const customClasses = {};
