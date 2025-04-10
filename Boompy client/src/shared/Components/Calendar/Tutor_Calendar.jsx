@@ -159,7 +159,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   const fetchTutorAvailability = async () => {
     try {      
       const response = await axios.get(`${serverURL}/calendar/${id}`);
-      console.log(response.data)
+     
       const availabilityData = response.data.filter(avail => 
         avail.reserved === "" && avail.cancel !== true
       );
