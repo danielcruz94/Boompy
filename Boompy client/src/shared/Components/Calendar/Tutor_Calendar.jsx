@@ -571,7 +571,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   const getAvailableTimesForDate = (date) => {
     const availabilityForDate = tutorAvailability.filter(availability => new Date(availability.date).toLocaleDateString() === date.toLocaleDateString());
     if (availabilityForDate.length > 0) {
-      return availabilityForDate.map(availability => `${availability.startTime} --- ${availability.endTime}`);
+      return availabilityForDate.map(availability => `${availability.startTime} - ${availability.endTime}`);
     } else {
       return [];
     }
