@@ -66,16 +66,30 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
 
   const handleDateChange = (date) => {
     const today = new Date();
+  
     const availability = tutorAvailability.filter(
-      ({ date: availabilityDate }) =>
-        new Date(availabilityDate).getTime() >= date.getTime() &&
-        new Date(availabilityDate).toDateString() === date.toDateString()
+      ({ date: availabilityDate, endTime, cancel }) => {        
+        const endDate = new Date(availabilityDate);        
+        const [endHour, endMinute] = endTime.split(' ')[0].split(':');
+        const isPM = endTime.includes('PM');
+        endDate.setHours(parseInt(endHour) + (isPM && parseInt(endHour) !== 12 ? 12 : 0), parseInt(endMinute), 0, 0);  
+        const hasPassed = endDate.getTime() < today.getTime(); 
+        const isCancelled = cancel === true;   
+        
+        return (
+          !hasPassed &&
+          !isCancelled &&
+          new Date(availabilityDate).toDateString() === date.toDateString() &&
+          new Date(availabilityDate).getTime() >= date.getTime()
+        );
+      }
     );
+  
     setSelectedClasses(availability);
     setSelectedDate(date);
     setScrollEnabled(false);
   };
-
+  
   const closeModal = () => {
     onClose();
     onRequestClose();
@@ -216,6 +230,13 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
   };
   const fechaFormateada = selectedClasses.length > 0  ? formatDateToSpanish(selectedClasses[0].date) : null
 
+  function formatAMPM(timeString) {  
+    timeString = timeString.replace(/([APM])/g, function(match) {
+      return match + '.';
+    });
+  
+    return timeString;
+  }
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModal} style={{ overlay: { backgroundColor: 'rgba(0, 0, 0, 0.5)' } }}>
       
@@ -249,18 +270,19 @@ function StudentCalendar({ isOpen, onRequestClose, onClose }) {
           <div key={index}  className={`class-info time-slot div-Class ${classInfo.cancel ? 'cancel' : ''}`}>
             <div className='InfoClass' >
               {/* <p>{classInfo.startTime} - {classInfo.endTime}</p> */} 
-              <p className='formatoHoras' onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}>{classInfo.startTime}</p>
+              <p className='formatoHoras' onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}>{formatAMPM(classInfo.startTime)}</p>
+             
               {/* {!classInfo.cancel && (
                 <button className="viewButton view-class-button" onClick={() => viewClass(classInfo.startTime, classInfo.endTime, classInfo._id)}></button>
                 
               )} */}
             </div>
             
-            {/* {!classInfo.cancel && (
+            {!classInfo.cancel && (
               <div className='Canceldiv'>
                 <button className="cancelButton" onClick={() => cancelClass(classInfo._id)}>x</button>
               </div>
-            )} */}
+            )}
             
         </div>
         

@@ -73,16 +73,11 @@
 
 }
 .cuadroHoras{
-
-
 	display: flex;
 	height: 150px;
-	flex-direction: column;
+	flex-direction: row;
 	flex-wrap: wrap;
 	margin-top: 5px;
-	
-	
-
 }
 
 .close-button-container h3 {
@@ -244,7 +239,7 @@ abbr[data-original-title], abbr[title] {
 
 
 .available {
-	background: #E62B3F !important;
+	background: #FF0000 !important;
 	color: #FFFFFF!important;
 	font-weight: bold;
   
@@ -489,6 +484,8 @@ abbr[data-original-title], abbr[title] {
 	/* background: #E62B3F; */
 
 	border: 2px solid black;
+	
+
 }
 
 /* Aplica el estilo cuando el botón está siendo presionado */
@@ -531,7 +528,7 @@ abbr[data-original-title], abbr[title] {
 
 .class-info {
     display: flex;
-    width: 107px;
+    width: 130px;
 	padding-left: 7px;
 	margin-top: 10px;
 	
@@ -643,7 +640,7 @@ abbr[data-original-title], abbr[title] {
    
 	
 	position: relative;
-		left: -10px;
+		left: -2px;
 	}
 
   .calendarDate{
@@ -755,16 +752,10 @@ abbr[data-original-title], abbr[title] {
 		grid-template-columns: auto;
 	}
 
-	.time-slot{
-		
+	.time-slot{		
 		margin-right: 17px;
-		font-size: 5%;
-
-
-		
-	}
-
-	
+		font-size: 5%;	
+	}	
 
 	.Footer img{
 		z-index: 0;
@@ -782,18 +773,14 @@ abbr[data-original-title], abbr[title] {
 	}
 
 
-	.cuadroHoras {
-		width: 99%;
+	.cuadroHoras {		
 		padding-left: 20px;
-		height: auto;
-		/* max-height: 350px; */
-		margin-top: 5px;
-    flex-direction: row;
+		height: auto;	
+		flex-direction: column;
 		overflow: hidden;
 		transition: all 0.3s;
-  
-    justify-content: center;
-	  }
+		justify-content: center;
+	}
 	  
 	  /* Esto solo funciona en navegadores modernos */
 	  .cuadroHoras:has(> p:nth-child(6)) {
@@ -803,16 +790,10 @@ abbr[data-original-title], abbr[title] {
 	  }
 
 	.formatoHoras{
-		
-	
 		font-size: 20px;
 		line-height: 35px;
 		width:100px;
 		font-style: normal;
-		
-
-
-
 	}
 
 

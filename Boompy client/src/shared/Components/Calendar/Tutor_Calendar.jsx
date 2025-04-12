@@ -159,7 +159,10 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   const fetchTutorAvailability = async () => {
     try {      
       const response = await axios.get(`${serverURL}/calendar/${id}`);
-      const availabilityData = response.data.filter(avail => avail.reserved === "");
+     
+      const availabilityData = response.data.filter(avail => 
+        avail.reserved === "" && avail.cancel !== true
+      );
 
       const processedAvailabilityData = availabilityData.map(avail => {
         const startDateTime = new Date(avail.startTime);
@@ -509,7 +512,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     // Busca la clase disponible que coincide con la fecha y hora seleccionadas
     const selectedClass = tutorAvailability.find(availability => {
         const availabilityDate = new Date(availability.date).toLocaleDateString();
-        const availabilityTime = `${availability.startTime} --- ${availability.endTime}`;
+        const availabilityTime = `${availability.startTime} - ${availability.endTime}`;
         return availabilityDate === selectedDate.toLocaleDateString() && availabilityTime === selectedTime;
     });
 
@@ -568,12 +571,11 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   const getAvailableTimesForDate = (date) => {
     const availabilityForDate = tutorAvailability.filter(availability => new Date(availability.date).toLocaleDateString() === date.toLocaleDateString());
     if (availabilityForDate.length > 0) {
-      return availabilityForDate.map(availability => `${availability.startTime} --- ${availability.endTime}`);
+      return availabilityForDate.map(availability => `${availability.startTime} - ${availability.endTime}`);
     } else {
       return [];
     }
   };
-  console.log(tutorAvailability)
 
 
   const customClasses = {};
@@ -730,18 +732,19 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
  
   <p className='titlehoras'> Selecciona una hora:</p>
   <div className="custom-options-container">
-    {getAvailableTimesForDate(selectedDate).map((time, index) => (
-      <div
-        key={index}
-        className={`custom-option ${selectedTime === time ? 'selected' : ''}`} // Agregar la clase 'selected' solo a la opción seleccionada
-        onClick={() => {
-          setSelectedTime(time); // Actualiza el valor del select original
-        }}       
-      >
-        {time}
-      </div>
-    ))}
-  </div>
+  {getAvailableTimesForDate(selectedDate).map((time, index) => (
+    <div
+      key={index}
+      className={`custom-option ${selectedTime === time ? 'selected' : ''}`}
+      onClick={() => {
+        setSelectedTime(time); // Actualiza el valor del select original
+      }}       
+    >
+      {time.replace('AM', 'A.M.').replace('PM', 'P.M.')}
+    </div>
+  ))}
+</div>
+
 
 
   {/* Botón para asignar la clase, se habilita solo si hay una selección */}

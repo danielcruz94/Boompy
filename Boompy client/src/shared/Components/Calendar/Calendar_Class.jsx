@@ -318,9 +318,9 @@ hoursOptions.push('12:00 AM');
   function formatTime(date) { 
     const options = { hour: '2-digit', minute: '2-digit', hour12: true };   
     let timeString = new Date(date).toLocaleTimeString([], options);     
-    timeString = timeString.replace(/\s(a|p)\.?\s*m/, (match, p1) => ` ${p1.toUpperCase()}M`);  
+    timeString = timeString.replace(/\s(a|p)\.?\s*m/, (match, p1) => ` ${p1.toUpperCase()}.M`);  
     return timeString;
-  }
+}
   
   const cancelClass = async (classID, startTime) => {
     console.log(classID, startTime); // Verificar que los valores sean correctos
@@ -411,7 +411,7 @@ hoursOptions.push('12:00 AM');
   <p className='tituloCalendar2'>{dateFormat}</p>
   {availableHoursForDate.length>0&&<p className='tituloCalendar'>Horas disponibles:</p>}
   
-  <div className="cuadroHoras">
+  <div className="cuadroHoras calendar">
     {availableHoursForDate.map(({ _id, startTime, endTime, reserved, cancel }, index) => (
       <div key={index} className={`class-info time-slot div-Class ${reserved ? 'reserved' : ''} ${cancel ? 'cancel' : ''}`}>
         
@@ -428,9 +428,9 @@ hoursOptions.push('12:00 AM');
           </div>
         )}
 
-           {/* <div className='Canceldiv'>
+           <div className='Canceldiv'>
                <p className="cancelButton"  onClick={() => cancelClass(_id,startTime)} >x</p>
-           </div> */}
+           </div>
         
       </div>
     ))}
