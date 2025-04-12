@@ -512,7 +512,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     // Busca la clase disponible que coincide con la fecha y hora seleccionadas
     const selectedClass = tutorAvailability.find(availability => {
         const availabilityDate = new Date(availability.date).toLocaleDateString();
-        const availabilityTime = `${availability.startTime} --- ${availability.endTime}`;
+        const availabilityTime = `${availability.startTime} - ${availability.endTime}`;
         return availabilityDate === selectedDate.toLocaleDateString() && availabilityTime === selectedTime;
     });
 
