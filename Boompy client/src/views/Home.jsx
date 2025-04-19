@@ -11,6 +11,7 @@ import Modal from "../shared/Components/Modals/Modal"
 import { useNavigate} from 'react-router-dom';
 import {login,completeInfo} from '../Redux/authSlice'
 import Spinner from "../../src/shared/Components/Modals/Spinners/Spinner";
+import ChatSupport from "../shared/ChatSupport/ChatSupport";
       
       
 
@@ -258,10 +259,12 @@ return (
         >
           Calendario
         </p>
+        <ChatSupport></ChatSupport>
 
 </div>
       </>
     )}
+ 
   </div>
 );
 
