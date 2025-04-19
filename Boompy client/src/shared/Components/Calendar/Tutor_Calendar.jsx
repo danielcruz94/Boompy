@@ -409,13 +409,13 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
         const sendEmails = async () => {
           try {
             
-              // Enviar correo al estudiante
-             // const responseEstudiante = await axios.post(`${serverURL}/email/enviar-email`, emailDataEstudiante);
-            //  console.log('Respuesta del correo enviado al estudiante:', responseEstudiante.data);
+              //Enviar correo al estudiante
+             const responseEstudiante = await axios.post(`${serverURL}/email/enviar-email`, emailDataEstudiante);
+             
 
-              // Enviar correo al profesor
-            // const responseProfesor = await axios.post(`${serverURL}/email/enviar-email`, emailDataProfesor);
-           //console.log('Respuesta del correo enviado al profesor:', responseProfesor.data);
+              //Enviar correo al profesor
+            const responseProfesor = await axios.post(`${serverURL}/email/enviar-email`, emailDataProfesor);
+           
 
            sethasExecuted(false);
            setRealPrice(amount); 

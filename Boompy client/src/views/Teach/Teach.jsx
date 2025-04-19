@@ -165,7 +165,7 @@ const Teach = ({ auth }) => {
         }
       } catch (error) {
         console.error(error)
-        alert("Not Network");
+        alert("Recarge la página");
       } finally {
         //  setIsLoading(false);
        

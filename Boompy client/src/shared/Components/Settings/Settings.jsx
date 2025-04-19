@@ -94,7 +94,7 @@ const Settings = () => {
     if (!withdrawalAmount) {
       Swal.fire({
         icon: 'warning',
-        title: 'Amount Required',
+        title: 'Cantidad Requerida',
         text: 'Please enter an amount.'
       });
       return;
@@ -150,7 +150,7 @@ const Settings = () => {
     `;
 
     const emailDataAdmin = {
-      to: 'daniel94cruz@gmail.com',
+      to: 'teamtoriiapp@gmail.com',
       subject: 'Nuevo Retiro Solicitado - Torii',
       text: adminEmailContent
     };
@@ -167,8 +167,8 @@ const Settings = () => {
 
       Swal.fire({
         icon: 'success',
-        title: 'Withdrawal Requested Successfully!',
-        text: 'Your withdrawal request has been received and is being processed!'
+        title: 'Solicitud de Retiro Exitosa!',
+        text: 'Tu solicitud ha sido recibida y sera efectuada lo más pronto posible!'
       }).then(() => {
         // Puedes cerrar un modal aquí si es necesario
         // closeModal();
@@ -179,7 +179,7 @@ const Settings = () => {
       Swal.fire({
         icon: 'error',
         title: 'Error!',
-        text: 'There was a problem processing your withdrawal request. Please try again later.'
+        text: 'hubo un error con tu solicitud. Por favor intente mas tarde.'
       });
     }
   };
@@ -273,7 +273,7 @@ const Settings = () => {
             {modalContent === 'withdrawal' && (
               <div className="tab-content">
                 <form>
-                  <label className='TexPay' htmlFor="withdrawalAmount">Monto del retiro::</label>
+                  <label className='TexPay' htmlFor="withdrawalAmount">Monto del retiro:</label>
                   <div className='pay'>
                     <Saldo />
                   </div>
