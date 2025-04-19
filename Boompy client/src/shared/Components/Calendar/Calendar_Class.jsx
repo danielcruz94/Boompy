@@ -162,12 +162,12 @@ function CalendarClass({ isOpen, onRequestClose, onClose }) {
           
             const emailData = {
                 to: userData.email,
-                subject: 'Torii Availability Update',
+                subject: 'Tu Disponibilidad ha sido Actualizada',
                 text: emailContent
             };
           
             // Envío de correo electrónico
-          //  const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
+           const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
            
              Swal.fire({
                 icon: 'success',
