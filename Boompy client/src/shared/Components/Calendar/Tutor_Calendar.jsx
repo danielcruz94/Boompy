@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.css';
 import {formatDateToSpanish}from '../../utils/funtions'
+import ModalPagos from './Pagos/ModalPagos';
 
 import Wompi from './Wompi';
 
@@ -624,6 +625,9 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   overlayClassName="payment-modal-overlay"
 >
 
+  <ModalPagos closepay={closepay} RealPrice={RealPrice} puntos={formatearConPuntos(RealPoint)} PayPoint={PayPoint} PayPal={PayPal} ></ModalPagos>
+{/* 
+//---------------------------Quitar cuando walter configure el Wompi---- */}
 <div className="payment-modal-close-btn">
        <button onClick={closepay} >X</button>
     </div>
