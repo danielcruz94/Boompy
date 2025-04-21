@@ -12,6 +12,7 @@ import { useNavigate} from 'react-router-dom';
 import {login,completeInfo} from '../Redux/authSlice'
 import Spinner from "../../src/shared/Components/Modals/Spinners/Spinner";
 import ChatSupport from "../shared/ChatSupport/ChatSupport";
+import { Helmet } from 'react-helmet';
       
       
 
@@ -192,7 +193,13 @@ const closeCalendar = () => {
 return (
 
   isLoading?<Spinner />:
+  <>
+  <Helmet>
+    <link rel="preload" href="/home/fondo 1.jpeg" as="image" />
+    {/* Agrega más si hay otras imágenes críticas */}
+  </Helmet>
   <div className="conten-home">
+
 
       {/* Barra de navegación */}
       <NavBar
@@ -266,6 +273,7 @@ return (
     )}
  
   </div>
+  </>
 );
 
 };
