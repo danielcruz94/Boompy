@@ -400,7 +400,7 @@ const Teach = ({ auth }) => {
 
               <div className="Me_Pagos">
             <div>              
-                <p className="price">Contribución:  {"$" + userProfile.price + " USD"}</p>
+                <p className="price"> Contribución: <br /><b>${  userProfile.price } </b>USD</p>
               </div>
                 <strong>Paga Seguro:</strong>
                 <div className="img-Pagos">
@@ -454,58 +454,7 @@ const Teach = ({ auth }) => {
 
         
 
-        {auth.user?.role !== "Tutor" ? (
-          <div className="payment">
-            <div className="course-offer">
-              
-              <ul className="course-includes">
-                
-                <li>
-                  <div className="Div-li">
-                    <i className="fas fa-chart-bar"></i> <strong>Nivel:</strong> <p>Basico</p>
-                  </div>
-                  
-                </li>
-                <li>
-                  <div className="Div-li">
-                    <i className="fas fa-clock"></i> <strong>Duracion:</strong><p>1 hr</p>
-                  </div>
-                 
-                </li>
-                { /*<li>
-                    <div className="Div-li">
-                      <i className="fas fa-book-open"></i> <strong>Age:</strong>
-                    </div>
-                    <div className="Div-li2">22</div>
-                  </li> 
-                <li>
-                  <div className="Div-li">
-                    <i className="fas fa-question-circle"></i>{" "}
-                    <strong>Location:</strong>
-                  </div>
-                </li>
-                */}
-                <li>
-                  <div className="Div-li">
-                    <i className="fas fa-certificate"></i>{" "}
-                    <strong>Certificado:</strong> <p>Si</p>
-                  </div>
-                  
-                </li>
-              </ul>
-
-              
-
-              
-
-              {/* userProfile.country?extractNumber(userProfile.country):'6.00' */}
-            </div>
-
-           
-          </div>
-        ) : (
-          <div>{/* <h1>Suggeries</h1> */}</div>
-        )}
+        
       </div>
 
       <div className="contGalery">
