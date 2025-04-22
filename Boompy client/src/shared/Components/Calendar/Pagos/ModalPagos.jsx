@@ -31,7 +31,7 @@ const ModalPagos = ({closepay,RealPrice,puntos,PayPal,PayPoint}) => {
         <div className="torii-modal-header">
           <button className="torii-close-button" onClick={closepay}>✕</button>
           <div className="torii-logo-header">
-          <img src="../../../../../public/landing/Icono.png" alt="Logo Torii" className="torii-icon" />
+          <img src="/../../../../../public/landing/Icono.png" alt="Logo Torii" className="torii-icon" />
             <h2></h2>
           </div>
           <p>Seleccione método de pago</p>
