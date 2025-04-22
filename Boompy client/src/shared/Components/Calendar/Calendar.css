@@ -24,6 +24,7 @@
 }
 
 .calendarDate{
+margin-right: auto;
   width:fit-content;
   margin-top: 10px;
 
@@ -276,11 +277,13 @@ abbr[data-original-title], abbr[title] {
 	margin-bottom: 5px;
 	width: 100%;
 	font-weight: 600;
+	justify-content: center;
   }
 
   .custom-option:hover {
-	background-color: #E62B3F;
-	color: white;
+
+	border:1px solid #E62B3F;
+	
   }
 
   .custom-option.selected {
@@ -648,6 +651,8 @@ abbr[data-original-title], abbr[title] {
     margin-top: 15px;
     
   }
+
+ 
 
 
 	.ReactModal__Content {

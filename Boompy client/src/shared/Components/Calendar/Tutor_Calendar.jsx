@@ -514,8 +514,11 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     const selectedClass = tutorAvailability.find(availability => {
         const availabilityDate = new Date(availability.date).toLocaleDateString();
         const availabilityTime = `${availability.startTime} - ${availability.endTime}`;
+        
         return availabilityDate === selectedDate.toLocaleDateString() && availabilityTime === selectedTime;
     });
+
+
 
     setModalIsOpen(false)
    
@@ -737,14 +740,16 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   <p className='titlehoras'> Selecciona una hora:</p>
   <div className="custom-options-container">
   {getAvailableTimesForDate(selectedDate).map((time, index) => (
+
     <div
       key={index}
       className={`custom-option ${selectedTime === time ? 'selected' : ''}`}
       onClick={() => {
-        setSelectedTime(time); // Actualiza el valor del select original
+        setSelectedTime(time); 
+        console.log(selectedTime)// Actualiza el valor del select original
       }}       
     >
-      {time.replace('AM', 'A.M.').replace('PM', 'P.M.')}
+      {time.replace('AM', 'A.M.').replace('PM', 'P.M.').replace('PM', 'P.M.')}
     </div>
   ))}
 </div>
