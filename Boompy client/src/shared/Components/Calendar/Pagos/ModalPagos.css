@@ -1,0 +1,190 @@
+/* ToriiPaymentModal.css */
+
+.torii-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .torii-modal-container {
+    position: relative;
+    width: 90%;
+    max-width: 450px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    animation: modalFadeIn 0.3s ease;
+  }
+  
+  @keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .torii-modal-header {
+    position: relative;
+    background-color: #E62B3F;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .torii-modal-header h2 {
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+  
+  .torii-modal-header p {
+    font-size: 16px;
+    margin-top: 5px;
+  }
+  
+  .torii-close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px;
+    line-height: 1;
+    z-index: 10;
+  }
+  
+  .torii-close-button:hover {
+    opacity: 0.8;
+  }
+  
+  .torii-logo-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .torii-icon {
+    height: 28px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  
+  .torii-modal-body {
+    padding: 25px;
+  }
+  
+  .torii-price-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #EEE;
+  }
+  
+  .torii-price-total {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1D2347;
+  }
+  
+  .torii-price-points {
+    background-color: #1D2347;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .torii-payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .torii-payment-method {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border: 1px solid #DDD;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .torii-payment-method:hover {
+    border-color: #E52630;
+    background-color: #FFF7F7;
+  }
+  
+  .torii-payment-method.selected {
+    border-color: #E52630;
+    background-color: #FFF7F7;
+    border-width: 2px;
+  }
+  
+  .torii-payment-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .torii-payment-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1D2347;
+  }
+  
+  .torii-modal-footer {
+    padding: 0 25px 25px;
+  }
+  
+  .torii-continue-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #E52630;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .torii-continue-button:hover {
+    background-color: #C51F29;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 480px) {
+    .torii-modal-container {
+      width: 95%;
+      max-width: none;
+    }
+    
+    .torii-price-info {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    
+    .torii-modal-header h2 {
+      font-size: 20px;
+    }
+  }

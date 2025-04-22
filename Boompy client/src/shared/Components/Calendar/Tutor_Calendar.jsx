@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.css';
 import {formatDateToSpanish}from '../../utils/funtions'
+import ModalPagos from './Pagos/ModalPagos';
 
 import Wompi from './Wompi';
 
@@ -513,8 +514,11 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     const selectedClass = tutorAvailability.find(availability => {
         const availabilityDate = new Date(availability.date).toLocaleDateString();
         const availabilityTime = `${availability.startTime} - ${availability.endTime}`;
+        
         return availabilityDate === selectedDate.toLocaleDateString() && availabilityTime === selectedTime;
     });
+
+
 
     setModalIsOpen(false)
    
@@ -624,6 +628,9 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   overlayClassName="payment-modal-overlay"
 >
 
+  <ModalPagos closepay={closepay} RealPrice={RealPrice} puntos={formatearConPuntos(RealPoint)} PayPoint={PayPoint} PayPal={PayPal} ></ModalPagos>
+{/* 
+//---------------------------Quitar cuando walter configure el Wompi---- */}
 <div className="payment-modal-close-btn">
        <button onClick={closepay} >X</button>
     </div>
@@ -733,14 +740,16 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   <p className='titlehoras'> Selecciona una hora:</p>
   <div className="custom-options-container">
   {getAvailableTimesForDate(selectedDate).map((time, index) => (
+
     <div
       key={index}
       className={`custom-option ${selectedTime === time ? 'selected' : ''}`}
       onClick={() => {
-        setSelectedTime(time); // Actualiza el valor del select original
+        setSelectedTime(time); 
+        console.log(selectedTime)// Actualiza el valor del select original
       }}       
     >
-      {time.replace('AM', 'A.M.').replace('PM', 'P.M.')}
+      {time.replace('AM', 'A.M.').replace('PM', 'P.M.').replace('PM', 'P.M.')}
     </div>
   ))}
 </div>
