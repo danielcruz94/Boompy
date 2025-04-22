@@ -609,7 +609,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     setScrollEnabled(false);
     setRealPrice(amount); 
   }}>
-    <span>Reservar Torii</span>
+    <span>Reservar</span>
   </a>
 )}
 
@@ -618,7 +618,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
           setModalIsOpen(true);
           setScrollEnabled(false);
           setRealPrice(amount); 
-        }} className='Reservar'>Reservar Torii</button>
+        }} className='Reservar'>Activa tu práctica real</button>
       )}
 
 <Modal 
@@ -640,7 +640,7 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
     <h5>Seleccione método de pago</h5>
 
     <span className='TotalPagar'>Total a pagar: </span>
-    <span className='ValorPagar'>${RealPrice} USD</span>
+    <span className='ValorPagar'>  ${RealPrice} USD </span>
 
     <span className='TotalPagar'>Total Puntos: </span>
     <span className='ValorPagar'>{formatearConPuntos(RealPoint)}</span>
