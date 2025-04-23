@@ -185,42 +185,31 @@ const Settings = () => {
   };
 
   useEffect(() => {
-    const updateMenuPosition = () => {
-      if (showMenu && iconRef.current && menuRef.current) {
-        const iconRect = iconRef.current.getBoundingClientRect();
-        menuRef.current.style.top = `${iconRect.bottom + window.scrollY + 7}px`;
-        menuRef.current.style.left = `${iconRect.left + window.scrollX}px`;
-      }
-    };
-
-    // Actualizar la posición del menú inicialmente y en los eventos de scroll y resize
-    updateMenuPosition();
-    window.addEventListener('scroll', updateMenuPosition);
-    window.addEventListener('resize', updateMenuPosition);
-
-    // Limpiar los eventos al desmontar el componente
-    return () => {
-      window.removeEventListener('scroll', updateMenuPosition);
-      window.removeEventListener('resize', updateMenuPosition);
-    };
-  }, [showMenu]);
-
-  useEffect(() => {
     const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target) && !iconRef.current.contains(event.target)) {
+      if (
+        menuRef.current &&
+        iconRef.current &&
+        !menuRef.current.contains(event.target) &&
+        !iconRef.current.contains(event.target)
+      ) {
         setShowMenu(false);
       }
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
+  
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target)
+      ) {
         setShowModal(false);
       }
     };
-
+  
     document.addEventListener('mousedown', handleClickOutside);
-
+  
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+  
 
   return (
     <div>

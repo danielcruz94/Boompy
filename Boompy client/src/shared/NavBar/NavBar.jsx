@@ -165,7 +165,7 @@ useEffect(() => {
 
       
 
-        {!shouldHideButton && <botton className="Bottom" onClick={onClick}>{textBotton}</botton>}
+        {!shouldHideButton && <button className="Bottom" onClick={onClick}>{textBotton}</button>}
       </div>
 
       <div className="menu-container">
