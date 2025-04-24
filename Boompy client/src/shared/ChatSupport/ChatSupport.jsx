@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector } from "react-redux"
+import axios from 'axios'; 
 import './ChatSupport.css';
 
 const ChatSupport = () => {
@@ -14,6 +16,8 @@ const ChatSupport = () => {
   const [isOpen, setIsOpen] = useState(false);
   const messagesEndRef = useRef(null);
 
+  const serverURL = useSelector(state => state.serverURL.url);
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -27,41 +31,56 @@ const ChatSupport = () => {
     return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!inputMessage.trim()) return;
-
+  
+    const emailData = {
+      to: 'Daniel94cruz@gmail.com',
+      subject: 'ChatSupport',
+      text: inputMessage 
+    };
+  
+    try {
+      // Envío de correo electrónico
+      const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
+      console.log('Correo enviado:', sentEmail.data);
+    } catch (error) {
+      console.error('Error al enviar el correo:', error);
+    }
+  
     // Add user message
     const userMessage = {
       text: inputMessage,
       sender: "user",
       time: formatTime()
     };
-
+  
     setMessages([...messages, userMessage]);
     setInputMessage("");
-    
+  
     // Simulate typing indicator
     setIsTyping(true);
-    
+  
     // Simulate response after delay
     setTimeout(() => {
       setIsTyping(false);
-      
+  
       const responses = [
         "Gracias por tu mensaje. Nuestro equipo de soporte está revisando tu caso.",
         "Entiendo tu consulta. ¿Podrías proporcionar más detalles para ayudarte mejor?",
         "Hemos registrado tu solicitud. Un especialista se pondrá en contacto contigo pronto."
       ];
-      
+  
       const supportMessage = {
         text: responses[Math.floor(Math.random() * responses.length)],
         sender: "support",
         time: formatTime()
       };
-      
+  
       setMessages(prevMessages => [...prevMessages, supportMessage]);
     }, 2500);
   };
+  
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
