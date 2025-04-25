@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import Wompi from '../Wompi';
 import './ModalPagos.css';
 
-const ModalPagos = ({closepay,RealPrice,puntos,PayPal,PayPoint}) => {
+const ModalPagos = ({closepay,RealPrice,puntos,PayPal,PayPoint,TRM,Factura}) => {
   const [selectedMethod, setSelectedMethod] = useState('points');
 
   const handleSelectMethod = (method) => {
@@ -19,7 +20,14 @@ const ModalPagos = ({closepay,RealPrice,puntos,PayPal,PayPoint}) => {
       } else if (selectedMethod === 'paypal') {
         PayPal();
       } else {
-        alert('Poner Aca lo de wompi');
+        //alert('Poner Aca lo de wompi');
+        const wompiButton = [...document.querySelectorAll('button.waybox-button')]
+        .find(btn => btn.textContent.includes('Wompi'));
+
+        if (wompiButton) {
+          wompiButton.click();
+        }
+
       }
     };
     // Process payment logic would go here
@@ -86,6 +94,9 @@ const ModalPagos = ({closepay,RealPrice,puntos,PayPal,PayPoint}) => {
             </div>
           </div>
         </div>
+         <div className="payment-modal-options ">
+            <Wompi amount={RealPrice} TRM={TRM} Factura={Factura}/>  
+           </div>
         
         <div className="torii-modal-footer">
           <button className="torii-continue-button" onClick={handleContinue}>

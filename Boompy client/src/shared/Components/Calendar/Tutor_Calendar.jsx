@@ -627,51 +627,8 @@ function TutorCalendar({ pagina, ID,tutor,amount}) {
   className="payment-modal-content"
   overlayClassName="payment-modal-overlay"
 >
-
-  <ModalPagos closepay={closepay} RealPrice={RealPrice} puntos={formatearConPuntos(RealPoint)} PayPoint={PayPoint} PayPal={PayPal} ></ModalPagos>
-{/* 
-//---------------------------Quitar cuando walter configure el Wompi---- */}
-<div className="payment-modal-close-btn">
-       <button onClick={closepay} >X</button>
-    </div>
-  <div className="payment-modal-header">
-   
-  
-    <h5>Seleccione método de pago</h5>
-
-    <span className='TotalPagar'>Total a pagar: </span>
-    <span className='ValorPagar'>  ${RealPrice} USD </span>
-
-    <span className='TotalPagar'>Total Puntos: </span>
-    <span className='ValorPagar'>{formatearConPuntos(RealPoint)}</span>
-
-  </div>
-  <div className="payment-modal-actions">
-    <button 
-        onClick={PayPoint}           
-        className="payment-modal-confirm-btn"
-      >      
-        Puntos
-      </button>
-  </div>  
-  
-  <div className="payment-modal-actions">
-    <button 
-      onClick={PayPal}           
-      className="payment-modal-confirm-btn"
-    >
-     <i className="fab fa-paypal ico_paypal"></i>
-      PayPal
-    </button>
-
-    <div className="payment-modal-options ">
-    <Wompi amount={RealPrice} TRM={TRM} Factura={Factura}/>  
-   </div>
-   
-  </div>
-
+  <ModalPagos closepay={closepay} RealPrice={RealPrice} puntos={formatearConPuntos(RealPoint)} PayPoint={PayPoint} PayPal={PayPal} TRM={TRM} Factura={Factura}></ModalPagos>
  
-
 </Modal>
 
 

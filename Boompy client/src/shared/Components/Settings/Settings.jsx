@@ -65,7 +65,7 @@ const Settings = () => {
       fetchBankDetails(userData.id);
     }
     setPrice(extraerNumero(userData.price));
-  }, [userData]);
+  }, []);
 
   const handleAddAccount = async () => {
     if (!accountName || !bankName) {
@@ -244,7 +244,7 @@ const Settings = () => {
             <span className="close" onClick={closeModal}>&times;</span>
             {modalContent === 'account' && (
               <div className="tab-content">
-                <form>
+                <form onSubmit={(e) => e.preventDefault()}>
                   <label className='TexPay' htmlFor="accountName">Agregue una cuenta de ahorros para el pago..</label>
                   <div className='Continputpay'>
                     <input

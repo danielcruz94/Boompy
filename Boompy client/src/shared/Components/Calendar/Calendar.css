@@ -374,11 +374,7 @@ abbr[data-original-title], abbr[title] {
 }
 
 .Form-Wompi {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    margin: 10px 0px;
+    display: none;    
 }
 
 .payment-modal-actions {
