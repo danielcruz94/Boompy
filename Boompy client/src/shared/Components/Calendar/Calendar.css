@@ -1,9 +1,4 @@
 
-/* Fix definitivo para Safari */
-/* .react-calendar * {
-	color: black;
-
-  } */
 
   .react-calendar__tile--now {
     background: transparent; /* Opcional: Quita el fondo de la fecha actual */
@@ -114,14 +109,6 @@ margin-right: auto;
 
 
 }
-
-/* ---------------codigo especial para iphone */
-/* Fix definitivo para Safari */
-
-
-
-  
-
 
 
 .ReactModal__Content {
@@ -487,18 +474,6 @@ abbr[data-original-title], abbr[title] {
 
 }
 
-/* Aplica el estilo cuando el botón está siendo presionado */
-/* .time-slot:active {
-	background: #E62B3F;
-	color: white;
-
-  } */
-
-  /* También puedes usar :focus para cuando un botón recibe el enfoque */
-  /* .time-slot:focus {
-	background: #E62B3F;
-	color: white;
-  } */
 
 
 .view-class-button {
@@ -577,8 +552,7 @@ abbr[data-original-title], abbr[title] {
     border: none;
     font-weight: 700;
 	transform: translateY(-5px);
-	animation: vibrar-suave 0.4s ease-in-out infinite;
-
+	
 	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 	
    
@@ -717,6 +691,11 @@ abbr[data-original-title], abbr[title] {
 
 	.react-calendar__month-view__days button abbr {
 		font-size: 4vw;
+	}
+
+	.Reservar{
+		animation: vibrar-suave 0.4s ease-in-out infinite;
+
 	}
 
 	.titlehoras {
