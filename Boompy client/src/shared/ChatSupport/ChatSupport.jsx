@@ -1,58 +1,39 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSelector } from "react-redux";
-import { io } from 'socket.io-client';
+import Pusher from 'pusher-js';
 import './ChatSupport.css';
-import axios from 'axios'
+import axios from 'axios';
 
 const ChatSupport = () => {
   const [messages, setMessages] = useState([]); 
   const [inputMessage, setInputMessage] = useState(""); 
   const [isOpen, setIsOpen] = useState(false); 
-  const [isConnected, setIsConnected] = useState(false); 
-  const [error, setError] = useState("");
   const messagesEndRef = useRef(null);
-  const socketRef = useRef(null);
 
-  const serverURL = useSelector(state => state.serverURL.url.replace('/api', '')); 
+  const serverURL = useSelector(state => state.serverURL.url);
 
-  // Obtener datos del usuario desde localStorage
   const userData = JSON.parse(localStorage.getItem('userData')) || {};
   const userName = userData.name || "Usuario";
   const userRole = userData.role || "usuario";
   const userId = userData.id;
 
-  // Scroll al final
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  // Formatear la hora
   const formatTime = () => {
     const now = new Date();
     return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
-  // Conectar al WebSocket
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   useEffect(() => {
-    const connectSocket = () => {
-      socketRef.current = io(serverURL, { transports: ['websocket'] });
-  
-      socketRef.current.on("connect", () => {
-        setIsConnected(true);
-        setError("");
-        socketRef.current.emit("join-user", { userId });
-      });
-  
-      socketRef.current.on("disconnect", () => {
-        setIsConnected(false);
-      });
-  
-      socketRef.current.on("connect_error", (err) => {
-        setError("Error de conexión: " + err.message);
-      });
-  
-      // Escuchar historial del chat
-      socketRef.current.on("chat-history", (historyMessages) => {
+    // 1. Obtener historial de mensajes
+    const getHistory = async () => {
+      try {
+        const res = await axios.get(`${serverURL}/conversations`);
+        const convo = res.data.find(c => c.userId === userId);
+        const history = convo ? convo.messages : [];
+
         setMessages([
           {
             text: "¡Hola! Bienvenido al chat de soporte. ¿En qué podemos ayudarte hoy?",
@@ -61,44 +42,49 @@ const ChatSupport = () => {
             time: formatTime(),
             userId: "support"
           },
-          ...historyMessages
+          ...history
         ]);
-      });
-  
-      // Escuchar mensajes nuevos en tiempo real
-      socketRef.current.on("chat-message", (data) => {
-        const { userId, text, sender, name, time } = data;
-  
-        const message = { userId, text, sender, name, time };
-  
-        setMessages(prev => {
-          const isDuplicate = prev.some(
-            m => m.text === message.text &&
-                 m.time === message.time &&
-                 m.sender === message.sender
-          );
-          return isDuplicate ? prev : [...prev, message];
-        });
-      });
+      } catch (err) {
+        console.error("❌ Error al obtener historial:", err);
+      }
     };
-  
-    connectSocket();
-  
+
+    getHistory();
+
+    // 2. Conectarse a Pusher
+    const pusher = new Pusher("e2be01e39a4d829d6f13", {
+      cluster: "us2"
+    });
+
+    // Canal general para mensajes del soporte
+    const userChannel = pusher.subscribe(`user-${userId}`);
+    userChannel.bind("chat-message", data => {
+      const { userId, text, sender, name, time } = data;
+      const message = { userId, text, sender, name, time };
+
+      setMessages(prev => {
+        const isDuplicate = prev.some(
+          m => m.text === message.text &&
+               m.time === message.time &&
+               m.sender === message.sender
+        );
+        return isDuplicate ? prev : [...prev, message];
+      });
+    });
+
     return () => {
-      socketRef.current?.disconnect();
+      pusher.unsubscribe(`user-${userId}`);
+      pusher.disconnect();
     };
   }, [serverURL, userId]);
-  
 
-  // Scroll automático cuando cambian los mensajes
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
-  // Enviar mensaje
   const handleSendMessage = async () => {
     if (!inputMessage.trim()) return;
-  
+
     const message = {
       text: inputMessage,
       sender: userRole,
@@ -106,46 +92,43 @@ const ChatSupport = () => {
       time: formatTime(),
       userId
     };
-  
-    // Mostrar el mensaje del usuario en la interfaz
+
+    // Añadir mensaje del usuario al chat localmente
     setMessages(prev => [
       ...prev,
       {
         ...message,
-        sender: "user", 
+        sender: "user"
       }
     ]);
-  
-    // Enviar mensaje al servidor (WebSocket)
-    socketRef.current.emit("mensaje", { userId, message });
-  
-    // Enviar notificación por correo electrónico al soporte
-    const emailData = {
-      to: 'Daniel94cruz@gmail.com',  
-      subject: 'Nuevo mensaje de soporte en Torii',
-      text: `Nuevo mensaje de  ${userName}`,
-    };
-  
+
     try {
-      // Enviar el correo al servidor de backend para su procesamiento
-      await axios.post(`${serverURL}/api/email/enviar-email`, emailData);
-      console.log('Correo enviado');
-    } catch (error) {
-      console.error('Error al enviar el correo:', error);
+      // Enviar mensaje al backend (Pusher lo emitirá)
+      await axios.post(`${serverURL}/chat/user-message`, {
+        userId,
+        message
+      });
+
+      // Enviar correo al soporte
+      await axios.post(`${serverURL}/api/email/enviar-email`, {
+        to: 'dz677806@gmail.com',
+        subject: 'Nuevo mensaje de soporte en Torii',
+        text: `Nuevo mensaje de ${userName}`
+      });
+
+    } catch (err) {
+      console.error('❌ Error al enviar mensaje o correo:', err);
     }
-  
-    // Limpiar el campo de entrada después de enviar el mensaje
+
     setInputMessage(""); 
   };
-  
-  // Enviar con Enter
+
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       handleSendMessage();
     }
   };
 
-  // Abrir/cerrar chat
   const toggleChat = () => {
     setIsOpen(!isOpen);
   };
@@ -160,21 +143,16 @@ const ChatSupport = () => {
                 <div className="logo">T</div>
               </div>
               <h2>Torii Soporte</h2>
-              
             </div>
             <button className="close-button" onClick={toggleChat}>✕</button>
           </div>
-
-          {error && <div className="error-message">Soporte Torii</div>}
 
           <div className="chat-messages">
             {messages.map((message, index) => (
               <div key={index} className={`message ${message.sender === "user" ? "message-user" : "message-support"}`}>
                 <strong>{message.name}:</strong> 
                 <p>{message.text}</p>
-
-
-                {/*<div className="message-time">{message.time}</div>*/}
+                <div className="message-time">{message.time}</div>
               </div>
             ))}
             <div ref={messagesEndRef} />

@@ -1,44 +1,52 @@
 import { useEffect, useState, useRef } from 'react';
 import { useSelector } from "react-redux";
-import { io } from 'socket.io-client';
+import axios from 'axios';
+import Pusher from 'pusher-js';
 import './SupportChat.css';
 
 const SupportChat = () => {
-  const [users, setUsers] = useState([]);
-  const [selectedUserId, setSelectedUserId] = useState(null);
-  const [messages, setMessages] = useState({});
-  const [newMessage, setNewMessage] = useState('');
-  const [isUserListOpen, setIsUserListOpen] = useState(false);
-  const [allConversations, setAllConversations] = useState([]);
-  const socketRef = useRef(null);
-  const serverURL = useSelector(state => state.serverURL.url.replace('/api', ''));
-  const messagesEndRef = useRef(null);
+  const [users, setUsers] = useState([]); // Lista de usuarios
+  const [selectedUserId, setSelectedUserId] = useState(null); // Usuario seleccionado
+  const [messages, setMessages] = useState({}); // Mensajes por usuario
+  const [newMessage, setNewMessage] = useState(''); // Mensaje nuevo a enviar
+  const [isUserListOpen, setIsUserListOpen] = useState(false); // Estado de la lista de usuarios
+  const [allConversations, setAllConversations] = useState([]); // Todas las conversaciones
+  const serverURL = useSelector(state => state.serverURL.url); // URL del servidor
+  const messagesEndRef = useRef(null); // Referencia para el scroll al final de los mensajes
 
-  // Conectar socket y obtener conversaciones al montar
+  // Obtener conversaciones y suscribir a Pusher
   useEffect(() => {
-    socketRef.current = io(serverURL);
+    const fetchConversations = async () => {
+      try {
+        const res = await axios.get(`${serverURL}/conversations`);
+        setAllConversations(res.data);
 
-    socketRef.current.emit('join-support');
-    socketRef.current.emit('get-all-conversations');
+        const userList = res.data.map(convo => ({
+          userId: convo.userId,
+          name: convo.messages[0]?.name || 'Usuario'
+        }));
+        setUsers(userList);
+      } catch (error) {
+        console.error('❌ Error al obtener conversaciones:', error);
+      }
+    };
 
-    // Listener de todas las conversaciones iniciales
-    socketRef.current.on('all-conversations', (conversations) => {
-      setAllConversations(conversations);
-      const usersList = conversations.map(convo => ({
-        userId: convo.userId,
-        name: convo.messages[0]?.name || 'Usuario'
-      }));
-      setUsers(usersList);
+    fetchConversations();
+
+    // Pusher configuración
+    const pusher = new Pusher('e2be01e39a4d829d6f13', {
+      cluster: 'us2'
     });
 
-    // Listener de mensajes nuevos en tiempo real
-    socketRef.current.on('chat-message', ({ userId, ...newMsg }) => {
+    const channel = pusher.subscribe('support-channel');
+    channel.bind('chat-message', ({ userId, ...newMsg }) => {
+      // Actualiza los mensajes
       setMessages(prev => ({
         ...prev,
         [userId]: [...(prev[userId] || []), newMsg]
       }));
 
-      // Opcional: también actualiza `allConversations`
+      // Actualiza el resumen de la conversación
       setAllConversations(prev =>
         prev.map(convo =>
           convo.userId === userId
@@ -46,14 +54,25 @@ const SupportChat = () => {
             : convo
         )
       );
+
+      // Si el usuario no está en la lista, añadirlo
+      setUsers(prevUsers => {
+        if (!prevUsers.find(user => user.userId === userId)) {
+          const userName = newMsg.name || 'Usuario';
+          return [...prevUsers, { userId, name: userName }];
+        }
+        return prevUsers;
+      });
     });
 
     return () => {
-      socketRef.current.disconnect();
+      pusher.unsubscribe('support-channel');
+      pusher.disconnect();
     };
   }, [serverURL]);
 
   useEffect(() => {
+    // Desplazar el chat al final cada vez que se reciban nuevos mensajes
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, selectedUserId]);
 
@@ -62,7 +81,7 @@ const SupportChat = () => {
     return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
-  const sendResponse = () => {
+  const sendResponse = async () => {
     if (!newMessage.trim() || !selectedUserId) return;
 
     const response = {
@@ -73,12 +92,19 @@ const SupportChat = () => {
       time: formatTime()
     };
 
-    socketRef.current.emit('send-to-user', { userId: selectedUserId, message: response });
+    try {
+      await axios.post(`${serverURL}/chat/support-message`, {
+        userId: selectedUserId,
+        message: response
+      });
 
-    setMessages(prev => ({
-      ...prev,
-      [selectedUserId]: [...(prev[selectedUserId] || []), response]
-    }));
+      setMessages(prev => ({
+        ...prev,
+        [selectedUserId]: [...(prev[selectedUserId] || []), response]
+      }));
+    } catch (err) {
+      console.error('❌ Error al enviar respuesta:', err);
+    }
 
     setNewMessage('');
   };
