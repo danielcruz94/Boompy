@@ -128,7 +128,7 @@ const ChatSupport = () => {
   
     try {
       // Enviar el correo al servidor de backend para su procesamiento
-      await axios.post(`${serverURL}/email/enviar-email`, emailData);
+      await axios.post(`${serverURL}/api/email/enviar-email`, emailData);
       console.log('Correo enviado');
     } catch (error) {
       console.error('Error al enviar el correo:', error);
@@ -165,7 +165,7 @@ const ChatSupport = () => {
             <button className="close-button" onClick={toggleChat}>✕</button>
           </div>
 
-          {error && <div className="error-message">{error}</div>}
+          {error && <div className="error-message">Soporte Torii</div>}
 
           <div className="chat-messages">
             {messages.map((message, index) => (
