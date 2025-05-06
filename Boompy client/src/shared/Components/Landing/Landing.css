@@ -421,9 +421,9 @@ body{
   margin-bottom: 20px;  
   left: 50%;
   transform: translateX(-50%);
-  width: 11%;
+  width: 15%;
   height: max-content;
-  margin-top: 20px;
+  margin-top: 0px;
 }
 
 .Footer-icon {
