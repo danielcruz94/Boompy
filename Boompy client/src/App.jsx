@@ -2,6 +2,7 @@ import './App.css'
 
 // Libraries
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import SupportChat  from "./shared/ChatSupport/SupportChat .jsx";
 import Login from "./views/Login";
 import Home from "./views/Home";
 import Landing from "./shared/Components/Landing/Landing";
@@ -16,6 +17,9 @@ import Signup from "./views/SignUp/Signup";
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from "react";
 import { loadUser } from "./Redux/authSlice";
+
+
+
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -41,7 +45,8 @@ function App() {
         location.pathname !== '/login' && 
         location.pathname !== '/signup' &&
         location.pathname !== '/privacy' && 
-        location.pathname !== '/service'
+        location.pathname !== '/service' &&
+        location.pathname !== '/SupportChat'
       ) {
         navigate('/');
       }
@@ -68,9 +73,11 @@ function App() {
       <Route path='/delete' element={<Deleteimg />} />
       <Route path='/tutor/:id' element={<Teach />} />
       <Route path='/calls/:id' element={<Calls />} />
+      <Route path='/SupportChat' element={<SupportChat />} />
       <Route path='*' element={<Error />} />
     </Routes>
   );
 }
 
 export default App;
+SupportChat

@@ -6,8 +6,8 @@ const currentHost = window.location.hostname;
 // Condicionar el valor de la URL en función del host
 
 const initialURL = currentHost.includes("torii.com.co")
-? "https://torii-tau.vercel.app/api"
-: "https://torii-tau.vercel.app/api";
+? "http://localhost:3001/api"
+: "http://localhost:3001/api";
 
 // http://localhost:3001/api
    

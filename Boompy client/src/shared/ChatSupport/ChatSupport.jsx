@@ -1,93 +1,151 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useSelector } from "react-redux"
-import axios from 'axios'; 
+import { useState, useEffect, useRef } from 'react';
+import { useSelector } from "react-redux";
+import { io } from 'socket.io-client';
 import './ChatSupport.css';
+import axios from 'axios'
 
 const ChatSupport = () => {
-  const [messages, setMessages] = useState([
-    {
-      text: "¡Hola! Bienvenido al chat de soporte de Torii. ¿En qué podemos ayudarte hoy?",
-      sender: "support",
-      time: "11:30"
-    }
-  ]);
-  const [inputMessage, setInputMessage] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([]); 
+  const [inputMessage, setInputMessage] = useState(""); 
+  const [isOpen, setIsOpen] = useState(false); 
+  const [isConnected, setIsConnected] = useState(false); 
+  const [error, setError] = useState("");
   const messagesEndRef = useRef(null);
+  const socketRef = useRef(null);
 
-  const serverURL = useSelector(state => state.serverURL.url);
+  const serverURL = useSelector(state => state.serverURL.url.replace('/api', '')); 
 
+  // Obtener datos del usuario desde localStorage
+  const userData = JSON.parse(localStorage.getItem('userData')) || {};
+  const userName = userData.name || "Usuario";
+  const userRole = userData.role || "usuario";
+  const userId = userData.id;
+
+  // Scroll al final
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages, isTyping]);
-
+  // Formatear la hora
   const formatTime = () => {
     const now = new Date();
     return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
+  // Conectar al WebSocket
+  useEffect(() => {
+    const connectSocket = () => {
+      socketRef.current = io(serverURL, { transports: ['websocket'] });
+  
+      socketRef.current.on("connect", () => {
+        setIsConnected(true);
+        setError("");
+        socketRef.current.emit("join-user", { userId });
+      });
+  
+      socketRef.current.on("disconnect", () => {
+        setIsConnected(false);
+      });
+  
+      socketRef.current.on("connect_error", (err) => {
+        setError("Error de conexión: " + err.message);
+      });
+  
+      // Escuchar historial del chat
+      socketRef.current.on("chat-history", (historyMessages) => {
+        setMessages([
+          {
+            text: "¡Hola! Bienvenido al chat de soporte. ¿En qué podemos ayudarte hoy?",
+            sender: "support",
+            name: "Torii Soporte",
+            time: formatTime(),
+            userId: "support"
+          },
+          ...historyMessages
+        ]);
+      });
+  
+      // Escuchar mensajes nuevos en tiempo real
+      socketRef.current.on("chat-message", (data) => {
+        const { userId, text, sender, name, time } = data;
+  
+        const message = { userId, text, sender, name, time };
+  
+        setMessages(prev => {
+          const isDuplicate = prev.some(
+            m => m.text === message.text &&
+                 m.time === message.time &&
+                 m.sender === message.sender
+          );
+          return isDuplicate ? prev : [...prev, message];
+        });
+      });
+    };
+  
+    connectSocket();
+  
+    return () => {
+      socketRef.current?.disconnect();
+    };
+  }, [serverURL, userId]);
+  
+
+  // Scroll automático cuando cambian los mensajes
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  // Enviar mensaje
   const handleSendMessage = async () => {
     if (!inputMessage.trim()) return;
   
+    const message = {
+      text: inputMessage,
+      sender: userRole,
+      name: userName,
+      time: formatTime(),
+      userId
+    };
+  
+    // Mostrar el mensaje del usuario en la interfaz
+    setMessages(prev => [
+      ...prev,
+      {
+        ...message,
+        sender: "user", 
+      }
+    ]);
+  
+    // Enviar mensaje al servidor (WebSocket)
+    socketRef.current.emit("mensaje", { userId, message });
+  
+    // Enviar notificación por correo electrónico al soporte
     const emailData = {
-      to: 'Daniel94cruz@gmail.com',
-      subject: 'ChatSupport',
-      text: inputMessage 
+      to: 'Daniel94cruz@gmail.com',  
+      subject: 'Nuevo mensaje de soporte en Torii',
+      text: `Nuevo mensaje de  ${userName}`,
     };
   
     try {
-      // Envío de correo electrónico
-      const sentEmail = await axios.post(`${serverURL}/email/enviar-email`, emailData);
-      console.log('Correo enviado:', sentEmail.data);
+      // Enviar el correo al servidor de backend para su procesamiento
+      await axios.post(`${serverURL}/email/enviar-email`, emailData);
+      console.log('Correo enviado');
     } catch (error) {
       console.error('Error al enviar el correo:', error);
     }
   
-    // Add user message
-    const userMessage = {
-      text: inputMessage,
-      sender: "user",
-      time: formatTime()
-    };
-  
-    setMessages([...messages, userMessage]);
-    setInputMessage("");
-  
-    // Simulate typing indicator
-    setIsTyping(true);
-  
-    // Simulate response after delay
-    setTimeout(() => {
-      setIsTyping(false);
-  
-      const responses = [
-        "Gracias por tu mensaje. Nuestro equipo de soporte está revisando tu caso.",
-        "Entiendo tu consulta. ¿Podrías proporcionar más detalles para ayudarte mejor?",
-        "Hemos registrado tu solicitud. Un especialista se pondrá en contacto contigo pronto."
-      ];
-  
-      const supportMessage = {
-        text: responses[Math.floor(Math.random() * responses.length)],
-        sender: "support",
-        time: formatTime()
-      };
-  
-      setMessages(prevMessages => [...prevMessages, supportMessage]);
-    }, 2500);
+    // Limpiar el campo de entrada después de enviar el mensaje
+    setInputMessage(""); 
   };
   
-
+  // Enviar con Enter
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       handleSendMessage();
     }
   };
 
+  // Abrir/cerrar chat
   const toggleChat = () => {
     setIsOpen(!isOpen);
   };
@@ -99,39 +157,29 @@ const ChatSupport = () => {
           <div className="chat-header">
             <div className="header-content">
               <div className="logo-container">
-                {/* Placeholder for logo */}
                 <div className="logo">T</div>
               </div>
-              <h2>Soporte Torii</h2>
-              <div className="online-indicator"></div>
+              <h2>Torii Soporte</h2>
+              
             </div>
             <button className="close-button" onClick={toggleChat}>✕</button>
           </div>
-          
+
+          {error && <div className="error-message">{error}</div>}
+
           <div className="chat-messages">
             {messages.map((message, index) => (
-              <div 
-                key={index} 
-                className={`message ${message.sender === "user" ? "message-user" : "message-support"}`}
-              >
-                {message.text}
-                <div className="message-time">{message.time}</div>
+              <div key={index} className={`message ${message.sender === "user" ? "message-user" : "message-support"}`}>
+                <strong>{message.name}:</strong> 
+                <p>{message.text}</p>
+
+
+                {/*<div className="message-time">{message.time}</div>*/}
               </div>
             ))}
-            
-            {isTyping && (
-              <div className="support-typing">
-                <span>Escribiendo</span>
-                <div className="typing-dots">
-                  <div className="typing-dot"></div>
-                  <div className="typing-dot"></div>
-                  <div className="typing-dot"></div>
-                </div>
-              </div>
-            )}
             <div ref={messagesEndRef} />
           </div>
-          
+
           <div className="chat-input">
             <input
               type="text"
@@ -149,10 +197,11 @@ const ChatSupport = () => {
           </div>
         </div>
       ) : (
-        <div className="chat-bubble" onClick={toggleChat}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-          </svg>
+        <div className="PQRS black" onClick={toggleChat}>
+          <p className="black">PQRS</p>
+          <div>
+            <img src="/landing/Icono.png" alt="TORII" className="Icon_TORII" />
+          </div>
         </div>
       )}
     </div>
