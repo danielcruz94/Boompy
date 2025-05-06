@@ -111,7 +111,7 @@ const ChatSupport = () => {
 
       // Enviar correo al soporte
       await axios.post(`${serverURL}/api/email/enviar-email`, {
-        to: 'dz677806@gmail.com',
+        to: 'daniel94cruz@gmail.com',
         subject: 'Nuevo mensaje de soporte en Torii',
         text: `Nuevo mensaje de ${userName}`
       });
