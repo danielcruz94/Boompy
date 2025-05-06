@@ -73,7 +73,7 @@ function App() {
       <Route path='/delete' element={<Deleteimg />} />
       <Route path='/tutor/:id' element={<Teach />} />
       <Route path='/calls/:id' element={<Calls />} />
-      <Route path='/SupportChat' element={<SupportChat />} />
+      <Route path='/supportchat' element={<SupportChat />} />
       <Route path='*' element={<Error />} />
     </Routes>
   );
