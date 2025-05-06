@@ -46,7 +46,7 @@ function App() {
         location.pathname !== '/signup' &&
         location.pathname !== '/privacy' && 
         location.pathname !== '/service' &&
-        location.pathname !== '/SupportChat'
+        location.pathname !== '/supportchat'
       ) {
         navigate('/');
       }
