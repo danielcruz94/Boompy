@@ -14,6 +14,7 @@ import Saldo from "../../shared/Components/Saldo/saldo";
 import Settings from "../../shared/Components/Settings/Settings";
 import { Link } from 'react-router-dom';
 import {TextArea} from './Teach.style.js'
+import ChatSupport from "../../shared/ChatSupport/ChatSupport";
 
 import { convertirMonedaANumero } from "../../shared/utils/funtions";
 
@@ -219,12 +220,7 @@ const Teach = ({ auth }) => {
     <Spinner />
   ) : (
     <div className="contenTeach" >
-      <div className="PQRS black">
-        <p className="black">PQRS</p>
-        <div>
-          <img src="/landing/Icono.png" alt="TORII" className="Icon_TORII"  />
-        </div>
-      </div>
+     <ChatSupport></ChatSupport>
 
       {<NavBar textBotton={"Cerrar App"} onClick={handleLogout}></NavBar>}
 
