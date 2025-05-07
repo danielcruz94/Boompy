@@ -5,14 +5,14 @@ import Pusher from 'pusher-js';
 import './SupportChat.css';
 
 const SupportChat = () => {
-  const [users, setUsers] = useState([]); // Lista de usuarios
-  const [selectedUserId, setSelectedUserId] = useState(null); // Usuario seleccionado
-  const [messages, setMessages] = useState({}); // Mensajes por usuario
-  const [newMessage, setNewMessage] = useState(''); // Mensaje nuevo a enviar
-  const [isUserListOpen, setIsUserListOpen] = useState(false); // Estado de la lista de usuarios
-  const [allConversations, setAllConversations] = useState([]); // Todas las conversaciones
-  const serverURL = useSelector(state => state.serverURL.url); // URL del servidor
-  const messagesEndRef = useRef(null); // Referencia para el scroll al final de los mensajes
+  const [users, setUsers] = useState([]); 
+  const [selectedUserId, setSelectedUserId] = useState(null); 
+  const [messages, setMessages] = useState({}); 
+  const [newMessage, setNewMessage] = useState(''); 
+  const [isUserListOpen, setIsUserListOpen] = useState(false); 
+  const [allConversations, setAllConversations] = useState([]); 
+  const serverURL = useSelector(state => state.serverURL.url); 
+  const messagesEndRef = useRef(null); 
 
   // Obtener conversaciones y suscribir a Pusher
   useEffect(() => {
@@ -78,7 +78,20 @@ const SupportChat = () => {
 
   const formatTime = () => {
     const now = new Date();
-    return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  
+    const day = String(now.getDate()).padStart(2, '0');  
+    const month = String(now.getMonth() + 1).padStart(2, '0'); 
+    const year = now.getFullYear(); 
+    
+    let hour = now.getHours();  
+    const minute = String(now.getMinutes()).padStart(2, '0'); 
+    
+    const isPM = hour >= 12;  
+    hour = hour % 12 || 12;  
+    
+    const period = isPM ? 'PM' : 'AM';  
+    
+    return `${day}/${month}/${year} ${String(hour).padStart(2, '0')}:${minute} ${period}`;;
   };
 
   const sendResponse = async () => {

@@ -18,8 +18,21 @@ const ChatSupport = () => {
   const userId = userData.id;
 
   const formatTime = () => {
-    const now = new Date();
-    return now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const now = new Date();
+      
+      const day = String(now.getDate()).padStart(2, '0');  
+      const month = String(now.getMonth() + 1).padStart(2, '0');  
+      const year = now.getFullYear();  
+      
+      let hour = now.getHours();  
+      const minute = String(now.getMinutes()).padStart(2, '0');  
+      
+      const isPM = hour >= 12;  
+      hour = hour % 12 || 12;  
+      
+      const period = isPM ? 'PM' : 'AM';  
+      
+      return `${day}/${month}/${year} ${String(hour).padStart(2, '0')}:${minute} ${period}`;
   };
 
   const scrollToBottom = () => {
