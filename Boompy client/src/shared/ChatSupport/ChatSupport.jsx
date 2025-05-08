@@ -18,21 +18,21 @@ const ChatSupport = () => {
   const userId = userData.id;
 
   const formatTime = () => {
-        const now = new Date();
-      
-      const day = String(now.getDate()).padStart(2, '0');  
-      const month = String(now.getMonth() + 1).padStart(2, '0');  
-      const year = now.getFullYear();  
-      
-      let hour = now.getHours();  
-      const minute = String(now.getMinutes()).padStart(2, '0');  
-      
-      const isPM = hour >= 12;  
-      hour = hour % 12 || 12;  
-      
-      const period = isPM ? 'PM' : 'AM';  
-      
-      return `${day}/${month}/${year} ${String(hour).padStart(2, '0')}:${minute} ${period}`;
+    const now = new Date();
+  
+    const day = String(now.getDate()).padStart(2, '0');  
+    const month = String(now.getMonth() + 1).padStart(2, '0');  
+    const year = now.getFullYear();  
+    
+    let hour = now.getHours();  
+    const minute = String(now.getMinutes()).padStart(2, '0');  
+    
+    const isPM = hour >= 12;  
+    hour = hour % 12 || 12;  
+    
+    const period = isPM ? 'PM' : 'AM';  
+    
+    return `${day}/${month}/${year} ${String(hour).padStart(2, '0')}:${minute} ${period}`;
   };
 
   const scrollToBottom = () => {
@@ -40,6 +40,8 @@ const ChatSupport = () => {
   };
 
   useEffect(() => {
+    if (!userId) return; // ✅ Previene errores si userId no está definido
+
     // 1. Obtener historial de mensajes
     const getHistory = async () => {
       try {
@@ -147,55 +149,57 @@ const ChatSupport = () => {
   };
 
   return (
-    <div className="chat-wrapper">
+    <>
       {isOpen ? (
-        <div className="chat-container">
-          <div className="chat-header">
-            <div className="header-content">
-              <div className="logo-container">
-                <div className="logo">T</div>
+        <div className="chat-wrapper">
+          <div className="chat-container">
+            <div className="chat-header">
+              <div className="header-content">
+                <div className="logo-container">
+                  <div className="logo">T</div>
+                </div>
+                <h2>Torii Soporte</h2>
               </div>
-              <h2>Torii Soporte</h2>
+              <button className="close-button" onClick={toggleChat}>✕</button>
             </div>
-            <button className="close-button" onClick={toggleChat}>✕</button>
-          </div>
 
-          <div className="chat-messages">
-            {messages.map((message, index) => (
-              <div key={index} className={`message ${message.sender === "user" ? "message-user" : "message-support"}`}>
-                <strong>{message.name}:</strong> 
-                <p>{message.text}</p>
-                <div className="message-time">{message.time}</div>
-              </div>
-            ))}
-            <div ref={messagesEndRef} />
-          </div>
+            <div className="chat-messages">
+              {messages.map((message, index) => (
+                <div key={index} className={`message ${message.sender === "user" ? "message-user" : "message-support"}`}>
+                  <strong>{message.name}:</strong> 
+                  <p>{message.text}</p>
+                  <div className="message-time">{message.time}</div>
+                </div>
+              ))}
+              <div ref={messagesEndRef} />
+            </div>
 
-          <div className="chat-input">
-            <input
-              type="text"
-              placeholder="Escribe un mensaje..."
-              value={inputMessage}
-              onChange={(e) => setInputMessage(e.target.value)}
-              onKeyPress={handleKeyPress}
-            />
-            <button className="send-button" onClick={handleSendMessage}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-              </svg>
-            </button>
+            <div className="chat-input">
+              <input
+                type="text"
+                placeholder="Escribe un mensaje..."
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+              />
+              <button className="send-button" onClick={handleSendMessage}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       ) : (
         <div className="PQRS black" onClick={toggleChat}>
-          <p className="black">PQRS</p>
+          <p className="">PQRS</p>
           <div>
             <img src="/landing/Icono.png" alt="TORII" className="Icon_TORII" />
           </div>
         </div>
       )}
-    </div>
+    </>  
   );
 };
 
